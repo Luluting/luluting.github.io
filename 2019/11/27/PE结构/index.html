@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127153039.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127142045.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127151608.png">
-<meta property="og:updated_time" content="2019-11-27T08:07:00.841Z">
+<meta property="og:updated_time" content="2019-11-29T15:32:02.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PE结构">
 <meta name="twitter:description" content="重温PE结构">
@@ -37,7 +37,7 @@
   
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1574842045586">
+  <link rel="stylesheet" href="/css/style.css?v=1575041549881">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body class="mdui-drawer-body-left">
@@ -241,8 +241,8 @@
     </div>
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2019年11月27日</a>
-    <a><i class="nexmoefont icon-areachart"></i>5.7k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 24 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>9.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 39 分钟</a>
     
       <a class="nexmoefont icon-appstore-fill -link" href="/categories/Windows/">Windows</a>
     
@@ -260,7 +260,7 @@
 <h1 id="0x01-结构概览"><a href="#0x01-结构概览" class="headerlink" title="0x01 结构概览"></a>0x01 结构概览</h1><p>要知道一个程序可以简单概括为两个部分：头部和各种节；</p>
 <p>而这篇文章里说到的都是程序的头部</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191125161818.jpg" alt="PE"></p>
-<p>首先可以看一张看起来很友好的参考图（在许多图中可以说是非常简洁明了的了），图片来源为看雪学院。</p>
+<p>首先可以看一张看起来很友好的参考图（如字面意思的”友好”），图片来源为看雪学院。</p>
 <p>可以看到程序在文件中的起始部分结构分布大体有三个：DOS头部，NT头，以及节表（区块）</p>
 <ul>
 <li><p>DOS头部</p>
@@ -425,8 +425,64 @@ else {
 #define IMAGE_DIRECTORY_ENTRY_IAT         12 //导入地址表
 #define IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT     13 //延迟载入描述
 #define IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR     14 //COM信息</code></pre>
-<h3 id="1-导出表"><a href="#1-导出表" class="headerlink" title="1. 导出表"></a>1. 导出表</h3><p>待填</p>
-<p><code>.edata</code></p>
+<h3 id="1-导出表"><a href="#1-导出表" class="headerlink" title="1. 导出表"></a>1. 导出表</h3><p>对应节<code>.edata</code></p>
+<p> 根据_IMAGE_DATA_DIRECTORY 结构体数组的<strong>第 1 个元素索引处导出表</strong>。一般情况下，dll 的函数导出供其他人使用，exe 将别人的 dll 的函数导入运行。<br>所以，一般.exe 没有导出表（但是并非说.exe 一定没有导出表）。 </p>
+<h4 id="导出表结构"><a href="#导出表结构" class="headerlink" title="导出表结构"></a>导出表结构</h4><p>大小为<code>0x28 / 40</code></p>
+<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_EXPORT_DIRECTORY {
+    DWORD   Characteristics;    //未使用
+    DWORD   TimeDateStamp;      //时间戳
+    WORD    MajorVersion;       //未使用
+    WORD    MinorVersion;       //未使用
+    DWORD   Name;               //指向改导出表文件名字符串,也就是这个DLL的名称
+    DWORD   Base;               //导出表的起始序号
+    DWORD   NumberOfFunctions;  //导出函数的个数(更准确来说是AddressOfFunctions的元素数，而不是函数个数)
+    DWORD   NumberOfNames;      //以 函数名字 导出的函数个数
+    DWORD   AddressOfFunctions;     //导出函数地址表RVA:存储所有导出函数地址(表元素宽度为4，总大小NumberOfFunctions * 4)
+    DWORD   AddressOfNames;         //导出函数名称表RVA:存储函数名字符串所在的地址(表元素宽度为4，总大小为NumberOfNames * 4)
+    DWORD   AddressOfNameOrdinals;  //导出函数序号表RVA:存储函数序号(表元素宽度为2，总大小为NumberOfNames * 2)
+} IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;</code></pre>
+<p>① Name: DLL名字</p>
+<p>② Base: 定义的导出函数序号的最小值</p>
+<p>③ NumbersOfFunctions/ NumbersOfNames: 所有导出函数的个数 和 以名称导出的函数的个数</p>
+<p>④ AddressOfFunctions: 指向所有导出函数的地址表</p>
+<h4 id="DLL导出方式"><a href="#DLL导出方式" class="headerlink" title="DLL导出方式"></a>DLL导出方式</h4><p>分为名称导出、序号导出以及名称+序号导出</p>
+<ul>
+<li><p>名称导出</p>
+<pre class=" language-c"><code class="language-c"><span class="token function">__declspec</span><span class="token punctuation">(</span>dllexport<span class="token punctuation">)</span>
+
+</code></pre>
+</li>
+</ul>
+<p>  LIBRARY DLL<br>  EXPORTS<br>    FuncDll  </p>
+<pre><code>
+- 序号导出
+
+  ```c
+  LIBRARY DLL
+  EXPORTS
+    FuncDll @ 1 NONAME  </code></pre><ul>
+<li><p>名称+序号导出</p>
+<pre><code>LIBRARY DLL
+EXPORTS
+  fnDll1 @ 1 NONAME  
+  fnDll2 @ 2 // 名称加序号</code></pre></li>
+</ul>
+<h4 id="查找函数地址"><a href="#查找函数地址" class="headerlink" title="查找函数地址"></a>查找函数地址</h4><p>Win32库里的<code>GetProcAddress</code>函数获取函数地址用于</p>
+<p>第一个参数是DLL名称，第二个参数是目标函数的 名称或者地址</p>
+<p>这也就是两种查找目标函数的方法——通过函数名称 或者 通过函数序号</p>
+<p>简单总结来说，所有函数都有自己的序号，以名称导出的函数相当于多了一种索引方式。</p>
+<p>还是来看看整个过程</p>
+<p><strong>通过函数序号</strong></p>
+<p>因为每个函数都有序号，所以通过序号查找相对简单一些。</p>
+<p>只需要一张表 函数地址表</p>
+<p>比如我们寻找 14 序号。他会先根据导出表中 Base 成员属性。将表的起始位置。先看看 Base 起始位置是多少。假设为 13. 那么我们函数地址表中 0 索引 相当于 13  1 索引相当于 14  2 索引相当于 15 了。依次类推，14序号的函数地址表下标为 14 - 13</p>
+<p>总结：序号 - base 对应找到 AddressOfFunctions 的第几项</p>
+<p><strong>通过函数名称</strong></p>
+<p>三张表 函数地址表 函数序号表 函数名称表</p>
+<p>先去遍历<strong>函数名称表</strong>，找到名称记录对应表项下标</p>
+<p>然后拿着这个索引。去<strong>函数序号表</strong>中进行查找对比， 在序号表中查到了。对比成功。</p>
+<p>序号表中第 2 项的值跟这个索引一样的。所以就拿序号表的序号。去<strong>函数地址表</strong>中获取函数地址.</p>
+<p>总结：查找 AddressOfNames ，对应到 a 项，取 AddressOfNamesOrdinals 的第 a 项的值得到 b，取 AddressOfFunctions 的第 b 项</p>
 <h3 id="2-导入表"><a href="#2-导入表" class="headerlink" title="2. 导入表"></a>2. 导入表</h3><h4 id="导入表结构"><a href="#导入表结构" class="headerlink" title="导入表结构"></a>导入表结构</h4><p>对应节 <code>.idata</code></p>
 <p> 导入表是记录 PE 文件中用到的动态连接库的集合，一个 dll 库在导入表中占用一个元素信息的位置，这个元素描述了该导入 dll 的具体信息。如 dll 的最新修改时间、dll 中函数的名字 / 序号、dll 加载后的函数地址等。</p>
 <p>一个DLL对应一张导入表， 结构为 <code>IMAGE_DIRECTORY_ENTRY_IMPORT</code> ，每一个单位大小为<code>0x14 / 20</code></p>
@@ -440,7 +496,7 @@ else {
     DWORD   Name;                           //RVA指向dll名字，以0结尾
     DWORD   FirstThunk;                     //RVA指向一个结构体数组(IAT表)
 } IMAGE_IMPORT_DESCRIPTOR, *PIMAGE_IMPORT_DESCRIPTOR;</code></pre>
-<h4 id="导入表成员介绍"><a href="#导入表成员介绍" class="headerlink" title="导入表成员介绍"></a><strong>导入表成员介绍</strong></h4><p>①联合体值为 0 时（一般<strong>用 Characteristics 判断是否是 0</strong>），表示这是导入表结构体数组最后一个元素，除了最后这一个元素，其它每一个结构体都保存了一个 dll 信息。联合体的值不为 0 时， <strong>用 OriginalFirstThunk（RVA）来索引 INT 的地址</strong>。这张 INT 表存放了该 dll 的导出函数的信息（序号与函数名）。</p>
+<p>①联合体值为 0 时（一般<strong>用 Characteristics 判断是否是 0</strong>），表示这是导入表结构体数组最后一个元素，除了最后这一个元素，其它每一个结构体都保存了一个 dll 信息。联合体的值不为 0 时， <strong>用 OriginalFirstThunk（RVA）来索引 INT 的地址</strong>。这张 INT 表存放了该 dll 的导出函数的信息（序号与函数名）。</p>
 <p>②<strong>TimeDateStamp</strong>：当时间戳值为 0 时，表示未加载前 IAT 表与 INT 表完全相同；当时间戳不为 0（为 - 1）时，表示 IAT 与 INT 表不同，IAT 存储的是该 dll 的所有函数的绝对地址，这样在未加载前就直接填充函数地址的方式为函数地址的绑定，其地址是根据绑定导入表来确定的。也就是说当时间戳为 - 1 时绑定导入表才有效，而真正的时间戳存放到绑定导入表中，否则无效。</p>
 <p>③<strong>ForwarderChain</strong>：一般情况下我们也可以忽略该字段。在老版的绑定中，它引用 API 的第一个 forwarder chain（传递器链表）。</p>
 <p>④<strong>Name</strong>：RVA 指向 dll 的名字字符串。</p>
@@ -490,18 +546,90 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <p>不管是 INT 表还是 IAT 表。主要看其高位值，高位为 1, 那么去掉高位，就是函数的序号。高位为 0. 指向一个结构。这个结构保存了函数的导出序号。以及函数名称.</p>
 <p>在 <code>IMAGE_IMPROT_BY_NAME</code> 结构中的 HINT 如果不是空，那么这个序号 (索引) 就是导出表的函数地址表的索引。我们可以直接拿着这个索引去导出表中获取函数地址.</p>
 <h4 id="寻找函数地址"><a href="#寻找函数地址" class="headerlink" title="寻找函数地址"></a>寻找函数地址</h4><p>看不到地址呢</p>
-<p>还那张多余的IAT表吗</p>
-<p>去看看数据目录IAT表怎么回事吧 </p>
+<p>还那张多余的IAT表吗 程序在启动时会将函数地址拷贝到IAT表中</p>
+<p>获取函数地址的过程参见导出表</p>
+<p>IAT表也在数据目录中 后续还会写到 </p>
 <h3 id="3-资源表"><a href="#3-资源表" class="headerlink" title="3. 资源表"></a>3. 资源表</h3><p>待填 </p>
 <p><code>.rsrc</code></p>
 <h3 id="4-异常表"><a href="#4-异常表" class="headerlink" title="4. 异常表"></a>4. 异常表</h3><p><code>.pdata</code></p>
 <h3 id="5-安全表"><a href="#5-安全表" class="headerlink" title="5. 安全表"></a>5. 安全表</h3><p>待填</p>
-<h3 id="6-重定位表"><a href="#6-重定位表" class="headerlink" title="6. 重定位表"></a>6. 重定位表</h3><p><code>.reloc</code></p>
+<h3 id="6-重定位表"><a href="#6-重定位表" class="headerlink" title="6. 重定位表"></a>6. 重定位表</h3><p>对应节<code>.reloc</code></p>
+<h4 id="重定位表的作用"><a href="#重定位表的作用" class="headerlink" title="重定位表的作用"></a>重定位表的作用</h4><p>重定位表（Relocation Table）用于在程序加载到内存中时，进行内存地址的修正。为什么要进行内存地址的修正？我们举个例子来说：test.exe 可执行程序需要三个动态链接库 dll（a.dll，b.dll，c.dll），假设 test.exe 的 ImageBase 为 400000H，而 a.dll、b.dll、c.dll 的基址 ImageBase 均为 1000000H。</p>
+<p>那么操作系统的加载程序在将 test.exe 加载进内存时，直接复制其程序到 400000H 开始的虚拟内存中，接着一一加载 a.dll、b.dll、c.dll：假设先加载 a.dll，如果 test.exe 的 ImageBase + SizeOfImage + 1000H 不大于 1000000H，则 a.dll 直接复制到 1000000H 开始的内存中；当 b.dll 加载时，虽然其基址也为 1000000H，但是由于 1000000H 已经被 a.dll 占用，则 b.dll 需要重新分配基址，比如加载程序经过计算将其分配到 1200000H 的地址，c.dll 同样经过计算将其加载到 150000H 的地址。</p>
+<p>那么问题就来了，DLL中有许多编译器写死了的地址（绝对地址），比如全局变量/函数等等。这些机器码需要在ImageBase不变的情形下才能正常工作!</p>
+<p> 比如 b.dll 中存在一个 call 0X01034560，这是一个绝对地址，其相对于 ImageBase 的地址为 δ = 0X01034560 - 0X01000000 = 0X34560H；而此时的内存中 b.dll 存在的地址是 1200000H 开始的内存，加载器分配的 ImageBase 和 b.dll 中原来默认的 ImageBase（1000000H）相差了 200000H，因此该 call 的值也应该加上这个差值，被修正为 0X01234560H，那么 δ = 0X01234560H - 0X01200000H = 0X34560H 则相对不变。否则 call 的地址不修正会导致 call 指令跳转的地址不是实际要跳转的地址，获取不到正确的函数指令，程序则不能正常运行s。 </p>
+<h4 id="重定位表的结构"><a href="#重定位表的结构" class="headerlink" title="重定位表的结构"></a>重定位表的结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_BASE_RELOCATION {
+    DWORD   VirtualAddress;
+    DWORD   SizeOfBlock;         //存储的值以字节为单位.字节多大.表示了一个重定位快有多大.
+//  WORD    TypeOffset[1];
+} IMAGE_BASE_RELOCATION;
+typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</code></pre>
+<p>看起来重定位表就两个成员，其实没那么简单。</p>
+<p>重定位表有两个成员. VirtuallAddress sizeofBlock</p>
+<p>1.virtualladdress 记录了当前物理页需要进行重定位的起始地址.</p>
+<p>2.sizeofBlock 记录了重定位表多大。去掉 8 个字节 (重定位表大小) 下面都是记录了重定位表需要重定位的偏移.</p>
+<p>3.偏移是 2 个字节存储. 12 位存储偏移。高 4 位存储是否进行重定位。高 4 位为 3 则需要进行重定位. virtuall + 低 12 位 就是要修正的 RVA 偏移.</p>
+<h4 id="如何重定位"><a href="#如何重定位" class="headerlink" title="如何重定位"></a>如何重定位</h4><p>比如我们有地址 101234 101235 101236 这种修正的地址有 10000 个.</p>
+<p>那么每个地址有 4 个字节的。那么 4 * 10000 = 4 万个字节。也就是我们要准备一张 4 万个字节的表来保存重定位的.</p>
+<p>但是我们发现一个规律。我们要修正的表的偏移都很近，1234 1235 ….</p>
+<p>那么我们把 100000 取出来。两个字节存储 1234 另外两个地址存储 1235, 不用准备四个字节了。小的偏移我们两个字节存储。这样的话我们的表的字节就会缩小一半.</p>
+<p>VirtuallAddress 就是存储了 100000 这个值，也就是需要 “”基址”” 公用的地址</p>
+<p>我们要修正的偏移是 VirtualAddress + 表项值.</p>
+<p>重定位表，是按照一个物理页 (4kb) 进行存储的。也就是一个 4kb 内存，有一个重定位块，一个重定位表只管自己当前的物理页的重定位.</p>
+<p>一个重定位表的记录偏移的大小是 2 个字节 , 也就是 16 位。而记录偏移的大小。是由 SizeofBlock 决定的.</p>
+<p>但是我们记录偏移的位置，12 位就够了。高 4 位。挪作他用。并不是记录的才会修正偏移。只有高 4 位为 3 的时候。才会进行重定位 (基址 + 偏移)</p>
+<p>真正修复的位置 virtualaddress +  (高四位为 3 ?  低 12 位偏移：无所谓的值.)</p>
+<p>也就是高四位为 3  Vir + 低 12 位偏移就等于真正要修复的 RVA  例如 36b0 高位为 3 低 12 位就是 6b0  要修复的 RVA = vir + 6b0  , 如果加上当前 DLL 的 ImagebASE 才是真正要修复的虚拟地址 (VA) 我们计算出的是 RVA</p>
 <h3 id="7-调试表"><a href="#7-调试表" class="headerlink" title="7. 调试表"></a>7. 调试表</h3><p>待填</p>
 <h3 id="8-版权"><a href="#8-版权" class="headerlink" title="8. 版权"></a>8. 版权</h3><p>待填</p>
 <h3 id="9-指针目录"><a href="#9-指针目录" class="headerlink" title="9. 指针目录"></a>9. 指针目录</h3><p>待填</p>
-<h3 id="10-TLS"><a href="#10-TLS" class="headerlink" title="10. TLS"></a>10. TLS</h3><p>待填</p>
-<h3 id="11-载入配置"><a href="#11-载入配置" class="headerlink" title="11. 载入配置"></a>11. 载入配置</h3><p>待填</p>
+<h3 id="10-TLS"><a href="#10-TLS" class="headerlink" title="10. TLS"></a>10. TLS</h3><p>要学习TLS表需要先对Win32线程执行有了解</p>
+<p>TLS 全称 <code>Thread Local Storage</code> 线程局部存储器，它用来保存变量或回调函数。</p>
+<p>TLS 里面的变量和回调函数都在程序入口点（AddressOfEntry）之前执行，也就是说程序在被调试时，还没有在入口点处断下来之前，TLS 中的变量和回调函数就已经执行完了，所以 TLS 可以用作反调试之类的操作。</p>
+<p>TLS 中的变量单独存在于每个独立的线程当中，每个线程中对该变量的操作都不会影响到其他线程中的 TLS 变量。</p>
+<p>TLS 变量的创建方法有两种方式，分别是动态方式和静态方式</p>
+<p>动态方法会用到 TlsAlloc、TlsFree、TlsSetValue、TlsGetValue 这几个函数来操作变量</p>
+<p>静态方法会用声明__declspec (thread) int xx = 1; 这样的方式来创建。</p>
+<p>需要注意的是静态创建的 TLS 变量不能用于 DLL 动态库中。</p>
+<p>动态使用的TLS变量不会生成TLS表</p>
+<h4 id="重定位表结构"><a href="#重定位表结构" class="headerlink" title="重定位表结构"></a>重定位表结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_TLS_DIRECTORY32 
+{
+    DWORD   StartAddressOfRawData;
+    DWORD   EndAddressOfRawData;
+    PDWORD  AddressOfIndex;
+    PIMAGE_TLS_CALLBACK *AddressOfCallBacks;
+    DWORD   SizeOfZeroFill;
+    DWORD   Characteristics;
+} IMAGE_TLS_DIRECTORY32</code></pre>
+<p>①StartAddressOfRawData：tls 模板在内存中的起始 VA，模板是用于创建线程时初始化 TLS 数据的，对应上图中的 0x404000, 因为是 VA，所以我们将 0x4000 转换成 offset 得到 0x1800, 我们看到 0x1800 处的数据如下，可以看到模板中的内容其实就是 TLS 中创建的变量：</p>
+<p>②EndAddressOfRawDataL：tls 模板在内存中的结束 VA, 对应上图中的 0x404020</p>
+<p>③AddressOfIndex：存储 TLS 索引的位置，对应上图中的 0x40337c，这里为 0</p>
+<p>④AddressOfCallBacks：指向 TLS 注册的回调函数的函数指针数组</p>
+<blockquote>
+<p>首先需要注意的是，这个结构体里的字段都是 VA，也就是起始虚拟地址，已经加上了ImageBase。</p>
+</blockquote>
+<h3 id="11-载入配置"><a href="#11-载入配置" class="headerlink" title="11. 载入配置"></a>11. 载入配置</h3><p>载入配置表早期是用于描述当 PE 文件头或 PE 可选头无法描述或者因为太大而无法描述的各种功能。<br>  后来以 XP 及以后的系统主要是为了存储 SEH 句柄，称为安全结构化异常处理程序列表，如果 SEH 异常处理没有经过注册，在载入配置表中没有句柄，这个异常处理就不会被执行。<br>  据微软官方说明，这个载入配置表的作用是为了防止 “x86 异常处理程序劫持” 的漏洞。</p>
+<p>  PE 文件头可选映像头中数据目录表的第 11 成员 IMAGE_DATA_DIRECTORY DataDirectory [IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG] 指向加载配置表。</p>
+<h4 id="载入配置表结构"><a href="#载入配置表结构" class="headerlink" title="载入配置表结构"></a>载入配置表结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY {
+    DWORD   Characteristics;              //属性，当前没使用
+    DWORD   TimeDateStamp;                //(GMT时间)
+    WORD    MajorVersion;                 //主版本号
+    WORD    MinorVersion;                 //子版本号
+    DWORD   GlobalFlagsClear;             //启动时清除全局标志
+    DWORD   GlobalFlagsSet;               //启动时设置全局标志
+    DWORD   CriticalSectionDefaultTimeout;//程序关键部分默认超时值
+    DWORD   DeCommitFreeBlockThreshold;   //返回系统前必须释放的内存，以字节为单位
+    DWORD   DeCommitTotalFreeThreshold;   //总共释放的内存
+    PVOID   LockPrefixTable;              //预加锁表
+    DWORD   MaximumAllocationSize;        //最大配置体积
+    DWORD   VirtualMemoryThreshold;       //最大虚拟内存尺寸
+    DWORD   ProcessHeapFlags;             //进程堆栈标志
+    DWORD   ProcessAffinityMask;          //进程内部掩码
+    WORD    CSDVersion;                   //CSD版本
+    WORD    Reserved1;                    //保留，必须为0
+    PVOID   EditList;                     //保留
+    DWORD   Reserved[ 1 ];
+} IMAGE_LOAD_CONFIG_DIRECTORY, *PIMAGE_LOAD_CONFIG_DIRECTORY;</code></pre>
 <h3 id="12-绑定导入表"><a href="#12-绑定导入表" class="headerlink" title="12. 绑定导入表"></a>12. 绑定导入表</h3><h4 id="绑定导入表结构"><a href="#绑定导入表结构" class="headerlink" title="绑定导入表结构"></a>绑定导入表结构</h4><p>本来函数地址都是要PE加载后 通过环境确定函数地址 修改IAT表</p>
 <p>但有一种结构能够让我们在PE加载前确定好函数地址 加速启动过程</p>
 <p>而这种结构就是——绑定导入表</p>
@@ -557,7 +685,32 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <p>PE加载后。也就是在内存中的话。那么 IAT 表保存的就是函数的地址.</p>
 <p>即加载后 INT 不变依旧保存 dll 函数名与函数序号的地址信息。而 IAT 则根据导入表 INT（IAT 加载前）的内容和导出表信息，修改为对应的函数的地址信息，如下所示： </p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127151608.png" alt></p>
-<h3 id="14-延迟载入"><a href="#14-延迟载入" class="headerlink" title="14. 延迟载入"></a>14. 延迟载入</h3><p>待填</p>
+<h3 id="14-延迟绑定表"><a href="#14-延迟绑定表" class="headerlink" title="14. 延迟绑定表"></a>14. 延迟绑定表</h3><p>对应节<code>.didata</code></p>
+<p>Delay Load Import Table（延迟加载导入表）是 PE 中引入的专门用来描述与动态链接库延迟加载相关的数据，延迟加载导入表和导入表是相互分离的。与导入表不同的是，它记录的这些动态链接库并不会被操作系统的 PE 加载器加载。只有等到它登记的相关函数被应用程序调用时，PE 中注册的延迟加载函数才会根据延迟加载导入表中对该函数的描述，动态加载相关链接并修正函数的 AV 地址，实现对函数调用</p>
+<p>延迟加载导入是一种合理利用进程加载机制提高进程加载效率的技术，使用延迟加载导入能跳过加载前对引入函数的检测及加载后对 IAT 的修正。</p>
+<p> 延迟加载表不是系统支持的一个特性，它是由编译器控制的。 </p>
+<p>延迟加载导入的使用场景：</p>
+<ul>
+<li><p>提高应用程序加速速度</p>
+<p> 如果一个应用程序使用了很多的 DLL，PE 加载器在将程序映像加载到虚拟地址空间的时候，同时也会把所有的 DLL 一起提前加载到进程空间，而且在加载每个 DLL 时还会调用 DLL 的入口函数，对 DLL 进行初始化，这个时候并没有开始调用这些引入函数的动态链接库的函数。但是这些操作的存在使得进程加载的时候会耗费一些时间。 </p>
+</li>
+<li><p>提供应用程序兼容性</p>
+<p> 同一个 DLL 在不同的时候有不同的版本，新的 DLL 除了对原有函数继承和优化以外，通常还会增加一些新的函数。如果我们在应用程序中调用了一个 DLL 的新韩淑，运行时环境却存在的是老的 DLL，那么加载时系统就会提示错误，然后拒绝执行应用程序。 </p>
+</li>
+<li><p>提供应用程序可整合性</p>
+<p> 在一个文件中与文件有关的配置信息、数据库、链接库等都放在一个文件里 </p>
+</li>
+</ul>
+<h4 id="延迟绑定表结构"><a href="#延迟绑定表结构" class="headerlink" title="延迟绑定表结构"></a>延迟绑定表结构</h4><pre class=" language-C"><code class="language-C">typedef struct ImgDelayDescr {  
+    DWORD        grAttrs;       //延迟导入结构的属性，0x1为新版本，0x0为老版本
+    RVA          rvaDLLName;    //dll名字的RVA
+    RVA          rvaHmod;       //dll句柄的RVA
+    RVA          rvaIAT;        //IAT表的RVA
+    RVA          rvaINT;        //INT表的RVA
+    RVA          rvaBoundIAT;   //绑定导入表的RVA
+    RVA          rvaUnloadIAT;  //原始IAT的可选拷贝的RVA
+    DWORD        dwTimeStamp;   //延迟载入DLL的时间戳，通常为0
+} ImgDelayDescr, * PImgDelayDescr;</code></pre>
 <h3 id="15-COM-信息"><a href="#15-COM-信息" class="headerlink" title="15. COM 信息"></a>15. COM 信息</h3><p>待填</p>
 <h2 id="IV-节表"><a href="#IV-节表" class="headerlink" title="IV. 节表"></a>IV. 节表</h2><p>节表就是对每个节的说明，一个节 对应一个 记录节表信息的结构体</p>
 <p>每个结构体的大小为 <code>0x28/ 40</code></p>
@@ -581,16 +734,25 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <p>常见区段简介：<br>    .text 段。一般是代码段。<br>    .data 段。一般是数据段。<br>    .bss 段。未初始化数据段。比如 static 变量，有时在函数内才初始化。<br>    .rdata 段。只读数据段。比如字符串。<br>    .idata 和.edata 段。导入表、导出表信息。<br>    .rsrc 段。资源段。<br>    .reloc 段。重定位信息段。</p>
 </blockquote>
 <p>之后详细学习下常用区段</p>
-<h1 id="0x03-疑点总结"><a href="#0x03-疑点总结" class="headerlink" title="0x03 疑点总结"></a>0x03 疑点总结</h1><h2 id="I-导入表、绑定导入表、延迟导入表、导入地址表"><a href="#I-导入表、绑定导入表、延迟导入表、导入地址表" class="headerlink" title="I. 导入表、绑定导入表、延迟导入表、导入地址表"></a>I. 导入表、绑定导入表、延迟导入表、导入地址表</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><ul>
+<h4 id="节表属性"><a href="#节表属性" class="headerlink" title="节表属性"></a>节表属性</h4><p>决定节表属性的成员——Characteristics</p>
+<h1 id="·0x03-疑点总结"><a href="#·0x03-疑点总结" class="headerlink" title="·0x03 疑点总结"></a>·0x03 疑点总结</h1><h2 id="I-导入表、绑定导入表、延迟导入表、导入地址表"><a href="#I-导入表、绑定导入表、延迟导入表、导入地址表" class="headerlink" title="I. 导入表、绑定导入表、延迟导入表、导入地址表"></a>I. 导入表、绑定导入表、延迟导入表、导入地址表</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><ul>
 <li><code>IMAGE_DIRECTORY_ENTRY_IMPORT</code>就是我们通常所知道的导入表，在 PE 文件加载时，会根据这个表里的内容加载依赖的 DLL，并填充所需函数的地址。</li>
 <li><code>IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT</code>叫做绑定导入表，在第一种导入表导入地址的修正是在 PE 加载时完成，如果一个 PE 文件导入的 DLL 或者函数多那么加载起来就会略显的慢一些，所以出现了绑定导入，在加载以前就修正了导入表，这样就会快一些。</li>
 <li><code>IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT</code>叫做延迟导入表，一个 PE 文件也许提供了很多功能，也导入了很多其他 DLL，但是并非每次加载都会用到它提供的所有功能，也不一定会用到它需要导入的所有 DLL，因此延迟导入就出现了，只有在一个 PE 文件真正用到需要的 DLL，这个 DLL 才会被加载，甚至于只有真正使用某个导入函数，这个函数地址才会被修正。</li>
 <li><code>IMAGE_DIRECTORY_ENTRY_IAT</code>是导入地址(IAT)表，前面的三个表其实是导入函数的描述，真正的函数地址是被填充在该IAT表中的。</li>
 </ul>
-<h1 id="0x03-参考链接"><a href="#0x03-参考链接" class="headerlink" title="0x03 参考链接"></a>0x03 参考链接</h1><p><a href="https://en.wikipedia.org/wiki/Portable_Executable" target="_blank" rel="noopener">Portable Executable – wikipedia</a></p>
-<p><a href="https://www.cnblogs.com/iBinary/p/9714965.html" target="_blank" rel="noopener">PE结构详解</a></p>
-<p><a href="https://www.cnblogs.com/iBinary/p/9740757.html" target="_blank" rel="noopener">导入表</a></p>
-<p><a href="https://blog.csdn.net/Apollon_krj/article/details/77417063" target="_blank" rel="noopener">IAT以及与导入表等的关系…</a></p>
+<h2 id="II-IAT表-和-重定位表"><a href="#II-IAT表-和-重定位表" class="headerlink" title="II. IAT表 和 重定位表"></a>II. IAT表 和 重定位表</h2><p>第一次接触PE的时候这个地方就搞混了</p>
+<h1 id="0x03-参考链接"><a href="#0x03-参考链接" class="headerlink" title="0x03 参考链接"></a>0x03 参考链接</h1><p><a href="https://en.wikipedia.org/wiki/Portable_Executable" target="_blank" rel="noopener">1. Portable Executable – wikipedia</a></p>
+<p><a href="https://www.cnblogs.com/iBinary/p/9714965.html" target="_blank" rel="noopener">2. PE结构详解</a></p>
+<p><a href="https://www.cnblogs.com/iBinary/p/9740757.html" target="_blank" rel="noopener">3. 导入表</a></p>
+<p><a href="https://blog.csdn.net/Apollon_krj/article/details/77417063" target="_blank" rel="noopener">4. IAT以及与导入表等的关系…</a></p>
+<p><a href="https://systemk1t.github.io/2019/09/11/PE延迟加载导入表/" target="_blank" rel="noopener">5. 延迟绑定</a></p>
+<p><a href="blog.gqylpy.com/gqy/24656/">6. PE 文件解析 - 加载配置表、绑定导入表、导入地址表与延迟导入表</a></p>
+<p><a href="www.cnblogs.com/iBinary/p/9739031.html">7. 导出表</a></p>
+<p><a href="https://www.cnblogs.com/iBinary/p/9742670.html" target="_blank" rel="noopener">8. 重定位表</a></p>
+<p><a href></a></p>
+<p><a href></a></p>
+<p><a href></a></p>
 
   </article>
   
@@ -633,7 +795,7 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1574842045596"></script>
+<script src="/js/app.js?v=1575041549891"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 
 
