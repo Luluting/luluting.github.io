@@ -25,7 +25,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127153039.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127142045.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127151608.png">
-<meta property="og:updated_time" content="2019-11-29T15:32:02.075Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191130160240.png">
+<meta property="og:updated_time" content="2019-11-30T08:50:28.870Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PE结构">
 <meta name="twitter:description" content="重温PE结构">
@@ -37,7 +38,7 @@
   
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1575041549881">
+  <link rel="stylesheet" href="/css/style.css?v=1575103971276">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body class="mdui-drawer-body-left">
@@ -241,8 +242,8 @@
     </div>
   <div class="nexmoe-post-meta">
     <a><i class="nexmoefont icon-calendar-fill"></i>2019年11月27日</a>
-    <a><i class="nexmoefont icon-areachart"></i>9.2k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 39 分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>9.8k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 42 分钟</a>
     
       <a class="nexmoefont icon-appstore-fill -link" href="/categories/Windows/">Windows</a>
     
@@ -583,7 +584,9 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</code></pre>
 <h3 id="7-调试表"><a href="#7-调试表" class="headerlink" title="7. 调试表"></a>7. 调试表</h3><p>待填</p>
 <h3 id="8-版权"><a href="#8-版权" class="headerlink" title="8. 版权"></a>8. 版权</h3><p>待填</p>
 <h3 id="9-指针目录"><a href="#9-指针目录" class="headerlink" title="9. 指针目录"></a>9. 指针目录</h3><p>待填</p>
-<h3 id="10-TLS"><a href="#10-TLS" class="headerlink" title="10. TLS"></a>10. TLS</h3><p>要学习TLS表需要先对Win32线程执行有了解</p>
+<h3 id="10-TLS表"><a href="#10-TLS表" class="headerlink" title="10. TLS表"></a>10. TLS表</h3><p>相关节<code>.tls</code></p>
+<p>主要用于存储TLS回调函数需要用到的一些数据</p>
+<p>要学习TLS表需要先对Win32线程执行以及TLS回调函数函数有了解</p>
 <p>TLS 全称 <code>Thread Local Storage</code> 线程局部存储器，它用来保存变量或回调函数。</p>
 <p>TLS 里面的变量和回调函数都在程序入口点（AddressOfEntry）之前执行，也就是说程序在被调试时，还没有在入口点处断下来之前，TLS 中的变量和回调函数就已经执行完了，所以 TLS 可以用作反调试之类的操作。</p>
 <p>TLS 中的变量单独存在于每个独立的线程当中，每个线程中对该变量的操作都不会影响到其他线程中的 TLS 变量。</p>
@@ -592,12 +595,12 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</code></pre>
 <p>静态方法会用声明__declspec (thread) int xx = 1; 这样的方式来创建。</p>
 <p>需要注意的是静态创建的 TLS 变量不能用于 DLL 动态库中。</p>
 <p>动态使用的TLS变量不会生成TLS表</p>
-<h4 id="重定位表结构"><a href="#重定位表结构" class="headerlink" title="重定位表结构"></a>重定位表结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_TLS_DIRECTORY32 
+<h4 id="TLS表结构"><a href="#TLS表结构" class="headerlink" title="TLS表结构"></a>TLS表结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_TLS_DIRECTORY32 
 {
-    DWORD   StartAddressOfRawData;
-    DWORD   EndAddressOfRawData;
-    PDWORD  AddressOfIndex;
-    PIMAGE_TLS_CALLBACK *AddressOfCallBacks;
+    DWORD   StartAddressOfRawData;/* tls節區的起始地址 */
+    DWORD   EndAddressOfRawData;/* tls節區的最終地址 */
+    PDWORD  AddressOfIndex;/* tls節區的索引 */
+    PIMAGE_TLS_CALLBACK *AddressOfCallBacks;/* 指向回調函數的指針 */
     DWORD   SizeOfZeroFill;
     DWORD   Characteristics;
 } IMAGE_TLS_DIRECTORY32</code></pre>
@@ -608,6 +611,12 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</code></pre>
 <blockquote>
 <p>首先需要注意的是，这个结构体里的字段都是 VA，也就是起始虚拟地址，已经加上了ImageBase。</p>
 </blockquote>
+<p>通过PE找到TLS回调函数的方法</p>
+<ul>
+<li>先找到TLS表</li>
+<li>TLS 表会记录 TLS  结构的起始地址，这个地址通常是 .tls 所在的地址</li>
+<li>TLS 表中还会有回调函数的指针，从指针的地址就能定位到回调函数的地址</li>
+</ul>
 <h3 id="11-载入配置"><a href="#11-载入配置" class="headerlink" title="11. 载入配置"></a>11. 载入配置</h3><p>载入配置表早期是用于描述当 PE 文件头或 PE 可选头无法描述或者因为太大而无法描述的各种功能。<br>  后来以 XP 及以后的系统主要是为了存储 SEH 句柄，称为安全结构化异常处理程序列表，如果 SEH 异常处理没有经过注册，在载入配置表中没有句柄，这个异常处理就不会被执行。<br>  据微软官方说明，这个载入配置表的作用是为了防止 “x86 异常处理程序劫持” 的漏洞。</p>
 <p>  PE 文件头可选映像头中数据目录表的第 11 成员 IMAGE_DATA_DIRECTORY DataDirectory [IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG] 指向加载配置表。</p>
 <h4 id="载入配置表结构"><a href="#载入配置表结构" class="headerlink" title="载入配置表结构"></a>载入配置表结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY {
@@ -735,14 +744,58 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 </blockquote>
 <p>之后详细学习下常用区段</p>
 <h4 id="节表属性"><a href="#节表属性" class="headerlink" title="节表属性"></a>节表属性</h4><p>决定节表属性的成员——Characteristics</p>
-<h1 id="·0x03-疑点总结"><a href="#·0x03-疑点总结" class="headerlink" title="·0x03 疑点总结"></a>·0x03 疑点总结</h1><h2 id="I-导入表、绑定导入表、延迟导入表、导入地址表"><a href="#I-导入表、绑定导入表、延迟导入表、导入地址表" class="headerlink" title="I. 导入表、绑定导入表、延迟导入表、导入地址表"></a>I. 导入表、绑定导入表、延迟导入表、导入地址表</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><ul>
+<h1 id="·0x03-疑点总结"><a href="#·0x03-疑点总结" class="headerlink" title="·0x03 疑点总结"></a>·0x03 疑点总结</h1><h2 id="I-导入表、绑定导入表、延迟导入表、导入地址表"><a href="#I-导入表、绑定导入表、延迟导入表、导入地址表" class="headerlink" title="I. 导入表、绑定导入表、延迟导入表、导入地址表"></a>I. 导入表、绑定导入表、延迟导入表、导入地址表</h2><p><strong>注意不要混淆</strong></p>
+<ul>
 <li><code>IMAGE_DIRECTORY_ENTRY_IMPORT</code>就是我们通常所知道的导入表，在 PE 文件加载时，会根据这个表里的内容加载依赖的 DLL，并填充所需函数的地址。</li>
 <li><code>IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT</code>叫做绑定导入表，在第一种导入表导入地址的修正是在 PE 加载时完成，如果一个 PE 文件导入的 DLL 或者函数多那么加载起来就会略显的慢一些，所以出现了绑定导入，在加载以前就修正了导入表，这样就会快一些。</li>
 <li><code>IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT</code>叫做延迟导入表，一个 PE 文件也许提供了很多功能，也导入了很多其他 DLL，但是并非每次加载都会用到它提供的所有功能，也不一定会用到它需要导入的所有 DLL，因此延迟导入就出现了，只有在一个 PE 文件真正用到需要的 DLL，这个 DLL 才会被加载，甚至于只有真正使用某个导入函数，这个函数地址才会被修正。</li>
 <li><code>IMAGE_DIRECTORY_ENTRY_IAT</code>是导入地址(IAT)表，前面的三个表其实是导入函数的描述，真正的函数地址是被填充在该IAT表中的。</li>
 </ul>
+<p>最基本的是导入表，用于加载外部函数。</p>
+<p>在导入表中有记录导入地址表（IAT）的地址，这个表其在运行时会被填入真正的函数地址。</p>
+<p>绑定导入表和延迟导入表都是为了优化加载函数速度而诞生的结构</p>
 <h2 id="II-IAT表-和-重定位表"><a href="#II-IAT表-和-重定位表" class="headerlink" title="II. IAT表 和 重定位表"></a>II. IAT表 和 重定位表</h2><p>第一次接触PE的时候这个地方就搞混了</p>
-<h1 id="0x03-参考链接"><a href="#0x03-参考链接" class="headerlink" title="0x03 参考链接"></a>0x03 参考链接</h1><p><a href="https://en.wikipedia.org/wiki/Portable_Executable" target="_blank" rel="noopener">1. Portable Executable – wikipedia</a></p>
+<p><strong>IAT表</strong></p>
+<p>为当前应用程序服务</p>
+<p>用于填入导入函数的地址</p>
+<p>方便程序调用外部函数</p>
+<p><strong>重定位表</strong></p>
+<p>是DLL给DLL自己提供服务的结构</p>
+<p>当DLL加载地址不符合ImageBase的时候 </p>
+<p>将DLL代码中写死地址的部分进行修复</p>
+<h2 id="III-添加节需要修改什么"><a href="#III-添加节需要修改什么" class="headerlink" title="III. 添加节需要修改什么"></a>III. 添加节需要修改什么</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>① 添加节表</p>
+<p>判断PE是否留下了足够的空间添加一个节表结构</p>
+<p>节表大小为<code>0x28 / 40</code></p>
+<p>足够则可以添加节表结构</p>
+<p>② 修改节的数量</p>
+<p>位于FileHeader中的第二个成员<code>NumberOfSections</code></p>
+<p>这个值必须修正 添加一个节表就要加上一</p>
+<p>③ 修改大小</p>
+<ul>
+<li><p>位于<code>OptionalHeader</code>中的<code>SizeOfImage</code>，PE镜像大小.必须是内存对齐的倍数. sizeofImage/SectionAllignment == 0 才可以</p>
+<p>需要加上添加节的大小</p>
+</li>
+</ul>
+<p>④ 修改节表属性</p>
+<p>不用记住节表属性 改的时候可以参考着对各个属性进行修改</p>
+<h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><ul>
+<li><p><strong>第①步</strong>中节表空间不够怎么办</p>
+<p>利用DOS Stub的空间 </p>
+<p>可以提升整个PE头部 修改DOS头部</p>
+<p>PE头内容不用改动</p>
+<p>节表空间就有了</p>
+<p>如果提升空间还不够(基本不可能发生)  那就扩大节</p>
+<p>扩大节的操作下一点中有提到</p>
+</li>
+</ul>
+<ul>
+<li><p>第①步中需要准备的信息</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191130160240.png" alt></p>
+<p><strong>VitualAddress/PointerToRelocation</strong>: 通过前一个表计算</p>
+<p><strong>Characterristics</strong>: 依据我们的用途来定 重要!</p>
+</li>
+</ul>
+<h2 id="IV-如何扩大节"><a href="#IV-如何扩大节" class="headerlink" title="IV. 如何扩大节"></a>IV. 如何扩大节</h2><h1 id="0x03-参考链接"><a href="#0x03-参考链接" class="headerlink" title="0x03 参考链接"></a>0x03 参考链接</h1><p><a href="https://en.wikipedia.org/wiki/Portable_Executable" target="_blank" rel="noopener">1. Portable Executable – wikipedia</a></p>
 <p><a href="https://www.cnblogs.com/iBinary/p/9714965.html" target="_blank" rel="noopener">2. PE结构详解</a></p>
 <p><a href="https://www.cnblogs.com/iBinary/p/9740757.html" target="_blank" rel="noopener">3. 导入表</a></p>
 <p><a href="https://blog.csdn.net/Apollon_krj/article/details/77417063" target="_blank" rel="noopener">4. IAT以及与导入表等的关系…</a></p>
@@ -750,7 +803,7 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <p><a href="blog.gqylpy.com/gqy/24656/">6. PE 文件解析 - 加载配置表、绑定导入表、导入地址表与延迟导入表</a></p>
 <p><a href="www.cnblogs.com/iBinary/p/9739031.html">7. 导出表</a></p>
 <p><a href="https://www.cnblogs.com/iBinary/p/9742670.html" target="_blank" rel="noopener">8. 重定位表</a></p>
-<p><a href></a></p>
+<p><a href="https://blog.csdn.net/BeanJoy/article/details/50419478" target="_blank" rel="noopener">9. TLS</a></p>
 <p><a href></a></p>
 <p><a href></a></p>
 
@@ -795,7 +848,7 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1575041549891"></script>
+<script src="/js/app.js?v=1575103971290"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 
 
