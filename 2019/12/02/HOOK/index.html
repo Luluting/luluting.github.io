@@ -3,7 +3,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
   
-  <title>Tags：C - 地獄通信</title>
+  <title>Windows Hook - 地獄通信</title>
   <meta charset="UTF-8">
   <meta name="description" content="俺も頑張らないと">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,16 +11,18 @@
   
 
   <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-  <meta name="description" content="俺も頑張らないと">
-<meta property="og:type" content="website">
-<meta property="og:title" content="地獄通信">
-<meta property="og:url" content="http://luluchan.xyz/tags/C/index.html">
+  <meta name="description" content="记录Hook方式">
+<meta name="keywords" content="Windows,Hook">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Hook">
+<meta property="og:url" content="http://luluchan.xyz/2019/12/02/HOOK/index.html">
 <meta property="og:site_name" content="地獄通信">
-<meta property="og:description" content="俺も頑張らないと">
+<meta property="og:description" content="记录Hook方式">
 <meta property="og:locale" content="ja">
+<meta property="og:updated_time" content="2019-12-02T13:12:05.686Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="地獄通信">
-<meta name="twitter:description" content="俺も頑張らないと">
+<meta name="twitter:title" content="Windows Hook">
+<meta name="twitter:description" content="记录Hook方式">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
    
@@ -28,7 +30,7 @@
   
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1575544468722">
+  <link rel="stylesheet" href="/css/style.css?v=1575544468929">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body class="mdui-drawer-body-left">
@@ -227,37 +229,77 @@
   </div>
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
-        <section class="nexmoe-posts" id="brand-waterfall">
-    
-    <div class="nexmoe-post">
-        <a href="/2019/09/15/Win32/">
-            <div class="nexmoe-post-cover mdui-ripple"> 
-                
-                <img src="https://i.loli.net/2019/09/23/ibdG7Bn2ozqJ6ej.jpg" alt="Win32简单内核对象">
-                
-                <h1>Win32简单内核对象</h1>
-            </div>
-        </a>
-        <div class="nexmoe-post-meta">
-            <a><i class="nexmoefont icon-calendar-fill"></i>2019年09月15日</a>
-            <a><i class="nexmoefont icon-areachart"></i>1.1k 字</a>
-            <a><i class="nexmoefont icon-time-circle-fill"></i>大概 4 分钟</a>
-            
-                <a class="nexmoefont icon-appstore-fill -link" href="/categories/Windows/">Windows</a>
-            
-            
-                <a class="nexmoefont icon-tag-fill -link" href="/tags/C/">C</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/WIN32/">WIN32</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/技术/">技术</a>
-            
-        </div>
-        <article>
-            
-            <p>记录一些学习WIN32知识的心得</p>
-            
-        </article>
+        <div class="nexmoe-post">
+    <div class="nexmoe-post-cover"> 
+        
+        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202150141.jpg">
+        
+        <h1>Windows Hook</h1>
     </div>
+  <div class="nexmoe-post-meta">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2019年12月02日</a>
+    <a><i class="nexmoefont icon-areachart"></i>227 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
     
-</section>
+      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Windows/">Windows</a>
+    
+    
+      <a class="nexmoefont icon-tag-fill -link" href="/tags/Hook/">Hook</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/Windows/">Windows</a>
+    
+  </div>
+  <article>
+    <p>记录Hook方式</p>
+<a id="more"></a>
 
+<p>HOOK两个目的</p>
+<ul>
+<li><p>窃听</p>
+<p>提取程序中一些关键的中间值</p>
+</li>
+<li><p>改变行为</p>
+</li>
+</ul>
+<h2 id="IAT-Hook"><a href="#IAT-Hook" class="headerlink" title="IAT Hook"></a>IAT Hook</h2><p>Ring0/Ring3通用</p>
+<p>修改IAT表内的函数地址</p>
+<p>先得到目标函数的地址</p>
+<p>然后替换为我自己函数的地址 </p>
+<p><strong>缺点</strong></p>
+<p>不能Hook非静态导入函数(如自己定义的函数/动态Load+GetProc二连的函数等)</p>
+<h2 id="Inline-Hook"><a href="#Inline-Hook" class="headerlink" title="Inline Hook"></a>Inline Hook</h2><p>Ring0/Ring3通用 </p>
+<p>原理就是修改指令机器码为跳转</p>
+<h3 id="受影响的指令怎么办"><a href="#受影响的指令怎么办" class="headerlink" title="受影响的指令怎么办"></a>受影响的指令怎么办</h3><p>不能直接跳回去</p>
+<p>比如HOOK的时候改了两行代码</p>
+<p>接着恢复逻辑的时候还需要执行这两条指令</p>
+<p>手动探查覆盖了多少指令 先保存这些机器码后 全覆盖（多的机器码全为NOP）</p>
+<p>跳回之前再执行一次保存的机器码</p>
+<p>取消HOOK就将保存的机器码覆盖回去就行了</p>
+
+  </article>
+  
+    
+
+  
+  <section class="nexmoe-comment">
+    <script id="dsq-count-scr" src="https://luluting.disqus.com/count.js" async></script>
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://luluchan.xyz/2019/12/02/HOOK/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://luluchan.xyz/2019/12/02/HOOK/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+<script id="disqus-thread-script">
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//luluting.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+</section>
+</div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
@@ -273,7 +315,7 @@
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<script src="/js/app.js?v=1575544468728"></script>
+<script src="/js/app.js?v=1575544468939"></script>
 <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
 
 
