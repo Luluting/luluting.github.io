@@ -1,24 +1,69 @@
 <!DOCTYPE html>
-<html>
 
-<head><meta name="generator" content="Hexo 3.9.0">
-  
-  <title>PE结构 - 地獄通信</title>
+
+
+
+
+<html lang="ja">
+<head>
   <meta charset="UTF-8">
-  <meta name="description" content="俺も頑張らないと">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
 
-  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-  <meta name="description" content="重温PE结构">
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","width":300,"display":"post","offset":30,"onmobile":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"manual"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":true,"transition":{"post_block":"whirlIn","post_header":"whirlIn","post_body":"whirlIn","coll_header":"bounceUpIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'コピー',
+      copy_success: 'コピーしました',
+      copy_failure: 'コピーに失敗しました'
+    }
+  };
+</script>
+
+  <meta name="description" content="要面试了感觉非常难顶 趁此机会重温一波PE结构">
 <meta name="keywords" content="Windows,PE,技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PE结构">
+<meta property="og:title" content="PE结构相关">
 <meta property="og:url" content="http://luluchan.xyz/2019/11/27/PE结构/index.html">
 <meta property="og:site_name" content="地獄通信">
-<meta property="og:description" content="重温PE结构">
+<meta property="og:description" content="要面试了感觉非常难顶 趁此机会重温一波PE结构">
 <meta property="og:locale" content="ja">
+<meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211162102.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191125161818.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191126234241.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127144749.png">
@@ -26,237 +71,282 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127142045.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127151608.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191130160240.png">
-<meta property="og:updated_time" content="2019-12-05T09:57:00.606Z">
+<meta property="og:updated_time" content="2019-12-11T08:22:45.983Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PE结构">
-<meta name="twitter:description" content="重温PE结构">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191125161818.jpg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
-   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+<meta name="twitter:title" content="PE结构相关">
+<meta name="twitter:description" content="要面试了感觉非常难顶 趁此机会重温一波PE结构">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211162102.jpg">
+  <link rel="canonical" href="http://luluchan.xyz/2019/11/27/PE结构/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>PE结构相关 | 地獄通信</title>
+  <meta name="generator" content="Hexo 3.9.0">
   
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1575544468526">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146576917-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-146576917-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
-<body class="mdui-drawer-body-left">
-  
-  <div id="nexmoe-background">
-    <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2019/08/27/S7LugpzodICOvY5.jpg)"></div>
-    <div class="mdui-appbar mdui-shadow-0">
-      <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
-        <div class="mdui-toolbar-spacer"></div>
-        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
-        <a href="/" title="ルルちゃん" class="mdui-btn mdui-btn-icon"><img src></a>
-       </div>
+<body itemscope itemtype="http://schema.org/WebPage" lang="ja">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">地獄通信</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
+        <p class="site-subtitle">お帰りなさい</p>
+      
   </div>
-  <div id="nexmoe-header">
-      <div class="nexmoe-drawer mdui-drawer" id="drawer">
-    <div class="nexmoe-avatar mdui-ripple">
-        <a href="/" title="ルルちゃん">
-            <img src alt="ルルちゃん">
-        </a>
-    </div>
-    <div class="nexmoe-count">
-        <div><span>Articles</span>7</div>
-        <div><span>Tags</span>17</div>
-        <div><span>Categories</span>4</div>
-    </div>
-    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
-        
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="Home">
-            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
-            <div class="mdui-list-item-content">
-                Home
-            </div>
-        </a>
-        
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="Archives">
-            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
-            <div class="mdui-list-item-content">
-                Archives
-            </div>
-        </a>
-        
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="About blog">
-            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
-            <div class="mdui-list-item-content">
-                About blog
-            </div>
-        </a>
-        
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friends.html" title="Friends">
-            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
-            <div class="mdui-list-item-content">
-                Friends
-            </div>
-        </a>
-        
-    </ul>
-    <aside id="nexmoe-sidebar">
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Social</h3>
-    <div class="nexmoe-widget nexmoe-social">
-        <a class="mdui-ripple" href="https://osu.ppy.sh/users/12018407" target="_blank" mdui-tooltip="{content: 'Osu'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
-            <i class="nexmoefont icon-right"></i>
-        </a><a class="mdui-ripple" href="https://space.bilibili.com/11736723" target="_blank" mdui-tooltip="{content: 'Bilibili'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
-            <i class="nexmoefont icon-bilibili"></i>
-        </a><a class="mdui-ripple" href="https://steamcommunity.com/id/luluting/" target="_blank" mdui-tooltip="{content: 'Steam'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
-            <i class="nexmoefont icon-steam"></i>
-        </a>
-    </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="ナビゲーションバーの切り替え">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
+
+
+<nav class="site-nav">
   
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Categories</h3>
-    <div class="nexmoe-widget">
-
-      <ul class="category-list">
-
+  <ul id="menu" class="menu">
+      
+      
+      
         
-
-
-        
-
-        
-
-        <li class="category-list-item">
-          <a class="category-list-link" href="/categories/Record/">Record</a>
-          <span class="category-list-count">1</span>
-        </li>
-
-        
-
-        <li class="category-list-item">
-          <a class="category-list-link" href="/categories/Tech/">Tech</a>
-          <span class="category-list-count">0</span>
-        </li>
-
-        
-
-        <li class="category-list-item">
-          <a class="category-list-link" href="/categories/Unity/">Unity</a>
-          <span class="category-list-count">1</span>
-        </li>
-
-        
-
-        <li class="category-list-item">
-          <a class="category-list-link" href="/categories/Windows/">Windows</a>
-          <span class="category-list-count">5</span>
-        </li>
-
-        
-      </ul>
-
-    </div>
-  </div>
-
-
-  
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Tagcloud</h3>
-    <div id="randomtagcloud" class="nexmoe-widget tagcloud">
-      <a href="/tags/C/" style="font-size: 10px;">C</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Hook/" style="font-size: 15px;">Hook</a> <a href="/tags/Il2cpp/" style="font-size: 10px;">Il2cpp</a> <a href="/tags/PE/" style="font-size: 10px;">PE</a> <a href="/tags/Unity3D/" style="font-size: 10px;">Unity3D</a> <a href="/tags/WIN32/" style="font-size: 10px;">WIN32</a> <a href="/tags/Windows/" style="font-size: 20px;">Windows</a> <a href="/tags/技术/" style="font-size: 20px;">技术</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a> <a href="/tags/注入/" style="font-size: 10px;">注入</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a>
-    </div>
+        <li class="menu-item menu-item-home">
+      
     
-      <script>
-        var maxTagcloud = parseInt(10);
-        var tags_length = parseInt(17);
-        var tags_arr = [];
-        for(var i = 0; i < tags_length; i++){
-          tags_arr.push(i);
-        }
-        tags_arr.sort(function (l, r) {
-          return Math.random() > 0.5 ? -1 : 1;
-        });
-        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
-        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
-          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
-        }
-      </script>
+      
     
-  </div>
 
-  
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Archive</h3>
-    <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul>
-    </div>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>ホーム</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>プロフィール</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>タグ<span class="badge">13</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>カテゴリ<span class="badge">3</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>アーカイブ<span class="badge">7</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
   </div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
 
 
-  
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Recent Posts</h3>
-    <div class="nexmoe-widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/12/02/PVZ/">PlantsVsZombies逆向</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/02/HOOK/">Windows Hook</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/02/注入/">注入</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/27/PE结构/">PE结构</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/16/Unity3D-Il2cpp/">Unity3D-Il2cpp</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
 
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
-</aside>
-    <div class="nexmoe-copyright">
-        &copy; 2019 ルルちゃん
-        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
-    </div>
-</div><!-- .nexmoe-drawer -->
-  </div>
-  <div id="nexmoe-content">
-    <div class="nexmoe-primary">
-        <div class="nexmoe-post">
-    <div class="nexmoe-post-cover"> 
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://luluchan.xyz/2019/11/27/PE结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ルルちゃん">
+      <meta itemprop="description" content="俺も頑張らないと">
+      <meta itemprop="image" content="/images/Loli1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="地獄通信">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">PE结构相关
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">投稿日</span>
+
+              
+                
+              
+
+              <time title="作成日：2019-11-27 15:48:46" itemprop="dateCreated datePublished" datetime="2019-11-27T15:48:46+08:00">2019-11-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">編集日</span>
+                <time title="修正日：2019-12-11 16:22:45" itemprop="dateModified" datetime="2019-12-11T16:22:45+08:00">2019-12-11</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">カテゴリ</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Windows/" itemprop="url" rel="index"><span itemprop="name">Windows</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
         
-        <img src="https://i.loli.net/2019/09/23/fXMABQGeRbj1FT3.jpg">
-        
-        <h1>PE结构</h1>
-    </div>
-  <div class="nexmoe-post-meta">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2019年11月27日</a>
-    <a><i class="nexmoefont icon-areachart"></i>10.2k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 43 分钟</a>
+      
+      <span class="post-meta-item-text">Disqus：</span>
     
-      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Windows/">Windows</a>
+    <a title="disqus" href="/2019/11/27/PE结构/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/27/PE结构/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
     
     
-      <a class="nexmoefont icon-tag-fill -link" href="/tags/PE/">PE</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/Windows/">Windows</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/技术/">技术</a>
     
-  </div>
-  <article>
-    <p>重温PE结构</p>
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>要面试了感觉非常难顶</p>
+<p>趁此机会重温一波PE结构</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211162102.jpg" alt></p>
 <a id="more"></a>
 
 <h1 id="0x00-概述"><a href="#0x00-概述" class="headerlink" title="0x00 概述"></a>0x00 概述</h1><p>PE文件格式是Windows操作系统从32位开始采用的可执行文件格式，主要用于EXE文件（可执行程序）、DLL文件（动态链接库）以及SYS文件（驱动程序）中等等。开头为DOS头部，是16位系统时在使用的结构。</p>
@@ -283,58 +373,22 @@
 </li>
 </ul>
 <h1 id="0x02-结构细节"><a href="#0x02-结构细节" class="headerlink" title="0x02 结构细节"></a>0x02 结构细节</h1><h2 id="I-DOS头"><a href="#I-DOS头" class="headerlink" title="I. DOS头"></a>I. DOS头</h2><p>结构体大小为 0x40</p>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> _IMAGE_DOS_HEADER <span class="token punctuation">{</span>      <span class="token comment" spellcheck="true">// DOS .EXE header</span>
-    WORD   e_magic<span class="token punctuation">;</span>                     <span class="token comment" spellcheck="true">// Magic number</span>
-    WORD   e_cblp<span class="token punctuation">;</span>                      <span class="token comment" spellcheck="true">// Bytes on last page of file</span>
-    WORD   e_cp<span class="token punctuation">;</span>                        <span class="token comment" spellcheck="true">// Pages in file</span>
-    WORD   e_crlc<span class="token punctuation">;</span>                      <span class="token comment" spellcheck="true">// Relocations</span>
-    WORD   e_cparhdr<span class="token punctuation">;</span>                   <span class="token comment" spellcheck="true">// Size of header in paragraphs</span>
-    WORD   e_minalloc<span class="token punctuation">;</span>                  <span class="token comment" spellcheck="true">// Minimum extra paragraphs needed</span>
-    WORD   e_maxalloc<span class="token punctuation">;</span>                  <span class="token comment" spellcheck="true">// Maximum extra paragraphs needed</span>
-    WORD   e_ss<span class="token punctuation">;</span>                        <span class="token comment" spellcheck="true">// Initial (relative) SS value</span>
-    WORD   e_sp<span class="token punctuation">;</span>                        <span class="token comment" spellcheck="true">// Initial SP value</span>
-    WORD   e_csum<span class="token punctuation">;</span>                      <span class="token comment" spellcheck="true">// Checksum</span>
-    WORD   e_ip<span class="token punctuation">;</span>                        <span class="token comment" spellcheck="true">// Initial IP value</span>
-    WORD   e_cs<span class="token punctuation">;</span>                        <span class="token comment" spellcheck="true">// Initial (relative) CS value</span>
-    WORD   e_lfarlc<span class="token punctuation">;</span>                    <span class="token comment" spellcheck="true">// File address of relocation table</span>
-    WORD   e_ovno<span class="token punctuation">;</span>                      <span class="token comment" spellcheck="true">// Overlay number</span>
-    WORD   e_res<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>                    <span class="token comment" spellcheck="true">// Reserved words</span>
-    WORD   e_oemid<span class="token punctuation">;</span>                     <span class="token comment" spellcheck="true">// OEM identifier (for e_oeminfo)</span>
-    WORD   e_oeminfo<span class="token punctuation">;</span>                   <span class="token comment" spellcheck="true">// OEM information; e_oemid specific</span>
-    WORD   e_res2<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>                  <span class="token comment" spellcheck="true">// Reserved words</span>
-    LONG   e_lfanew<span class="token punctuation">;</span>                    <span class="token comment" spellcheck="true">// File address of new exe header</span>
-  <span class="token punctuation">}</span> IMAGE_DOS_HEADER<span class="token punctuation">,</span> <span class="token operator">*</span>PIMAGE_DOS_HEADER<span class="token punctuation">;</span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_DOS_HEADER</span> &#123;</span>      <span class="comment">// DOS .EXE header</span></span><br><span class="line">    WORD   e_magic;                     <span class="comment">// Magic number</span></span><br><span class="line">    WORD   e_cblp;                      <span class="comment">// Bytes on last page of file</span></span><br><span class="line">    WORD   e_cp;                        <span class="comment">// Pages in file</span></span><br><span class="line">    WORD   e_crlc;                      <span class="comment">// Relocations</span></span><br><span class="line">    WORD   e_cparhdr;                   <span class="comment">// Size of header in paragraphs</span></span><br><span class="line">    WORD   e_minalloc;                  <span class="comment">// Minimum extra paragraphs needed</span></span><br><span class="line">    WORD   e_maxalloc;                  <span class="comment">// Maximum extra paragraphs needed</span></span><br><span class="line">    WORD   e_ss;                        <span class="comment">// Initial (relative) SS value</span></span><br><span class="line">    WORD   e_sp;                        <span class="comment">// Initial SP value</span></span><br><span class="line">    WORD   e_csum;                      <span class="comment">// Checksum</span></span><br><span class="line">    WORD   e_ip;                        <span class="comment">// Initial IP value</span></span><br><span class="line">    WORD   e_cs;                        <span class="comment">// Initial (relative) CS value</span></span><br><span class="line">    WORD   e_lfarlc;                    <span class="comment">// File address of relocation table</span></span><br><span class="line">    WORD   e_ovno;                      <span class="comment">// Overlay number</span></span><br><span class="line">    WORD   e_res[<span class="number">4</span>];                    <span class="comment">// Reserved words</span></span><br><span class="line">    WORD   e_oemid;                     <span class="comment">// OEM identifier (for e_oeminfo)</span></span><br><span class="line">    WORD   e_oeminfo;                   <span class="comment">// OEM information; e_oemid specific</span></span><br><span class="line">    WORD   e_res2[<span class="number">10</span>];                  <span class="comment">// Reserved words</span></span><br><span class="line">    LONG   e_lfanew;                    <span class="comment">// File address of new exe header</span></span><br><span class="line">  &#125; IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;</span><br></pre></td></tr></table></figure>
+
 <p>DOS 前部分结构体大小是 64 个字节，十六进制是 0x40 首个WORD以及最后一个DWORD会用到。</p>
 <p>DOS 头是在 16 位程序下使用的。所以不用全部关心。只需要关心第一个跟最后一个成员记住就行了，即<code>e_magic</code>与<code>e_lfanew</code></p>
 <p><code>e_magic</code>： <strong>MZSignature</strong> ，长度两字节，用于标识文件类型。EXE 文件中，这字段存的值是 0x5A4D，按字节存储显示 ASCII 码值为 MZ（小端）可用于文件判断 如下</p>
-<pre class=" language-c++"><code class="language-c++">IMAGE_DOS_HEADER dosheader = { 0 };
-__getBytes((char*)& dosheader, sizeof(IMAGE_DOS_HEADER), 0, fp);
-if (dosheader.e_magic == 0x5a4d) {
-    printf("Is MZ");
-}
-else {
-    printf("Not MZ");
-}</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_DOS_HEADER dosheader = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">__getBytes((<span class="keyword">char</span>*)&amp; dosheader, <span class="keyword">sizeof</span>(IMAGE_DOS_HEADER), <span class="number">0</span>, fp);</span><br><span class="line"><span class="keyword">if</span> (dosheader.e_magic == <span class="number">0x5a4d</span>) &#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Is MZ"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Not MZ"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><code>e_lfanew</code>指向NT头开始的位置。这么设置是有原因的，实际上DOS头后面有一串<code>DOS Stub</code>区域，在链接时生成的数据，而这块区域往往是不定长的。所以<code>e_lfanew</code>这一设计就起了重要作用，它会记录NT头开始的地方，以方便跳过<code>DOS Stub</code>这个区域。</p>
 <h2 id="II-NT头"><a href="#II-NT头" class="headerlink" title="II. NT头"></a>II. NT头</h2><p>结构体大小为 <code>0xF8</code> 或  <code>0x108</code>（包含数据目录）</p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_NT_HEADERS {
-    DWORD Signature;                      PE标识
-    IMAGE_FILE_HEADER FileHeader;         文件头
-    IMAGE_OPTIONAL_HEADER32 OptionalHeader;扩展头
-} IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_NT_HEADERS</span> &#123;</span></span><br><span class="line">    DWORD Signature;                      PE标识</span><br><span class="line">    IMAGE_FILE_HEADER FileHeader;         文件头</span><br><span class="line">    IMAGE_OPTIONAL_HEADER32 OptionalHeader;扩展头</span><br><span class="line">&#125; IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;</span><br></pre></td></tr></table></figure>
+
 <h3 id="1-Signature"><a href="#1-Signature" class="headerlink" title="1.  Signature"></a>1.  Signature</h3><p>大小为 <code>0x4 / 4</code> </p>
 <p>NT 头的第一个成员<code>Signature</code>是 PE 标识，占 4 个字节。通常值为 <code>0x50450000</code>。可以更改，一些古老的文件型病毒感染文件时会将这里改成自己的标志，以便于识别。</p>
 <h3 id="2-IMAGE-FILE-HEADER"><a href="#2-IMAGE-FILE-HEADER" class="headerlink" title="2.  _IMAGE_FILE_HEADER"></a>2.  _IMAGE_FILE_HEADER</h3><p>大小为 <code>0x14 / 20</code> </p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_FILE_HEADER
-{
-    WORD Machine;    // 文件运行平台
-    WORD NumberOfSections;    // 区段数量
-    DWORD TimeDateStamp;    // 文件创建时间
-    DWORD PointerToSymbolTable;    // 符号表偏移
-    DWORD NumberOfSymbols;    // 符号个数
-    WORD SizeOfOptionalHeader;    //扩展头大小
-    WORD Characteristics;    // PE文件属性
-}</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_FILE_HEADER</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    WORD Machine;    <span class="comment">// 文件运行平台</span></span><br><span class="line">    WORD NumberOfSections;    <span class="comment">// 区段数量</span></span><br><span class="line">    DWORD TimeDateStamp;    <span class="comment">// 文件创建时间</span></span><br><span class="line">    DWORD PointerToSymbolTable;    <span class="comment">// 符号表偏移</span></span><br><span class="line">    DWORD NumberOfSymbols;    <span class="comment">// 符号个数</span></span><br><span class="line">    WORD SizeOfOptionalHeader;    <span class="comment">//扩展头大小</span></span><br><span class="line">    WORD Characteristics;    <span class="comment">// PE文件属性</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>Machine</strong></p>
 <p>表示文件运行的平台，比如：0x014c 代表 i386</p>
 <p><strong>NumberOfSections</strong></p>
@@ -346,49 +400,8 @@ else {
 <p>文件属性，里面是按位进行的标识。知道 0x0210 代表 DLL，0x010F 代表 EXE 初期应该就够了</p>
 <h3 id="3-IMAGE-OPTIONAL-HEADER"><a href="#3-IMAGE-OPTIONAL-HEADER" class="headerlink" title="3. IMAGE_OPTIONAL_HEADER"></a>3. IMAGE_OPTIONAL_HEADER</h3><p>32 位程序大小为 <code>00E0 / 224</code>  64 位程序大小为 <code>00F0 / 240</code> 其中包含<code>0x80 / 128</code>字节的数据目录</p>
 <p>64位PE称为 <code>PE32+</code>， 它并没有增加任何新域，仅从 PE 格式中删除了一个域。其余的改变就是简单地把某些域从 32 位扩展到 64 位。 </p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_OPTIONAL_HEADER {
-    //
-    // Standard fields.
-    //
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_OPTIONAL_HEADER</span> &#123;</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// Standard fields.</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">    WORD    Magic;　　　　　　　　　　　　　　<span class="comment">//标志.表名了我们的PE是x86还是x64</span></span><br><span class="line">    BYTE    MajorLinkerVersion;          <span class="comment">//连接器主要版本号</span></span><br><span class="line">    BYTE    MinorLinkerVersion;          <span class="comment">//连接器次要版本号 例如 3.54 主要版本就是3.次要就是54</span></span><br><span class="line">    DWORD   SizeOfCode;                  <span class="comment">//代码段大小,以字节为单位.</span></span><br><span class="line">    DWORD   SizeOfInitializedData;       <span class="comment">//初始化数据部分的大小.</span></span><br><span class="line">    DWORD   SizeOfUninitializedData;     <span class="comment">//未知初始化数据的大小</span></span><br><span class="line">    DWORD   AddressOfEntryPoint;         <span class="comment">//OEP 程序入口点,驱动程序也是入口点.对于DLL而言.是可选的.没有入口则为0</span></span><br><span class="line">    DWORD   BaseOfCode;                  <span class="comment">//指向代码部分的指针              </span></span><br><span class="line">    DWORD   BaseOfData;                  <span class="comment">//指向数据部分开头的指针</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// NT additional fields.</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">    DWORD   ImageBase;                  <span class="comment">//基址.PE文件加载到内存中的基址.这个值是64k的倍数.DLL默认值是0x100000000,应用程序默认是0x00400000</span></span><br><span class="line">                                         <span class="comment">//windows CE除外.他是0x00010000</span></span><br><span class="line">    DWORD   SectionAlignment;           <span class="comment">//PE文件加载到内存中.的内存对齐.按照这个成员进行对齐</span></span><br><span class="line">    DWORD   FileAlignment;              <span class="comment">//文件对齐,PE存数据存放在文件中.按照文件对其值对其</span></span><br><span class="line">    WORD    MajorOperatingSystemVersion;<span class="comment">//所需要操作系统的主要版本号.</span></span><br><span class="line">    WORD    MinorOperatingSystemVersion;<span class="comment">//所需要操作系统的次要版本号.</span></span><br><span class="line">    WORD    MajorImageVersion;          <span class="comment">//PE主版本号</span></span><br><span class="line">    WORD    MinorImageVersion;          <span class="comment">//PE次版本号</span></span><br><span class="line">    WORD    MajorSubsystemVersion;      <span class="comment">//子系统主要版本号.</span></span><br><span class="line">    WORD    MinorSubsystemVersion;      <span class="comment">//子系统次要版本号.</span></span><br><span class="line">    DWORD   Win32VersionValue;          <span class="comment">//保留成员,必须为0</span></span><br><span class="line">    DWORD   SizeOfImage;                <span class="comment">//PE镜像大小.必须是内存对齐的倍数. sizeofImage/SectionAllignment == 0 才可以</span></span><br><span class="line">    DWORD   SizeOfHeaders;               <span class="comment">// DOS头+NT头+节表的总大小.按照文件对齐存放 sizeofHeaders / FileAlignment == 0</span></span><br><span class="line">　　 DWORD   SubSystem   　　　　　　　　　 <span class="comment">//表名PE文件是什么程序. 1驱动程序2窗口程序3控制台程序(DLL)</span></span><br><span class="line">    DWORD   CheckSum;                   </span><br><span class="line">    WORD    DllCharacteristics;         <span class="comment">//P的文件属性</span></span><br><span class="line">    DWORD   SizeOfStackReserve;         <span class="comment">//堆栈保留字节数.我们的程序使用的栈空间多大靠这个成员.不过操作系统只作为参考</span></span><br><span class="line">    DWORD   SizeOfStackCommit;          <span class="comment">//要为堆栈提交的字节数.不做参考</span></span><br><span class="line">    DWORD   SizeOfHeapReserve;          <span class="comment">//堆保留字节数.</span></span><br><span class="line">    DWORD   SizeOfHeapCommit;           <span class="comment">//本地堆提交的字节数. PS: 栈堆保留数值.跟自己的sizeof(Head/stack)Commit成员有关.</span></span><br><span class="line">    DWORD   LoaderFlags;                <span class="comment">//成员已经过时</span></span><br><span class="line">    DWORD   NumberOfRvaAndSizes;        <span class="comment">//数据目录数组的大小</span></span><br><span class="line">    IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];<span class="comment">//数据目录</span></span><br><span class="line">&#125; IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;</span><br></pre></td></tr></table></figure>
 
-    WORD    Magic;　　　　　　　　　　　　　　//标志.表名了我们的PE是x86还是x64
-    BYTE    MajorLinkerVersion;          //连接器主要版本号
-    BYTE    MinorLinkerVersion;          //连接器次要版本号 例如 3.54 主要版本就是3.次要就是54
-    DWORD   SizeOfCode;                  //代码段大小,以字节为单位.
-    DWORD   SizeOfInitializedData;       //初始化数据部分的大小.
-    DWORD   SizeOfUninitializedData;     //未知初始化数据的大小
-    DWORD   AddressOfEntryPoint;         //OEP 程序入口点,驱动程序也是入口点.对于DLL而言.是可选的.没有入口则为0
-    DWORD   BaseOfCode;                  //指向代码部分的指针              
-    DWORD   BaseOfData;                  //指向数据部分开头的指针
-
-    //
-    // NT additional fields.
-    //
-
-    DWORD   ImageBase;                  //基址.PE文件加载到内存中的基址.这个值是64k的倍数.DLL默认值是0x100000000,应用程序默认是0x00400000
-                                         //windows CE除外.他是0x00010000
-    DWORD   SectionAlignment;           //PE文件加载到内存中.的内存对齐.按照这个成员进行对齐
-    DWORD   FileAlignment;              //文件对齐,PE存数据存放在文件中.按照文件对其值对其
-    WORD    MajorOperatingSystemVersion;//所需要操作系统的主要版本号.
-    WORD    MinorOperatingSystemVersion;//所需要操作系统的次要版本号.
-    WORD    MajorImageVersion;          //PE主版本号
-    WORD    MinorImageVersion;          //PE次版本号
-    WORD    MajorSubsystemVersion;      //子系统主要版本号.
-    WORD    MinorSubsystemVersion;      //子系统次要版本号.
-    DWORD   Win32VersionValue;          //保留成员,必须为0
-    DWORD   SizeOfImage;                //PE镜像大小.必须是内存对齐的倍数. sizeofImage/SectionAllignment == 0 才可以
-    DWORD   SizeOfHeaders;               // DOS头+NT头+节表的总大小.按照文件对齐存放 sizeofHeaders / FileAlignment == 0
-　　 DWORD   SubSystem   　　　　　　　　　 //表名PE文件是什么程序. 1驱动程序2窗口程序3控制台程序(DLL)
-    DWORD   CheckSum;                   
-    WORD    DllCharacteristics;         //P的文件属性
-    DWORD   SizeOfStackReserve;         //堆栈保留字节数.我们的程序使用的栈空间多大靠这个成员.不过操作系统只作为参考
-    DWORD   SizeOfStackCommit;          //要为堆栈提交的字节数.不做参考
-    DWORD   SizeOfHeapReserve;          //堆保留字节数.
-    DWORD   SizeOfHeapCommit;           //本地堆提交的字节数. PS: 栈堆保留数值.跟自己的sizeof(Head/stack)Commit成员有关.
-    DWORD   LoaderFlags;                //成员已经过时
-    DWORD   NumberOfRvaAndSizes;        //数据目录数组的大小
-    IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];//数据目录
-} IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;</code></pre>
 <p><strong>SizeOfCode</strong><br>    代码区段（一般是.text 段）文件对齐（200 的整数倍对齐，后面会讲到）大小。</p>
 <p>​    该字段可被用于校验文件是否被改动。</p>
 <p> <strong>AddressOfEntryPoint</strong><br>    简称 OEP，程序入口点，程序开始执行的相对虚拟地址，非常重要的字段。<br>   以前学开发时，一直以为程序是从 Main 函数开始的，其实 Main 函数只是用户编写程序的开始，在此之前还有很多初始化、预处理的程序需要由系统执行，那么这些程序开始的地址，就是 OEP 指向的地址。 </p>
@@ -408,44 +421,15 @@ else {
 </blockquote>
 <p>数据目录结构体大小为 <code>0x80 / 128</code></p>
 <p>数据目录表。这是一个结构体数组。数组里的每个元素对应一个数据表。通常有 16 个。<br>数组每个元素都是一个结构体，一个单位8个字节。具体如下</p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_DATA_DIRECTORY
-{
-    DWORD VirtualAddress;    // 数据表的起始虚拟地址
-    DWORD Size;    // 数据表大小
-}IMAGE_DATA_DIRECTORY,*IMAGE_DATA_DIRECTORY</code></pre>
-<p>复杂的地方在哪里呢？那就是这数组里每一个成员都能够对应一个表项（实际上有些没有用到），而表项的内容并不在PE结构里，而是在节当中。尽管如此，它们对程序启动也是必须的，所以依然要学习它们。</p>
-<p>16 个数据表依次如下：<br>        导出表、导入表、资源表、异常处理表、安全表、重定位表、调试表、版权、指针目录、TLS、载入配置、绑定输入目录、导入地址表、延迟载入、COM 信息。</p>
-<pre class=" language-C++"><code class="language-C++">#define IMAGE_DIRECTORY_ENTRY_EXPORT         0 //导出表
-#define IMAGE_DIRECTORY_ENTRY_IMPORT         1 //导入表 
-#define IMAGE_DIRECTORY_ENTRY_RESOURCE         2 //资源目录
-#define IMAGE_DIRECTORY_ENTRY_EXCEPTION         3 //异常目录
-#define IMAGE_DIRECTORY_ENTRY_SECURITY         4 //安全目录
-#define IMAGE_DIRECTORY_ENTRY_BASERELOC             5 //重定位基本表
-#define IMAGE_DIRECTORY_ENTRY_DEBUG         6 //调试目录
-#define IMAGE_DIRECTORY_ENTRY_COPYRIGHT         7 //描术字串
-#define IMAGE_DIRECTORY_ENTRY_GLOBALPTR         8 //机器值
-#define IMAGE_DIRECTORY_ENTRY_TLS         9 //TLS目录
-#define IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG     10 //载入配值目录
-#define IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT       11 //绑定输入表
-#define IMAGE_DIRECTORY_ENTRY_IAT         12 //导入地址表
-#define IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT     13 //延迟载入描述
-#define IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR     14 //COM信息</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_DATA_DIRECTORY</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    DWORD VirtualAddress;    <span class="comment">// 数据表的起始虚拟地址</span></span><br><span class="line">    DWORD Size;    <span class="comment">// 数据表大小</span></span><br><span class="line">&#125;IMAGE_DATA_DIRECTORY,*IMAGE_DATA_DIRECTORY</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">复杂的地方在哪里呢？那就是这数组里每一个成员都能够对应一个表项（实际上有些没有用到），而表项的内容并不在PE结构里，而是在节当中。尽管如此，它们对程序启动也是必须的，所以依然要学习它们。</span><br><span class="line"></span><br><span class="line">16 个数据表依次如下：</span><br><span class="line">        导出表、导入表、资源表、异常处理表、安全表、重定位表、调试表、版权、指针目录、TLS、载入配置、绑定输入目录、导入地址表、延迟载入、COM 信息。</span><br><span class="line"></span><br><span class="line">​```C++</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_EXPORT		 0 //导出表</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_IMPORT		 1 //导入表 </span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_RESOURCE		 2 //资源目录</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_EXCEPTION		 3 //异常目录</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_SECURITY		 4 //安全目录</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_BASERELOC	         5 //重定位基本表</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_DEBUG		 6 //调试目录</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_COPYRIGHT		 7 //描术字串</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_GLOBALPTR		 8 //机器值</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_TLS		 9 //TLS目录</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG	 10 //载入配值目录</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT       11 //绑定输入表</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_IAT		 12 //导入地址表</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT	 13 //延迟载入描述</span><br><span class="line">#define IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR     14 //COM信息</span><br></pre></td></tr></table></figure>
+
 <h3 id="1-导出表"><a href="#1-导出表" class="headerlink" title="1. 导出表"></a>1. 导出表</h3><p>对应节<code>.edata</code></p>
 <p> 根据_IMAGE_DATA_DIRECTORY 结构体数组的<strong>第 1 个元素索引处导出表</strong>。一般情况下，dll 的函数导出供其他人使用，exe 将别人的 dll 的函数导入运行。<br>所以，一般.exe 没有导出表（但是并非说.exe 一定没有导出表）。 </p>
 <h4 id="导出表结构"><a href="#导出表结构" class="headerlink" title="导出表结构"></a>导出表结构</h4><p>大小为<code>0x28 / 40</code></p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_EXPORT_DIRECTORY {
-    DWORD   Characteristics;    //未使用
-    DWORD   TimeDateStamp;      //时间戳
-    WORD    MajorVersion;       //未使用
-    WORD    MinorVersion;       //未使用
-    DWORD   Name;               //指向改导出表文件名字符串,也就是这个DLL的名称
-    DWORD   Base;               //导出表的起始序号
-    DWORD   NumberOfFunctions;  //导出函数的个数(更准确来说是AddressOfFunctions的元素数，而不是函数个数)
-    DWORD   NumberOfNames;      //以 函数名字 导出的函数个数
-    DWORD   AddressOfFunctions;     //导出函数地址表RVA:存储所有导出函数地址(表元素宽度为4，总大小NumberOfFunctions * 4)
-    DWORD   AddressOfNames;         //导出函数名称表RVA:存储函数名字符串所在的地址(表元素宽度为4，总大小为NumberOfNames * 4)
-    DWORD   AddressOfNameOrdinals;  //导出函数序号表RVA:存储函数序号(表元素宽度为2，总大小为NumberOfNames * 2)
-} IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_EXPORT_DIRECTORY</span> &#123;</span></span><br><span class="line">    DWORD   Characteristics;    <span class="comment">//未使用</span></span><br><span class="line">    DWORD   TimeDateStamp;      <span class="comment">//时间戳</span></span><br><span class="line">    WORD    MajorVersion;       <span class="comment">//未使用</span></span><br><span class="line">    WORD    MinorVersion;       <span class="comment">//未使用</span></span><br><span class="line">    DWORD   Name;               <span class="comment">//指向改导出表文件名字符串,也就是这个DLL的名称</span></span><br><span class="line">    DWORD   Base;               <span class="comment">//导出表的起始序号</span></span><br><span class="line">    DWORD   NumberOfFunctions;  <span class="comment">//导出函数的个数(更准确来说是AddressOfFunctions的元素数，而不是函数个数)</span></span><br><span class="line">    DWORD   NumberOfNames;      <span class="comment">//以 函数名字 导出的函数个数</span></span><br><span class="line">    DWORD   AddressOfFunctions;     <span class="comment">//导出函数地址表RVA:存储所有导出函数地址(表元素宽度为4，总大小NumberOfFunctions * 4)</span></span><br><span class="line">    DWORD   AddressOfNames;         <span class="comment">//导出函数名称表RVA:存储函数名字符串所在的地址(表元素宽度为4，总大小为NumberOfNames * 4)</span></span><br><span class="line">    DWORD   AddressOfNameOrdinals;  <span class="comment">//导出函数序号表RVA:存储函数序号(表元素宽度为2，总大小为NumberOfNames * 2)</span></span><br><span class="line">&#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;</span><br></pre></td></tr></table></figure>
+
 <p>① Name: DLL名字</p>
 <p>② Base: 定义的导出函数序号的最小值</p>
 <p>③ NumbersOfFunctions/ NumbersOfNames: 所有导出函数的个数 和 以名称导出的函数的个数</p>
@@ -453,24 +437,15 @@ else {
 <h4 id="DLL导出方式"><a href="#DLL导出方式" class="headerlink" title="DLL导出方式"></a>DLL导出方式</h4><p>分为名称导出、序号导出以及名称+序号导出</p>
 <ul>
 <li><p>名称导出</p>
-<pre class=" language-c"><code class="language-c"><span class="token function">__declspec</span><span class="token punctuation">(</span>dllexport<span class="token punctuation">)</span>
-
-</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__declspec(dllexport)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">LIBRARY DLL</span><br><span class="line">EXPORTS</span><br><span class="line">  FuncDll</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<p>  LIBRARY DLL<br>  EXPORTS<br>    FuncDll  </p>
-<pre><code>
-- 序号导出
-
-  ```c
-  LIBRARY DLL
-  EXPORTS
-    FuncDll @ 1 NONAME  </code></pre><ul>
+<li><p>序号导出</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LIBRARY DLL</span><br><span class="line">EXPORTS</span><br><span class="line">  FuncDll @ <span class="number">1</span> NONAME</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>名称+序号导出</p>
-<pre><code>LIBRARY DLL
-EXPORTS
-  fnDll1 @ 1 NONAME  
-  fnDll2 @ 2 // 名称加序号</code></pre></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LIBRARY DLL</span><br><span class="line">EXPORTS</span><br><span class="line">  fnDll1 @ 1 NONAME  </span><br><span class="line">  fnDll2 @ 2 // 名称加序号</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 <h4 id="查找函数地址"><a href="#查找函数地址" class="headerlink" title="查找函数地址"></a>查找函数地址</h4><p>Win32库里的<code>GetProcAddress</code>函数获取函数地址用于</p>
 <p>第一个参数是DLL名称，第二个参数是目标函数的 名称或者地址</p>
@@ -491,16 +466,8 @@ EXPORTS
 <h3 id="2-导入表"><a href="#2-导入表" class="headerlink" title="2. 导入表"></a>2. 导入表</h3><h4 id="导入表结构"><a href="#导入表结构" class="headerlink" title="导入表结构"></a>导入表结构</h4><p>对应节 <code>.idata</code></p>
 <p> 导入表是记录 PE 文件中用到的动态连接库的集合，一个 dll 库在导入表中占用一个元素信息的位置，这个元素描述了该导入 dll 的具体信息。如 dll 的最新修改时间、dll 中函数的名字 / 序号、dll 加载后的函数地址等。</p>
 <p>一个DLL对应一张导入表， 结构为 <code>IMAGE_DIRECTORY_ENTRY_IMPORT</code> ，每一个单位大小为<code>0x14 / 20</code></p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_IMPORT_DESCRIPTOR {
-    union {
-        DWORD   Characteristics;            //导入表结束标志
-        DWORD   OriginalFirstThunk;         //RVA指向一个结构体数组(INT表)
-    };
-    DWORD   TimeDateStamp;                  //时间戳
-    DWORD   ForwarderChain;                 // -1 if no forwarders
-    DWORD   Name;                           //RVA指向dll名字，以0结尾
-    DWORD   FirstThunk;                     //RVA指向一个结构体数组(IAT表)
-} IMAGE_IMPORT_DESCRIPTOR, *PIMAGE_IMPORT_DESCRIPTOR;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_DESCRIPTOR</span> &#123;</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        DWORD   Characteristics;            <span class="comment">//导入表结束标志</span></span><br><span class="line">        DWORD   OriginalFirstThunk;         <span class="comment">//RVA指向一个结构体数组(INT表)</span></span><br><span class="line">    &#125;;</span><br><span class="line">    DWORD   TimeDateStamp;                  <span class="comment">//时间戳</span></span><br><span class="line">    DWORD   ForwarderChain;                 <span class="comment">// -1 if no forwarders</span></span><br><span class="line">    DWORD   Name;                           <span class="comment">//RVA指向dll名字，以0结尾</span></span><br><span class="line">    DWORD   FirstThunk;                     <span class="comment">//RVA指向一个结构体数组(IAT表)</span></span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR, *PIMAGE_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
+
 <p>①联合体值为 0 时（一般<strong>用 Characteristics 判断是否是 0</strong>），表示这是导入表结构体数组最后一个元素，除了最后这一个元素，其它每一个结构体都保存了一个 dll 信息。联合体的值不为 0 时， <strong>用 OriginalFirstThunk（RVA）来索引 INT 的地址</strong>。这张 INT 表存放了该 dll 的导出函数的信息（序号与函数名）。</p>
 <p>②<strong>TimeDateStamp</strong>：当时间戳值为 0 时，表示未加载前 IAT 表与 INT 表完全相同；当时间戳不为 0（为 - 1）时，表示 IAT 与 INT 表不同，IAT 存储的是该 dll 的所有函数的绝对地址，这样在未加载前就直接填充函数地址的方式为函数地址的绑定，其地址是根据绑定导入表来确定的。也就是说当时间戳为 - 1 时绑定导入表才有效，而真正的时间戳存放到绑定导入表中，否则无效。</p>
 <p>③<strong>ForwarderChain</strong>：一般情况下我们也可以忽略该字段。在老版的绑定中，它引用 API 的第一个 forwarder chain（传递器链表）。</p>
@@ -517,24 +484,15 @@ EXPORTS
 <p>看到这里，你可能会觉得这个设计很迷。确实，IAT表是函数地址表，现在指着一堆名字肯定是有问题的。其实随着程序启动，程序实际启动的时候还会发生变化。至于为什么这么做，可以自己站在设计者的角度琢磨琢磨。</p>
 <p>现在再看INT表里的内容</p>
 <p>有个叫做<code>IMAGE_THUNK_DATA</code>的结构体，进入康康</p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_THUNK_DATA32 {
-    union {
-        DWORD ForwarderString;      // PBYTE 
-        DWORD Function;             // PDWORD
-        DWORD Ordinal;
-        DWORD AddressOfData;        // PIMAGE_IMPORT_BY_NAME
-    } u1;
-} IMAGE_THUNK_DATA32;
-typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_THUNK_DATA32</span> &#123;</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        DWORD ForwarderString;      <span class="comment">// PBYTE </span></span><br><span class="line">        DWORD Function;             <span class="comment">// PDWORD</span></span><br><span class="line">        DWORD Ordinal;</span><br><span class="line">        DWORD AddressOfData;        <span class="comment">// PIMAGE_IMPORT_BY_NAME</span></span><br><span class="line">    &#125; u1;</span><br><span class="line">&#125; IMAGE_THUNK_DATA32;</span><br><span class="line"><span class="keyword">typedef</span> IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</span><br></pre></td></tr></table></figure>
+
 <p>注意这是一个联合体，共用内存四选一。</p>
 <p>常用的是下面两个成员，<code>Ordinal</code> 以及 <code>AddressOfData</code></p>
 <p>也就分别对应DLL导出函数的两种方式：序号导出（个人理解） 以及 函数名导出</p>
 <p>也就是说有的时候需要用第三个成员，有的时候需要用第四个成员。</p>
 <p><code>AddressOfData</code>指向的是一个叫做<code>IMAGE_IMPORT_BY_NAME</code>结构体</p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_IMPORT_BY_NAME {
-    WORD    Hint;                 //编译器决定,不是空的话,就是函数在导出表中的 函数地址表的导出索引.
-    CHAR   Name[1];               //函数名称,0结尾.
-} IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_BY_NAME</span> &#123;</span></span><br><span class="line">    WORD    Hint;                 <span class="comment">//编译器决定,不是空的话,就是函数在导出表中的 函数地址表的导出索引.</span></span><br><span class="line">    CHAR   Name[<span class="number">1</span>];               <span class="comment">//函数名称,0结尾.</span></span><br><span class="line">&#125; IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;</span><br></pre></td></tr></table></figure>
+
 <p>了解完这些结构之后可以来看看如何寻找到对应的函数</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191127144749.png" alt></p>
 <p>上图展现了找到函数的方法 总结如下</p>
@@ -565,12 +523,8 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <p>那么操作系统的加载程序在将 test.exe 加载进内存时，直接复制其程序到 400000H 开始的虚拟内存中，接着一一加载 a.dll、b.dll、c.dll：假设先加载 a.dll，如果 test.exe 的 ImageBase + SizeOfImage + 1000H 不大于 1000000H，则 a.dll 直接复制到 1000000H 开始的内存中；当 b.dll 加载时，虽然其基址也为 1000000H，但是由于 1000000H 已经被 a.dll 占用，则 b.dll 需要重新分配基址，比如加载程序经过计算将其分配到 1200000H 的地址，c.dll 同样经过计算将其加载到 150000H 的地址。</p>
 <p>那么问题就来了，DLL中有许多编译器写死了的地址（绝对地址），比如全局变量/函数等等。这些机器码需要在ImageBase不变的情形下才能正常工作!</p>
 <p> 比如 b.dll 中存在一个 call 0X01034560，这是一个绝对地址，其相对于 ImageBase 的地址为 δ = 0X01034560 - 0X01000000 = 0X34560H；而此时的内存中 b.dll 存在的地址是 1200000H 开始的内存，加载器分配的 ImageBase 和 b.dll 中原来默认的 ImageBase（1000000H）相差了 200000H，因此该 call 的值也应该加上这个差值，被修正为 0X01234560H，那么 δ = 0X01234560H - 0X01200000H = 0X34560H 则相对不变。否则 call 的地址不修正会导致 call 指令跳转的地址不是实际要跳转的地址，获取不到正确的函数指令，程序则不能正常运行s。 </p>
-<h4 id="重定位表的结构"><a href="#重定位表的结构" class="headerlink" title="重定位表的结构"></a>重定位表的结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_BASE_RELOCATION {
-    DWORD   VirtualAddress;
-    DWORD   SizeOfBlock;         //存储的值以字节为单位.字节多大.表示了一个重定位快有多大.
-//  WORD    TypeOffset[1];
-} IMAGE_BASE_RELOCATION;
-typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</code></pre>
+<h4 id="重定位表的结构"><a href="#重定位表的结构" class="headerlink" title="重定位表的结构"></a>重定位表的结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BASE_RELOCATION</span> &#123;</span></span><br><span class="line">    DWORD   VirtualAddress;</span><br><span class="line">    DWORD   SizeOfBlock;         <span class="comment">//存储的值以字节为单位.字节多大.表示了一个重定位快有多大.</span></span><br><span class="line"><span class="comment">//  WORD    TypeOffset[1];</span></span><br><span class="line">&#125; IMAGE_BASE_RELOCATION;</span><br><span class="line"><span class="keyword">typedef</span> IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</span><br></pre></td></tr></table></figure>
+
 <p>看起来重定位表就两个成员，其实没那么简单。</p>
 <p>重定位表有两个成员. VirtuallAddress sizeofBlock</p>
 <p>1.virtualladdress 记录了当前物理页需要进行重定位的起始地址.</p>
@@ -601,15 +555,8 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</code></pre>
 <p>静态方法会用声明__declspec (thread) int xx = 1; 这样的方式来创建。</p>
 <p>需要注意的是静态创建的 TLS 变量不能用于 DLL 动态库中。</p>
 <p>动态使用的TLS变量不会生成TLS表</p>
-<h4 id="TLS表结构"><a href="#TLS表结构" class="headerlink" title="TLS表结构"></a>TLS表结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_TLS_DIRECTORY32 
-{
-    DWORD   StartAddressOfRawData;/* tls節區的起始地址 */
-    DWORD   EndAddressOfRawData;/* tls節區的最終地址 */
-    PDWORD  AddressOfIndex;/* tls節區的索引 */
-    PIMAGE_TLS_CALLBACK *AddressOfCallBacks;/* 指向回調函數的指針 */
-    DWORD   SizeOfZeroFill;
-    DWORD   Characteristics;
-} IMAGE_TLS_DIRECTORY32</code></pre>
+<h4 id="TLS表结构"><a href="#TLS表结构" class="headerlink" title="TLS表结构"></a>TLS表结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_TLS_DIRECTORY32</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    DWORD   StartAddressOfRawData;<span class="comment">/* tls節區的起始地址 */</span></span><br><span class="line">    DWORD   EndAddressOfRawData;<span class="comment">/* tls節區的最終地址 */</span></span><br><span class="line">    PDWORD  AddressOfIndex;<span class="comment">/* tls節區的索引 */</span></span><br><span class="line">    PIMAGE_TLS_CALLBACK *AddressOfCallBacks;<span class="comment">/* 指向回調函數的指針 */</span></span><br><span class="line">    DWORD   SizeOfZeroFill;</span><br><span class="line">    DWORD   Characteristics;</span><br><span class="line">&#125; IMAGE_TLS_DIRECTORY32</span><br></pre></td></tr></table></figure>
+
 <p>①StartAddressOfRawData：tls 模板在内存中的起始 VA，模板是用于创建线程时初始化 TLS 数据的，对应上图中的 0x404000, 因为是 VA，所以我们将 0x4000 转换成 offset 得到 0x1800, 我们看到 0x1800 处的数据如下，可以看到模板中的内容其实就是 TLS 中创建的变量：</p>
 <p>②EndAddressOfRawDataL：tls 模板在内存中的结束 VA, 对应上图中的 0x404020</p>
 <p>③AddressOfIndex：存储 TLS 索引的位置，对应上图中的 0x40337c，这里为 0</p>
@@ -625,48 +572,22 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</code></pre>
 </ul>
 <h3 id="11-载入配置"><a href="#11-载入配置" class="headerlink" title="11. 载入配置"></a>11. 载入配置</h3><p>载入配置表早期是用于描述当 PE 文件头或 PE 可选头无法描述或者因为太大而无法描述的各种功能。<br>  后来以 XP 及以后的系统主要是为了存储 SEH 句柄，称为安全结构化异常处理程序列表，如果 SEH 异常处理没有经过注册，在载入配置表中没有句柄，这个异常处理就不会被执行。<br>  据微软官方说明，这个载入配置表的作用是为了防止 “x86 异常处理程序劫持” 的漏洞。</p>
 <p>  PE 文件头可选映像头中数据目录表的第 11 成员 IMAGE_DATA_DIRECTORY DataDirectory [IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG] 指向加载配置表。</p>
-<h4 id="载入配置表结构"><a href="#载入配置表结构" class="headerlink" title="载入配置表结构"></a>载入配置表结构</h4><pre class=" language-C"><code class="language-C">typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY {
-    DWORD   Characteristics;              //属性，当前没使用
-    DWORD   TimeDateStamp;                //(GMT时间)
-    WORD    MajorVersion;                 //主版本号
-    WORD    MinorVersion;                 //子版本号
-    DWORD   GlobalFlagsClear;             //启动时清除全局标志
-    DWORD   GlobalFlagsSet;               //启动时设置全局标志
-    DWORD   CriticalSectionDefaultTimeout;//程序关键部分默认超时值
-    DWORD   DeCommitFreeBlockThreshold;   //返回系统前必须释放的内存，以字节为单位
-    DWORD   DeCommitTotalFreeThreshold;   //总共释放的内存
-    PVOID   LockPrefixTable;              //预加锁表
-    DWORD   MaximumAllocationSize;        //最大配置体积
-    DWORD   VirtualMemoryThreshold;       //最大虚拟内存尺寸
-    DWORD   ProcessHeapFlags;             //进程堆栈标志
-    DWORD   ProcessAffinityMask;          //进程内部掩码
-    WORD    CSDVersion;                   //CSD版本
-    WORD    Reserved1;                    //保留，必须为0
-    PVOID   EditList;                     //保留
-    DWORD   Reserved[ 1 ];
-} IMAGE_LOAD_CONFIG_DIRECTORY, *PIMAGE_LOAD_CONFIG_DIRECTORY;</code></pre>
+<h4 id="载入配置表结构"><a href="#载入配置表结构" class="headerlink" title="载入配置表结构"></a>载入配置表结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_LOAD_CONFIG_DIRECTORY</span> &#123;</span></span><br><span class="line">    DWORD   Characteristics;              <span class="comment">//属性，当前没使用</span></span><br><span class="line">    DWORD   TimeDateStamp;                <span class="comment">//(GMT时间)</span></span><br><span class="line">    WORD    MajorVersion;                 <span class="comment">//主版本号</span></span><br><span class="line">    WORD    MinorVersion;                 <span class="comment">//子版本号</span></span><br><span class="line">    DWORD   GlobalFlagsClear;             <span class="comment">//启动时清除全局标志</span></span><br><span class="line">    DWORD   GlobalFlagsSet;               <span class="comment">//启动时设置全局标志</span></span><br><span class="line">    DWORD   CriticalSectionDefaultTimeout;<span class="comment">//程序关键部分默认超时值</span></span><br><span class="line">    DWORD   DeCommitFreeBlockThreshold;   <span class="comment">//返回系统前必须释放的内存，以字节为单位</span></span><br><span class="line">    DWORD   DeCommitTotalFreeThreshold;   <span class="comment">//总共释放的内存</span></span><br><span class="line">    PVOID   LockPrefixTable;              <span class="comment">//预加锁表</span></span><br><span class="line">    DWORD   MaximumAllocationSize;        <span class="comment">//最大配置体积</span></span><br><span class="line">    DWORD   VirtualMemoryThreshold;       <span class="comment">//最大虚拟内存尺寸</span></span><br><span class="line">    DWORD   ProcessHeapFlags;             <span class="comment">//进程堆栈标志</span></span><br><span class="line">    DWORD   ProcessAffinityMask;          <span class="comment">//进程内部掩码</span></span><br><span class="line">    WORD    CSDVersion;                   <span class="comment">//CSD版本</span></span><br><span class="line">    WORD    Reserved1;                    <span class="comment">//保留，必须为0</span></span><br><span class="line">    PVOID   EditList;                     <span class="comment">//保留</span></span><br><span class="line">    DWORD   Reserved[ <span class="number">1</span> ];</span><br><span class="line">&#125; IMAGE_LOAD_CONFIG_DIRECTORY, *PIMAGE_LOAD_CONFIG_DIRECTORY;</span><br></pre></td></tr></table></figure>
+
 <h3 id="12-绑定导入表"><a href="#12-绑定导入表" class="headerlink" title="12. 绑定导入表"></a>12. 绑定导入表</h3><h4 id="绑定导入表结构"><a href="#绑定导入表结构" class="headerlink" title="绑定导入表结构"></a>绑定导入表结构</h4><p>本来函数地址都是要PE加载后 通过环境确定函数地址 修改IAT表</p>
 <p>但有一种结构能够让我们在PE加载前确定好函数地址 加速启动过程</p>
 <p>而这种结构就是——绑定导入表</p>
 <p>现在大多数情况，导入表的 TimeDateStamp 都为 0，而 Windows 早期的自带软件（如 WinXP 的 notepad.exe）基本都采用了 TimeDateStamp 为 - 1 的情况即包含绑定导入表的情况。PE 中包含导入表的优点是程序启动快，但是其缺点也十分明显，当存在 dll 地址重定位和 dll 修改更新，则绑定导入表也需要修改更新。 </p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_BOUND_IMPORT_DESCRIPTOR {
-    DWORD   TimeDateStamp;      //表示绑定的时间戳，如果和PE头中的TimeDateStamp不同则可能被修改过
-    WORD    OffsetModuleName;   //dll名称地址
-    WORD    NumberOfModuleForwarderRefs;    //依赖dll个数
-// Array of zero or more IMAGE_BOUND_FORWARDER_REF follows
-} IMAGE_BOUND_IMPORT_DESCRIPTOR,  *PIMAGE_BOUND_IMPORT_DESCRIPTOR;
-//最后一个结构全0表示绑定导入表结束</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BOUND_IMPORT_DESCRIPTOR</span> &#123;</span></span><br><span class="line">    DWORD   TimeDateStamp;      <span class="comment">//表示绑定的时间戳，如果和PE头中的TimeDateStamp不同则可能被修改过</span></span><br><span class="line">    WORD    OffsetModuleName;   <span class="comment">//dll名称地址</span></span><br><span class="line">    WORD    NumberOfModuleForwarderRefs;    <span class="comment">//依赖dll个数</span></span><br><span class="line"><span class="comment">// Array of zero or more IMAGE_BOUND_FORWARDER_REF follows</span></span><br><span class="line">&#125; IMAGE_BOUND_IMPORT_DESCRIPTOR,  *PIMAGE_BOUND_IMPORT_DESCRIPTOR;</span><br><span class="line"><span class="comment">//最后一个结构全0表示绑定导入表结束</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="绑定导入表成员介绍"><a href="#绑定导入表成员介绍" class="headerlink" title="绑定导入表成员介绍"></a>绑定导入表成员介绍</h4><p>① <code>TimeDateStamp</code>，也就是时间戳。</p>
 <p>当 PE 文件中不存在绑定导入表时，IAT 就与 INT 一样，此时导入表中的时间戳就为 0。</p>
 <p>导入表中的时间戳为 - 1 时，则象征着存在绑定导入表，dll 的真正时间戳存放于我们这里要讲解的绑定导入表中。</p>
 <p>② <code>NumberOfModuleForwarderRefs</code> 指该 dll 自身依赖的 dll 的个数。</p>
 <p>值为 n 代表该结构后面紧跟了 n 个 <code>IMAGE_BOUND_FORWARDER_REF</code> 结构。</p>
 <p>之后才是导入表导入的下一个 dll 的结构。 <code>IMAGE_BOUND_FORWARDER_REF</code> 结构体如下所示： </p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_BOUND_FORWARDER_REF {
-    DWORD   TimeDateStamp;  //时间戳，同样的作用检查更新情况
-    WORD    OffsetModuleName;   //dll名称地址
-    WORD    Reserved;   //保留
-} IMAGE_BOUND_FORWARDER_REF, *PIMAGE_BOUND_FORWARDER_REF;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BOUND_FORWARDER_REF</span> &#123;</span></span><br><span class="line">    DWORD   TimeDateStamp;  <span class="comment">//时间戳，同样的作用检查更新情况</span></span><br><span class="line">    WORD    OffsetModuleName;   <span class="comment">//dll名称地址</span></span><br><span class="line">    WORD    Reserved;   <span class="comment">//保留</span></span><br><span class="line">&#125; IMAGE_BOUND_FORWARDER_REF, *PIMAGE_BOUND_FORWARDER_REF;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>注意：这两个结构体中所有的 OffsetModuleName 均不是相对于 ImageBase 的 RVA 也不是 FOA，而是相对于绑定导入表首地址的偏移地址，即：<strong>绑定导入表首地址 + OffsetModuleName= RVA</strong></p>
 </blockquote>
@@ -683,15 +604,8 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;</code></pre>
 <p>可以看到 IAT 表与 INT 表内容最开始是一样的</p>
 <p>一个导出函数对应一个叫做<code>IMAGE_THUNK_DATA</code>的结构体 结束时以0作为结束符</p>
 <p>结构体如下</p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_THUNK_DATA32 {
-    union {
-        DWORD ForwarderString;      // PBYTE 
-        DWORD Function;             // PDWORD
-        DWORD Ordinal;
-        DWORD AddressOfData;        // PIMAGE_IMPORT_BY_NAME
-    } u1;
-} IMAGE_THUNK_DATA32;
-typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_THUNK_DATA32</span> &#123;</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        DWORD ForwarderString;      <span class="comment">// PBYTE </span></span><br><span class="line">        DWORD Function;             <span class="comment">// PDWORD</span></span><br><span class="line">        DWORD Ordinal;</span><br><span class="line">        DWORD AddressOfData;        <span class="comment">// PIMAGE_IMPORT_BY_NAME</span></span><br><span class="line">    &#125; u1;</span><br><span class="line">&#125; IMAGE_THUNK_DATA32;</span><br><span class="line"><span class="keyword">typedef</span> IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</span><br></pre></td></tr></table></figure>
+
 <p>注意这是一个联合体，共用内存四选一。</p>
 <p>成员说明见导入表项</p>
 <h4 id="确定函数地址-1"><a href="#确定函数地址-1" class="headerlink" title="确定函数地址"></a>确定函数地址</h4><p>实际上在程序运行后 IAT表这个地方已经变成函数地址了</p>
@@ -716,46 +630,25 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <p> 在一个文件中与文件有关的配置信息、数据库、链接库等都放在一个文件里 </p>
 </li>
 </ul>
-<h4 id="延迟绑定表结构"><a href="#延迟绑定表结构" class="headerlink" title="延迟绑定表结构"></a>延迟绑定表结构</h4><pre class=" language-C"><code class="language-C">typedef struct ImgDelayDescr {  
-    DWORD        grAttrs;       //延迟导入结构的属性，0x1为新版本，0x0为老版本
-    RVA          rvaDLLName;    //dll名字的RVA
-    RVA          rvaHmod;       //dll句柄的RVA
-    RVA          rvaIAT;        //IAT表的RVA
-    RVA          rvaINT;        //INT表的RVA
-    RVA          rvaBoundIAT;   //绑定导入表的RVA
-    RVA          rvaUnloadIAT;  //原始IAT的可选拷贝的RVA
-    DWORD        dwTimeStamp;   //延迟载入DLL的时间戳，通常为0
-} ImgDelayDescr, * PImgDelayDescr;</code></pre>
+<h4 id="延迟绑定表结构"><a href="#延迟绑定表结构" class="headerlink" title="延迟绑定表结构"></a>延迟绑定表结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ImgDelayDescr</span> &#123;</span>  </span><br><span class="line">    DWORD        grAttrs;       <span class="comment">//延迟导入结构的属性，0x1为新版本，0x0为老版本</span></span><br><span class="line">    RVA          rvaDLLName;    <span class="comment">//dll名字的RVA</span></span><br><span class="line">    RVA          rvaHmod;       <span class="comment">//dll句柄的RVA</span></span><br><span class="line">    RVA          rvaIAT;        <span class="comment">//IAT表的RVA</span></span><br><span class="line">    RVA          rvaINT;        <span class="comment">//INT表的RVA</span></span><br><span class="line">    RVA          rvaBoundIAT;   <span class="comment">//绑定导入表的RVA</span></span><br><span class="line">    RVA          rvaUnloadIAT;  <span class="comment">//原始IAT的可选拷贝的RVA</span></span><br><span class="line">    DWORD        dwTimeStamp;   <span class="comment">//延迟载入DLL的时间戳，通常为0</span></span><br><span class="line">&#125; ImgDelayDescr, * PImgDelayDescr;</span><br></pre></td></tr></table></figure>
+
 <h3 id="15-COM-信息"><a href="#15-COM-信息" class="headerlink" title="15. COM 信息"></a>15. COM 信息</h3><p>待填</p>
 <h2 id="IV-节表"><a href="#IV-节表" class="headerlink" title="IV. 节表"></a>IV. 节表</h2><p>节表就是对每个节的说明，一个节 对应一个 记录节表信息的结构体</p>
 <p>每个结构体的大小为 <code>0x28/ 40</code></p>
-<pre class=" language-C"><code class="language-C">typedef struct _IMAGE_SECTION_HEADER {
-    BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];        // 区段的名字，最长8字节
-    union {
-            DWORD   PhysicalAddress;            
-            DWORD   VirtualSize;
-    } Misc;                        // 虚拟内存中，会使用的总大小，未对齐
-    DWORD   VirtualAddress;                // 区段起始的相对虚拟基址RVA，VA=程序基址+VirtualAddress
-    DWORD   SizeOfRawData;                // 区段在文件中的大小，进行了文件对齐
-    DWORD   PointerToRawData;                // 区段的文件偏移
-    DWORD   PointerToRelocations;                
-    DWORD   PointerToLinenumbers;
-    WORD    NumberOfRelocations;
-    WORD    NumberOfLinenumbers;
-    DWORD   Characteristics;
-} IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_SECTION_HEADER</span> &#123;</span></span><br><span class="line">    BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];		<span class="comment">// 区段的名字，最长8字节</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">            DWORD   PhysicalAddress;			</span><br><span class="line">            DWORD   VirtualSize;</span><br><span class="line">    &#125; Misc;						<span class="comment">// 虚拟内存中，会使用的总大小，未对齐</span></span><br><span class="line">    DWORD   VirtualAddress;				<span class="comment">// 区段起始的相对虚拟基址RVA，VA=程序基址+VirtualAddress</span></span><br><span class="line">    DWORD   SizeOfRawData;				<span class="comment">// 区段在文件中的大小，进行了文件对齐</span></span><br><span class="line">    DWORD   PointerToRawData;				<span class="comment">// 区段的文件偏移</span></span><br><span class="line">    DWORD   PointerToRelocations;				</span><br><span class="line">    DWORD   PointerToLinenumbers;</span><br><span class="line">    WORD    NumberOfRelocations;</span><br><span class="line">    WORD    NumberOfLinenumbers;</span><br><span class="line">    DWORD   Characteristics;</span><br><span class="line">&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;</span><br></pre></td></tr></table></figure>
+
 <p>最后一个表项象征着结束全为0。所以整个区段头表，是若干 40 个字节大小的数据块，加上一个 40 个字节大小的 0 结束 </p>
 <blockquote>
 <p>常见区段简介：<br>    .text 段。一般是代码段。<br>    .data 段。一般是数据段。<br>    .bss 段。未初始化数据段。比如 static 变量，有时在函数内才初始化。<br>    .rdata 段。只读数据段。比如字符串。<br>    .idata 和.edata 段。导入表、导出表信息。<br>    .rsrc 段。资源段。<br>    .reloc 段。重定位信息段。</p>
 </blockquote>
 <p>之后详细学习下常用区段</p>
-<h4 id="节表属性"><a href="#节表属性" class="headerlink" title="节表属性"></a>节表属性</h4><p>决定节表属性的成员——Characteristics</p>
+<h3 id="节表属性"><a href="#节表属性" class="headerlink" title="节表属性"></a>节表属性</h3><p>决定节表属性的成员——Characteristics</p>
 <p>具体内容可以参考 MSDN 在线文档： <a href="https://docs.microsoft.com/zh-cn/windows/win32/api/winnt/ns-winnt-image_section_header" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/win32/api/winnt/ns-winnt-image_section_header</a> </p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th><strong>Name</strong></th>
+<th>对应属性</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -791,6 +684,7 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <td>The section can be written to. 该区块可写。</td>
 </tr>
 </tbody></table>
+<p>return</p>
 <h1 id="0x03-疑点总结"><a href="#0x03-疑点总结" class="headerlink" title="0x03 疑点总结"></a>0x03 疑点总结</h1><h2 id="I-导入表、绑定导入表、延迟导入表、导入地址表"><a href="#I-导入表、绑定导入表、延迟导入表、导入地址表" class="headerlink" title="I. 导入表、绑定导入表、延迟导入表、导入地址表"></a>I. 导入表、绑定导入表、延迟导入表、导入地址表</h2><p><strong>注意不要混淆</strong></p>
 <ul>
 <li><code>IMAGE_DIRECTORY_ENTRY_IMPORT</code>就是我们通常所知道的导入表，在 PE 文件加载时，会根据这个表里的内容加载依赖的 DLL，并填充所需函数的地址。</li>
@@ -852,6 +746,7 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 </ul>
 <h2 id="IV-修改OEP及返回"><a href="#IV-修改OEP及返回" class="headerlink" title="IV. 修改OEP及返回"></a>IV. 修改OEP及返回</h2><p>从PE头里找到原来的OEP 并记录</p>
 <p>然后覆盖OEP为我们的地址</p>
+<p>在我们代码的最后跳回OEP</p>
 <h2 id="V-PE加载过程"><a href="#V-PE加载过程" class="headerlink" title="V. PE加载过程"></a>V. PE加载过程</h2><p>简要</p>
 <ul>
 <li>读取文件</li>
@@ -874,52 +769,291 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 <p><a href></a></p>
 <p><a href></a></p>
 
-  </article>
-  
+    </div>
+
     
+    
+    
+      
 
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Windows/" rel="tag"><i class="fa fa-tag"></i> Windows</a>
+            
+              <a href="/tags/PE/" rel="tag"><i class="fa fa-tag"></i> PE</a>
+            
+              <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/16/Unity3D-Il2cpp/" rel="next" title="Unity3D-Il2cpp">
+                  <i class="fa fa-chevron-left"></i> Unity3D-Il2cpp
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/02/注入/" rel="prev" title="注入相关">
+                  注入相关 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
   
-  <section class="nexmoe-comment">
-    <script id="dsq-count-scr" src="https://luluting.disqus.com/count.js" async></script>
-<div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
-        this.page.url = 'http://luluchan.xyz/2019/11/27/PE结构/'; // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://luluchan.xyz/2019/11/27/PE结构/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-</script>
-<script id="disqus-thread-script">
-    (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document;
-        var s = d.createElement('script');
-        s.src = '//luluting.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', + new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
+  
+  
+  </article>
 
-</section>
-</div>
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
- 
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          見出し
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-概述"><span class="nav-text">0x00 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-结构概览"><span class="nav-text">0x01 结构概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-结构细节"><span class="nav-text">0x02 结构细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-DOS头"><span class="nav-text">I. DOS头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-NT头"><span class="nav-text">II. NT头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Signature"><span class="nav-text">1.  Signature</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-IMAGE-FILE-HEADER"><span class="nav-text">2.  _IMAGE_FILE_HEADER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-IMAGE-OPTIONAL-HEADER"><span class="nav-text">3. IMAGE_OPTIONAL_HEADER</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#III-数据目录"><span class="nav-text">III. 数据目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-导出表"><span class="nav-text">1. 导出表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#导出表结构"><span class="nav-text">导出表结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DLL导出方式"><span class="nav-text">DLL导出方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找函数地址"><span class="nav-text">查找函数地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-导入表"><span class="nav-text">2. 导入表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#导入表结构"><span class="nav-text">导入表结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定导入DLL名字"><span class="nav-text">确定导入DLL名字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定函数名称"><span class="nav-text">确定函数名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寻找函数地址"><span class="nav-text">寻找函数地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-资源表"><span class="nav-text">3. 资源表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-异常表"><span class="nav-text">4. 异常表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-安全表"><span class="nav-text">5. 安全表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-重定位表"><span class="nav-text">6. 重定位表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重定位表的作用"><span class="nav-text">重定位表的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重定位表的结构"><span class="nav-text">重定位表的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何重定位"><span class="nav-text">如何重定位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-调试表"><span class="nav-text">7. 调试表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-版权"><span class="nav-text">8. 版权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-指针目录"><span class="nav-text">9. 指针目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-TLS表"><span class="nav-text">10. TLS表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TLS表结构"><span class="nav-text">TLS表结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-载入配置"><span class="nav-text">11. 载入配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#载入配置表结构"><span class="nav-text">载入配置表结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-绑定导入表"><span class="nav-text">12. 绑定导入表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定导入表结构"><span class="nav-text">绑定导入表结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定导入表成员介绍"><span class="nav-text">绑定导入表成员介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定函数地址"><span class="nav-text">确定函数地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定失效修复IAT表"><span class="nav-text">绑定失效修复IAT表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-IAT表"><span class="nav-text">13. IAT表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IAT表结构"><span class="nav-text">IAT表结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定函数地址-1"><span class="nav-text">确定函数地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-延迟绑定表"><span class="nav-text">14. 延迟绑定表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#延迟绑定表结构"><span class="nav-text">延迟绑定表结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-COM-信息"><span class="nav-text">15. COM 信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IV-节表"><span class="nav-text">IV. 节表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节表属性"><span class="nav-text">节表属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-疑点总结"><span class="nav-text">0x03 疑点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-导入表、绑定导入表、延迟导入表、导入地址表"><span class="nav-text">I. 导入表、绑定导入表、延迟导入表、导入地址表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-IAT表-和-重定位表"><span class="nav-text">II. IAT表 和 重定位表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#III-添加节需要修改什么"><span class="nav-text">III. 添加节需要修改什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#细节"><span class="nav-text">细节</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IV-修改OEP及返回"><span class="nav-text">IV. 修改OEP及返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V-PE加载过程"><span class="nav-text">V. PE加载过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-参考链接"><span class="nav-text">0x03 参考链接</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/Loli1.jpg"
+      alt="ルルちゃん">
+  <p class="site-author-name" itemprop="name">ルルちゃん</p>
+  <div class="site-description" itemprop="description">俺も頑張らないと</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">ポスト</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">カテゴリ</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">タグ</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://music.163.com/#/user/home?id=136999932" title="Music163 &rarr; https://music.163.com/#/user/home?id=136999932" rel="noopener" target="_blank"><i class="fa fa-fw fa-play-circle"></i>Music163</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://osu.ppy.sh/users/12018407" title="OSU &rarr; https://osu.ppy.sh/users/12018407" rel="noopener" target="_blank"><i class="fa fa-fw fa-headphones"></i>OSU</a>
+      </span>
+    
+  </div>
 
 
- 
-    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-users"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.t1r3d.com/" title="https://blog.t1r3d.com/" rel="noopener" target="_blank">T1r3d</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://mskzj.github.io" title="https://mskzj.github.io" rel="noopener" target="_blank">太空独角兽</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+      </div>
+    </main>
 
-<script src="/js/app.js?v=1575544468539"></script>
-<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ルルちゃん</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">テーマ – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
 
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script><script src="/js/bookmark.js?v=7.3.0"></script>
+
+
 
   
 
@@ -927,6 +1061,59 @@ typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;</code></pre>
 
 
 
-</body>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://luluting.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "http://luluchan.xyz/2019/11/27/PE结构/";
+    this.page.identifier = "2019/11/27/PE结构/";
+    this.page.title = 'PE结构相关';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://luluting.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
 </html>

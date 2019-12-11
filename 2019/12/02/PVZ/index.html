@@ -1,261 +1,350 @@
 <!DOCTYPE html>
-<html>
 
-<head><meta name="generator" content="Hexo 3.9.0">
-  
-  <title>PlantsVsZombies逆向 - 地獄通信</title>
+
+
+
+
+<html lang="ja">
+<head>
   <meta charset="UTF-8">
-  <meta name="description" content="俺も頑張らないと">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
 
-  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-  <meta name="description" content="展现在逆向PVZ中的一些过程">
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","width":300,"display":"post","offset":30,"onmobile":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"manual"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":true,"transition":{"post_block":"whirlIn","post_header":"whirlIn","post_body":"whirlIn","coll_header":"bounceUpIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'コピー',
+      copy_success: 'コピーしました',
+      copy_failure: 'コピーに失敗しました'
+    }
+  };
+</script>
+
+  <meta name="description" content="记录在逆向PVZ中的一些过程">
 <meta name="keywords" content="Hook,Game">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PlantsVsZombies逆向">
+<meta property="og:title" content="PlantsVsZombies逆向相关">
 <meta property="og:url" content="http://luluchan.xyz/2019/12/02/PVZ/index.html">
 <meta property="og:site_name" content="地獄通信">
-<meta property="og:description" content="展现在逆向PVZ中的一些过程">
+<meta property="og:description" content="记录在逆向PVZ中的一些过程">
 <meta property="og:locale" content="ja">
+<meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211161405.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203132000.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203141603.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203135833.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203190916.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203192719.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203200541.png">
-<meta property="og:updated_time" content="2019-12-04T14:26:32.678Z">
+<meta property="og:updated_time" content="2019-12-11T08:25:09.965Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PlantsVsZombies逆向">
-<meta name="twitter:description" content="展现在逆向PVZ中的一些过程">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203132000.png">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/css/mdui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.15.8/styles/atom-one-dark.css">
-   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+<meta name="twitter:title" content="PlantsVsZombies逆向相关">
+<meta name="twitter:description" content="记录在逆向PVZ中的一些过程">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211161405.jpg">
+  <link rel="canonical" href="http://luluchan.xyz/2019/12/02/PVZ/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>PlantsVsZombies逆向相关 | 地獄通信</title>
+  <meta name="generator" content="Hexo 3.9.0">
   
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
-  <link rel="stylesheet" href="/css/style.css?v=1575544468909">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146576917-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-146576917-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
-<body class="mdui-drawer-body-left">
-  
-  <div id="nexmoe-background">
-    <div class="nexmoe-bg" style="background-image: url(https://i.loli.net/2019/08/27/S7LugpzodICOvY5.jpg)"></div>
-    <div class="mdui-appbar mdui-shadow-0">
-      <div class="mdui-toolbar">
-        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
-        <div class="mdui-toolbar-spacer"></div>
-        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
-        <a href="/" title="ルルちゃん" class="mdui-btn mdui-btn-icon"><img src></a>
-       </div>
+<body itemscope itemtype="http://schema.org/WebPage" lang="ja">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">地獄通信</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
+        <p class="site-subtitle">お帰りなさい</p>
+      
   </div>
-  <div id="nexmoe-header">
-      <div class="nexmoe-drawer mdui-drawer" id="drawer">
-    <div class="nexmoe-avatar mdui-ripple">
-        <a href="/" title="ルルちゃん">
-            <img src alt="ルルちゃん">
-        </a>
-    </div>
-    <div class="nexmoe-count">
-        <div><span>Articles</span>7</div>
-        <div><span>Tags</span>17</div>
-        <div><span>Categories</span>4</div>
-    </div>
-    <ul class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
-        
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="Home">
-            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
-            <div class="mdui-list-item-content">
-                Home
-            </div>
-        </a>
-        
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives" title="Archives">
-            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
-            <div class="mdui-list-item-content">
-                Archives
-            </div>
-        </a>
-        
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="About blog">
-            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
-            <div class="mdui-list-item-content">
-                About blog
-            </div>
-        </a>
-        
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friends.html" title="Friends">
-            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
-            <div class="mdui-list-item-content">
-                Friends
-            </div>
-        </a>
-        
-    </ul>
-    <aside id="nexmoe-sidebar">
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Social</h3>
-    <div class="nexmoe-widget nexmoe-social">
-        <a class="mdui-ripple" href="https://osu.ppy.sh/users/12018407" target="_blank" mdui-tooltip="{content: 'Osu'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
-            <i class="nexmoefont icon-right"></i>
-        </a><a class="mdui-ripple" href="https://space.bilibili.com/11736723" target="_blank" mdui-tooltip="{content: 'Bilibili'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
-            <i class="nexmoefont icon-bilibili"></i>
-        </a><a class="mdui-ripple" href="https://steamcommunity.com/id/luluting/" target="_blank" mdui-tooltip="{content: 'Steam'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
-            <i class="nexmoefont icon-steam"></i>
-        </a>
-    </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="ナビゲーションバーの切り替え">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
+
+
+<nav class="site-nav">
   
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Categories</h3>
-    <div class="nexmoe-widget">
-
-      <ul class="category-list">
-
+  <ul id="menu" class="menu">
+      
+      
+      
         
-
-
-        
-
-        
-
-        <li class="category-list-item">
-          <a class="category-list-link" href="/categories/Record/">Record</a>
-          <span class="category-list-count">1</span>
-        </li>
-
-        
-
-        <li class="category-list-item">
-          <a class="category-list-link" href="/categories/Tech/">Tech</a>
-          <span class="category-list-count">0</span>
-        </li>
-
-        
-
-        <li class="category-list-item">
-          <a class="category-list-link" href="/categories/Unity/">Unity</a>
-          <span class="category-list-count">1</span>
-        </li>
-
-        
-
-        <li class="category-list-item">
-          <a class="category-list-link" href="/categories/Windows/">Windows</a>
-          <span class="category-list-count">5</span>
-        </li>
-
-        
-      </ul>
-
-    </div>
-  </div>
-
-
-  
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Tagcloud</h3>
-    <div id="randomtagcloud" class="nexmoe-widget tagcloud">
-      <a href="/tags/C/" style="font-size: 10px;">C</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/Hook/" style="font-size: 15px;">Hook</a> <a href="/tags/Il2cpp/" style="font-size: 10px;">Il2cpp</a> <a href="/tags/PE/" style="font-size: 10px;">PE</a> <a href="/tags/Unity3D/" style="font-size: 10px;">Unity3D</a> <a href="/tags/WIN32/" style="font-size: 10px;">WIN32</a> <a href="/tags/Windows/" style="font-size: 20px;">Windows</a> <a href="/tags/技术/" style="font-size: 20px;">技术</a> <a href="/tags/日常/" style="font-size: 10px;">日常</a> <a href="/tags/注入/" style="font-size: 10px;">注入</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/记录/" style="font-size: 10px;">记录</a>
-    </div>
+        <li class="menu-item menu-item-home">
+      
     
-      <script>
-        var maxTagcloud = parseInt(10);
-        var tags_length = parseInt(17);
-        var tags_arr = [];
-        for(var i = 0; i < tags_length; i++){
-          tags_arr.push(i);
-        }
-        tags_arr.sort(function (l, r) {
-          return Math.random() > 0.5 ? -1 : 1;
-        });
-        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
-        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
-          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
-        }
-      </script>
+      
     
-  </div>
 
-  
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Archive</h3>
-    <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul>
-    </div>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>ホーム</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>プロフィール</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>タグ<span class="badge">13</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>カテゴリ<span class="badge">3</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>アーカイブ<span class="badge">7</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
   </div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
 
 
-  
-  
-  <div class="nexmoe-widget-wrap">
-    <h3 class="nexmoe-widget-title">Recent Posts</h3>
-    <div class="nexmoe-widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/12/02/PVZ/">PlantsVsZombies逆向</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/02/HOOK/">Windows Hook</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/02/注入/">注入</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/27/PE结构/">PE结构</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/16/Unity3D-Il2cpp/">Unity3D-Il2cpp</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
 
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
   
-</aside>
-    <div class="nexmoe-copyright">
-        &copy; 2019 ルルちゃん
-        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-        & <a href="https://nexmoe.com/hexo-theme-nexmoe.html" target="_blank">Nexmoe</a>
-    </div>
-</div><!-- .nexmoe-drawer -->
-  </div>
-  <div id="nexmoe-content">
-    <div class="nexmoe-primary">
-        <div class="nexmoe-post">
-    <div class="nexmoe-post-cover"> 
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://luluchan.xyz/2019/12/02/PVZ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ルルちゃん">
+      <meta itemprop="description" content="俺も頑張らないと">
+      <meta itemprop="image" content="/images/Loli1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="地獄通信">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">PlantsVsZombies逆向相关
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">投稿日</span>
+
+              
+                
+              
+
+              <time title="作成日：2019-12-02 15:01:07" itemprop="dateCreated datePublished" datetime="2019-12-02T15:01:07+08:00">2019-12-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">編集日</span>
+                <time title="修正日：2019-12-11 16:25:09" itemprop="dateModified" datetime="2019-12-11T16:25:09+08:00">2019-12-11</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">カテゴリ</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Windows/" itemprop="url" rel="index"><span itemprop="name">Windows</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
         
-        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203120133.jpg">
-        
-        <h1>PlantsVsZombies逆向</h1>
-    </div>
-  <div class="nexmoe-post-meta">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2019年12月02日</a>
-    <a><i class="nexmoefont icon-areachart"></i>750 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 3 分钟</a>
+      
+      <span class="post-meta-item-text">Disqus：</span>
     
-      <a class="nexmoefont icon-appstore-fill -link" href="/categories/Windows/">Windows</a>
+    <a title="disqus" href="/2019/12/02/PVZ/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/02/PVZ/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
     
     
-      <a class="nexmoefont icon-tag-fill -link" href="/tags/Game/">Game</a> <a class="nexmoefont icon-tag-fill -link" href="/tags/Hook/">Hook</a>
     
-  </div>
-  <article>
-    <p>展现在逆向PVZ中的一些过程</p>
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>记录在逆向PVZ中的一些过程</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211161405.jpg" alt></p>
 <a id="more"></a>
 
 <h1 id="游戏逆向分类"><a href="#游戏逆向分类" class="headerlink" title="游戏逆向分类"></a>游戏逆向分类</h1><ul>
@@ -269,7 +358,7 @@
 <p>破解游戏客户端, 模拟客户端发包</p>
 </li>
 </ul>
-<p>本次主要为内存类的逆向</p>
+<p>本次为内存类的逆向</p>
 <h1 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h1><ul>
 <li><p>植物大战僵尸</p>
 </li>
@@ -281,23 +370,25 @@
 <h1 id="逆向过程"><a href="#逆向过程" class="headerlink" title="逆向过程"></a>逆向过程</h1><h2 id="基址寻找"><a href="#基址寻找" class="headerlink" title="基址寻找"></a>基址寻找</h2><h3 id="寻找阳光基址"><a href="#寻找阳光基址" class="headerlink" title="寻找阳光基址"></a>寻找阳光基址</h3><p>寻找过程比较简单 找到基址后原路返回</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203132000.png" alt></p>
 <p>最后定址到阳光基址如下</p>
-<pre class=" language-C"><code class="language-C">阳光基址 = [[[PlantsVsZombies.exe + 0x355E0C] + 0x868] + 0x5578]</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">阳光基址 = [[[PlantsVsZombies.exe + <span class="number">0x355E0C</span>] + <span class="number">0x868</span>] + <span class="number">0x5578</span>]</span><br></pre></td></tr></table></figure>
+
 <h3 id="寻找冷却时间的基址"><a href="#寻找冷却时间的基址" class="headerlink" title="寻找冷却时间的基址"></a>寻找冷却时间的基址</h3><p>每个植物都有自己的冷却时间</p>
 <p>所以要分析结构体的数组</p>
 <p>一栏植物结构体大小0x50字节</p>
-<pre class=" language-C"><code class="language-C">+0 (首地址)
-...
-...
-+24 冷却时间</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+<span class="number">0</span> (首地址)</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">+<span class="number">24</span> 冷却时间</span><br></pre></td></tr></table></figure>
+
 <p>基址定位</p>
-<pre class=" language-C"><code class="language-C">第n栏的冷却地址 = [[[[PlantsVsZombies.exe + 0x355E0C] + 0x868] + 0x15C] + 索引*0x50 + 0x28 + 0x24]</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第n栏的冷却地址 = [[[[PlantsVsZombies.exe + <span class="number">0x355E0C</span>] + <span class="number">0x868</span>] + <span class="number">0x15C</span>] + 索引*<span class="number">0x50</span> + <span class="number">0x28</span> + <span class="number">0x24</span>]</span><br></pre></td></tr></table></figure>
+
 <h2 id="逻辑修改"><a href="#逻辑修改" class="headerlink" title="逻辑修改"></a>逻辑修改</h2><h3 id="阳光逻辑修改"><a href="#阳光逻辑修改" class="headerlink" title="阳光逻辑修改"></a>阳光逻辑修改</h3><p>种植植物阳光减少逻辑位置</p>
-<pre class=" language-C"><code class="language-C">PlantsVsZombiesNoCool.exe + 0x27696</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PlantsVsZombiesNoCool.exe + <span class="number">0x27696</span></span><br></pre></td></tr></table></figure>
+
 <p>逻辑如下</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203141603.png" alt></p>
 <p>这里我的做法是把<code>sub</code>直接改成了<code>add</code></p>
 <h3 id="取消植物的冷却时间"><a href="#取消植物的冷却时间" class="headerlink" title="取消植物的冷却时间"></a>取消植物的冷却时间</h3><p>植物冷却时间增加位置</p>
-<pre class=" language-C"><code class="language-C">PlantsVsZombiesNoCool.exe + 0x9CDFC</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PlantsVsZombiesNoCool.exe + <span class="number">0x9CDFC</span></span><br></pre></td></tr></table></figure>
+
 <p>逻辑如下</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203135833.png" alt></p>
 <p>修改逻辑即可</p>
@@ -313,70 +404,46 @@
 <p>那先通过选中植物找到植物ID的地址</p>
 <p>找到之后查找访问 在种植的时候开始访问的地方则就是种植函数的位置了</p>
 <p>找到的种植函数地址 </p>
-<pre class=" language-C"><code class="language-C">[PlantsVsZombies.exe + 0x18D70]</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[PlantsVsZombies.exe + <span class="number">0x18D70</span>]</span><br></pre></td></tr></table></figure>
+
 <p>函数情况如下</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203190916.png" alt></p>
 <p>五个参数</p>
 <p><code>EDI,行数,列数,植物ID, -1</code></p>
 <p>还有一个参数EDI未知 去寻找一下他的基址</p>
 <p>这个参数的基址如下</p>
-<pre class=" language-C"><code class="language-C">EDI = [[PlantsVsZombies.exe+0x355E0C] + 0x868]</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EDI = [[PlantsVsZombies.exe+<span class="number">0x355E0C</span>] + <span class="number">0x868</span>]</span><br></pre></td></tr></table></figure>
+
 <p>最后尝试后得知樱桃炸弹的ID为2</p>
 <p>call测试工具测试一下能不能正常执行</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203192719.png" alt></p>
 <p>可以看到成功生效了</p>
 <p>参数</p>
-<pre class=" language-C"><code class="language-C">push -1    //固定
-push 2    //植物ID
-mov eax, 0x4    //行数
-push 4    //列数
-mov edi,ptr dword ds:[0x755e0c]
-mov edi,ptr dword ds:[edi+868]
-push edi    //EDI
-call 418d70</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">push <span class="number">-1</span>	<span class="comment">//固定</span></span><br><span class="line">push <span class="number">2</span>	<span class="comment">//植物ID</span></span><br><span class="line">mov eax, <span class="number">0x4</span>	<span class="comment">//行数</span></span><br><span class="line">push <span class="number">4</span>	<span class="comment">//列数</span></span><br><span class="line">mov edi, dword ptr ds:[<span class="number">0x755e0c</span>]</span><br><span class="line">mov edi, dword ptr ds:[edi+<span class="number">868</span>]</span><br><span class="line">push edi	<span class="comment">//EDI</span></span><br><span class="line">call <span class="number">418</span>d70</span><br></pre></td></tr></table></figure>
+
 <h3 id="控制僵尸的刷新"><a href="#控制僵尸的刷新" class="headerlink" title="控制僵尸的刷新"></a>控制僵尸的刷新</h3><p>思路就是找到刷新僵尸的call 然后顺藤摸瓜</p>
 <p>猜测参数会有行数 + ID</p>
 <p>找到修改僵尸的call后 发现周围没有类似刷新僵尸的call 就顺着堆栈往回找</p>
 <p>最后找到函数位置为</p>
-<pre class=" language-c"><code class="language-c"><span class="token punctuation">[</span>PlantsVsZombies<span class="token punctuation">.</span>exe <span class="token operator">+</span> <span class="token number">0x19A60</span><span class="token punctuation">]</span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[PlantsVsZombies.exe + <span class="number">0x19A60</span>]</span><br></pre></td></tr></table></figure>
+
 <p>函数情况如下</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203200541.png" alt></p>
 <p>三个参数</p>
 <p><code>EDI, 僵尸ID, 行数</code></p>
 <p>EDI找一下基址</p>
-<pre class=" language-C"><code class="language-C">EDI = [[PlantsVsZombies.exe + 0x355E0C] + 0x868]</code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EDI = [[PlantsVsZombies.exe + <span class="number">0x355E0C</span>] + <span class="number">0x868</span>]</span><br></pre></td></tr></table></figure>
+
 <h1 id="修改制作"><a href="#修改制作" class="headerlink" title="修改制作"></a>修改制作</h1><p>各个基址都找到咯</p>
 <p>可以开始着手写修改了</p>
-<p>偏移定义</p>
-<pre class=" language-C++"><code class="language-C++">//[PlantsVsZombies.exe + 0x355E0C]
-#define GAMEFIXEDADDRESS 0x755E0C
-//游戏开始结构
-#define GAMESTART 0x868
-//阳光基址
-#define SUNSHINEOFFSET 0x5578
-//栏位信息数组
-#define FIELDOFFSET 0x15C
-//栏位结构体大小
-#define SIZEOFFIELD 0x50</code></pre>
-<h2 id="阳光修改"><a href="#阳光修改" class="headerlink" title="阳光修改"></a>阳光修改</h2><pre class=" language-C++"><code class="language-C++">/******************************************************************************************/
-//修改阳光
-//参数: void
-//返回值: void
-/******************************************************************************************/
-void BaseTool::EditSunshine() {
-    if (ProcessHandle == NULL) {
-        cout << "请先初始化!\n" << endl;
-        return;
-    }
-    int num;
-    cout << "输入修改值:" << endl;
-    cin >> num;
-    DWORD Address = 0;
-    ReadProcessMemory(ProcessHandle, (LPCVOID)GAMEFIXEDADDRESS, (LPVOID) &Address, sizeof(DWORD), NULL);
-    ReadProcessMemory(ProcessHandle, (LPCVOID)(Address + GAMESTART), (LPVOID) &Address, sizeof(DWORD), NULL);
-    WriteProcessMemory(ProcessHandle, (LPVOID)(Address + SUNSHINEOFFSET), (LPCVOID) &num, sizeof(DWORD), NULL);
-    return;
-}</code></pre>
+<p>这里就给出关键的代码 </p>
+<p>如果想更深一步了解 不嫌弃的话可以参考<a href="https://github.com/Luluting/PVZ_Trainer" target="_blank" rel="noopener">我的项目</a>(不完整の渣代码)</p>
+<h2 id="偏移定义"><a href="#偏移定义" class="headerlink" title="偏移定义"></a>偏移定义</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//********************************************</span></span><br><span class="line"><span class="comment">/* 游戏结构 */</span></span><br><span class="line"><span class="comment">//[PlantsVsZombies.exe + 0x355E0C]</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GAMEFIXEDADDRESS 0x755E0C</span></span><br><span class="line"><span class="comment">//游戏开始结构</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GAMESTART 0x868</span></span><br><span class="line"><span class="comment">//阳光基址</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SUNSHINEOFFSET 0x5578</span></span><br><span class="line"><span class="comment">//栏位信息数组</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FIELDOFFSET 0x15C</span></span><br><span class="line"><span class="comment">//栏位结构体大小</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIZEOFFIELD 0x50</span></span><br><span class="line"><span class="comment">//种植植物call</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLANTCALL 0x418D70</span></span><br><span class="line"><span class="comment">//刷僵尸call</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZOMBIECALL 0x419a60</span></span><br><span class="line"><span class="comment">//********************************************</span></span><br><span class="line"><span class="comment">//指令</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWITCH_INIT 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWITCH_CHANGESUN 2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWITCH_NOCD 3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWITCH_KILL 4</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWITCH_ZOMBIE 5</span></span><br><span class="line"><span class="comment">//********************************************</span></span><br><span class="line"><span class="comment">//共享内存名</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ShareMemName <span class="meta-string">"PVZTrainer"</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="主程序"><a href="#主程序" class="headerlink" title="主程序"></a>主程序</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> UserInput = <span class="number">0</span>, ScanfRet = <span class="number">0</span>;</span><br><span class="line">	BaseTool baseTool;</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">		ShowMenu();</span><br><span class="line">		ScanfRet = scanf_s(<span class="string">"%d"</span>, &amp;UserInput);</span><br><span class="line">		<span class="comment">//结束判断</span></span><br><span class="line">		<span class="keyword">if</span> (ScanfRet == EOF) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//分发</span></span><br><span class="line">		<span class="keyword">switch</span>(UserInput) &#123;</span><br><span class="line">		<span class="keyword">case</span> SWITCH_INIT:</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (baseTool._getProcessID() == <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span> (baseTool.FindProcessByName(<span class="string">"PlantsVsZombies.exe"</span>)) &#123;</span><br><span class="line">					<span class="built_in">cout</span> &lt;&lt; <span class="string">"进程加载完成"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">					DWORD base = GetBaseAddr(baseTool._getProcessID());</span><br><span class="line">				&#125;				</span><br><span class="line">				<span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="built_in">cout</span> &lt;&lt; <span class="string">"进程加载失败"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">"进程已经加载完毕"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (baseTool.Inject() == <span class="literal">true</span>) &#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">"注入完成"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">"注入失败"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> SWITCH_CHANGESUN:</span><br><span class="line">		&#123;</span><br><span class="line">			baseTool.EditSunshine();</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"修改完成"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> SWITCH_NOCD:</span><br><span class="line">		&#123;</span><br><span class="line">			baseTool.NoCoolDown();</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"操作完成"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> SWITCH_KILL:</span><br><span class="line">		&#123;</span><br><span class="line">			baseTool.KillAll();</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">case</span> SWITCH_ZOMBIE: </span><br><span class="line">		&#123;</span><br><span class="line">			baseTool.CreateZombie();</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">default</span>: </span><br><span class="line">		&#123;</span><br><span class="line">			baseTool.Deject();</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		Sleep(<span class="number">1000</span>);</span><br><span class="line">		system(<span class="string">"cls"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//清理内核对象</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="阳光修改"><a href="#阳光修改" class="headerlink" title="阳光修改"></a>阳光修改</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/******************************************************************************************/</span></span><br><span class="line"><span class="comment">//修改阳光</span></span><br><span class="line"><span class="comment">//参数: void</span></span><br><span class="line"><span class="comment">//返回值: void</span></span><br><span class="line"><span class="comment">/******************************************************************************************/</span></span><br><span class="line"><span class="keyword">void</span> BaseTool::EditSunshine() &#123;</span><br><span class="line">	<span class="keyword">if</span> (ProcessHandle == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"请先初始化!\n"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"输入修改值:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; num;</span><br><span class="line">	DWORD Address = <span class="number">0</span>;</span><br><span class="line">	ReadProcessMemory(ProcessHandle, (LPCVOID)GAMEFIXEDADDRESS, (LPVOID) &amp;Address, <span class="keyword">sizeof</span>(DWORD), <span class="literal">NULL</span>);</span><br><span class="line">	ReadProcessMemory(ProcessHandle, (LPCVOID)(Address + GAMESTART), (LPVOID) &amp;Address, <span class="keyword">sizeof</span>(DWORD), <span class="literal">NULL</span>);</span><br><span class="line">	WriteProcessMemory(ProcessHandle, (LPVOID)(Address + SUNSHINEOFFSET), (LPCVOID) &amp;num, <span class="keyword">sizeof</span>(DWORD), <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="全员无冷却"><a href="#全员无冷却" class="headerlink" title="全员无冷却"></a>全员无冷却</h2><p>两种思路</p>
 <ul>
 <li>开线程刷新栏位数组</li>
@@ -385,46 +452,24 @@ void BaseTool::EditSunshine() {
 <p>前者需要通过基址经过两级跳转定址 然后开线程不停刷新每个栏位的CD</p>
 <p>而后者相对来说更简单 直接通过基址转移到对应机器码 然后进行修改或恢复就可以了</p>
 <p>这里我选择写的前者</p>
-<pre class=" language-c++"><code class="language-c++">/******************************************************************************************/
-//无冷却功能
-//参数: void
-//返回值: void
-/******************************************************************************************/
-void BaseTool::NoCoolDown() {
-    if (ProcessHandle == NULL) {
-        cout << "请先初始化!\n" << endl;
-        return;
-    }
-    if (NoCDThread != NULL) {
-        cout << "之前已经开启 现在帮您关闭" << endl;
-        TerminateThread(NoCDThread,0);
-        NoCDThread = NULL;
-        return;
-    }
-    NoCDThread = CreateThread(NULL, 0, NoCDThreadFunc, (LPVOID)ProcessHandle, NULL, NULL);
-}
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/******************************************************************************************/</span></span><br><span class="line"><span class="comment">//无冷却功能</span></span><br><span class="line"><span class="comment">//参数: void</span></span><br><span class="line"><span class="comment">//返回值: void</span></span><br><span class="line"><span class="comment">/******************************************************************************************/</span></span><br><span class="line"><span class="keyword">void</span> BaseTool::NoCoolDown() &#123;</span><br><span class="line">	<span class="keyword">if</span> (ProcessHandle == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"请先初始化!\n"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (NoCDThread != <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"之前已经开启 现在帮您关闭"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		TerminateThread(NoCDThread,<span class="number">0</span>);</span><br><span class="line">		NoCDThread = <span class="literal">NULL</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	NoCDThread = CreateThread(<span class="literal">NULL</span>, <span class="number">0</span>, NoCDThreadFunc, (LPVOID)ProcessHandle, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//线程函数</span></span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">NoCDThreadFunc</span><span class="params">(LPVOID p)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">		DWORD Address = <span class="number">0</span>;</span><br><span class="line">		ReadProcessMemory((HANDLE)p, (LPCVOID)GAMEFIXEDADDRESS, (LPVOID)&amp; Address, <span class="keyword">sizeof</span>(DWORD), <span class="literal">NULL</span>);</span><br><span class="line">		ReadProcessMemory((HANDLE)p, (LPCVOID)(Address + GAMESTART), (LPVOID)&amp; Address, <span class="keyword">sizeof</span>(DWORD), <span class="literal">NULL</span>);</span><br><span class="line">		<span class="keyword">if</span> (Address == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"请先进入游戏"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		ReadProcessMemory((HANDLE)p, (LPCVOID)(Address + FIELDOFFSET), (LPVOID)&amp; Address, <span class="keyword">sizeof</span>(DWORD), <span class="literal">NULL</span>);</span><br><span class="line">		<span class="comment">//这里忘了记录栏位数目的地址 就直接写上限了 不知道栏位没开全会不会报错</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">			DWORD tempAdd = (DWORD)((<span class="keyword">char</span>*)Address + i * <span class="number">0x50</span> + <span class="number">0x28</span> + <span class="number">0x24</span>);</span><br><span class="line">			DWORD CoolValue = <span class="number">0x100000</span>;</span><br><span class="line">			WriteProcessMemory((HANDLE)p, (LPVOID)(tempAdd), (LPVOID)&amp; CoolValue, <span class="keyword">sizeof</span>(DWORD), <span class="literal">NULL</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-//线程函数
-DWORD WINAPI NoCDThreadFunc(LPVOID p) {
-    while (true) {
-        DWORD Address = 0;
-        ReadProcessMemory((HANDLE)p, (LPCVOID)GAMEFIXEDADDRESS, (LPVOID)& Address, sizeof(DWORD), NULL);
-        ReadProcessMemory((HANDLE)p, (LPCVOID)(Address + GAMESTART), (LPVOID)& Address, sizeof(DWORD), NULL);
-        if (Address == NULL) {
-            cout << "请先进入游戏" << endl;
-            return 0;
-        }
-        ReadProcessMemory((HANDLE)p, (LPCVOID)(Address + FIELDOFFSET), (LPVOID)& Address, sizeof(DWORD), NULL);
-        //这里忘了记录栏位数目的地址 就直接写上限了 不知道栏位没开全会不会报错
-        for (int i = 0; i < 10; i++) {
-            DWORD tempAdd = (DWORD)((char*)Address + i * 0x50 + 0x28 + 0x24);
-            DWORD CoolValue = 0x100000;
-            WriteProcessMemory((HANDLE)p, (LPVOID)(tempAdd), (LPVOID)& CoolValue, sizeof(DWORD), NULL);
-        }
-    }
-    return 0;
-}</code></pre>
-<h2 id="全员秒杀"><a href="#全员秒杀" class="headerlink" title="全员秒杀"></a>全员秒杀</h2><h2 id="僵尸刷新"><a href="#僵尸刷新" class="headerlink" title="僵尸刷新"></a>僵尸刷新</h2><h1 id="内容总结"><a href="#内容总结" class="headerlink" title="内容总结"></a>内容总结</h1><p>本次实践涉及知识面</p>
+<h2 id="全员秒杀"><a href="#全员秒杀" class="headerlink" title="全员秒杀"></a>全员秒杀</h2><p>植物ID知道了</p>
+<p>写个循环遍历 在每个位置上种上一次爆炸果</p>
+<p><strong>主程序</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> BaseTool::KillAll() &#123;</span><br><span class="line">	*(<span class="keyword">int</span>*)g_pShareMemory = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DLL端</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> DllTool::KillAll() &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++) &#123;</span><br><span class="line">			__asm &#123;</span><br><span class="line">				pushad</span><br><span class="line">				pushfd</span><br><span class="line">				push - <span class="number">1</span></span><br><span class="line">				push <span class="number">2</span></span><br><span class="line">				mov eax, i</span><br><span class="line">				push j</span><br><span class="line">				mov ecx, dword ptr ds : [GAMEFIXEDADDRESS]</span><br><span class="line">				mov ecx, dword ptr ds : [ecx + GAMESTART]</span><br><span class="line">				push ecx</span><br><span class="line">				mov ecx, PLANTCALL</span><br><span class="line">				call ecx</span><br><span class="line">				popfd</span><br><span class="line">				popad</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="僵尸刷新"><a href="#僵尸刷新" class="headerlink" title="僵尸刷新"></a>僵尸刷新</h2><p>按照提示刷僵尸就行了</p>
+<p><strong>主程序</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> BaseTool::CreateZombie() &#123;</span><br><span class="line">	<span class="keyword">int</span> row = <span class="number">0</span>, zombieID = <span class="number">0</span>, num = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"选择要刷的行数:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; row;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"选择要刷的僵尸ID:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; zombieID;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"选择要刷的数量:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; num;</span><br><span class="line">	*((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">1</span>) = row;   </span><br><span class="line">	*((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">2</span>) = zombieID;</span><br><span class="line">	*((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">3</span>) = num;</span><br><span class="line">    <span class="comment">//赋值完毕再通知DLL</span></span><br><span class="line">	*(<span class="keyword">int</span>*)g_pShareMemory = SWITCH_ZOMBIE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DLL端</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> DllTool::CreateZombie() &#123;</span><br><span class="line">	<span class="keyword">int</span> row = <span class="number">0</span>, zombieID = <span class="number">0</span>, num = <span class="number">0</span>;</span><br><span class="line">	row = *((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">1</span>);</span><br><span class="line">	zombieID = *((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">2</span>);</span><br><span class="line">	num = *((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">3</span>);</span><br><span class="line">	<span class="keyword">while</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		num--;</span><br><span class="line">		__asm &#123;</span><br><span class="line">			pushad</span><br><span class="line">			pushfd</span><br><span class="line">			push row</span><br><span class="line">			push zombieID</span><br><span class="line">			mov edi, dword ptr ds : [GAMEFIXEDADDRESS]</span><br><span class="line">			mov eax, dword ptr ds : [edi + GAMESTART]</span><br><span class="line">			mov edi, ZOMBIECALL</span><br><span class="line">			call edi</span><br><span class="line">			popfd</span><br><span class="line">			popad</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="内容总结"><a href="#内容总结" class="headerlink" title="内容总结"></a>内容总结</h1><p>本次实践涉及知识面</p>
 <ul>
 <li><p>游戏内存基址寻找</p>
 </li>
@@ -435,54 +480,287 @@ DWORD WINAPI NoCDThreadFunc(LPVOID p) {
 <li><p>进程通信</p>
 </li>
 </ul>
-<p>后面准备学习更多的注入方式，以及对于这种修改的防护技术。</p>
+<p>之后需要学习更多的注入方式，以及对于这种修改的防护技术。</p>
 
-  </article>
-  
+    </div>
+
     
+    
+    
+      
 
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Hook/" rel="tag"><i class="fa fa-tag"></i> Hook</a>
+            
+              <a href="/tags/Game/" rel="tag"><i class="fa fa-tag"></i> Game</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/12/02/HOOK/" rel="next" title="Windows Hook">
+                  <i class="fa fa-chevron-left"></i> Windows Hook
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
   
-  <section class="nexmoe-comment">
-    <script id="dsq-count-scr" src="https://luluting.disqus.com/count.js" async></script>
-<div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
-        this.page.url = 'http://luluchan.xyz/2019/12/02/PVZ/'; // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://luluchan.xyz/2019/12/02/PVZ/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-</script>
-<script id="disqus-thread-script">
-    (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document;
-        var s = d.createElement('script');
-        s.src = '//luluting.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', + new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
+  
+  
+  </article>
 
-</section>
-</div>
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
- 
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          見出し
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#游戏逆向分类"><span class="nav-text">游戏逆向分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具准备"><span class="nav-text">工具准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逆向过程"><span class="nav-text">逆向过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基址寻找"><span class="nav-text">基址寻找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找阳光基址"><span class="nav-text">寻找阳光基址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找冷却时间的基址"><span class="nav-text">寻找冷却时间的基址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑修改"><span class="nav-text">逻辑修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阳光逻辑修改"><span class="nav-text">阳光逻辑修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取消植物的冷却时间"><span class="nav-text">取消植物的冷却时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外部注入"><span class="nav-text">外部注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现秒杀"><span class="nav-text">实现秒杀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制僵尸的刷新"><span class="nav-text">控制僵尸的刷新</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改制作"><span class="nav-text">修改制作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#偏移定义"><span class="nav-text">偏移定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主程序"><span class="nav-text">主程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阳光修改"><span class="nav-text">阳光修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全员无冷却"><span class="nav-text">全员无冷却</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全员秒杀"><span class="nav-text">全员秒杀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#僵尸刷新"><span class="nav-text">僵尸刷新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内容总结"><span class="nav-text">内容总结</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/Loli1.jpg"
+      alt="ルルちゃん">
+  <p class="site-author-name" itemprop="name">ルルちゃん</p>
+  <div class="site-description" itemprop="description">俺も頑張らないと</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">ポスト</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">カテゴリ</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">タグ</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://music.163.com/#/user/home?id=136999932" title="Music163 &rarr; https://music.163.com/#/user/home?id=136999932" rel="noopener" target="_blank"><i class="fa fa-fw fa-play-circle"></i>Music163</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://osu.ppy.sh/users/12018407" title="OSU &rarr; https://osu.ppy.sh/users/12018407" rel="noopener" target="_blank"><i class="fa fa-fw fa-headphones"></i>OSU</a>
+      </span>
+    
+  </div>
 
 
- 
-    <script src="https://cdn.jsdelivr.net/npm/smoothscroll-for-websites@1.4.9/SmoothScroll.min.js"></script>
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-users"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.t1r3d.com/" title="https://blog.t1r3d.com/" rel="noopener" target="_blank">T1r3d</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://mskzj.github.io" title="https://mskzj.github.io" rel="noopener" target="_blank">太空独角兽</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+      </div>
+    </main>
 
-<script src="/js/app.js?v=1575544468916"></script>
-<script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.0/lazysizes.min.js"></script>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ルルちゃん</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">テーマ – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
 
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script><script src="/js/bookmark.js?v=7.3.0"></script>
+
+
 
   
 
@@ -490,6 +768,59 @@ DWORD WINAPI NoCDThreadFunc(LPVOID p) {
 
 
 
-</body>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://luluting.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "http://luluchan.xyz/2019/12/02/PVZ/";
+    this.page.identifier = "2019/12/02/PVZ/";
+    this.page.title = 'PlantsVsZombies逆向相关';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://luluting.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
 </html>
