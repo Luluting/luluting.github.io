@@ -64,7 +64,7 @@
 <meta property="og:description" content="HOOK多好玩啊 掌握程序逻辑的权利 核心玩家必备 记录一下HOOK的学习">
 <meta property="og:locale" content="ja">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211163018.jpg">
-<meta property="og:updated_time" content="2019-12-11T08:35:27.997Z">
+<meta property="og:updated_time" content="2019-12-12T01:55:39.891Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows Hook">
 <meta name="twitter:description" content="HOOK多好玩啊 掌握程序逻辑的权利 核心玩家必备 记录一下HOOK的学习">
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">編集日</span>
-                <time title="修正日：2019-12-11 16:35:27" itemprop="dateModified" datetime="2019-12-11T16:35:27+08:00">2019-12-11</time>
+                <time title="修正日：2019-12-12 09:55:39" itemprop="dateModified" datetime="2019-12-12T09:55:39+08:00">2019-12-12</time>
               </span>
             
           
@@ -352,14 +352,24 @@
 </li>
 </ul>
 <h1 id="0x01-HOOK原理"><a href="#0x01-HOOK原理" class="headerlink" title="0x01 HOOK原理"></a>0x01 HOOK原理</h1><h2 id="I-API-HOOK"><a href="#I-API-HOOK" class="headerlink" title="I. API HOOK"></a>I. API HOOK</h2><p>从API下手 想办法转到我们的代码</p>
+<ul>
+<li>IAT Hook</li>
+<li>Inline Hook</li>
+</ul>
 <h3 id="1-IAT-Hook"><a href="#1-IAT-Hook" class="headerlink" title="1. IAT Hook"></a>1. IAT Hook</h3><p>Ring0/Ring3通用</p>
-<p>修改IAT表内的函数地址</p>
-<p>先得到目标函数的地址</p>
-<p>然后替换为我自己函数的地址 </p>
-<p><strong>缺点</strong></p>
+<p>原理就是修改IAT表内的函数地址</p>
+<ul>
+<li><p>先得到目标函数的地址</p>
+</li>
+<li><p>寻址到IAT表 然后对比地址 找到要替换的位置</p>
+</li>
+<li><p>将IAT表内的函数地址替换为我自己函数的地址 </p>
+</li>
+</ul>
+<p><strong>局限性</strong></p>
 <p>不能Hook非静态导入函数(如自己定义的函数/动态Load+GetProc二连的函数等)</p>
 <h3 id="2-Inline-Hook"><a href="#2-Inline-Hook" class="headerlink" title="2. Inline Hook"></a>2. Inline Hook</h3><p>Ring0/Ring3通用 </p>
-<p>原理就是修改指令机器码为跳转</p>
+<p>原理就是修改指令机器码 在API逻辑中间跳转出去执行我们的代码 之后视情况再跳回去</p>
 <p><strong>关于Inline Hook中受影响的指令</strong></p>
 <p>不能直接跳回去</p>
 <p>比如HOOK的时候改了两行代码</p>
@@ -369,7 +379,9 @@
 <p>取消HOOK就将保存的机器码覆盖回去就行了</p>
 <h1 id="0x03-HOOK框架"><a href="#0x03-HOOK框架" class="headerlink" title="0x03 HOOK框架"></a>0x03 HOOK框架</h1><p>HOOK原理懂了之后</p>
 <p>现在有一些框架对这些HOOK方式的实施方法进行了封装 </p>
-<p>造好了轮子方便我们利用 不用白不用咯</p>
+<p>造好了轮子方便我们利用 </p>
+<p>俗话说 “工欲善其事，必先利其器”</p>
+<p>用好框架也是很关键的</p>
 <h2 id="I-MinHook"><a href="#I-MinHook" class="headerlink" title="I. MinHook"></a>I. MinHook</h2><p>待填</p>
 
     </div>
