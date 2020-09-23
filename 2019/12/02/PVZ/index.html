@@ -1,109 +1,69 @@
 <!DOCTYPE html>
-
-
-
-
-
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico?v=7.3.0">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+<link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 <script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '7.3.0',
-    exturl: false,
-    sidebar: {"position":"left","width":300,"display":"post","offset":30,"onmobile":true},
-    copycode: {"enable":true,"show_result":true,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
-    bookmark: {"enable":true,"color":"#222","save":"manual"},
-    fancybox: true,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: true,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":true,"transition":{"post_block":"whirlIn","post_header":"whirlIn","post_body":"whirlIn","coll_header":"bounceUpIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'コピー',
-      copy_success: 'コピーしました',
-      copy_failure: 'コピーに失敗しました'
-    }
-  };
-</script>
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luluting.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#333","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="记录在逆向PVZ中的一些过程">
 <meta name="keywords" content="Hook,Game">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PlantsVsZombies逆向相关">
-<meta property="og:url" content="http://luluchan.xyz/2019/12/02/PVZ/index.html">
-<meta property="og:site_name" content="あなたが、生きて。">
+<meta property="og:url" content="https://luluting.github.io/2019/12/02/PVZ/index.html">
+<meta property="og:site_name" content="未来へ">
 <meta property="og:description" content="记录在逆向PVZ中的一些过程">
 <meta property="og:locale" content="ja">
-<meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211161405.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203132000.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203141603.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203135833.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203190916.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203192719.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203200541.png">
-<meta property="og:updated_time" content="2019-12-11T09:15:30.493Z">
+<meta property="og:updated_time" content="2020-06-18T14:47:17.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PlantsVsZombies逆向相关">
 <meta name="twitter:description" content="记录在逆向PVZ中的一些过程">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211161405.jpg">
-  <link rel="canonical" href="http://luluchan.xyz/2019/12/02/PVZ/">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203132000.png">
+
+<link rel="canonical" href="https://luluting.github.io/2019/12/02/PVZ/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
+    isHome : false,
+    isPost : true,
+    lang   : 'ja'
   };
 </script>
 
-  <title>PlantsVsZombies逆向相关 | あなたが、生きて。</title>
-  <meta name="generator" content="Hexo 3.9.0">
+  <title>PlantsVsZombies逆向相关 | 未来へ</title>
   
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146576917-1"></script>
-  <script>
-    var host = window.location.hostname;
-    if (host !== "localhost" || !true) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-146576917-1');
-    }
-  </script>
-
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146576917-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-146576917-1');
+      }
+    </script>
 
 
 
@@ -122,7 +82,6 @@
   .use-motion .post-body,
   .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -136,106 +95,72 @@
 
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="ja">
+<body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
-
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">あなたが、生きて。</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="ナビゲーションバーの切り替え">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-        <p class="site-subtitle">-I was born for you-</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="ナビゲーションバーの切り替え">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">未来へ</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">-ほら前を見てごらん-</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
+
+
 <nav class="site-nav">
-  
   <ul id="menu" class="menu">
-      
-      
-      
-        
         <li class="menu-item menu-item-home">
-      
-    
-      
-    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>ホーム</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>ホーム</a>
 
   </li>
-      
-      
-      
-        
         <li class="menu-item menu-item-about">
-      
-    
-      
-    
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>プロフィール</a>
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>プロフィール</a>
 
   </li>
-      
-      
-      
-        
         <li class="menu-item menu-item-tags">
-      
-    
-      
-    
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>タグ<span class="badge">13</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>タグ<span class="badge">13</span></a>
 
   </li>
-      
-      
-      
-        
         <li class="menu-item menu-item-categories">
-      
-    
-      
-    
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>カテゴリ<span class="badge">3</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>カテゴリ<span class="badge">3</span></a>
 
   </li>
-      
-      
-      
-        
         <li class="menu-item menu-item-archives">
-      
-    
-      
-    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>アーカイブ<span class="badge">7</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>アーカイブ<span class="badge">7</span></a>
 
   </li>
   </ul>
-
 </nav>
+
+
+
+
 </div>
     </header>
 
@@ -244,38 +169,35 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
-  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
             
 
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-      <article itemscope itemtype="http://schema.org/Article">
+    
   
   
-  
-  <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="http://luluchan.xyz/2019/12/02/PVZ/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ja">
+    <link itemprop="mainEntityOfPage" href="https://luluting.github.io/2019/12/02/PVZ/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Loli1.jpg">
       <meta itemprop="name" content="ルルちゃん">
       <meta itemprop="description" content="俺も頑張らないと">
-      <meta itemprop="image" content="/images/Loli1.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="あなたが、生きて。">
+      <meta itemprop="name" content="未来へ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">PlantsVsZombies逆向相关
-
-          
+        <h1 class="post-title" itemprop="name headline">
+          PlantsVsZombies逆向相关
         </h1>
 
         <div class="post-meta">
@@ -285,38 +207,24 @@
               </span>
               <span class="post-meta-item-text">投稿日</span>
 
-              
-                
-              
-
               <time title="作成日：2019-12-02 15:01:07" itemprop="dateCreated datePublished" datetime="2019-12-02T15:01:07+08:00">2019-12-02</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">編集日</span>
-                <time title="修正日：2019-12-11 17:15:30" itemprop="dateModified" datetime="2019-12-11T17:15:30+08:00">2019-12-11</time>
+                <time title="修正日：2020-06-18 22:47:17" itemprop="dateModified" datetime="2020-06-18T22:47:17+08:00">2020-06-18</time>
               </span>
-            
-          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">カテゴリ</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Windows/" itemprop="url" rel="index"><span itemprop="name">Windows</span></a></span>
-
-                
-                
-              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Windows/" itemprop="url" rel="index"><span itemprop="name">Windows</span></a>
+                </span>
             </span>
-          
 
           
   
@@ -325,11 +233,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2019/12/02/PVZ/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/02/PVZ/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/2019/12/02/PVZ/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/02/PVZ/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -344,7 +252,6 @@
 
       
         <p>记录在逆向PVZ中的一些过程</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191211161405.jpg" alt></p>
 <a id="more"></a>
 
 <h1 id="0x01-前期准备"><a href="#0x01-前期准备" class="headerlink" title="0x01 前期准备"></a>0x01 前期准备</h1><h2 id="I-游戏逆向分类"><a href="#I-游戏逆向分类" class="headerlink" title="I. 游戏逆向分类"></a>I. 游戏逆向分类</h2><ul>
@@ -469,7 +376,19 @@
 <p><strong>DLL端</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> DllTool::CreateZombie() &#123;</span><br><span class="line">	<span class="keyword">int</span> row = <span class="number">0</span>, zombieID = <span class="number">0</span>, num = <span class="number">0</span>;</span><br><span class="line">	row = *((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">1</span>);</span><br><span class="line">	zombieID = *((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">2</span>);</span><br><span class="line">	num = *((<span class="keyword">int</span>*)(g_pShareMemory)+<span class="number">3</span>);</span><br><span class="line">	<span class="keyword">while</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		num--;</span><br><span class="line">		__asm &#123;</span><br><span class="line">			pushad</span><br><span class="line">			pushfd</span><br><span class="line">			push row</span><br><span class="line">			push zombieID</span><br><span class="line">			mov edi, dword ptr ds : [GAMEFIXEDADDRESS]</span><br><span class="line">			mov eax, dword ptr ds : [edi + GAMESTART]</span><br><span class="line">			mov edi, ZOMBIECALL</span><br><span class="line">			call edi</span><br><span class="line">			popfd</span><br><span class="line">			popad</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="0x04-内容总结"><a href="#0x04-内容总结" class="headerlink" title="0x04 内容总结"></a>0x04 内容总结</h1><p>本次实践涉及知识面</p>
+<h1 id="0x05-添加-过掉检测"><a href="#0x05-添加-过掉检测" class="headerlink" title="0x05 添加/过掉检测"></a>0x05 添加/过掉检测</h1><h2 id="添加检测"><a href="#添加检测" class="headerlink" title="添加检测"></a>添加检测</h2><p>外置检测 这里可以通过DLL劫持注入代码</p>
+<p>保护的思路</p>
+<ul>
+<li><p>从游戏的关键数据下手</p>
+<p>用线程扫描相关数据位置 不满足逻辑条件 则判断被修改</p>
+</li>
+<li><p>从数据完整性下手</p>
+<p>这里可以用CRC校验</p>
+<p>游戏启动时先计算CRC值</p>
+<p>然后开线程和初始CRC进行对比</p>
+</li>
+</ul>
+<h1 id="0x06-内容总结"><a href="#0x06-内容总结" class="headerlink" title="0x06 内容总结"></a>0x06 内容总结</h1><p>本次实践涉及知识面</p>
 <ul>
 <li><p>游戏内存基址寻找</p>
 </li>
@@ -487,227 +406,124 @@
     
     
     
-      
-
-        
-      
 
       <footer class="post-footer">
-          
-            
-          
           <div class="post-tags">
-            
-              <a href="/tags/Hook/" rel="tag"><i class="fa fa-tag"></i> Hook</a>
-            
-              <a href="/tags/Game/" rel="tag"><i class="fa fa-tag"></i> Game</a>
-            
+              <a href="/tags/Hook/" rel="tag"># Hook</a>
+              <a href="/tags/Game/" rel="tag"># Game</a>
           </div>
-        
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2019/12/02/HOOK/" rel="next" title="Windows Hook">
-                  <i class="fa fa-chevron-left"></i> Windows Hook
-                </a>
-              
-            </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-            </div>
-          </div>
         
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/02/HOOK/" rel="prev" title="Windows Hook">
+      <i class="fa fa-chevron-left"></i> Windows Hook
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
     
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-  </div>
 
 
           </div>
           
     
-    
-  <div class="comments" id="comments">
+  <div class="comments">
     <div id="disqus_thread">
       <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
     </div>
   </div>
   
-  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
   <aside class="sidebar">
     <div class="sidebar-inner">
-        
-        
-        
-        
-      
 
       <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+        <li class="sidebar-nav-toc">
           見出し
         </li>
-        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+        <li class="sidebar-nav-overview">
           概要
         </li>
       </ul>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-前期准备"><span class="nav-text">0x01 前期准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-游戏逆向分类"><span class="nav-text">I. 游戏逆向分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-工具准备"><span class="nav-text">II. 工具准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-逆向过程"><span class="nav-text">0x02 逆向过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-基址寻找"><span class="nav-text">I. 基址寻找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-寻找阳光基址"><span class="nav-text">1. 寻找阳光基址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-寻找冷却时间的基址"><span class="nav-text">2. 寻找冷却时间的基址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-逻辑修改"><span class="nav-text">II. 逻辑修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-阳光逻辑修改"><span class="nav-text">1. 阳光逻辑修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-取消植物的冷却时间"><span class="nav-text">2. 取消植物的冷却时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#III-外部注入"><span class="nav-text">III. 外部注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-实现秒杀"><span class="nav-text">1. 实现秒杀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-控制僵尸的刷新"><span class="nav-text">2. 控制僵尸的刷新</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-修改制作"><span class="nav-text">0x03 修改制作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-偏移定义"><span class="nav-text">I. 偏移定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-主程序"><span class="nav-text">II. 主程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#III-阳光修改"><span class="nav-text">III. 阳光修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IV-全员无冷却"><span class="nav-text">IV. 全员无冷却</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V-全员秒杀"><span class="nav-text">V. 全员秒杀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VI-僵尸刷新"><span class="nav-text">VI. 僵尸刷新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-内容总结"><span class="nav-text">0x04 内容总结</span></a></li></ol></div>
-        
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-前期准备"><span class="nav-number">1.</span> <span class="nav-text">0x01 前期准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-游戏逆向分类"><span class="nav-number">1.1.</span> <span class="nav-text">I. 游戏逆向分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-工具准备"><span class="nav-number">1.2.</span> <span class="nav-text">II. 工具准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-逆向过程"><span class="nav-number">2.</span> <span class="nav-text">0x02 逆向过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-基址寻找"><span class="nav-number">2.1.</span> <span class="nav-text">I. 基址寻找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-寻找阳光基址"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. 寻找阳光基址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-寻找冷却时间的基址"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. 寻找冷却时间的基址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-逻辑修改"><span class="nav-number">2.2.</span> <span class="nav-text">II. 逻辑修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-阳光逻辑修改"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 阳光逻辑修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-取消植物的冷却时间"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 取消植物的冷却时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#III-外部注入"><span class="nav-number">2.3.</span> <span class="nav-text">III. 外部注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-实现秒杀"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 实现秒杀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-控制僵尸的刷新"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. 控制僵尸的刷新</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-修改制作"><span class="nav-number">3.</span> <span class="nav-text">0x03 修改制作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-偏移定义"><span class="nav-number">3.1.</span> <span class="nav-text">I. 偏移定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-主程序"><span class="nav-number">3.2.</span> <span class="nav-text">II. 主程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#III-阳光修改"><span class="nav-number">3.3.</span> <span class="nav-text">III. 阳光修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IV-全员无冷却"><span class="nav-number">3.4.</span> <span class="nav-text">IV. 全员无冷却</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V-全员秒杀"><span class="nav-number">3.5.</span> <span class="nav-text">V. 全员秒杀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VI-僵尸刷新"><span class="nav-number">3.6.</span> <span class="nav-text">VI. 僵尸刷新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-添加-过掉检测"><span class="nav-number">4.</span> <span class="nav-text">0x05 添加/过掉检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加检测"><span class="nav-number">4.1.</span> <span class="nav-text">添加检测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x06-内容总结"><span class="nav-number">5.</span> <span class="nav-text">0x06 内容总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image"
-      src="/images/Loli1.jpg"
-      alt="ルルちゃん">
+    <img class="site-author-image" itemprop="image" alt="ルルちゃん"
+      src="/images/Loli1.jpg">
   <p class="site-author-name" itemprop="name">ルルちゃん</p>
   <div class="site-description" itemprop="description">俺も頑張らないと</div>
 </div>
-  <nav class="site-state motion-element">
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        
           <a href="/archives/">
         
           <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">ポスト</span>
         </a>
       </div>
-    
-      
-      
       <div class="site-state-item site-state-categories">
-        
-          
             <a href="/categories/">
           
-        
-        
-        
-          
-        
-          
-        
-          
-        
         <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">カテゴリ</span>
-        </a>
+        <span class="site-state-item-name">カテゴリ</span></a>
       </div>
-    
-      
-      
       <div class="site-state-item site-state-tags">
-        
-          
             <a href="/tags/">
           
-        
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
         <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">タグ</span>
-        </a>
+        <span class="site-state-item-name">タグ</span></a>
       </div>
-    
   </nav>
-  <div class="chat motion-element"><i class="fa fa-comment"></i>
-    Chat
-  </a>
-  </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="https://music.163.com/#/user/home?id=136999932" title="Music163 &rarr; https://music.163.com/#/user/home?id=136999932" rel="noopener" target="_blank"><i class="fa fa-fw fa-play-circle"></i>Music163</a>
-      </span>
-    
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="https://osu.ppy.sh/users/12018407" title="OSU &rarr; https://osu.ppy.sh/users/12018407" rel="noopener" target="_blank"><i class="fa fa-fw fa-headphones"></i>OSU</a>
-      </span>
-    
-  </div>
+</div>
 
 
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-users"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://blog.t1r3d.com/" title="https://blog.t1r3d.com/" rel="noopener" target="_blank">T1r3d</a>
-        </li>
-      
-        <li class="links-of-blogroll-item">
-          <a href="https://mskzj.github.io" title="https://mskzj.github.io" rel="noopener" target="_blank">太空独角兽</a>
-        </li>
-      
-    </ul>
-  </div>
 
       </div>
 
@@ -719,17 +535,23 @@
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">ルルちゃん</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">テーマ – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
 
         
 
@@ -740,25 +562,17 @@
 
 
 
-
-
-
-
-        
       </div>
     </footer>
   </div>
 
   
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
-<script src="/js/schemes/pisces.js?v=7.3.0"></script>
-
-<script src="/js/next-boot.js?v=7.3.0"></script><script src="/js/bookmark.js?v=7.3.0"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
 
 
@@ -777,14 +591,6 @@
 
 
 
-
-
-
-
-
-
-
-  
 
   
 
@@ -793,7 +599,7 @@
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
-    s.src = 'https://luluting.disqus.com/count.js';
+    s.src = 'https://Luluting.disqus.com/count.js';
     s.id = 'dsq-count-scr';
     (d.head || d.body).appendChild(s);
   }
@@ -801,11 +607,12 @@
   window.addEventListener('load', loadCount, false);
 </script>
 <script>
-  function disqus_config() {
-    this.page.url = "http://luluchan.xyz/2019/12/02/PVZ/";
+  var disqus_config = function() {
+    this.page.url = "https://luluting.github.io/2019/12/02/PVZ/";
     this.page.identifier = "2019/12/02/PVZ/";
-    this.page.title = 'PlantsVsZombies逆向相关';};
-  function loadComments() {
+    this.page.title = "PlantsVsZombies逆向相关";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
       DISQUS.reset({
         reload: true,
@@ -813,13 +620,11 @@
       });
     } else {
       var d = document, s = d.createElement('script');
-      s.src = 'https://luluting.disqus.com/embed.js';
+      s.src = 'https://Luluting.disqus.com/embed.js';
       s.setAttribute('data-timestamp', '' + +new Date());
       (d.head || d.body).appendChild(s);
     }
-  }
-    window.addEventListener('load', loadComments, false);
-  
+  });
 </script>
 
 </body>
