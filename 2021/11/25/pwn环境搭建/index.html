@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211125230935189.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211124230630164.png">
 <meta property="article:published_time" content="2021-11-25T14:01:45.000Z">
-<meta property="article:modified_time" content="2021-11-25T14:14:54.806Z">
+<meta property="article:modified_time" content="2021-11-25T15:00:40.510Z">
 <meta property="article:author" content="Luluting">
 <meta property="article:tag" content="Pwn">
 <meta property="article:tag" content="配环境">
@@ -123,7 +123,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PWN%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">PWN环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">配置系统环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2%E6%BA%90-APT%E6%9B%B4%E6%96%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">更换源+APT更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85GCC"><span class="nav-number">1.1.2.</span> <span class="nav-text">安装GCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Python-PIP"><span class="nav-number">1.1.3.</span> <span class="nav-text">安装Python+PIP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Git"><span class="nav-number">1.1.4.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="nav-number">1.1.5.</span> <span class="nav-text">设置代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEPWN%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">配置PWN环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85pwntools"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装pwntools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85gdb"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装gdb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85pwndbg"><span class="nav-number">1.2.3.</span> <span class="nav-text">安装pwndbg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85peda%E6%8F%92%E4%BB%B6"><span class="nav-number">1.2.4.</span> <span class="nav-text">安装peda插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85gef%E6%8F%92%E4%BB%B6"><span class="nav-number">1.2.5.</span> <span class="nav-text">安装gef插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%8F%92%E4%BB%B6%E9%80%89%E6%8B%A9%E8%84%9A%E6%9C%AC"><span class="nav-number">1.2.6.</span> <span class="nav-text">设置插件选择脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%8532%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%94%AF%E6%8C%81"><span class="nav-number">1.2.7.</span> <span class="nav-text">安装32位程序支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85qemu"><span class="nav-number">1.2.8.</span> <span class="nav-text">安装qemu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85LibcSercher"><span class="nav-number">1.2.9.</span> <span class="nav-text">安装LibcSercher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85ROPgadget%E4%BB%A5%E5%8F%8Aone-gadget"><span class="nav-number">1.2.10.</span> <span class="nav-text">安装ROPgadget以及one_gadget</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%86%B2"><span class="nav-number">1.3.</span> <span class="nav-text">开冲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">1.4.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PWN%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">PWN环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83"><span class="nav-text">0x01 配置系统环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#I-%E6%9B%B4%E6%8D%A2%E6%BA%90-APT%E6%9B%B4%E6%96%B0"><span class="nav-text">I.更换源+APT更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#II-%E5%AE%89%E8%A3%85GCC"><span class="nav-text">II.安装GCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#III-%E5%AE%89%E8%A3%85Python-PIP"><span class="nav-text">III.安装Python+PIP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IV-%E5%AE%89%E8%A3%85Git"><span class="nav-text">IV.安装Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="nav-text">V.设置代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VI-%E9%85%8D%E7%BD%AEPWN%E7%8E%AF%E5%A2%83"><span class="nav-text">VI.配置PWN环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VII-%E5%AE%89%E8%A3%85pwntools"><span class="nav-text">VII.安装pwntools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VIII-%E5%AE%89%E8%A3%85gdb"><span class="nav-text">VIII.安装gdb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IX-%E5%AE%89%E8%A3%85pwndbg"><span class="nav-text">IX.安装pwndbg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#X-%E5%AE%89%E8%A3%85peda%E6%8F%92%E4%BB%B6"><span class="nav-text">X.安装peda插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XI-%E5%AE%89%E8%A3%85gef%E6%8F%92%E4%BB%B6"><span class="nav-text">XI.安装gef插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XII-%E8%AE%BE%E7%BD%AE%E6%8F%92%E4%BB%B6%E9%80%89%E6%8B%A9%E8%84%9A%E6%9C%AC"><span class="nav-text">XII.设置插件选择脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XIII-%E5%AE%89%E8%A3%8532%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%94%AF%E6%8C%81"><span class="nav-text">XIII.安装32位程序支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XIV-%E5%AE%89%E8%A3%85qemu"><span class="nav-text">XIV.安装qemu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XV-%E5%AE%89%E8%A3%85LibcSercher"><span class="nav-text">XV.安装LibcSercher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XVI-%E5%AE%89%E8%A3%85ROPgadget%E4%BB%A5%E5%8F%8Aone-gadget"><span class="nav-text">XVI.安装ROPgadget以及one_gadget</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-%E5%BC%80%E5%86%B2"><span class="nav-text">0x02 开冲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">0x03 参考链接</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -219,10 +219,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2021-11-25 23:01:45 / Modified: 23:14:54" itemprop="dateCreated datePublished" datetime="2021-11-25T23:01:45+09:00">2021-11-25</time>
+      <time title="Created: 2021-11-25 23:01:45" itemprop="dateCreated datePublished" datetime="2021-11-25T23:01:45+09:00">2021-11-25</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-11-26 00:00:40" itemprop="dateModified" datetime="2021-11-26T00:00:40+09:00">2021-11-26</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -256,50 +262,50 @@
 
 
 
-<h1 id="PWN环境搭建"><a href="#PWN环境搭建" class="headerlink" title="PWN环境搭建"></a>PWN环境搭建</h1><h2 id="配置系统环境"><a href="#配置系统环境" class="headerlink" title="配置系统环境"></a>配置系统环境</h2><p>Ubuntu 18.04</p>
+<h1 id="PWN环境搭建"><a href="#PWN环境搭建" class="headerlink" title="PWN环境搭建"></a>PWN环境搭建</h1><h2 id="0x01-配置系统环境"><a href="#0x01-配置系统环境" class="headerlink" title="0x01 配置系统环境"></a>0x01 配置系统环境</h2><p>Ubuntu 18.04</p>
 <p>VMware虚拟机</p>
-<h3 id="更换源-APT更新"><a href="#更换源-APT更新" class="headerlink" title="更换源+APT更新"></a>更换源+APT更新</h3><p>注意选择合适的系统版本 这里推荐清华源</p>
+<h3 id="I-更换源-APT更新"><a href="#I-更换源-APT更新" class="headerlink" title="I.更换源+APT更新"></a>I.更换源+APT更新</h3><p>注意选择合适的系统版本 这里推荐清华源</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211124230630164.png" alt="image-20211124230630164"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update &amp;&amp; sudo apt upgrade</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装GCC"><a href="#安装GCC" class="headerlink" title="安装GCC"></a>安装GCC</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install gcc</span><br></pre></td></tr></table></figure>
+<h3 id="II-安装GCC"><a href="#II-安装GCC" class="headerlink" title="II.安装GCC"></a>II.安装GCC</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install gcc</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装Python-PIP"><a href="#安装Python-PIP" class="headerlink" title="安装Python+PIP"></a>安装Python+PIP</h3><p>ubuntu自带python3</p>
+<h3 id="III-安装Python-PIP"><a href="#III-安装Python-PIP" class="headerlink" title="III.安装Python+PIP"></a>III.安装Python+PIP</h3><p>ubuntu自带python3</p>
 <p>安装python2 + pip2 + pip3</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install python python-pip python-dev libssl-dev libffi-dev build-essential</span><br><span class="line">$ pip install -U setuptools</span><br><span class="line">$ pip install --upgrade pip	</span><br><span class="line">$ sudo apt install python3-pip</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br></pre></td></tr></table></figure>
+<h3 id="IV-安装Git"><a href="#IV-安装Git" class="headerlink" title="IV.安装Git"></a>IV.安装Git</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br></pre></td></tr></table></figure>
 
 <p>现在git被墙 需要代理</p>
-<h3 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h3><p>参考此文<a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup/blob/master/Ubuntu.md">electron-ssr-backup/Ubuntu.md at master · qingshuisiyuan/electron-ssr-backup (github.com)</a></p>
+<h3 id="V-设置代理"><a href="#V-设置代理" class="headerlink" title="V.设置代理"></a>V.设置代理</h3><p>参考此文<a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup/blob/master/Ubuntu.md">electron-ssr-backup/Ubuntu.md at master · qingshuisiyuan/electron-ssr-backup (github.com)</a></p>
 <p> 这里遇到了一点小问题 不能使用</p>
 <p>最终是用手动设置代理的方式完成的</p>
-<h2 id="配置PWN环境"><a href="#配置PWN环境" class="headerlink" title="配置PWN环境"></a>配置PWN环境</h2><p>下面开始安装pwn相关的</p>
-<h3 id="安装pwntools"><a href="#安装pwntools" class="headerlink" title="安装pwntools"></a>安装pwntools</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade pwntools</span><br></pre></td></tr></table></figure>
+<h2 id="VI-配置PWN环境"><a href="#VI-配置PWN环境" class="headerlink" title="VI.配置PWN环境"></a>VI.配置PWN环境</h2><p>下面开始安装pwn相关的</p>
+<h3 id="VII-安装pwntools"><a href="#VII-安装pwntools" class="headerlink" title="VII.安装pwntools"></a>VII.安装pwntools</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade pwntools</span><br></pre></td></tr></table></figure>
 
 <p>慢的话可以指定清华源</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pwntools -i https://pypi.tuna.tsinghua.edu.cn/simple/</span><br></pre></td></tr></table></figure>
 
 <p>个人使用的是python2版本，需要注意一下。pwntools现在支持python3了，这里给出GitHub地址，有需要的可以参考其readme进行安装python3的pwntools。<br><a target="_blank" rel="noopener" href="https://github.com/arthaud/python3-pwntools">支持python3的pwntools</a></p>
 <p>安装完成后，打开python测试, 执行<code>from pwn import *</code>不会报错即可。<br>（备注：在mac平台下不要使用pip安装，你会怀疑人生的，使用homebrew安装）</p>
-<h3 id="安装gdb"><a href="#安装gdb" class="headerlink" title="安装gdb"></a>安装gdb</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install gdb</span><br></pre></td></tr></table></figure>
+<h3 id="VIII-安装gdb"><a href="#VIII-安装gdb" class="headerlink" title="VIII.安装gdb"></a>VIII.安装gdb</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install gdb</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装pwndbg"><a href="#安装pwndbg" class="headerlink" title="安装pwndbg"></a>安装pwndbg</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/pwndbg/pwndbg</span><br><span class="line"><span class="built_in">cd</span> pwndbg</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure>
+<h3 id="IX-安装pwndbg"><a href="#IX-安装pwndbg" class="headerlink" title="IX.安装pwndbg"></a>IX.安装pwndbg</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/pwndbg/pwndbg</span><br><span class="line"><span class="built_in">cd</span> pwndbg</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装peda插件"><a href="#安装peda插件" class="headerlink" title="安装peda插件"></a>安装peda插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/pwndbg/pwndbg</span><br><span class="line"><span class="built_in">cd</span> pwndbg</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure>
+<h3 id="X-安装peda插件"><a href="#X-安装peda插件" class="headerlink" title="X.安装peda插件"></a>X.安装peda插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/pwndbg/pwndbg</span><br><span class="line"><span class="built_in">cd</span> pwndbg</span><br><span class="line">./setup.sh</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装gef插件"><a href="#安装gef插件" class="headerlink" title="安装gef插件"></a>安装gef插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh| sh</span><br><span class="line">wget -q -O ~/.gdbinit-gef.py https://github.com/hugsy/gef/raw/master/gef.py</span><br><span class="line"><span class="built_in">echo</span> <span class="built_in">source</span> ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit</span><br></pre></td></tr></table></figure>
+<h3 id="XI-安装gef插件"><a href="#XI-安装gef插件" class="headerlink" title="XI.安装gef插件"></a>XI.安装gef插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh| sh</span><br><span class="line">wget -q -O ~/.gdbinit-gef.py https://github.com/hugsy/gef/raw/master/gef.py</span><br><span class="line"><span class="built_in">echo</span> <span class="built_in">source</span> ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit</span><br></pre></td></tr></table></figure>
 
 <p>实际安装的时候wget不太好使 貌似没法走代理</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh</span><br></pre></td></tr></table></figure>
 
 <p>去掉-q和|sh参数 直接下载 手动拷贝到合适位置 用于加载插件</p>
-<h3 id="设置插件选择脚本"><a href="#设置插件选择脚本" class="headerlink" title="设置插件选择脚本"></a>设置插件选择脚本</h3><p>使用GDB的时候需要根据合适的环境选择合适的插件</p>
+<h3 id="XII-设置插件选择脚本"><a href="#XII-设置插件选择脚本" class="headerlink" title="XII.设置插件选择脚本"></a>XII.设置插件选择脚本</h3><p>使用GDB的时候需要根据合适的环境选择合适的插件</p>
 <p>一次只能使用一个 所以有一个三合一管理脚本会方便许多</p>
 <p>参考地址<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/94a71af2022a">GDB插件控制——切换pwndbg,peda,gef - 简书 (jianshu.com)</a></p>
-<h3 id="安装32位程序支持"><a href="#安装32位程序支持" class="headerlink" title="安装32位程序支持"></a>安装32位程序支持</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libc6-dev-i386</span><br></pre></td></tr></table></figure>
+<h3 id="XIII-安装32位程序支持"><a href="#XIII-安装32位程序支持" class="headerlink" title="XIII.安装32位程序支持"></a>XIII.安装32位程序支持</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libc6-dev-i386</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装qemu"><a href="#安装qemu" class="headerlink" title="安装qemu"></a>安装qemu</h3><p>arm的pwn环境</p>
+<h3 id="XIV-安装qemu"><a href="#XIV-安装qemu" class="headerlink" title="XIV.安装qemu"></a>XIV.安装qemu</h3><p>arm的pwn环境</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install qemu</span><br><span class="line"> </span><br><span class="line">sudo apt-get install qemu-system qemu-user-static binfmt-support</span><br></pre></td></tr></table></figure>
 
 <p>安装依赖库</p>
@@ -307,12 +313,12 @@
 
 
 
-<h3 id="安装LibcSercher"><a href="#安装LibcSercher" class="headerlink" title="安装LibcSercher"></a>安装LibcSercher</h3><p>泄露libc库中函数的偏移的库</p>
+<h3 id="XV-安装LibcSercher"><a href="#XV-安装LibcSercher" class="headerlink" title="XV.安装LibcSercher"></a>XV.安装LibcSercher</h3><p>泄露libc库中函数的偏移的库</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install capstone</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/lieanu/LibcSearcher.git</span><br><span class="line"><span class="built_in">cd</span> LibcSearcher</span><br><span class="line">python setup.py develop</span><br></pre></td></tr></table></figure>
 
 <p>实际安装的时候git突然也没法走代理了</p>
 <p>暂时就手动下载解压安装了</p>
-<h3 id="安装ROPgadget以及one-gadget"><a href="#安装ROPgadget以及one-gadget" class="headerlink" title="安装ROPgadget以及one_gadget"></a>安装ROPgadget以及one_gadget</h3><p>构造ROP攻击的gadget链用</p>
+<h3 id="XVI-安装ROPgadget以及one-gadget"><a href="#XVI-安装ROPgadget以及one-gadget" class="headerlink" title="XVI.安装ROPgadget以及one_gadget"></a>XVI.安装ROPgadget以及one_gadget</h3><p>构造ROP攻击的gadget链用</p>
 <ul>
 <li>安装ROPgadget</li>
 </ul>
@@ -328,9 +334,9 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ruby``gem install one_gadget</span><br></pre></td></tr></table></figure>
 
-<h2 id="开冲"><a href="#开冲" class="headerlink" title="开冲"></a>开冲</h2><p>环境搭个差不多了 该开冲了</p>
+<h2 id="0x02-开冲"><a href="#0x02-开冲" class="headerlink" title="0x02 开冲"></a>0x02 开冲</h2><p>环境搭个差不多了 该开冲了</p>
 <p>冲的过程中发现少了料再回来补</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<h2 id="0x03-参考链接"><a href="#0x03-参考链接" class="headerlink" title="0x03 参考链接"></a>0x03 参考链接</h2><ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup/blob/master/Ubuntu.md">electron-ssr-backup/Ubuntu.md at master · qingshuisiyuan/electron-ssr-backup (github.com)</a></p>
 </li>
 <li><p>[<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-257558.htm">原创]CTF_Pwn环境搭建-Pwn-看雪论坛-安全社区|安全招聘|bbs.pediy.com</a></p>
