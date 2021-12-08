@@ -1,0 +1,1211 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="基于PE程序加壳的软件保护技术的设计与实现, あなたがいること.">
+    <meta name="description" content="作为本科毕设，这次信息保护理论与技术课上又讲了一次，故进行一波简单的总结。
+
+
+
+0x01 加壳的概念I. 什么是加壳•壳是是一种将可执行程序文件或动态链接库文件的编码进行改变，以达到缩小文件体积或增强程序安全性的目的。
+•通过修改原程序的">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>基于PE程序加壳的软件保护技术的设计与实现 | あなたがいること.</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">あなたがいること.</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">あなたがいること.</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/24.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">基于PE程序加壳的软件保护技术的设计与实现</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/PE%E7%BB%93%E6%9E%84/">
+                                <span class="chip bg-color">PE结构</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%8A%A0%E5%A3%B3/">
+                                <span class="chip bg-color">加壳</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Windows/" class="post-category">
+                                Windows
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2021-11-21
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
+                    2021-11-25
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
+                    3k
+                </div>
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>作为本科毕设，这次信息保护理论与技术课上又讲了一次，故进行一波简单的总结。</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/maxresdefault.jpg" alt="maxresdefault"></p>
+<span id="more"></span>
+
+<h1 id="0x01-加壳的概念"><a href="#0x01-加壳的概念" class="headerlink" title="0x01 加壳的概念"></a>0x01 加壳的概念</h1><h2 id="I-什么是加壳"><a href="#I-什么是加壳" class="headerlink" title="I. 什么是加壳"></a>I. 什么是加壳</h2><p>•壳是是一种将可执行程序文件或动态链接库文件的编码进行改变，以达到缩小文件体积或增强程序安全性的目的。</p>
+<p>•通过修改原程序的组织结构，从而能够比源程序代码更早获得程序控制权，类似于病毒的做法，但是不会影响源程序的正常执行。</p>
+<h2 id="II-加壳的意义"><a href="#II-加壳的意义" class="headerlink" title="II. 加壳的意义"></a>II. 加壳的意义</h2><p>•压缩程序大小，减小占用体积。</p>
+<p>•为反破解反盗用奠定基础。</p>
+<p><strong>•</strong>对企业对个人<strong>，</strong>都为代码保护带来了巨大的便利。</p>
+<p>•软件开发者可以专注于产品功能开发完善，只需要最后对软件进行加壳就能够增强安全性。</p>
+<h2 id="III-加壳的战略"><a href="#III-加壳的战略" class="headerlink" title="III. 加壳的战略"></a>III. 加壳的战略</h2><p>随着计算机技术的不断发展，面向各种应用需求的软件不断地产生，但无论哪种优秀的软件，其内部核心的技术往往是该软件的命脉，一旦被他人窃取或非法复制，受到的经济损失都是无法估计的。因此，软件开发者在发布软件前通常需要对软件进行加密保护。软件保护的相关技术发展到现在，已经越来越成熟，其中包含的方法、手段、内容越来越多，如现在很多软件 使用的序列号、加密狗、KeyFile、功能限制、时间限制。</p>
+<p>但要注意的是，没有破不了的壳，无论针对新手还是高手，都是堆叠破解需要的时间成本来劝退恶意人士。</p>
+<p>在以前，为了不影响加壳后对程序运行效率产生影响，加壳的手段常常是能想不能用。目前值得乐观的是，随着现代硬件设备的迅速发展，为加壳预留的空间变多了，这意味着今后脱壳所需的技术成本和时间成本将大大增加。</p>
+<h1 id="0x02-PE结构"><a href="#0x02-PE结构" class="headerlink" title="0x02 PE结构"></a>0x02 PE结构</h1><p><a href="/2021/11/21/PE%E7%BB%93%E6%9E%84/">PE结构</a>已经在之前的文章讲解过，这里简单说明一下。</p>
+<ul>
+<li>PE结构里含有许多关于文件的重要信息，为了达成加壳的目的，我们只需要其中某些信息，同时隐蔽不必要的信息。</li>
+<li>需要了解PE结构加载的机制，因为程序在加壳后被运行时（PE被修改后），会让系统帮解壳程序装载运行环境，而我们的解壳程序则需要为源程序恢复必要的运行环境。所以程序被运行时，PE哪些地方会被用到，怎么被使用，我们需要了然于心。</li>
+</ul>
+<h1 id="0x03-加壳系统设计"><a href="#0x03-加壳系统设计" class="headerlink" title="0x03 加壳系统设计"></a>0x03 加壳系统设计</h1><h2 id="I-总体设计"><a href="#I-总体设计" class="headerlink" title="I. 总体设计"></a>I. 总体设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/9nSQeUH2jR.png" alt="加壳系统设计"></p>
+<h2 id="II-加壳程序设计"><a href="#II-加壳程序设计" class="headerlink" title="II. 加壳程序设计"></a>II. 加壳程序设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164251686.png" alt="image-20211121164251686"></p>
+<h2 id="III-解壳程序设计"><a href="#III-解壳程序设计" class="headerlink" title="III. 解壳程序设计"></a>III. 解壳程序设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164307284.png" alt="image-20211121164307284"></p>
+<h2 id="IV-关键难点问题"><a href="#IV-关键难点问题" class="headerlink" title="IV. 关键难点问题"></a>IV. 关键难点问题</h2><h3 id="1-选择文件载入方式"><a href="#1-选择文件载入方式" class="headerlink" title="1.选择文件载入方式"></a>1.选择文件载入方式</h3><ul>
+<li><p>加载源文件方式就有两种形式：</p>
+<p>一种是根据文件保存在磁盘的格式读取到内存；</p>
+<p>另一种是模拟文件在虚拟内存中的形态来加载读取。</p>
+</li>
+<li><p>使用第一种方式的优点是加载简单快捷，但是加入壳代码节需要转换地址计算相对位置。</p>
+<p>使用第二种方式在内存中将文件内容进行伸展，之后在对PE文件进行操作的时候不需要再进行转化地址的操作，只需在最后保存文件时进行文件对齐保存即可。</p>
+<p>所以大部分时候使用的是后者的载入方式，加载文件和保存文件的时候进行一次统一的操作即可。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164738355.png" alt="image-20211121164738355"></p>
+<p>关键代码如下</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">//获取PE头信息，直接拷贝
+for (int i = 0; i &lt; nNumerOfSections; i++)
+{
+        if ((0 == pSection-&gt;VirtualAddress) ||
+                (0 == pSection-&gt;SizeOfRawData))
+        {
+                pSection++;
+                continue;
+        }
+        chSrcMem = (char*)((DWORD)pFileBuff + pSection-&gt;PointerToRawData);
+        chDestMem = (char*)((DWORD)chBaseAddress + pSection-&gt;VirtualAddress);
+        dwSizeOfRawData = pSection-&gt;SizeOfRawData;
+        RtlCopyMemory(chDestMem, chSrcMem, dwSizeOfRawData);
+        pSection++;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-加壳程序需要为解壳程序收集哪些信息"><a href="#2-加壳程序需要为解壳程序收集哪些信息" class="headerlink" title="2.加壳程序需要为解壳程序收集哪些信息"></a>2.加壳程序需要为解壳程序收集哪些信息</h3><ul>
+<li>加壳程序会将解壳程序与处理后的源程序整合，加壳后加壳程序已经脱离运作流程，而我们需要它在离开流程之前为解壳程序提供一些源程序本来的信息。</li>
+<li>从技术层面上来讲，解壳程序自己是可以通过解析内存态文件来获取源程序的PE结构信息的；但从工程上来讲，考虑到时间和空间效率，为了尽可能不影响源程序运行的效率，我们让要解壳程序来完成信息收集的工作。</li>
+</ul>
+<p>举个自定义结构体的例子:</p>
+<p>（1）解壳程序启动函数地址<br>加壳程序保管，以便加壳程序替换入口函数为解壳程序的函数地址。<br>（2）源程序入口点<br>提供给解壳程序，支撑解壳程序结束后转交控制权给程序。<br>（3）代码恢复信息<br>提供给解壳程序，支撑解壳程序凭借信息将代码段复原，通常包括密钥、变形区段信息等。<br>（4）PE文件的映像基址<br>支撑解壳程序恢复源程序运行环境。<br>（5）重定位表信息<br>支撑解壳程序恢复源程序重定位表。<br>（6）IAT表信息<br>支撑解壳程序恢复源程序IAT表。<br>（7）附加信息<br>支持比如是否显示弹窗等功能提示信息。</p>
+<p>记得导出结构体</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">//导出ShellData结构体
+extern"C"  typedef struct _SHELL_DATA
+{
+        DWORD dwStartFun;                                                       //启动函数
+        DWORD dwPEOEP;                                                          //程序入口点
+        DWORD dwXorKey;                                                         //解密KEY
+        DWORD dwCodeBase;                                                       //代码段起始地址
+        DWORD dwXorSize;                                                        //代码段加密大小
+        DWORD dwPEImageBase;                                            //PE文件映像基址
+        IMAGE_DATA_DIRECTORY    stcPERelocDir;          //重定位表信息
+        IMAGE_DATA_DIRECTORY    stcPEImportDir;         //导入表信息
+        DWORD                                   dwIATSectionBase;       //IAT所在段基址
+        DWORD                                   dwIATSectionSize;       //IAT所在段大小
+        BOOL                                    bIsMesBoxShown;         //是否显示MessageBox
+}SHELL_DATA, *PSHELL_DATA;
+//导出ShellData结构体变量
+extern"C" SHELL_API SHELL_DATA g_stcShellData;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="3-整合解壳程序和源程序"><a href="#3-整合解壳程序和源程序" class="headerlink" title="3.整合解壳程序和源程序"></a>3.整合解壳程序和源程序</h3><p>目标：<br>从壳系统设计上来说，我们想让程序运行时，系统会为解壳程序准备运行环境。<br>需要做的事：<br>重定位修复还原工作、OEP修改为解壳程序</p>
+<p>这一步操作需要非常谨慎，否则很可能造成程序加壳后无法被系统PE装载器正常加载，让源程序变得无法正常运行。<br>我们加载解壳程序时,重定位表的信息是已经修复过的正确的重定位信息，而我们想要的是原始的重定位信息。如果不进行重定位修复复原，那么程序运行时将会重复还原工作，所有需要重定位的代码位置都会出错，非常尴尬，所以必须要还原。</p>
+<p>细节就省略了，想要了解需要仔细读项目代码，简单来说看后面重定位表修复方式，然后逆向做一遍即可。</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">//4.将Shell附加到PE文件
+//4.1.读取Shell代码
+MODULEINFO modinfo = { 0 };
+GetModuleInformation(GetCurrentProcess(), hShell, &amp;modinfo, sizeof(MODULEINFO));
+PBYTE  pShellBuf = new BYTE[modinfo.SizeOfImage];
+memcpy_s(pShellBuf, modinfo.SizeOfImage, hShell, modinfo.SizeOfImage);
+//4.2.设置Shell重定位信息
+objPE.SetShellReloc(pShellBuf, (DWORD)hShell);  
+//4.3.修改被加壳程序的OEP，指向Shell
+DWORD dwShellOEP = pstcShellData-&gt;dwStartFun - (DWORD)hShell;
+objPE.SetNewOEP(dwShellOEP);
+//4.4.合并PE文件和Shell的代码到新的缓冲区
+LPBYTE pFinalBuf = NULL;
+DWORD dwFinalBufSize = 0;
+objPE.MergeBuf(objPE.m_pFileBuf, objPE.m_dwImageSize,
+        pShellBuf, modinfo.SizeOfImage, 
+        pFinalBuf, dwFinalBufSize);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="4-修复导入表"><a href="#4-修复导入表" class="headerlink" title="4.修复导入表"></a>4.修复导入表</h3><p>程序在被加壳后，其导入表如果被我们变形破坏，系统无法再为我们填充IAT的函数地址内容，这样的话程序会无法正常调用需要使用的导入函数。所以我们需要模仿系统PE装载器，将源程序所需要使用的导入函数的地址填充到IAT表中，以便源程序在运行时能够正常调用函数。导入表结构如下图所示，想要修复导入表，需要去了解导入表的工作方式，这在<a href="/2021/11/21/PE%E7%BB%93%E6%9E%84/">PE结构</a>文章中已经介绍过，这里不再赘述。</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121165528542.png" alt="image-20211121165528542"></p>
+<p>导入方式分名称导入和序号导入两种，我们需要分情况处理。区别的方式通过u1联合体的最高位是否为1来决定。</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">typedef struct _IMAGE_THUNK_DATA32 {
+    union {
+        DWORD ForwarderString;      // PBYTE 
+        DWORD Function;             // PDWORD
+        DWORD Ordinal;
+        DWORD AddressOfData;        // PIMAGE_IMPORT_BY_NAME
+    } u1;
+} IMAGE_THUNK_DATA32;
+typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;
+
+//名称导入
+typedef struct _IMAGE_IMPORT_BY_NAME {
+    WORD    Hint;                 //编译器决定,不是空的话,就是函数在导出表中的 函数地址表的导出索引.
+    CHAR   Name[1];               //函数名称,0结尾.
+} IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;
+
+//通过IAT循环获取该模块下的所有函数信息
+while (pIAT-&gt;u1.AddressOfData)
+{
+        if (IMAGE_SNAP_BY_ORDINAL(pIAT-&gt;u1.Ordinal))//判断是输出函数名还是序号(1){
+                DWORD dwFunOrdinal = (pIAT-&gt;u1.Ordinal) &amp; 0x7FFFFFFF;//输出序号
+                DWORD dwFunAddr = g_pfnGetProcAddress(hMod, (char*)dwFunOrdinal);
+                *(DWORD*)pIAT = (DWORD)dwFunAddr;
+        }
+        else{
+                DWORD dwFunNameRVA = pIAT-&gt;u1.AddressOfData;//输出函数名
+                PIMAGE_IMPORT_BY_NAME pstcFunName = 
+(PIMAGE_IMPORT_BY_NAME)(dwImageBase + dwFunNameRVA);
+                DWORD dwFunAddr = g_pfnGetProcAddress(hMod, pstcFunName-&gt;Name);
+                *(DWORD*)pIAT = (DWORD)dwFunAddr;
+        }
+        pIAT++;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-修复重定位表"><a href="#5-修复重定位表" class="headerlink" title="5.修复重定位表"></a>5.修复重定位表</h3><p>我们想要对源程序进行重定位的话，就需要源程序的重定位表信息，以及源程序的ImageBase字段的值。而在我们加壳主程序中通过解壳程序的导出结构体，已经将这些关键信息提供给解壳程序了，所以我们只需要模拟重定位的方法，对源程序进行重定位即可。</p>
+<p>重定位表结构如下图所示，想要修复重定位表，需要去了解重定位表的工作方式，这在<a href="/2021/11/21/PE%E7%BB%93%E6%9E%84/">PE结构</a>文章中已经介绍过，这里不再赘述。</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121165949595.png" alt="image-20211121165949595"></p>
+<p>记得重定位表是按照一个物理页 (4kb) 进行存储的。也就是一个 4kb 内存，有一个重定位块，一个重定位表只管自己当前的物理页的重定位.</p>
+<p>TypeOffset偏移是 2 个字节存储<br>12 位存储偏移。高 4 位存储是否进行重定位，高 4 位为 3 则需要进行重定位.<br>低 12 位 就是要修正的 RVA 偏移<br>也就是高四位为 3 ，VirtualAddress + 低 12 位偏移就等于真正要修复的 RVA  例如 36b0 高位为 3 低 12 位就是 6b0  要修复的 RVA = VirtualAddress + 6b0<br>加上当前 DLL 的 ImageBase 才是真正要修复的虚拟地址 (VA)</p>
+<p>关键代码如下所示</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">typedef struct _IMAGE_BASE_RELOCATION {
+    DWORD   VirtualAddress;
+    DWORD   SizeOfBlock;         //存储的值以字节为单位.字节多大.表示了一个重定位快有多大.
+//  WORD    TypeOffset[n];
+} IMAGE_BASE_RELOCATION;
+typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
+
+//2.2修复重定位
+PTYPEOFFSET pTypeOffset = (PTYPEOFFSET)(pPEReloc + 1);
+DWORD dwNumber = (pPEReloc-&gt;SizeOfBlock - 8) / 2;
+for (DWORD i = 0; i &lt; dwNumber; i++)
+{
+        if (*(PWORD)(&amp;pTypeOffset[i]) == NULL)
+                break;
+        //RVA
+        DWORD dwRVA = pTypeOffset[i].offset + pPEReloc-&gt;VirtualAddress;
+        //VA地址
+        DWORD AddrOfNeedReloc = *(PDWORD)((DWORD)dwImageBase + dwRVA);
+        *(PDWORD)((DWORD)dwImageBase + dwRVA) = 
+                AddrOfNeedReloc - g_stcShellData.dwPEImageBase + dwImageBase;
+}
+//2.4修复下一个区段
+pPEReloc = (PIMAGE_BASE_RELOCATION)((DWORD)pPEReloc + pPEReloc-&gt;SizeOfBlock);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h1 id="0x04-加壳系统评估"><a href="#0x04-加壳系统评估" class="headerlink" title="0x04 加壳系统评估"></a>0x04 加壳系统评估</h1><p>自己写的壳，没啥标志，查壳工具只知道加壳了，当然不知道加了什么壳。自然也就逃避了许多自动脱壳工具。当然具体能多快被脱壳还是要取决于我们写的壳的强度。</p>
+<p>怎么提升壳的强度呢？</p>
+<p>分析手段分为静态分析和动态分析，我们要对两方面都下手。</p>
+<p>静态分析上可以花指令混淆代码，干扰IDA等自动化反编译工具</p>
+<p>动态分析上，要加入多种反调试手段来尽可能预防被调试。</p>
+<p>解壳算法尽量不要一次性解壳，防止一次性被Dump内存，暴露得一干二净。</p>
+<p>目前强度最高的和最普遍使用的是基于虚拟机的加壳，非常恶心脱壳玩家。</p>
+<p>程序被加密的关键部分没法避开去研究分析虚拟机在干什么。</p>
+<p>当然一个商业壳，用的人越多，去研究它的人也越多，其安全性也越低。</p>
+<p>所以能自己写壳是还是非常美丽而值得赞扬的事情，希望学习二进制的大家能够用心坚持钻研下去。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Luluting</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://luluting.github.io/2021/11/21/jia-ke/">http://luluting.github.io/2021/11/21/jia-ke/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Luluting</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/PE%E7%BB%93%E6%9E%84/">
+                                    <span class="chip bg-color">PE结构</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%8A%A0%E5%A3%B3/">
+                                    <span class="chip bg-color">加壳</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/2021/11/21/maomao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="冒冒图色脚本记录">
+                        
+                        <span class="card-title">冒冒图色脚本记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            过去两年的时间里冒冒的时间占了一大半和朋友们从国际服玩到日服再到东南亚服再到私服肝起来可以说是一天48小时都完全不够用，可谓是精神鸦片。好在现在弃坑了回归正常人的生活，将自己以前写的冒冒脚本的一些渣代码拿出来分享分享，以供纪念。
+
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Game/" class="post-category">
+                                    Game
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Script/">
+                        <span class="chip bg-color">Script</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/11/21/zhu-ru/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="代码注入相关">
+                        
+                        <span class="card-title">代码注入相关</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            无论是进攻还是防御 注入都是非常重要的基本功
+记录一下各种注入方式的学习
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Windows/" class="post-category">
+                                    Windows
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
+                        <span class="chip bg-color">代码注入</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + 'From: あなたがいること.<br />'
+            + 'Author: Luluting<br />'
+            + 'Link: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2021</span>
+            
+            <a href="/about" target="_blank">Luluting</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;Total visits:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;Total visitors:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/luluting" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:739806133@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=739806133" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 739806133" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

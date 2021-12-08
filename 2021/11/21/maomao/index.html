@@ -1,262 +1,399 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
+
+
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+    <meta charset="utf-8">
+    <meta name="keywords" content="冒冒图色脚本记录, あなたがいること.">
+    <meta name="description" content="过去两年的时间里冒冒的时间占了一大半和朋友们从国际服玩到日服再到东南亚服再到私服肝起来可以说是一天48小时都完全不够用，可谓是精神鸦片。好在现在弃坑了回归正常人的生活，将自己以前写的冒冒脚本的一些渣代码拿出来分享分享，以供纪念。
+
+
+
+0x">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>冒冒图色脚本记录 | あなたがいること.</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
 <meta name="generator" content="Hexo 5.4.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"luluting.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="过去两年的时间里冒冒的时间占了一大半和朋友们从国际服玩到日服再到东南亚服再到私服肝起来可以说是一天48小时都完全不够用，可谓是精神鸦片。好在现在弃坑了回归正常人的生活，将自己以前写的冒冒脚本的一些渣代码拿出来分享分享，以供纪念。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="冒冒图色脚本记录">
-<meta property="og:url" content="http://luluting.github.io/2021/11/21/maomao/index.html">
-<meta property="og:site_name" content="Leave Me No Light">
-<meta property="og:description" content="过去两年的时间里冒冒的时间占了一大半和朋友们从国际服玩到日服再到东南亚服再到私服肝起来可以说是一天48小时都完全不够用，可谓是精神鸦片。好在现在弃坑了回归正常人的生活，将自己以前写的冒冒脚本的一些渣代码拿出来分享分享，以供纪念。">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121172800349.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121181924601.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121185609780.png">
-<meta property="article:published_time" content="2021-11-21T08:15:19.000Z">
-<meta property="article:modified_time" content="2021-11-25T14:15:30.321Z">
-<meta property="article:author" content="Luluting">
-<meta property="article:tag" content="Script">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121172800349.png">
-
-
-<link rel="canonical" href="http://luluting.github.io/2021/11/21/maomao/">
-
-
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://luluting.github.io/2021/11/21/maomao/","path":"2021/11/21/maomao/","title":"冒冒图色脚本记录"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>冒冒图色脚本记录 | Leave Me No Light</title>
-  
-
-
-
-
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
 
-  <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
 
-  <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <h1 class="site-title">Leave Me No Light</h1>
-      <i class="logo-line"></i>
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">あなたがいること.</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
     </a>
-  </div>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
 
+<div id="mobile-nav" class="side-nav sidenav">
 
-
-<nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
-  </ul>
-</nav>
-
-
-
-
-</div>
+    <div class="mobile-head bg-color">
         
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-%E6%8C%89%E9%94%AE%E7%B2%BE%E7%81%B5%E9%98%B6%E6%AE%B5"><span class="nav-text">0x01 按键精灵阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-text">I.前期准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD%E8%84%9A%E6%9C%AC"><span class="nav-text">II.执行功能脚本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-%E6%98%93%E8%AF%AD%E8%A8%80%E9%98%B6%E6%AE%B5"><span class="nav-text">0x02 易语言阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87-1"><span class="nav-text">I.前期准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#II-%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD%E8%84%9A%E6%9C%AC-1"><span class="nav-text">II.执行功能脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#III-%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-text">III.多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E5%8A%9F%E8%83%BD"><span class="nav-text">1.线程功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">2.线程管理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-%E9%80%80%E5%B2%9B%E7%8E%AF%E6%B8%B8%E4%B8%96%E7%95%8C"><span class="nav-text">0x03 退岛环游世界</span></a></li></ol></div>
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">あなたがいること.</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
         </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Luluting"
-      src="/images/7077.jfif">
-  <p class="site-author-name" itemprop="name">Luluting</p>
-  <div class="site-description" itemprop="description">能力越大，能力也就越大。</div>
-</div>
-<div class="site-state-wrap site-overview-item animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">10</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author site-overview-item animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/luluting" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;luluting" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://music.163.com/#/user/home?id=136999932" title="Netease → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;136999932" rel="noopener" target="_blank"><i class="fa fa-headphones-alt fa-fw"></i>Netease</a>
-      </span>
-  </div>
-
-
-
-        </div>
-      </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
 
-
-    </header>
-
-    
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://luluting.github.io/2021/11/21/maomao/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/7077.jfif">
-      <meta itemprop="name" content="Luluting">
-      <meta itemprop="description" content="能力越大，能力也就越大。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leave Me No Light">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          冒冒图色脚本记录
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-11-21 17:15:19" itemprop="dateCreated datePublished" datetime="2021-11-21T17:15:19+09:00">2021-11-21</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-11-25 23:15:30" itemprop="dateModified" datetime="2021-11-25T23:15:30+09:00">2021-11-25</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">Views: </span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        
+    </ul>
 </div>
 
+
         </div>
-      </header>
+
+        
+    </nav>
+
+</header>
 
     
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/29.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">冒冒图色脚本记录</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
     
-    
-    <div class="post-body" itemprop="articleBody">
-        <p>过去两年的时间里冒冒的时间占了一大半<br>和朋友们从国际服玩到日服再到东南亚服再到私服<br>肝起来可以说是一天48小时都完全不够用，可谓是精神鸦片。<br>好在现在弃坑了回归正常人的生活，将自己以前写的冒冒脚本的一些渣代码拿出来分享分享，以供纪念。</p>
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Script/">
+                                <span class="chip bg-color">Script</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Game/" class="post-category">
+                                Game
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2021-11-21
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
+                    2021-11-25
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
+                    4.6k
+                </div>
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>过去两年的时间里冒冒的时间占了一大半<br>和朋友们从国际服玩到日服再到东南亚服再到私服<br>肝起来可以说是一天48小时都完全不够用，可谓是精神鸦片。<br>好在现在弃坑了回归正常人的生活，将自己以前写的冒冒脚本的一些渣代码拿出来分享分享，以供纪念。</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121172800349.png" alt="image-20211121172800349"></p>
 <span id="more"></span>
 
@@ -271,28 +408,341 @@
 <li>面向过程，不分对象，写起来最后比较乱，管理起来很麻烦。</li>
 <li>IDE都不能识别Q语言，支持太差。全程写代码sublime用的C语法的高亮，很憋屈。</li>
 </ul>
-<h2 id="I-前期准备"><a href="#I-前期准备" class="headerlink" title="I.前期准备"></a>I.前期准备</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Global hwnd</span><br><span class="line"><span class="comment">//拿句柄</span></span><br><span class="line"><span class="function">Call <span class="title">GetHandle</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//注册大漠</span></span></span><br><span class="line"><span class="function">Call <span class="title">RegDM</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//绑定窗口</span></span></span><br><span class="line"><span class="function">Call <span class="title">BindMS</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">//测试函数 运行脚本函数即可 这里以获取角色位置为例</span></span></span><br><span class="line"><span class="function">Call <span class="title">GetLocationDBG</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="I-前期准备"><a href="#I-前期准备" class="headerlink" title="I.前期准备"></a>I.前期准备</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">Global hwnd
+//拿句柄
+Call GetHandle()
+//注册大漠
+Call RegDM()
+//绑定窗口
+Call BindMS()
+//测试函数 运行脚本函数即可 这里以获取角色位置为例
+Call GetLocationDBG()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <p>主要就是获取窗口句柄</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Sub <span class="title">GetHandle</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    hwnd </span>= Plugin.Window.Find(<span class="string">&quot;MapleStoryClass&quot;</span>, <span class="string">&quot;MapleStory&quot;</span>)</span><br><span class="line">    If hwnd = <span class="number">0</span> Then</span><br><span class="line">        MessageBox <span class="string">&quot;Nothing&quot;</span></span><br><span class="line">        EndScript</span><br><span class="line">    Else </span><br><span class="line">        TracePrint <span class="string">&quot;Hwnd:&quot;</span> &amp; hwnd</span><br><span class="line">    End If</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">Sub GetHandle()
+    hwnd = Plugin.Window.Find("MapleStoryClass", "MapleStory")
+    If hwnd = 0 Then
+        MessageBox "Nothing"
+        EndScript
+    Else 
+        TracePrint "Hwnd:" &amp; hwnd
+    End If
+End Sub<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <p>然后注册插件</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Sub <span class="title">RegDM</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    need_ver </span>= <span class="string">&quot;7.2111&quot;</span></span><br><span class="line">    PutAttachment <span class="string">&quot;c:\test_game&quot;</span>,<span class="string">&quot;*.*&quot;</span></span><br><span class="line">    PutAttachment <span class="string">&quot;.\Plugin&quot;</span> ,<span class="string">&quot;RegDll.dll&quot;</span></span><br><span class="line">    Call Plugin.RegDll.Reg(<span class="string">&quot;c:\test_game\dm.dll&quot;</span>) </span><br><span class="line">    <span class="comment">// 这里判断是否注册成功</span></span><br><span class="line">    <span class="built_in">set</span> dm = createobject(<span class="string">&quot;dm.dmsoft&quot;</span>)</span><br><span class="line">    ver = dm.Ver()</span><br><span class="line">    <span class="comment">//TracePrint &quot;dm_ver:&quot;&amp;ver</span></span><br><span class="line">    <span class="keyword">if</span> ver &lt;&gt; need_ver then</span><br><span class="line">        <span class="comment">// 先释放先前创建的dm</span></span><br><span class="line">        <span class="built_in">set</span> dm = nothing</span><br><span class="line">        <span class="comment">// 再尝试用regsvr32 来注册. 这里必须使用绝对路径。以免有别人把dm.dll释放在系统目录.造成版本错误.</span></span><br><span class="line">        <span class="built_in">set</span> ws=createobject(<span class="string">&quot;Wscript.Shell&quot;</span>)</span><br><span class="line">        ws.run <span class="string">&quot;regsvr32 c:\test_game\dm.dll /s&quot;</span></span><br><span class="line">        <span class="built_in">set</span> ws=nothing</span><br><span class="line">        Delay <span class="number">1500</span>  </span><br><span class="line">        <span class="comment">// 再判断插件是否注册成功</span></span><br><span class="line">        <span class="built_in">set</span> dm = createobject(<span class="string">&quot;dm.dmsoft&quot;</span>)</span><br><span class="line">        ver = dm.Ver()</span><br><span class="line">        <span class="keyword">if</span> ver &lt;&gt; need_ver then</span><br><span class="line">            <span class="comment">// 这时，已经确认插件注册失败了。 弹出一些调试信息，以供分析.</span></span><br><span class="line">            messagebox <span class="string">&quot;插件版本错误,当前使用的版本是:&quot;</span>&amp;ver&amp;<span class="string">&quot;,插件所在目录是:&quot;</span>&amp;dm.GetBasePath()</span><br><span class="line">            messagebox <span class="string">&quot;请关闭程序,重新打开本程序再尝试&quot;</span></span><br><span class="line">            endscript</span><br><span class="line">        end <span class="keyword">if</span></span><br><span class="line">    End If</span><br><span class="line">    <span class="comment">// 收费注册开始,简单游作者也必须要加这一段. 不会重复扣费.</span></span><br><span class="line">    <span class="comment">// ok,这里已经确认插件注册成功，并且创建了对象,下面开始注册收费服务.</span></span><br><span class="line">    <span class="comment">// 当然这里也可以使用高级的RegEx函数.</span></span><br><span class="line">    dm_ret = dm.Reg(<span class="string">&quot;abcdefg&quot;</span>,<span class="string">&quot;0001&quot;</span>) <span class="comment">// abcdefg是你的注册码. 在大漠插件网站后台可以直接获取.</span></span><br><span class="line">    <span class="keyword">if</span> dm_ret &lt;&gt; <span class="number">1</span> then</span><br><span class="line">        messagebox <span class="string">&quot;注册失败,返回值是:&quot;</span>&amp;dm_ret</span><br><span class="line">        endscript</span><br><span class="line">    end <span class="keyword">if</span></span><br><span class="line">    <span class="comment">// 收费注册结束&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span></span><br><span class="line">    dm.SetPath <span class="string">&quot;c:\test_game&quot;</span></span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">Sub RegDM()
+    need_ver = "7.2111"
+    PutAttachment "c:\test_game","*.*"
+    PutAttachment ".\Plugin" ,"RegDll.dll"
+    Call Plugin.RegDll.Reg("c:\test_game\dm.dll") 
+    // 这里判断是否注册成功
+    set dm = createobject("dm.dmsoft")
+    ver = dm.Ver()
+    //TracePrint "dm_ver:"&amp;ver
+    if ver &lt;&gt; need_ver then
+        // 先释放先前创建的dm
+        set dm = nothing
+        // 再尝试用regsvr32 来注册. 这里必须使用绝对路径。以免有别人把dm.dll释放在系统目录.造成版本错误.
+        set ws=createobject("Wscript.Shell")
+        ws.run "regsvr32 c:\test_game\dm.dll /s"
+        set ws=nothing
+        Delay 1500  
+        // 再判断插件是否注册成功
+        set dm = createobject("dm.dmsoft")
+        ver = dm.Ver()
+        if ver &lt;&gt; need_ver then
+            // 这时，已经确认插件注册失败了。 弹出一些调试信息，以供分析.
+            messagebox "插件版本错误,当前使用的版本是:"&amp;ver&amp;",插件所在目录是:"&amp;dm.GetBasePath()
+            messagebox "请关闭程序,重新打开本程序再尝试"
+            endscript
+        end if
+    End If
+    // 收费注册开始,简单游作者也必须要加这一段. 不会重复扣费.
+    // ok,这里已经确认插件注册成功，并且创建了对象,下面开始注册收费服务.
+    // 当然这里也可以使用高级的RegEx函数.
+    dm_ret = dm.Reg("abcdefg","0001") // abcdefg是你的注册码. 在大漠插件网站后台可以直接获取.
+    if dm_ret &lt;&gt; 1 then
+        messagebox "注册失败,返回值是:"&amp;dm_ret
+        endscript
+    end if
+    // 收费注册结束&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+    dm.SetPath "c:\test_game"
+End Sub<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>找到合适的绑定窗口的方法，重点在于测试一种能够后台模拟的模式，</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Sub <span class="title">BindMS</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    Delay 200</span></span><br><span class="line"><span class="function">    <span class="comment">//dm.SetWindowState hwnd, 12</span></span></span><br><span class="line"><span class="function">    <span class="comment">//dm_ret = dm.SetSimMode(1)</span></span></span><br><span class="line"><span class="function">    <span class="comment">//TracePrint &quot;SetSimMode:&quot;&amp;dm_ret</span></span></span><br><span class="line"><span class="function">    <span class="comment">//鸡肋前台</span></span></span><br><span class="line"><span class="function">    dm_ret </span>= dm.BindWindowEx(hwnd,<span class="string">&quot;normal&quot;</span>,<span class="string">&quot;normal&quot;</span>,<span class="string">&quot;normal&quot;</span>,<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="comment">//键鼠后台举例 具体模式参数需要自己摸索</span></span><br><span class="line">    dm_ret = dm.BindWindowEx(hwnd,<span class="string">&quot;gdi&quot;</span>,<span class="string">&quot;normal&quot;</span>,<span class="string">&quot;dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api&quot;</span>,<span class="string">&quot;dx.public.active.api|dx.public.active.message|dx.public.hide.dll|dx.public.anti.api|dx.public.km.protect&quot;</span>,<span class="number">0</span>)</span><br><span class="line">    dm.SetWindowState hwnd,<span class="number">1</span></span><br><span class="line">    <span class="comment">//dm_ret = dm.BindWindowEx(hwnd,&quot;gdi&quot;,&quot;normal&quot;,&quot;dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api&quot;,&quot;dx.public.active.api|dx.public.active.message|dx.public.hide.dll|dx.public.anti.api|dx.public.km.protect&quot;,0)</span></span><br><span class="line">    <span class="comment">//dm_ret = dm.BindWindowEx(hwnd,&quot; dx.graphic.3d&quot;,&quot;dx.mouse.position.lock.api|dx.mouse.clip.lock.api|dx.mouse.input.lock.api|dx.mouse.state.api|dx.mouse.api|dx.mouse.cursor&quot;,&quot;dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api&quot;,&quot;dx.public.active.api|dx.public.active.message|dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api|dx.keypad.raw.input|dx.public.down.cpu&quot;,0)</span></span><br><span class="line">    <span class="comment">//dm_ret = dm.BindWindowEx(hwnd,&quot;gdi2&quot;,&quot;normal&quot;,&quot;dx.keypad.state.api&quot;,&quot;dx.public.active.api|dx.public.active.message&quot;,0)</span></span><br><span class="line">    <span class="comment">//dm_ret = dm.BindWindowEx(hwnd,&quot;dx.graphic.3d&quot;,&quot;normal&quot;,&quot;dx.keypad.state.api&quot;,&quot;dx.public.active.api|dx.public.active.message|dx.public.hide.dll|dx.public.active.api2|dx.public.graphic.protect|dx.public.km.protect|dx.public.prevent.block|dx.public.ori.proc|dx.public.focus.message|dx.public.inject.super|dx.public.memory&quot;,0)</span></span><br><span class="line">    TracePrint <span class="string">&quot;dm_bindWindow:&quot;</span>&amp;dm_ret</span><br><span class="line">    If dm_ret = <span class="number">0</span> Then </span><br><span class="line">        EndScript</span><br><span class="line">    End If</span><br><span class="line">    dm.EnableRealKeypad <span class="number">1</span></span><br><span class="line">    <span class="comment">//dm.EnableRealMouse 1, 20, 30</span></span><br><span class="line">    <span class="comment">//dm.EnableKeypadMsg 1</span></span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">Sub <span class="token function">BindMS</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    Delay <span class="token number">200</span>
+    <span class="token comment">//dm.SetWindowState hwnd, 12</span>
+    <span class="token comment">//dm_ret = dm.SetSimMode(1)</span>
+    <span class="token comment">//TracePrint "SetSimMode:"&amp;dm_ret</span>
+    <span class="token comment">//鸡肋前台</span>
+    dm_ret <span class="token operator">=</span> dm<span class="token punctuation">.</span><span class="token function">BindWindowEx</span><span class="token punctuation">(</span>hwnd<span class="token punctuation">,</span><span class="token string">"normal"</span><span class="token punctuation">,</span><span class="token string">"normal"</span><span class="token punctuation">,</span><span class="token string">"normal"</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token comment">//键鼠后台举例 具体模式参数需要自己摸索</span>
+    dm_ret <span class="token operator">=</span> dm<span class="token punctuation">.</span><span class="token function">BindWindowEx</span><span class="token punctuation">(</span>hwnd<span class="token punctuation">,</span><span class="token string">"gdi"</span><span class="token punctuation">,</span><span class="token string">"normal"</span><span class="token punctuation">,</span><span class="token string">"dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api"</span><span class="token punctuation">,</span><span class="token string">"dx.public.active.api|dx.public.active.message|dx.public.hide.dll|dx.public.anti.api|dx.public.km.protect"</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+    dm<span class="token punctuation">.</span>SetWindowState hwnd<span class="token punctuation">,</span><span class="token number">1</span>
+    <span class="token comment">//dm_ret = dm.BindWindowEx(hwnd,"gdi","normal","dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api","dx.public.active.api|dx.public.active.message|dx.public.hide.dll|dx.public.anti.api|dx.public.km.protect",0)</span>
+    <span class="token comment">//dm_ret = dm.BindWindowEx(hwnd," dx.graphic.3d","dx.mouse.position.lock.api|dx.mouse.clip.lock.api|dx.mouse.input.lock.api|dx.mouse.state.api|dx.mouse.api|dx.mouse.cursor","dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api","dx.public.active.api|dx.public.active.message|dx.keypad.input.lock.api|dx.keypad.state.api|dx.keypad.api|dx.keypad.raw.input|dx.public.down.cpu",0)</span>
+    <span class="token comment">//dm_ret = dm.BindWindowEx(hwnd,"gdi2","normal","dx.keypad.state.api","dx.public.active.api|dx.public.active.message",0)</span>
+    <span class="token comment">//dm_ret = dm.BindWindowEx(hwnd,"dx.graphic.3d","normal","dx.keypad.state.api","dx.public.active.api|dx.public.active.message|dx.public.hide.dll|dx.public.active.api2|dx.public.graphic.protect|dx.public.km.protect|dx.public.prevent.block|dx.public.ori.proc|dx.public.focus.message|dx.public.inject.super|dx.public.memory",0)</span>
+    TracePrint <span class="token string">"dm_bindWindow:"</span><span class="token operator">&amp;</span>dm_ret
+    If dm_ret <span class="token operator">=</span> <span class="token number">0</span> Then 
+        EndScript
+    End If
+    dm<span class="token punctuation">.</span>EnableRealKeypad <span class="token number">1</span>
+    <span class="token comment">//dm.EnableRealMouse 1, 20, 30</span>
+    <span class="token comment">//dm.EnableKeypadMsg 1</span>
+End Sub<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="II-执行功能脚本"><a href="#II-执行功能脚本" class="headerlink" title="II.执行功能脚本"></a>II.执行功能脚本</h2><p>冒冒多为刷图脚本，需要先自己玩好图色，截好关键的图片或者关键点位颜色用于标识页面或者情况，再用代码来判断进行逻辑执行。以获取位置为例，<code>HuangDian.bmp</code>就是我的角色图标，通过找黄点的坐标来判断位置。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Sub <span class="title">GetLocationDBG</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    dm_ret </span>= dm.FindPicEx(<span class="number">0</span>,<span class="number">0</span>,<span class="number">500</span>,<span class="number">300</span>,<span class="string">&quot;HuangDian.bmp&quot;</span>,<span class="string">&quot;020202&quot;</span>,<span class="number">0.9</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="function">If <span class="title">len</span><span class="params">(dm_ret)</span> &gt; 0 Then</span></span><br><span class="line"><span class="function">        ss </span>= split(dm_ret,<span class="string">&quot;|&quot;</span>)</span><br><span class="line">        index = <span class="number">0</span></span><br><span class="line">        sss = split(ss(index),<span class="string">&quot;,&quot;</span>)</span><br><span class="line">        id = <span class="keyword">int</span>(sss(<span class="number">0</span>))</span><br><span class="line">        x = <span class="keyword">int</span>(sss(<span class="number">1</span>))</span><br><span class="line">        y = <span class="keyword">int</span>(sss(<span class="number">2</span>))</span><br><span class="line">        TracePrint Time &amp; <span class="string">&quot; X:&quot;</span>&amp; x &amp; <span class="string">&quot; Y:&quot;</span> &amp; y</span><br><span class="line">    Else </span><br><span class="line">        TracePrint <span class="string">&quot;Can&#x27;t Find My Location&quot;</span></span><br><span class="line">    End If</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">Sub <span class="token function">GetLocationDBG</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    dm_ret <span class="token operator">=</span> dm<span class="token punctuation">.</span><span class="token function">FindPicEx</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">500</span><span class="token punctuation">,</span><span class="token number">300</span><span class="token punctuation">,</span><span class="token string">"HuangDian.bmp"</span><span class="token punctuation">,</span><span class="token string">"020202"</span><span class="token punctuation">,</span><span class="token number">0.9</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+    If <span class="token function">len</span><span class="token punctuation">(</span>dm_ret<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> Then
+        ss <span class="token operator">=</span> <span class="token function">split</span><span class="token punctuation">(</span>dm_ret<span class="token punctuation">,</span><span class="token string">"|"</span><span class="token punctuation">)</span>
+        index <span class="token operator">=</span> <span class="token number">0</span>
+        sss <span class="token operator">=</span> <span class="token function">split</span><span class="token punctuation">(</span><span class="token function">ss</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">","</span><span class="token punctuation">)</span>
+        id <span class="token operator">=</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token function">sss</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        x <span class="token operator">=</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token function">sss</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        y <span class="token operator">=</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token function">sss</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        TracePrint Time <span class="token operator">&amp;</span> <span class="token string">" X:"</span><span class="token operator">&amp;</span> x <span class="token operator">&amp;</span> <span class="token string">" Y:"</span> <span class="token operator">&amp;</span> y
+    Else 
+        TracePrint <span class="token string">"Can't Find My Location"</span>
+    End If
+End Sub<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <p>刷图期间追求模式多变、随机化，扰乱模式识别规避行为检测，我还没开始加嘻嘻，随便用一段来举例吧。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Sub <span class="title">BB2_LOOP</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    hTread_Main </span>= GetThreadID()</span><br><span class="line">    TracePrint <span class="string">&quot;hTread_Main:&quot;</span>&amp;hTread_Main</span><br><span class="line">    hThread_MHHCheck = BeginThread(MHHCheck) </span><br><span class="line">    TracePrint <span class="string">&quot;hThread_MHHCheck:&quot;</span>&amp;hThread_MHHCheck</span><br><span class="line">    Do</span><br><span class="line">        Call GetLocation()</span><br><span class="line">        Call CheckBUFF_kn()</span><br><span class="line">        Call kn_V4IsReady()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">bool</span> = <span class="number">1</span> then </span><br><span class="line">            Call kn_V4()</span><br><span class="line">        Endif</span><br><span class="line">        Call CheckLocationXKannaAtt(<span class="number">134</span>)</span><br><span class="line">        Call kn_Lucid()</span><br><span class="line">        Call CheckLocationXKanna(<span class="number">142</span>)</span><br><span class="line">        <span class="comment">//上台</span></span><br><span class="line">        <span class="comment">//防经验球</span></span><br><span class="line">        Call zhuagou()</span><br><span class="line">        dm.KeyDownChar <span class="string">&quot;right&quot;</span></span><br><span class="line">        delay <span class="number">20</span></span><br><span class="line">        Do</span><br><span class="line">            Call GetLocation()</span><br><span class="line">            dm.KeyPressChar <span class="string">&quot;s&quot;</span></span><br><span class="line">            delay <span class="number">10</span></span><br><span class="line">            <span class="keyword">if</span> y = <span class="number">82</span> Then</span><br><span class="line">                dm.KeyUpChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                delay <span class="number">50</span></span><br><span class="line">                Goto ShangtaiEnd</span><br><span class="line">            Endif</span><br><span class="line">            <span class="keyword">if</span> counter = <span class="number">50</span> then</span><br><span class="line">                dm.KeyUpChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                Call CheckLocationXKanna(<span class="number">142</span>)</span><br><span class="line">                Call zhuagou()</span><br><span class="line">                dm.KeyDownChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                delay <span class="number">20</span></span><br><span class="line">            Endif </span><br><span class="line">            <span class="comment">//Call KannaNormalAttack(1)</span></span><br><span class="line">            counter = counter+<span class="number">1</span></span><br><span class="line">            delay <span class="number">50</span></span><br><span class="line">        Loop</span><br><span class="line">        Rem ShangtaiEnd</span><br><span class="line">        <span class="comment">//鬼神钱</span></span><br><span class="line">        CheckLocationXKanna(<span class="number">165</span>)</span><br><span class="line">        delay <span class="number">1000</span></span><br><span class="line">        Call CheckLocationXKanna(<span class="number">149</span>)</span><br><span class="line">        Call kn_Kishin()</span><br><span class="line">        Call CheckLocationXKanna(<span class="number">94</span>)</span><br><span class="line">        Call KannaTele(<span class="number">92</span>)</span><br><span class="line">        delay <span class="number">300</span></span><br><span class="line">        Call CheckLocationXKannaAtt(<span class="number">68</span>)</span><br><span class="line">        Call TurnLeft()</span><br><span class="line">        Call kn_Aniki()</span><br><span class="line">        <span class="comment">//大哥捡钱</span></span><br><span class="line">        Call KannaTele(<span class="number">74</span>)</span><br><span class="line">        Call KannaNormalAttackNoCool(<span class="number">1</span>)</span><br><span class="line">        Call CheckLocationXKanna(<span class="number">26</span>)</span><br><span class="line">        delay <span class="number">800</span></span><br><span class="line">        Call CheckLocationXKanna(<span class="number">68</span>)</span><br><span class="line">        <span class="comment">//到中层</span></span><br><span class="line">        <span class="comment">//Call KannaTele(92)</span></span><br><span class="line">        Call KannaTele(<span class="number">104</span>)</span><br><span class="line">        Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">        Call CheckLocationXKanna(<span class="number">48</span>)</span><br><span class="line">        Call CheckLocationXKannaAtt(<span class="number">123</span>)</span><br><span class="line">        delay <span class="number">800</span></span><br><span class="line">        Call CheckFuwen()</span><br><span class="line">        <span class="comment">//建完money首次检查lcd 鬼神</span></span><br><span class="line">        Call kn_LucidIsReady()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">bool</span> = <span class="number">1</span> then </span><br><span class="line">            Call CheckLocationXKanna(<span class="number">134</span>)</span><br><span class="line">            Call CheckLocationYKannaTele(<span class="number">124</span>)</span><br><span class="line">            Call kn_Lucid()</span><br><span class="line">            Call CheckLocationXKanna(<span class="number">142</span>)</span><br><span class="line">            Call zhuagou()</span><br><span class="line">            dm.KeyDownChar <span class="string">&quot;right&quot;</span></span><br><span class="line">            delay <span class="number">20</span></span><br><span class="line">            Do</span><br><span class="line">                Call GetLocation()</span><br><span class="line">                dm.KeyPressChar <span class="string">&quot;s&quot;</span></span><br><span class="line">                delay <span class="number">10</span></span><br><span class="line">                <span class="keyword">if</span> y = <span class="number">82</span> Then</span><br><span class="line">                    dm.KeyUpChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                    delay <span class="number">50</span></span><br><span class="line">                    Goto ShangtaiEnd2</span><br><span class="line">                Endif</span><br><span class="line">                <span class="keyword">if</span> counter = <span class="number">30</span> then</span><br><span class="line">                    dm.KeyUpChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                    Call CheckLocationXKanna(<span class="number">142</span>)</span><br><span class="line">                    Call zhuagou()</span><br><span class="line">                    delay <span class="number">200</span></span><br><span class="line">                    dm.KeyDownChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                    delay <span class="number">20</span></span><br><span class="line">                Endif </span><br><span class="line">                <span class="comment">//Call KannaNormalAttack(1)</span></span><br><span class="line">                counter = counter+<span class="number">1</span></span><br><span class="line">                delay <span class="number">50</span></span><br><span class="line">            Loop</span><br><span class="line">            Rem ShangtaiEnd2</span><br><span class="line">            Call CheckLocationXKanna(<span class="number">149</span>)</span><br><span class="line">            Call kn_Kishin()</span><br><span class="line">        Endif</span><br><span class="line">        TracePrint <span class="string">&quot;Before:&quot;</span>&amp;Time</span><br><span class="line">        <span class="comment">//开始大循环</span></span><br><span class="line">        For <span class="number">4</span></span><br><span class="line">            TracePrint <span class="string">&quot;1:&quot;</span>&amp;Time</span><br><span class="line">            <span class="comment">//检查中间位置</span></span><br><span class="line">            Call CheckLocationXKanna(<span class="number">81</span>)</span><br><span class="line">            Call KannaTele(<span class="number">104</span>)</span><br><span class="line">            <span class="comment">//检查大哥</span></span><br><span class="line">            Call kn_AnikiIsOff()</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">bool</span> = <span class="number">1</span> Then</span><br><span class="line">                <span class="comment">//开大哥</span></span><br><span class="line">                Call TurnLeft()</span><br><span class="line">                Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">                Call TurnRight()</span><br><span class="line">                Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">                Call kn_Duwu()</span><br><span class="line">                Call KannaTele(<span class="number">92</span>)</span><br><span class="line">                Call CheckLocationXKannaAtt(<span class="number">68</span>)</span><br><span class="line">                Call TurnLeft()</span><br><span class="line">                Call kn_Aniki()</span><br><span class="line">                Call KannaTele(<span class="number">104</span>)</span><br><span class="line">                Call CheckLocationXKannaAtt(<span class="number">81</span>)</span><br><span class="line">                <span class="keyword">bool</span> = <span class="number">0</span></span><br><span class="line">            Endif</span><br><span class="line">            <span class="comment">//检查MP</span></span><br><span class="line">            Call kn_huimpIsReady()</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">bool</span> = <span class="number">1</span> then</span><br><span class="line">                Call kn_huimp()</span><br><span class="line">            Endif</span><br><span class="line"></span><br><span class="line">            Call TurnLeft()</span><br><span class="line">            Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">            Call TurnRight()</span><br><span class="line">            Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">            Call kn_Duwu()</span><br><span class="line">            Call KannaTele(<span class="number">124</span>)</span><br><span class="line">            Call kn_Tiangou()</span><br><span class="line">            Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">            Call CheckLocationXKanna(<span class="number">81</span>)</span><br><span class="line">            Call KannaTele(<span class="number">104</span>)</span><br><span class="line">            <span class="comment">//检查</span></span><br><span class="line">            Call kn_huimpIsReady()</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">bool</span> = <span class="number">1</span> then</span><br><span class="line">                Call kn_huimp()</span><br><span class="line">            Endif</span><br><span class="line">            Call TurnLeft()</span><br><span class="line">            Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">            Call TurnRight()</span><br><span class="line">            Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">            Call kn_Duwu()</span><br><span class="line">            Call KannaTele(<span class="number">124</span>)</span><br><span class="line">            Call kn_Tiangou2()</span><br><span class="line">            Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">            <span class="comment">//检查lcd 鬼神</span></span><br><span class="line">            Call kn_LucidIsReady()</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">bool</span> = <span class="number">1</span> then </span><br><span class="line">                Call CheckLocationXKannaAtt(<span class="number">134</span>)</span><br><span class="line">                Call kn_Lucid()</span><br><span class="line">                Call CheckLocationXKanna(<span class="number">142</span>)</span><br><span class="line">                Call zhuagou()</span><br><span class="line">                dm.KeyDownChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                delay <span class="number">20</span></span><br><span class="line">                Do</span><br><span class="line">                    Call GetLocation()</span><br><span class="line">                    dm.KeyPressChar <span class="string">&quot;s&quot;</span></span><br><span class="line">                    delay <span class="number">10</span></span><br><span class="line">                    <span class="keyword">if</span> y = <span class="number">82</span> Then</span><br><span class="line">                        dm.KeyUpChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                        delay <span class="number">50</span></span><br><span class="line">                        Goto ShangtaiEnd3</span><br><span class="line">                    Endif</span><br><span class="line">                    <span class="keyword">if</span> counter = <span class="number">50</span> then</span><br><span class="line">                        dm.KeyUpChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                        Call CheckLocationXKanna(<span class="number">142</span>)</span><br><span class="line">                        Call zhuagou()</span><br><span class="line">                        dm.KeyDownChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                        delay <span class="number">20</span></span><br><span class="line">                    Endif </span><br><span class="line">                    <span class="comment">//Call KannaNormalAttack(1)</span></span><br><span class="line">                    counter = counter+<span class="number">1</span></span><br><span class="line">                    delay <span class="number">50</span></span><br><span class="line">                Loop</span><br><span class="line">                Rem ShangtaiEnd3</span><br><span class="line">                Call CheckLocationXKanna(<span class="number">149</span>)</span><br><span class="line">                Call kn_Kishin()</span><br><span class="line">                Call CheckLocationXKanna(<span class="number">106</span>)</span><br><span class="line">                delay <span class="number">200</span></span><br><span class="line">                Call KannaNormalAttack(<span class="number">1</span>)</span><br><span class="line">                Call LeftTeleport(<span class="number">1</span>)</span><br><span class="line">            Endif</span><br><span class="line">            TracePrint <span class="string">&quot;2:&quot;</span>&amp;Time</span><br><span class="line">        Next</span><br><span class="line">        <span class="comment">//准备捡钱</span></span><br><span class="line">        TracePrint <span class="string">&quot;After:&quot;</span>&amp;Time</span><br><span class="line">        Call kn_dabai()</span><br><span class="line">        Call KannaTele(<span class="number">124</span>)</span><br><span class="line">        Call CheckLocationXKannaAtt(<span class="number">43</span>)</span><br><span class="line">        <span class="comment">//灵石</span></span><br><span class="line">        Call kn_Zhanguo()</span><br><span class="line">        Call kn_xuenv()</span><br><span class="line">        Call kn_huimp()</span><br><span class="line">        Call kn_LingshiIsReady()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">bool</span> = <span class="number">1</span> then </span><br><span class="line">            Call kn_Lingshi()</span><br><span class="line">            <span class="comment">//辟邪</span></span><br><span class="line">            delay <span class="number">800</span></span><br><span class="line">            dm.KeyDownChar <span class="string">&quot;shift&quot;</span></span><br><span class="line">            delay <span class="number">100</span></span><br><span class="line">            dm.KeyDownChar <span class="string">&quot;right&quot;</span></span><br><span class="line">            Do</span><br><span class="line">                Call GetLocation()</span><br><span class="line">                <span class="keyword">if</span> x&gt;=<span class="number">134</span> then </span><br><span class="line">                    dm.KeyUpChar <span class="string">&quot;right&quot;</span></span><br><span class="line">                    delay <span class="number">20</span></span><br><span class="line">                    Goto BixieEnd</span><br><span class="line">                Endif</span><br><span class="line">                delay <span class="number">20</span></span><br><span class="line">            Loop</span><br><span class="line">            Rem BixieEnd</span><br><span class="line">            dm.KeyUpChar <span class="string">&quot;shift&quot;</span></span><br><span class="line">            delay <span class="number">200</span></span><br><span class="line">        Else </span><br><span class="line">            Call zhizhu()</span><br><span class="line">        Endif</span><br><span class="line">    Loop</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">Sub BB2_LOOP()
+    hTread_Main = GetThreadID()
+    TracePrint "hTread_Main:"&amp;hTread_Main
+    hThread_MHHCheck = BeginThread(MHHCheck) 
+    TracePrint "hThread_MHHCheck:"&amp;hThread_MHHCheck
+    Do
+        Call GetLocation()
+        Call CheckBUFF_kn()
+        Call kn_V4IsReady()
+        if bool = 1 then 
+            Call kn_V4()
+        Endif
+        Call CheckLocationXKannaAtt(134)
+        Call kn_Lucid()
+        Call CheckLocationXKanna(142)
+        //上台
+        //防经验球
+        Call zhuagou()
+        dm.KeyDownChar "right"
+        delay 20
+        Do
+            Call GetLocation()
+            dm.KeyPressChar "s"
+            delay 10
+            if y = 82 Then
+                dm.KeyUpChar "right"
+                delay 50
+                Goto ShangtaiEnd
+            Endif
+            if counter = 50 then
+                dm.KeyUpChar "right"
+                Call CheckLocationXKanna(142)
+                Call zhuagou()
+                dm.KeyDownChar "right"
+                delay 20
+            Endif 
+            //Call KannaNormalAttack(1)
+            counter = counter+1
+            delay 50
+        Loop
+        Rem ShangtaiEnd
+        //鬼神钱
+        CheckLocationXKanna(165)
+        delay 1000
+        Call CheckLocationXKanna(149)
+        Call kn_Kishin()
+        Call CheckLocationXKanna(94)
+        Call KannaTele(92)
+        delay 300
+        Call CheckLocationXKannaAtt(68)
+        Call TurnLeft()
+        Call kn_Aniki()
+        //大哥捡钱
+        Call KannaTele(74)
+        Call KannaNormalAttackNoCool(1)
+        Call CheckLocationXKanna(26)
+        delay 800
+        Call CheckLocationXKanna(68)
+        //到中层
+        //Call KannaTele(92)
+        Call KannaTele(104)
+        Call KannaNormalAttack(1)
+        Call CheckLocationXKanna(48)
+        Call CheckLocationXKannaAtt(123)
+        delay 800
+        Call CheckFuwen()
+        //建完money首次检查lcd 鬼神
+        Call kn_LucidIsReady()
+        if bool = 1 then 
+            Call CheckLocationXKanna(134)
+            Call CheckLocationYKannaTele(124)
+            Call kn_Lucid()
+            Call CheckLocationXKanna(142)
+            Call zhuagou()
+            dm.KeyDownChar "right"
+            delay 20
+            Do
+                Call GetLocation()
+                dm.KeyPressChar "s"
+                delay 10
+                if y = 82 Then
+                    dm.KeyUpChar "right"
+                    delay 50
+                    Goto ShangtaiEnd2
+                Endif
+                if counter = 30 then
+                    dm.KeyUpChar "right"
+                    Call CheckLocationXKanna(142)
+                    Call zhuagou()
+                    delay 200
+                    dm.KeyDownChar "right"
+                    delay 20
+                Endif 
+                //Call KannaNormalAttack(1)
+                counter = counter+1
+                delay 50
+            Loop
+            Rem ShangtaiEnd2
+            Call CheckLocationXKanna(149)
+            Call kn_Kishin()
+        Endif
+        TracePrint "Before:"&amp;Time
+        //开始大循环
+        For 4
+            TracePrint "1:"&amp;Time
+            //检查中间位置
+            Call CheckLocationXKanna(81)
+            Call KannaTele(104)
+            //检查大哥
+            Call kn_AnikiIsOff()
+            if bool = 1 Then
+                //开大哥
+                Call TurnLeft()
+                Call KannaNormalAttack(1)
+                Call TurnRight()
+                Call KannaNormalAttack(1)
+                Call kn_Duwu()
+                Call KannaTele(92)
+                Call CheckLocationXKannaAtt(68)
+                Call TurnLeft()
+                Call kn_Aniki()
+                Call KannaTele(104)
+                Call CheckLocationXKannaAtt(81)
+                bool = 0
+            Endif
+            //检查MP
+            Call kn_huimpIsReady()
+            if bool = 1 then
+                Call kn_huimp()
+            Endif
+
+            Call TurnLeft()
+            Call KannaNormalAttack(1)
+            Call TurnRight()
+            Call KannaNormalAttack(1)
+            Call kn_Duwu()
+            Call KannaTele(124)
+            Call kn_Tiangou()
+            Call KannaNormalAttack(1)
+            Call CheckLocationXKanna(81)
+            Call KannaTele(104)
+            //检查
+            Call kn_huimpIsReady()
+            if bool = 1 then
+                Call kn_huimp()
+            Endif
+            Call TurnLeft()
+            Call KannaNormalAttack(1)
+            Call TurnRight()
+            Call KannaNormalAttack(1)
+            Call kn_Duwu()
+            Call KannaTele(124)
+            Call kn_Tiangou2()
+            Call KannaNormalAttack(1)
+            //检查lcd 鬼神
+            Call kn_LucidIsReady()
+            if bool = 1 then 
+                Call CheckLocationXKannaAtt(134)
+                Call kn_Lucid()
+                Call CheckLocationXKanna(142)
+                Call zhuagou()
+                dm.KeyDownChar "right"
+                delay 20
+                Do
+                    Call GetLocation()
+                    dm.KeyPressChar "s"
+                    delay 10
+                    if y = 82 Then
+                        dm.KeyUpChar "right"
+                        delay 50
+                        Goto ShangtaiEnd3
+                    Endif
+                    if counter = 50 then
+                        dm.KeyUpChar "right"
+                        Call CheckLocationXKanna(142)
+                        Call zhuagou()
+                        dm.KeyDownChar "right"
+                        delay 20
+                    Endif 
+                    //Call KannaNormalAttack(1)
+                    counter = counter+1
+                    delay 50
+                Loop
+                Rem ShangtaiEnd3
+                Call CheckLocationXKanna(149)
+                Call kn_Kishin()
+                Call CheckLocationXKanna(106)
+                delay 200
+                Call KannaNormalAttack(1)
+                Call LeftTeleport(1)
+            Endif
+            TracePrint "2:"&amp;Time
+        Next
+        //准备捡钱
+        TracePrint "After:"&amp;Time
+        Call kn_dabai()
+        Call KannaTele(124)
+        Call CheckLocationXKannaAtt(43)
+        //灵石
+        Call kn_Zhanguo()
+        Call kn_xuenv()
+        Call kn_huimp()
+        Call kn_LingshiIsReady()
+        if bool = 1 then 
+            Call kn_Lingshi()
+            //辟邪
+            delay 800
+            dm.KeyDownChar "shift"
+            delay 100
+            dm.KeyDownChar "right"
+            Do
+                Call GetLocation()
+                if x&gt;=134 then 
+                    dm.KeyUpChar "right"
+                    delay 20
+                    Goto BixieEnd
+                Endif
+                delay 20
+            Loop
+            Rem BixieEnd
+            dm.KeyUpChar "shift"
+            delay 200
+        Else 
+            Call zhizhu()
+        Endif
+    Loop
+End Sub<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -302,20 +752,227 @@
 <p>但总体来说比按键精灵体验好多了。</p>
 <p>印象比较深的坑是图色一定要每个线程单独起一个对象，不然跨线程访问使用很容易崩溃。</p>
 <h2 id="I-前期准备-1"><a href="#I-前期准备-1" class="headerlink" title="I.前期准备"></a>I.前期准备</h2><p>同上</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">.版本 <span class="number">2</span></span><br><span class="line">.支持库 spec</span><br><span class="line"></span><br><span class="line">.子程序 GetLocation</span><br><span class="line">.参数 index, 整数型</span><br><span class="line">.参数 x, 整数型, 参考</span><br><span class="line">.参数 y, 整数型, 参考</span><br><span class="line">.局部变量 ts_ret, 逻辑型</span><br><span class="line"></span><br><span class="line">ts_ret ＝ ts [index].图色_找图 (<span class="number">0</span>, <span class="number">0</span>, <span class="number">500</span>, <span class="number">300</span>, “HuangDian.bmp”, “<span class="number">020202</span>”, <span class="number">0.9</span>, <span class="number">0</span>, x, y, , , , , , , )</span><br><span class="line">.如果真 (ts_ret ＝ 假)</span><br><span class="line">    调试输出 (“Can<span class="number">&#x27;</span>t Find My Location”)</span><br><span class="line">    播放音乐 (“C:\CCC\over.wav”, 假)</span><br><span class="line">.如果真结束</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.子程序 GetLocationDBG, , 公开</span><br><span class="line">.参数 index, 整数型</span><br><span class="line">.局部变量 ts_ret, 逻辑型</span><br><span class="line">.局部变量 x_test, 整数型</span><br><span class="line">.局部变量 y_test, 整数型</span><br><span class="line"></span><br><span class="line">ts_ret ＝ ts [index].图色_找图 (<span class="number">0</span>, <span class="number">0</span>, <span class="number">500</span>, <span class="number">300</span>, “HuangDian.bmp”, “<span class="number">020202</span>”, <span class="number">0.9</span>, <span class="number">0</span>, x_test, y_test, , , , , , , )</span><br><span class="line">.如果 (ts_ret ＝ 假)</span><br><span class="line">    调试输出 (“Can<span class="number">&#x27;</span>t Find My Location”)</span><br><span class="line">.否则</span><br><span class="line">    调试输出 (“x:” ＋ 到文本 (x_test) ＋ “y” ＋ 到文本 (y_test))</span><br><span class="line">.版本 <span class="number">2</span></span><br><span class="line">.支持库 spec</span><br><span class="line"></span><br><span class="line">.子程序 bindMS, 逻辑型, 公开</span><br><span class="line">.参数 index, 整数型</span><br><span class="line">.局部变量 ret, 逻辑型</span><br><span class="line"></span><br><span class="line">ts [index].基本_置全局路径 (“C:\CCC”)</span><br><span class="line">延迟 (<span class="number">200</span>)</span><br><span class="line">ret ＝ ts [index].后台_绑定 (hwnd_MS, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span> ＋ <span class="number">2</span> ＋ <span class="number">8</span> ＋ <span class="number">512</span>, <span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27; ret ＝ ts [index].后台_绑定 (-1, , , , , )</span></span><br><span class="line"><span class="string">.如果 (ret ＝ 假)</span></span><br><span class="line"><span class="string">    调试输出 (“绑定失败”)</span></span><br><span class="line"><span class="string">    返回 (假)</span></span><br><span class="line"><span class="string">.否则</span></span><br><span class="line"><span class="string">    调试输出 (“绑定成功”)</span></span><br><span class="line"><span class="string">    返回 (真)</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">.版本 2
+.支持库 spec
+
+.子程序 GetLocation
+.参数 index, 整数型
+.参数 x, 整数型, 参考
+.参数 y, 整数型, 参考
+.局部变量 ts_ret, 逻辑型
+
+ts_ret ＝ ts [index].图色_找图 (0, 0, 500, 300, “HuangDian.bmp”, “020202”, 0.9, 0, x, y, , , , , , , )
+.如果真 (ts_ret ＝ 假)
+    调试输出 (“Can't Find My Location”)
+    播放音乐 (“C:\CCC\over.wav”, 假)
+.如果真结束
+
+
+.子程序 GetLocationDBG, , 公开
+.参数 index, 整数型
+.局部变量 ts_ret, 逻辑型
+.局部变量 x_test, 整数型
+.局部变量 y_test, 整数型
+
+ts_ret ＝ ts [index].图色_找图 (0, 0, 500, 300, “HuangDian.bmp”, “020202”, 0.9, 0, x_test, y_test, , , , , , , )
+.如果 (ts_ret ＝ 假)
+    调试输出 (“Can't Find My Location”)
+.否则
+    调试输出 (“x:” ＋ 到文本 (x_test) ＋ “y” ＋ 到文本 (y_test))
+.版本 2
+.支持库 spec
+
+.子程序 bindMS, 逻辑型, 公开
+.参数 index, 整数型
+.局部变量 ret, 逻辑型
+
+ts [index].基本_置全局路径 (“C:\CCC”)
+延迟 (200)
+ret ＝ ts [index].后台_绑定 (hwnd_MS, 1, 2, 2, 1 ＋ 2 ＋ 8 ＋ 512, 1)
+' ret ＝ ts [index].后台_绑定 (-1, , , , , )
+.如果 (ret ＝ 假)
+    调试输出 (“绑定失败”)
+    返回 (假)
+.否则
+    调试输出 (“绑定成功”)
+    返回 (真)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="II-执行功能脚本-1"><a href="#II-执行功能脚本-1" class="headerlink" title="II.执行功能脚本"></a>II.执行功能脚本</h2><p>同上</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">.版本 <span class="number">2</span></span><br><span class="line"></span><br><span class="line">.程序集 窗口程序集_启动窗口</span><br><span class="line"></span><br><span class="line">.子程序 _Start_被单击</span><br><span class="line">.局部变量 用户选择, 整数型</span><br><span class="line"></span><br><span class="line">用户选择 ＝ ScriptControl.现行选中项</span><br><span class="line">LOG.加入文本 (“用户选择脚本:” ＋ ScriptControl.取项目文本 (用户选择) ＋ #换行符)</span><br><span class="line">.判断开始 (用户选择 ＝ <span class="number">0</span>)  <span class="string">&#x27; 独立</span></span><br><span class="line"><span class="string">    启动脚本 (&amp;脚本_独立, , hThread_nowSC)</span></span><br><span class="line"><span class="string">.判断 (用户选择 ＝ 1)  &#x27;</span> 挂花</span><br><span class="line">    启动脚本 (&amp;脚本_挂花, , hThread_nowSC)</span><br><span class="line">.判断 (用户选择 ＝ <span class="number">2</span>)  <span class="string">&#x27; 爆破CER2</span></span><br><span class="line"><span class="string">    启动脚本 (&amp;脚本_爆破CER2, , hThread_nowSC)</span></span><br><span class="line"><span class="string">.判断 (用户选择 ＝ 3)  &#x27;</span> 按键位置</span><br><span class="line">    启动脚本 (&amp;脚本_按住键位, 到整数 (脚本参数.内容), hThread_nowSC)</span><br><span class="line">.判断 (用户选择 ＝ <span class="number">4</span>)  <span class="string">&#x27; 跳过剧情</span></span><br><span class="line"><span class="string">    启动脚本 (&amp;脚本_按住键位, 18, hThread_nowSC)</span></span><br><span class="line"><span class="string">.判断 (用户选择 ＝ 5)  &#x27;</span> kn_ur6</span><br><span class="line">    启动脚本 (&amp;脚本_knUR6, , hThread_nowSC)</span><br><span class="line">.判断 (用户选择 ＝ <span class="number">6</span>)  <span class="string">&#x27; 爆破5x</span></span><br><span class="line"><span class="string">    启动脚本 (&amp;脚本_爆破5x, , hThread_nowSC)</span></span><br><span class="line"><span class="string">.判断 (用户选择 ＝ 7)  &#x27;</span> 爆破世界尽头<span class="number">1</span><span class="number">-5</span></span><br><span class="line">    启动脚本 (&amp;脚本_爆破世界尽头<span class="number">15</span>, , hThread_nowSC)</span><br><span class="line">.判断 (用户选择 ＝ <span class="number">8</span>)  <span class="string">&#x27; 爆破海2</span></span><br><span class="line"><span class="string">    启动脚本 (&amp;脚本_爆破海2, , hThread_nowSC)</span></span><br><span class="line"><span class="string">.判断 (用户选择 ＝ 9)  &#x27;</span> 魔方</span><br><span class="line">    启动脚本 (&amp;脚本_Cube, , hThread_nowSC)</span><br><span class="line">.判断 (用户选择 ＝ <span class="number">10</span>)  <span class="string">&#x27; 死神4岛</span></span><br><span class="line"><span class="string">    启动脚本 (&amp;脚本_死神四岛, , hThread_nowSC)</span></span><br><span class="line"><span class="string">.默认</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.判断结束</span></span><br><span class="line"><span class="string">Start.禁止 ＝ 真</span></span><br><span class="line"><span class="string">Stop.禁止 ＝ 假</span></span><br><span class="line"><span class="string">Pause.禁止 ＝ 假</span></span><br><span class="line"><span class="string">Continue.禁止 ＝ 假</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.版本 2</span></span><br><span class="line"><span class="string">.支持库 spec</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.子程序 启动脚本</span></span><br><span class="line"><span class="string">.参数 对应脚本, 子程序指针</span></span><br><span class="line"><span class="string">.参数 函数参数, 整数型, 可空</span></span><br><span class="line"><span class="string">.参数 赋值句柄, , 参考</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">GetHandleMS ()</span></span><br><span class="line"><span class="string">调试输出 (“启动脚本:” ＋ 到文本 (函数参数))</span></span><br><span class="line"><span class="string">线程_创建 (对应脚本, 函数参数, 赋值句柄, , , , , , , )</span></span><br><span class="line"><span class="string">SetProcessAffinityMask (-1, 1)</span></span><br><span class="line"><span class="string">线程_置CPU亲和性 (赋值句柄, 1)</span></span><br><span class="line"><span class="string">调试输出 (“线程运行开始 hThread:” ＋ 到文本 (赋值句柄))</span></span><br><span class="line"><span class="string">LOG.加入文本 (“线程运行开始 hThread:” ＋ 到文本 (赋值句柄) ＋ #换行符)</span></span><br><span class="line"><span class="string">.如果真 (选择框_MHH.选中 ＝ 真)</span></span><br><span class="line"><span class="string">    线程_创建 (&amp;线程_CheckMHH, , hThread_MHHCheck, , , , , , , )</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (选择框_HP.选中 ＝ 真)</span></span><br><span class="line"><span class="string">    线程_创建 (&amp;线程_CheckHP, , hThread_HPCheck, , , , , , , )</span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (选择框_MP.选中 ＝ 真)</span></span><br><span class="line"><span class="string">    线程_创建 (&amp;线程_CheckMP, , hThread_MPCheck, , , , , , , )</span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (选择框_Detection.选中 ＝ 真)</span></span><br><span class="line"><span class="string">    线程_创建 (&amp;线程_CheckDetection, , hThread_CheckDetection, , , , , , , )</span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (选择框_People.选中 ＝ 真)</span></span><br><span class="line"><span class="string">    线程_创建 (&amp;线程_CheckPeople, , hThread_CheckPeople, , , , , , , )</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">.版本 2
+
+.程序集 窗口程序集_启动窗口
+
+.子程序 _Start_被单击
+.局部变量 用户选择, 整数型
+
+用户选择 ＝ ScriptControl.现行选中项
+LOG.加入文本 (“用户选择脚本:” ＋ ScriptControl.取项目文本 (用户选择) ＋ #换行符)
+.判断开始 (用户选择 ＝ 0)  ' 独立
+    启动脚本 (&amp;脚本_独立, , hThread_nowSC)
+.判断 (用户选择 ＝ 1)  ' 挂花
+    启动脚本 (&amp;脚本_挂花, , hThread_nowSC)
+.判断 (用户选择 ＝ 2)  ' 爆破CER2
+    启动脚本 (&amp;脚本_爆破CER2, , hThread_nowSC)
+.判断 (用户选择 ＝ 3)  ' 按键位置
+    启动脚本 (&amp;脚本_按住键位, 到整数 (脚本参数.内容), hThread_nowSC)
+.判断 (用户选择 ＝ 4)  ' 跳过剧情
+    启动脚本 (&amp;脚本_按住键位, 18, hThread_nowSC)
+.判断 (用户选择 ＝ 5)  ' kn_ur6
+    启动脚本 (&amp;脚本_knUR6, , hThread_nowSC)
+.判断 (用户选择 ＝ 6)  ' 爆破5x
+    启动脚本 (&amp;脚本_爆破5x, , hThread_nowSC)
+.判断 (用户选择 ＝ 7)  ' 爆破世界尽头1-5
+    启动脚本 (&amp;脚本_爆破世界尽头15, , hThread_nowSC)
+.判断 (用户选择 ＝ 8)  ' 爆破海2
+    启动脚本 (&amp;脚本_爆破海2, , hThread_nowSC)
+.判断 (用户选择 ＝ 9)  ' 魔方
+    启动脚本 (&amp;脚本_Cube, , hThread_nowSC)
+.判断 (用户选择 ＝ 10)  ' 死神4岛
+    启动脚本 (&amp;脚本_死神四岛, , hThread_nowSC)
+.默认
+
+.判断结束
+Start.禁止 ＝ 真
+Stop.禁止 ＝ 假
+Pause.禁止 ＝ 假
+Continue.禁止 ＝ 假
+
+.版本 2
+.支持库 spec
+
+.子程序 启动脚本
+.参数 对应脚本, 子程序指针
+.参数 函数参数, 整数型, 可空
+.参数 赋值句柄, , 参考
+
+GetHandleMS ()
+调试输出 (“启动脚本:” ＋ 到文本 (函数参数))
+线程_创建 (对应脚本, 函数参数, 赋值句柄, , , , , , , )
+SetProcessAffinityMask (-1, 1)
+线程_置CPU亲和性 (赋值句柄, 1)
+调试输出 (“线程运行开始 hThread:” ＋ 到文本 (赋值句柄))
+LOG.加入文本 (“线程运行开始 hThread:” ＋ 到文本 (赋值句柄) ＋ #换行符)
+.如果真 (选择框_MHH.选中 ＝ 真)
+    线程_创建 (&amp;线程_CheckMHH, , hThread_MHHCheck, , , , , , , )
+
+.如果真结束
+.如果真 (选择框_HP.选中 ＝ 真)
+    线程_创建 (&amp;线程_CheckHP, , hThread_HPCheck, , , , , , , )
+.如果真结束
+.如果真 (选择框_MP.选中 ＝ 真)
+    线程_创建 (&amp;线程_CheckMP, , hThread_MPCheck, , , , , , , )
+.如果真结束
+.如果真 (选择框_Detection.选中 ＝ 真)
+    线程_创建 (&amp;线程_CheckDetection, , hThread_CheckDetection, , , , , , , )
+.如果真结束
+.如果真 (选择框_People.选中 ＝ 真)
+    线程_创建 (&amp;线程_CheckPeople, , hThread_CheckPeople, , , , , , , )
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>以日服挂独立为例</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">.版本 <span class="number">2</span></span><br><span class="line">.支持库 spec</span><br><span class="line"></span><br><span class="line">.子程序 脚本_独立</span><br><span class="line">.局部变量 x, 整数型</span><br><span class="line">.局部变量 y, 整数型</span><br><span class="line">.局部变量 counter1, 整数型</span><br><span class="line">.局部变量 counter2, 整数型</span><br><span class="line"></span><br><span class="line">bindMS (#主线)</span><br><span class="line"><span class="string">&#x27; 线程_创建 (&amp;Check_MHH, , hThread_MHHCheck, , , , , , , )</span></span><br><span class="line"><span class="string">&#x27;</span> 调试输出 (“MHH线程:” ＋ 到文本 (hThread_MHHCheck))</span><br><span class="line">kn_CheckBUFF (#主线)</span><br><span class="line">kn_Kishin (#主线)</span><br><span class="line">counter1 ＝ <span class="number">0</span></span><br><span class="line">counter2 ＝ <span class="number">0</span></span><br><span class="line">GetLocation (#主线, x, y)</span><br><span class="line">.判断循环首 (真)</span><br><span class="line">    kn_x轴移动 (#主线, x)</span><br><span class="line">    <span class="string">&#x27; kn_F1 (#主线)</span></span><br><span class="line"><span class="string">    .如果真 (counter1 ＝ 2)</span></span><br><span class="line"><span class="string">        &#x27;</span> TurnLeft (#主线)</span><br><span class="line">        <span class="string">&#x27; kn_NormalAttack (#主线, 1)</span></span><br><span class="line"><span class="string">        &#x27;</span> TurnRight (#主线)</span><br><span class="line">        <span class="string">&#x27; kn_NormalAttack (#主线, 1)</span></span><br><span class="line"><span class="string">        counter1 ＝ 0</span></span><br><span class="line"><span class="string">    .如果真结束</span></span><br><span class="line"><span class="string">    .如果真 (counter2 ＝ 60)</span></span><br><span class="line"><span class="string">        kn_CheckBUFF (#主线)</span></span><br><span class="line"><span class="string">        kn_Kishin (#主线)</span></span><br><span class="line"><span class="string">        FeedPet (#主线)</span></span><br><span class="line"><span class="string">        counter2 ＝ 0</span></span><br><span class="line"><span class="string">    .如果真结束</span></span><br><span class="line"><span class="string">    延迟 (1000)</span></span><br><span class="line"><span class="string">    counter1 ＝ counter1 ＋ 1</span></span><br><span class="line"><span class="string">    counter2 ＝ counter2 ＋ 1</span></span><br><span class="line"><span class="string">.判断循环尾 ()</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">.版本 2
+.支持库 spec
+
+.子程序 脚本_独立
+.局部变量 x, 整数型
+.局部变量 y, 整数型
+.局部变量 counter1, 整数型
+.局部变量 counter2, 整数型
+
+bindMS (#主线)
+' 线程_创建 (&amp;Check_MHH, , hThread_MHHCheck, , , , , , , )
+' 调试输出 (“MHH线程:” ＋ 到文本 (hThread_MHHCheck))
+kn_CheckBUFF (#主线)
+kn_Kishin (#主线)
+counter1 ＝ 0
+counter2 ＝ 0
+GetLocation (#主线, x, y)
+.判断循环首 (真)
+    kn_x轴移动 (#主线, x)
+    ' kn_F1 (#主线)
+    .如果真 (counter1 ＝ 2)
+        ' TurnLeft (#主线)
+        ' kn_NormalAttack (#主线, 1)
+        ' TurnRight (#主线)
+        ' kn_NormalAttack (#主线, 1)
+        counter1 ＝ 0
+    .如果真结束
+    .如果真 (counter2 ＝ 60)
+        kn_CheckBUFF (#主线)
+        kn_Kishin (#主线)
+        FeedPet (#主线)
+        counter2 ＝ 0
+    .如果真结束
+    延迟 (1000)
+    counter1 ＝ counter1 ＋ 1
+    counter2 ＝ counter2 ＋ 1
+.判断循环尾 ()
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 <h2 id="III-多线程"><a href="#III-多线程" class="headerlink" title="III.多线程"></a>III.多线程</h2><h3 id="1-线程功能"><a href="#1-线程功能" class="headerlink" title="1.线程功能"></a>1.线程功能</h3><p>都是自己写的一些额外的功能，按需自己扩充，以测谎为例，别的就不展示了。</p>
 <ul>
 <li><p>检测是否在测谎</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">.版本 <span class="number">2</span></span><br><span class="line">.支持库 spec</span><br><span class="line"></span><br><span class="line">.子程序 线程_CheckDetection</span><br><span class="line">.局部变量 ts_ret, 逻辑型</span><br><span class="line"></span><br><span class="line">bindMS (#测谎)</span><br><span class="line">ts [<span class="number">4</span>].文字_置字库 (<span class="number">0</span>, “C:\CCC\mytest.txt”, )</span><br><span class="line">线程_置CPU亲和性 (线程_取当前句柄 (), )</span><br><span class="line">.判断循环首 (真)</span><br><span class="line">    <span class="string">&#x27; 普通测谎</span></span><br><span class="line"><span class="string">    ts_ret ＝ ts [4].图色_找图 (6, 20, 1270, 688, “LieTestNormal.bmp”, “000000”, 0.8, 0, , , , , , , , , )</span></span><br><span class="line"><span class="string">    .如果 (ts_ret ＝ 真)</span></span><br><span class="line"><span class="string">        调试输出 (“LieTestNormal shitcoming!!!!!!!”)</span></span><br><span class="line"><span class="string">        播放音乐 (“C:\CCC\over.wav”, 假)</span></span><br><span class="line"><span class="string">    .否则</span></span><br><span class="line"><span class="string">        &#x27;</span> 调试输出 (“shitnotcoming!!!!!!!”)</span><br><span class="line">    .如果结束</span><br><span class="line">    ts_ret ＝ ts [<span class="number">4</span>].文字_找字 (<span class="number">6</span>, <span class="number">20</span>, <span class="number">1270</span>, <span class="number">688</span>, “Type in what you see”, “BEAD21<span class="number">-202020</span>|<span class="number">869E76</span><span class="number">-202020</span>|AEAC54<span class="number">-202020</span>|B6AC43<span class="number">-202020</span>”, <span class="number">0.5</span>, , , , , , , , , )</span><br><span class="line">    .如果 (ts_ret ＝ 真)</span><br><span class="line">        调试输出 (“Type shitcoming!!!!!!!”)</span><br><span class="line">        <span class="string">&#x27; ts [4].图色_截图到文件 (t_x, t_y, t_x ＋ 100, t_y ＋ 100, “SCREEN.BMP”, )</span></span><br><span class="line"><span class="string">        播放音乐 (“C:\CCC\over.wav”, 假)</span></span><br><span class="line"><span class="string">    .否则</span></span><br><span class="line"><span class="string">        &#x27;</span> 调试输出 (“shitnotcoming!!!!!!!”)</span><br><span class="line">    .如果结束</span><br><span class="line">    ts_ret ＝ ts [<span class="number">4</span>].文字_找字 (<span class="number">6</span>, <span class="number">20</span>, <span class="number">1270</span>, <span class="number">688</span>, “ToEnter”, “EABC27<span class="number">-757575</span>”, <span class="number">0.5</span>, , , , , , , , , )</span><br><span class="line">    .如果 (ts_ret ＝ 真)</span><br><span class="line">        调试输出 (“ToEnter shitcoming!!!!!!!”)</span><br><span class="line">        播放音乐 (“C:\CCC\over.wav”, 假)</span><br><span class="line">    .否则</span><br><span class="line">        <span class="string">&#x27; 调试输出 (“shitnotcoming!!!!!!!”)</span></span><br><span class="line"><span class="string">    .如果结束</span></span><br><span class="line"><span class="string">    ts_ret ＝ ts [4].文字_找字 (6, 20, 1270, 688, “FirstBold”, “DBB76C-757575”, 0.6, , , , , , , , , )</span></span><br><span class="line"><span class="string">    .如果 (ts_ret ＝ 真)</span></span><br><span class="line"><span class="string">        调试输出 (“FirstBold shitcoming!!!!!!!”)</span></span><br><span class="line"><span class="string">        播放音乐 (“C:\CCC\over.wav”, 假)</span></span><br><span class="line"><span class="string">    .否则</span></span><br><span class="line"><span class="string">        &#x27;</span> 调试输出 (“shitnotcoming!!!!!!!”)</span><br><span class="line">    .如果结束</span><br><span class="line">    <span class="string">&#x27; 蘑菇</span></span><br><span class="line"><span class="string">    ts_ret ＝ ts [4].图色_找图 (6, 20, 1270, 688, “MushroomBlue.bmp|MushroomGrey.bmp”, “000000”, 0.6, 0, , , , , , , , , )</span></span><br><span class="line"><span class="string">    .如果 (ts_ret ＝ 真)</span></span><br><span class="line"><span class="string">        调试输出 (“Mushroom shitcoming!!!!!!!”)</span></span><br><span class="line"><span class="string">        播放音乐 (“C:\CCC\over.wav”, 假)</span></span><br><span class="line"><span class="string">    .否则</span></span><br><span class="line"><span class="string">        &#x27;</span> 调试输出 (“shitnotcoming!!!!!!!”)</span><br><span class="line">    .如果结束</span><br><span class="line">    ts_ret ＝ ts [<span class="number">4</span>].图色_找图 (<span class="number">6</span>, <span class="number">20</span>, <span class="number">1281</span>, <span class="number">721</span>, “MushroomPrincess.bmp”, “<span class="number">000000</span>”, <span class="number">0.4</span>, <span class="number">0</span>, , , , , , , , , )</span><br><span class="line">    .如果 (ts_ret ＝ 真)</span><br><span class="line">        调试输出 (“MushroomPrincess shitcoming!!!!!!!”)</span><br><span class="line">        播放音乐 (“C:\CCC\over.wav”, 假)</span><br><span class="line">    .否则</span><br><span class="line">        <span class="string">&#x27; 调试输出 (“shitnotcoming!!!!!!!”)</span></span><br><span class="line"><span class="string">    .如果结束</span></span><br><span class="line"><span class="string">    延迟 (2500)</span></span><br><span class="line"><span class="string">.判断循环尾 ()</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">.版本 2
+.支持库 spec
+
+.子程序 线程_CheckDetection
+.局部变量 ts_ret, 逻辑型
+
+bindMS (#测谎)
+ts [4].文字_置字库 (0, “C:\CCC\mytest.txt”, )
+线程_置CPU亲和性 (线程_取当前句柄 (), )
+.判断循环首 (真)
+    ' 普通测谎
+    ts_ret ＝ ts [4].图色_找图 (6, 20, 1270, 688, “LieTestNormal.bmp”, “000000”, 0.8, 0, , , , , , , , , )
+    .如果 (ts_ret ＝ 真)
+        调试输出 (“LieTestNormal shitcoming!!!!!!!”)
+        播放音乐 (“C:\CCC\over.wav”, 假)
+    .否则
+        ' 调试输出 (“shitnotcoming!!!!!!!”)
+    .如果结束
+    ts_ret ＝ ts [4].文字_找字 (6, 20, 1270, 688, “Type in what you see”, “BEAD21-202020|869E76-202020|AEAC54-202020|B6AC43-202020”, 0.5, , , , , , , , , )
+    .如果 (ts_ret ＝ 真)
+        调试输出 (“Type shitcoming!!!!!!!”)
+        ' ts [4].图色_截图到文件 (t_x, t_y, t_x ＋ 100, t_y ＋ 100, “SCREEN.BMP”, )
+        播放音乐 (“C:\CCC\over.wav”, 假)
+    .否则
+        ' 调试输出 (“shitnotcoming!!!!!!!”)
+    .如果结束
+    ts_ret ＝ ts [4].文字_找字 (6, 20, 1270, 688, “ToEnter”, “EABC27-757575”, 0.5, , , , , , , , , )
+    .如果 (ts_ret ＝ 真)
+        调试输出 (“ToEnter shitcoming!!!!!!!”)
+        播放音乐 (“C:\CCC\over.wav”, 假)
+    .否则
+        ' 调试输出 (“shitnotcoming!!!!!!!”)
+    .如果结束
+    ts_ret ＝ ts [4].文字_找字 (6, 20, 1270, 688, “FirstBold”, “DBB76C-757575”, 0.6, , , , , , , , , )
+    .如果 (ts_ret ＝ 真)
+        调试输出 (“FirstBold shitcoming!!!!!!!”)
+        播放音乐 (“C:\CCC\over.wav”, 假)
+    .否则
+        ' 调试输出 (“shitnotcoming!!!!!!!”)
+    .如果结束
+    ' 蘑菇
+    ts_ret ＝ ts [4].图色_找图 (6, 20, 1270, 688, “MushroomBlue.bmp|MushroomGrey.bmp”, “000000”, 0.6, 0, , , , , , , , , )
+    .如果 (ts_ret ＝ 真)
+        调试输出 (“Mushroom shitcoming!!!!!!!”)
+        播放音乐 (“C:\CCC\over.wav”, 假)
+    .否则
+        ' 调试输出 (“shitnotcoming!!!!!!!”)
+    .如果结束
+    ts_ret ＝ ts [4].图色_找图 (6, 20, 1281, 721, “MushroomPrincess.bmp”, “000000”, 0.4, 0, , , , , , , , , )
+    .如果 (ts_ret ＝ 真)
+        调试输出 (“MushroomPrincess shitcoming!!!!!!!”)
+        播放音乐 (“C:\CCC\over.wav”, 假)
+    .否则
+        ' 调试输出 (“shitnotcoming!!!!!!!”)
+    .如果结束
+    延迟 (2500)
+.判断循环尾 ()
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li><p>检测是否有人来图里</p>
 </li>
 <li><p>检测某个BUFF是否没了/可以开了</p>
@@ -328,7 +985,69 @@
 <h3 id="2-线程管理"><a href="#2-线程管理" class="headerlink" title="2.线程管理"></a>2.线程管理</h3><p>定义全局变量记录对象或句柄</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121185609780.png" alt="image-20211121185609780"></p>
 <p>在解绑时进行释放</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">.版本 <span class="number">2</span></span><br><span class="line">.支持库 spec</span><br><span class="line"></span><br><span class="line">.子程序 UnbindMS, , 公开</span><br><span class="line">.局部变量 ret, 逻辑型</span><br><span class="line"></span><br><span class="line">处理MS线程 ()</span><br><span class="line">ts [<span class="number">1</span>].后台_强制解绑 (hwnd_MS)</span><br><span class="line">ts [<span class="number">2</span>].后台_强制解绑 (hwnd_MS)</span><br><span class="line">ts [<span class="number">3</span>].后台_强制解绑 (hwnd_MS)</span><br><span class="line">ts [<span class="number">4</span>].后台_强制解绑 (hwnd_MS)</span><br><span class="line">ts [<span class="number">5</span>].后台_强制解绑 (hwnd_MS)</span><br><span class="line">ts [<span class="number">6</span>].后台_强制解绑 (hwnd_MS)</span><br><span class="line"><span class="string">&#x27; 逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.子程序 处理MS线程</span></span><br><span class="line"><span class="string">.局部变量 ret, 逻辑型</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.如果真 (hThread_MHHCheck ≠ 0)</span></span><br><span class="line"><span class="string">    ret ＝ 线程_挂起 (hThread_MHHCheck)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_MHHCheck:” ＋ 到文本 (hThread_MHHCheck) ＋ “ 挂起结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">    ret ＝ 线程_强制结束 (hThread_MHHCheck)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_MHHCheck:” ＋ 到文本 (hThread_MHHCheck) ＋ “ 结束结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (hThread_nowSC ≠ 0)</span></span><br><span class="line"><span class="string">    ret ＝ 线程_挂起 (hThread_nowSC)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_nowSC:” ＋ 到文本 (hThread_nowSC) ＋ “ 挂起结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">    ret ＝ 线程_强制结束 (hThread_nowSC)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_nowSC:” ＋ 到文本 (hThread_nowSC) ＋ “ 销毁结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (hThread_HPCheck ≠ 0)</span></span><br><span class="line"><span class="string">    ret ＝ 线程_挂起 (hThread_HPCheck)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_HPCheck:” ＋ 到文本 (hThread_HPCheck) ＋ “ 挂起结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">    ret ＝ 线程_强制结束 (hThread_HPCheck)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_HPCheck:” ＋ 到文本 (hThread_HPCheck) ＋ “ 销毁结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (hThread_CheckDetection ≠ 0)</span></span><br><span class="line"><span class="string">    ret ＝ 线程_挂起 (hThread_CheckDetection)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_CheckDetection:” ＋ 到文本 (hThread_CheckDetection) ＋ “ 挂起结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">    ret ＝ 线程_强制结束 (hThread_CheckDetection)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_CheckDetection:” ＋ 到文本 (hThread_CheckDetection) ＋ “ 销毁结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (hThread_CheckDetection ≠ 0)</span></span><br><span class="line"><span class="string">    ret ＝ 线程_挂起 (hThread_CheckDetection)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_CheckDetection:” ＋ 到文本 (hThread_CheckDetection) ＋ “ 挂起结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">    ret ＝ 线程_强制结束 (hThread_CheckDetection)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_CheckDetection:” ＋ 到文本 (hThread_CheckDetection) ＋ “ 销毁结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string">.如果真 (hThread_CheckPeople ≠ 0)</span></span><br><span class="line"><span class="string">    ret ＝ 线程_挂起 (hThread_CheckPeople)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_CheckPeople:” ＋ 到文本 (hThread_CheckPeople) ＋ “ 挂起结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">    ret ＝ 线程_强制结束 (hThread_CheckPeople)</span></span><br><span class="line"><span class="string">    调试输出 (“hThread_CheckPeople:” ＋ 到文本 (hThread_CheckPeople) ＋ “ 销毁结果” ＋ 到文本 (ret))</span></span><br><span class="line"><span class="string">.如果真结束</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">hThread_MHHCheck ＝ 0</span></span><br><span class="line"><span class="string">hThread_nowSC ＝ 0</span></span><br><span class="line"><span class="string">hThread_CheckDetection ＝ 0</span></span><br><span class="line"><span class="string">hThread_HPCheck ＝ 0</span></span><br><span class="line"><span class="string">hThread_MPCheck ＝ 0</span></span><br><span class="line"><span class="string">hThread_CheckPeople ＝ 0</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">.版本 2
+.支持库 spec
+
+.子程序 UnbindMS, , 公开
+.局部变量 ret, 逻辑型
+
+处理MS线程 ()
+ts [1].后台_强制解绑 (hwnd_MS)
+ts [2].后台_强制解绑 (hwnd_MS)
+ts [3].后台_强制解绑 (hwnd_MS)
+ts [4].后台_强制解绑 (hwnd_MS)
+ts [5].后台_强制解绑 (hwnd_MS)
+ts [6].后台_强制解绑 (hwnd_MS)
+' 逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑逻辑
+
+.子程序 处理MS线程
+.局部变量 ret, 逻辑型
+
+.如果真 (hThread_MHHCheck ≠ 0)
+    ret ＝ 线程_挂起 (hThread_MHHCheck)
+    调试输出 (“hThread_MHHCheck:” ＋ 到文本 (hThread_MHHCheck) ＋ “ 挂起结果” ＋ 到文本 (ret))
+    ret ＝ 线程_强制结束 (hThread_MHHCheck)
+    调试输出 (“hThread_MHHCheck:” ＋ 到文本 (hThread_MHHCheck) ＋ “ 结束结果” ＋ 到文本 (ret))
+
+.如果真结束
+.如果真 (hThread_nowSC ≠ 0)
+    ret ＝ 线程_挂起 (hThread_nowSC)
+    调试输出 (“hThread_nowSC:” ＋ 到文本 (hThread_nowSC) ＋ “ 挂起结果” ＋ 到文本 (ret))
+    ret ＝ 线程_强制结束 (hThread_nowSC)
+    调试输出 (“hThread_nowSC:” ＋ 到文本 (hThread_nowSC) ＋ “ 销毁结果” ＋ 到文本 (ret))
+.如果真结束
+.如果真 (hThread_HPCheck ≠ 0)
+    ret ＝ 线程_挂起 (hThread_HPCheck)
+    调试输出 (“hThread_HPCheck:” ＋ 到文本 (hThread_HPCheck) ＋ “ 挂起结果” ＋ 到文本 (ret))
+    ret ＝ 线程_强制结束 (hThread_HPCheck)
+    调试输出 (“hThread_HPCheck:” ＋ 到文本 (hThread_HPCheck) ＋ “ 销毁结果” ＋ 到文本 (ret))
+.如果真结束
+.如果真 (hThread_CheckDetection ≠ 0)
+    ret ＝ 线程_挂起 (hThread_CheckDetection)
+    调试输出 (“hThread_CheckDetection:” ＋ 到文本 (hThread_CheckDetection) ＋ “ 挂起结果” ＋ 到文本 (ret))
+    ret ＝ 线程_强制结束 (hThread_CheckDetection)
+    调试输出 (“hThread_CheckDetection:” ＋ 到文本 (hThread_CheckDetection) ＋ “ 销毁结果” ＋ 到文本 (ret))
+.如果真结束
+.如果真 (hThread_CheckDetection ≠ 0)
+    ret ＝ 线程_挂起 (hThread_CheckDetection)
+    调试输出 (“hThread_CheckDetection:” ＋ 到文本 (hThread_CheckDetection) ＋ “ 挂起结果” ＋ 到文本 (ret))
+    ret ＝ 线程_强制结束 (hThread_CheckDetection)
+    调试输出 (“hThread_CheckDetection:” ＋ 到文本 (hThread_CheckDetection) ＋ “ 销毁结果” ＋ 到文本 (ret))
+.如果真结束
+.如果真 (hThread_CheckPeople ≠ 0)
+    ret ＝ 线程_挂起 (hThread_CheckPeople)
+    调试输出 (“hThread_CheckPeople:” ＋ 到文本 (hThread_CheckPeople) ＋ “ 挂起结果” ＋ 到文本 (ret))
+    ret ＝ 线程_强制结束 (hThread_CheckPeople)
+    调试输出 (“hThread_CheckPeople:” ＋ 到文本 (hThread_CheckPeople) ＋ “ 销毁结果” ＋ 到文本 (ret))
+.如果真结束
+
+hThread_MHHCheck ＝ 0
+hThread_nowSC ＝ 0
+hThread_CheckDetection ＝ 0
+hThread_HPCheck ＝ 0
+hThread_MPCheck ＝ 0
+hThread_CheckPeople ＝ 0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -343,96 +1062,633 @@
 <li>私服分怀旧服和随官服更新的服，人都多。但因为国内的原因，，一点也不适合玩乐。和巴啦啦玩了一阵子猫服，分了两个服，一块人少但是那服带监控屏幕的就很嚣张（人少是有原因的），另一块据说没有监控但人就多了鱼龙混杂，群里戾气贼重，RMT也存在（在这公益服里面都来这种，真的很让人难受）。总之研究生也要开学了，就还是没能继续下去。刚好收心好好学习正统知识hhhh。</li>
 </ul>
 
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Luluting</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://luluting.github.io/2021/11/21/maomao/">http://luluting.github.io/2021/11/21/maomao/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Luluting</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Script/">
+                                    <span class="chip bg-color">Script</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
 
     
-    
+
     
 
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Script/" rel="tag"><i class="fa fa-tag"></i> Script</a>
-          </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/2021/11/25/pwn-huan-jing-da-jian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/46.jpg" class="responsive-img" alt="PWN环境搭建">
+                        
+                        <span class="card-title">PWN环境搭建</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            为漏洞挖掘做准备
+
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Vulnerability/" class="post-category">
+                                    Vulnerability
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Pwn/">
+                        <span class="chip bg-color">Pwn</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%85%8D%E7%8E%AF%E5%A2%83/">
+                        <span class="chip bg-color">配环境</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/11/21/jia-ke/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="基于PE程序加壳的软件保护技术的设计与实现">
+                        
+                        <span class="card-title">基于PE程序加壳的软件保护技术的设计与实现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            作为本科毕设，这次信息保护理论与技术课上又讲了一次，故进行一波简单的总结。
+
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Windows/" class="post-category">
+                                    Windows
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/PE%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">PE结构</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8A%A0%E5%A3%B3/">
+                        <span class="chip bg-color">加壳</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + 'From: あなたがいること.<br />'
+            + 'Author: Luluting<br />'
+            + 'Link: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
 
         
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2021/11/21/%E5%8A%A0%E5%A3%B3/" rel="prev" title="基于PE程序加壳的软件保护技术的设计与实现">
-                  <i class="fa fa-chevron-left"></i> 基于PE程序加壳的软件保护技术的设计与实现
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2021/11/25/pwn%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="next" title="PWN环境搭建">
-                  PWN环境搭建 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2021</span>
+            
+            <a href="/about" target="_blank">Luluting</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;Total visits:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;Total visitors:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/luluting" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:739806133@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=739806133" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 739806133" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
 </div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Luluting</span>
-</div>
-<div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="Total Visitors">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="Total Views">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
-  </div>
-
     </div>
-  </footer>
+</footer>
 
-  
-  <script size="150" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
-
-  
+<div class="progress-bar"></div>
 
 
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
 
 
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
-  
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
 
+    
 
+    <!-- 雪花特效 -->
+    
 
+    <!-- 鼠标星星特效 -->
+    
 
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
+
 </html>
