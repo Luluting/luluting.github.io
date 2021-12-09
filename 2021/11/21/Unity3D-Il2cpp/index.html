@@ -207,7 +207,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/31.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://i.loli.net/2019/10/19/Ub5vugrZxBiaDmt.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -360,7 +360,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-11-25
+                    2021-12-09
                 </div>
                 
 
@@ -399,10 +399,10 @@
 <p>​    所以到目前，U3D就同时存在着两种脚本后端了。所谓脚本后端（Scripting Background）就是指用于支持游戏脚本正常运行的系统，即游戏的逻辑经过脚本后端编译之后让游戏按预期的方向运行。</p>
 <p>要学习IL2CPP，作为它前辈的Mono，自然也不能少。下面康一康两者的大致过程和区别吧</p>
 <p><strong>Mono编译游戏脚本过程</strong></p>
-<p><img src="https://i.loli.net/2019/10/16/GPwEqzeUtf4mdC3.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211209144552829.png"></p>
 <p>整个过程关键部分在于Mono VM，即Mono项目维护的虚拟机，游戏的脚本逻辑实际上放在名字里含有”Assembly-CSharp”的<code>.Net</code>动态链接库里，执行过程中我们一般不会选择费力去分析Mono（非常难），而是把目标锁定到Assembly的脚本链接库里，当然游戏的保护主要也是围绕这个DLL进行的，能深入的地方也不少，我也在学习中。</p>
 <p><strong>IL2CPP编译游戏脚本过程</strong></p>
-<p><img src="https://i.loli.net/2019/10/16/MeTBPVI43GnCvYy.jpg" alt="1571235544835"></p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211209144620396.png"></p>
 <p>整个过程特点就是将脚本编译得到<code>IL</code>之后，通过IL2CPP的模块将<code>IL</code>转换为C++的代码</p>
 <p>再进行编译 得到可执行代码 之后通过这个代码来支持游戏运行</p>
 <p>和Mono相比 看起来过程挺复杂的 不过这么做当然有一定优势的</p>
@@ -571,8 +571,7 @@
                 <a href="/2021/11/21/win32/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/34.jpg" class="responsive-img" alt="Win32相关">
+                        <img src="https://i.loli.net/2019/09/23/ibdG7Bn2ozqJ6ej.jpg" class="responsive-img" alt="Win32相关">
                         
                         <span class="card-title">Win32相关</span>
                     </div>
@@ -620,8 +619,7 @@
                 <a href="/2021/11/21/pvz/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/44.jpg" class="responsive-img" alt="PlantsVsZombies逆向相关">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203120133.jpg" class="responsive-img" alt="PlantsVsZombies逆向相关">
                         
                         <span class="card-title">PlantsVsZombies逆向相关</span>
                     </div>
@@ -752,7 +750,7 @@
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h1, h2, h3, h4'
         });
 
         // modify the toc link href to support Chinese.
@@ -764,7 +762,7 @@
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -828,6 +826,51 @@
 
 
     <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="609872034"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
     
 
     <div class="container row center-align"

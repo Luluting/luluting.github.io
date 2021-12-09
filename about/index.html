@@ -214,7 +214,7 @@
         <div class="brand">
             <div class="title center-align">
                 
-                每天一小步
+                为了欢笑!
                 
             </div>
 
@@ -264,7 +264,7 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">10</a></span>
+    <span class="count"><a href="/">11</a></span>
     <span class="name">Posts</span>
 </div>
 
@@ -278,7 +278,7 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">11</a></span>
+    <span class="count"><a href="/tags">12</a></span>
     <span class="name">Tags</span>
 </div>
 
@@ -294,7 +294,7 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">10</a></span>
+    <span class="count"><a href="/">11</a></span>
     <span class="name">Posts</span>
 </div>
 
@@ -308,7 +308,7 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">11</a></span>
+    <span class="count"><a href="/tags">12</a></span>
     <span class="name">Tags</span>
 </div>
 
@@ -444,7 +444,7 @@
                 name: 'Number of posts',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,10,0],
+                data: [0,0,0,0,0,0,0,0,0,0,0,10,1],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -486,7 +486,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"Windows","value":5},{"name":"Game","value":3},{"name":"Record","value":1},{"name":"Vulnerability","value":1}],
+                data: [{"name":"Windows","value":5},{"name":"Game","value":3},{"name":"Record","value":1},{"name":"Vulnerability","value":2}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -510,7 +510,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["Hook","PE结构","MOD","WIN32","Unity3D","日常","代码注入","Pwn","配环境","加壳"]
+                data: ["Hook","PE结构","MOD","WIN32","Unity3D","日常","Pwn","配环境","加壳","代码注入"]
             }
         ],
         yAxis: [
@@ -568,6 +568,51 @@
 
 
     <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="609872034"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
     
 
     <div class="container row center-align"

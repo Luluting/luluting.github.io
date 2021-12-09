@@ -8,9 +8,8 @@
     <meta name="description" content="作为本科毕设，这次信息保护理论与技术课上又讲了一次，故进行一波简单的总结。
 
 
-
 0x01 加壳的概念I. 什么是加壳•壳是是一种将可执行程序文件或动态链接库文件的编码进行改变，以达到缩小文件体积或增强程序安全性的目的。
-•通过修改原程序的">
+•通过修改原程序的组">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -209,7 +208,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/24.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/maxresdefault.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -366,7 +365,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-11-25
+                    2021-12-09
                 </div>
                 
 
@@ -399,7 +398,6 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>作为本科毕设，这次信息保护理论与技术课上又讲了一次，故进行一波简单的总结。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/maxresdefault.jpg" alt="maxresdefault"></p>
 <span id="more"></span>
 
 <h1 id="0x01-加壳的概念"><a href="#0x01-加壳的概念" class="headerlink" title="0x01 加壳的概念"></a>0x01 加壳的概念</h1><h2 id="I-什么是加壳"><a href="#I-什么是加壳" class="headerlink" title="I. 什么是加壳"></a>I. 什么是加壳</h2><p>•壳是是一种将可执行程序文件或动态链接库文件的编码进行改变，以达到缩小文件体积或增强程序安全性的目的。</p>
@@ -416,9 +414,9 @@
 <li>PE结构里含有许多关于文件的重要信息，为了达成加壳的目的，我们只需要其中某些信息，同时隐蔽不必要的信息。</li>
 <li>需要了解PE结构加载的机制，因为程序在加壳后被运行时（PE被修改后），会让系统帮解壳程序装载运行环境，而我们的解壳程序则需要为源程序恢复必要的运行环境。所以程序被运行时，PE哪些地方会被用到，怎么被使用，我们需要了然于心。</li>
 </ul>
-<h1 id="0x03-加壳系统设计"><a href="#0x03-加壳系统设计" class="headerlink" title="0x03 加壳系统设计"></a>0x03 加壳系统设计</h1><h2 id="I-总体设计"><a href="#I-总体设计" class="headerlink" title="I. 总体设计"></a>I. 总体设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/9nSQeUH2jR.png" alt="加壳系统设计"></p>
-<h2 id="II-加壳程序设计"><a href="#II-加壳程序设计" class="headerlink" title="II. 加壳程序设计"></a>II. 加壳程序设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164251686.png" alt="image-20211121164251686"></p>
-<h2 id="III-解壳程序设计"><a href="#III-解壳程序设计" class="headerlink" title="III. 解壳程序设计"></a>III. 解壳程序设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164307284.png" alt="image-20211121164307284"></p>
+<h1 id="0x03-加壳系统设计"><a href="#0x03-加壳系统设计" class="headerlink" title="0x03 加壳系统设计"></a>0x03 加壳系统设计</h1><h2 id="I-总体设计"><a href="#I-总体设计" class="headerlink" title="I. 总体设计"></a>I. 总体设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/9nSQeUH2jR.png"></p>
+<h2 id="II-加壳程序设计"><a href="#II-加壳程序设计" class="headerlink" title="II. 加壳程序设计"></a>II. 加壳程序设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164251686.png"></p>
+<h2 id="III-解壳程序设计"><a href="#III-解壳程序设计" class="headerlink" title="III. 解壳程序设计"></a>III. 解壳程序设计</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164307284.png"></p>
 <h2 id="IV-关键难点问题"><a href="#IV-关键难点问题" class="headerlink" title="IV. 关键难点问题"></a>IV. 关键难点问题</h2><h3 id="1-选择文件载入方式"><a href="#1-选择文件载入方式" class="headerlink" title="1.选择文件载入方式"></a>1.选择文件载入方式</h3><ul>
 <li><p>加载源文件方式就有两种形式：</p>
 <p>一种是根据文件保存在磁盘的格式读取到内存；</p>
@@ -429,7 +427,7 @@
 <p>所以大部分时候使用的是后者的载入方式，加载文件和保存文件的时候进行一次统一的操作即可。</p>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164738355.png" alt="image-20211121164738355"></p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121164738355.png"></p>
 <p>关键代码如下</p>
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">//获取PE头信息，直接拷贝
 for (int i = 0; i &lt; nNumerOfSections; i++)
@@ -501,7 +499,7 @@ objPE.MergeBuf(objPE.m_pFileBuf, objPE.m_dwImageSize,
 
 
 <h3 id="4-修复导入表"><a href="#4-修复导入表" class="headerlink" title="4.修复导入表"></a>4.修复导入表</h3><p>程序在被加壳后，其导入表如果被我们变形破坏，系统无法再为我们填充IAT的函数地址内容，这样的话程序会无法正常调用需要使用的导入函数。所以我们需要模仿系统PE装载器，将源程序所需要使用的导入函数的地址填充到IAT表中，以便源程序在运行时能够正常调用函数。导入表结构如下图所示，想要修复导入表，需要去了解导入表的工作方式，这在<a href="/2021/11/21/PE%E7%BB%93%E6%9E%84/">PE结构</a>文章中已经介绍过，这里不再赘述。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121165528542.png" alt="image-20211121165528542"></p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121165528542.png"></p>
 <p>导入方式分名称导入和序号导入两种，我们需要分情况处理。区别的方式通过u1联合体的最高位是否为1来决定。</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">typedef struct _IMAGE_THUNK_DATA32 {
     union {
@@ -539,7 +537,7 @@ while (pIAT-&gt;u1.AddressOfData)
 
 <h3 id="5-修复重定位表"><a href="#5-修复重定位表" class="headerlink" title="5.修复重定位表"></a>5.修复重定位表</h3><p>我们想要对源程序进行重定位的话，就需要源程序的重定位表信息，以及源程序的ImageBase字段的值。而在我们加壳主程序中通过解壳程序的导出结构体，已经将这些关键信息提供给解壳程序了，所以我们只需要模拟重定位的方法，对源程序进行重定位即可。</p>
 <p>重定位表结构如下图所示，想要修复重定位表，需要去了解重定位表的工作方式，这在<a href="/2021/11/21/PE%E7%BB%93%E6%9E%84/">PE结构</a>文章中已经介绍过，这里不再赘述。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121165949595.png" alt="image-20211121165949595"></p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211121165949595.png"></p>
 <p>记得重定位表是按照一个物理页 (4kb) 进行存储的。也就是一个 4kb 内存，有一个重定位块，一个重定位表只管自己当前的物理页的重定位.</p>
 <p>TypeOffset偏移是 2 个字节存储<br>12 位存储偏移。高 4 位存储是否进行重定位，高 4 位为 3 则需要进行重定位.<br>低 12 位 就是要修正的 RVA 偏移<br>也就是高四位为 3 ，VirtualAddress + 低 12 位偏移就等于真正要修复的 RVA  例如 36b0 高位为 3 低 12 位就是 6b0  要修复的 RVA = VirtualAddress + 6b0<br>加上当前 DLL 的 ImageBase 才是真正要修复的虚拟地址 (VA)</p>
 <p>关键代码如下所示</p>
@@ -704,8 +702,7 @@ pPEReloc = (PIMAGE_BASE_RELOCATION)((DWORD)pPEReloc + pPEReloc-&gt;SizeOfBlock);
                 <a href="/2021/11/21/maomao/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="冒冒图色脚本记录">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/photo_2020-10-11_19-19-03.jpg" class="responsive-img" alt="冒冒图色脚本记录">
                         
                         <span class="card-title">冒冒图色脚本记录</span>
                     </div>
@@ -713,7 +710,8 @@ pPEReloc = (PIMAGE_BASE_RELOCATION)((DWORD)pPEReloc + pPEReloc-&gt;SizeOfBlock);
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            过去两年的时间里冒冒的时间占了一大半和朋友们从国际服玩到日服再到东南亚服再到私服肝起来可以说是一天48小时都完全不够用，可谓是精神鸦片。好在现在弃坑了回归正常人的生活，将自己以前写的冒冒脚本的一些渣代码拿出来分享分享，以供纪念。
+                            过去两年的时间里冒冒的时间占了一大半和朋友们从国际服玩到日服再到东南亚服再到私服
+肝起来可以说是一天48小时都完全不够用，可谓是精神鸦片。好在现在弃坑了回归正常人的生活，将自己以前写的冒冒脚本的一些渣代码拿出来分享分享，以供纪念。
 
                         
                     </div>
@@ -754,8 +752,7 @@ pPEReloc = (PIMAGE_BASE_RELOCATION)((DWORD)pPEReloc + pPEReloc-&gt;SizeOfBlock);
                 <a href="/2021/11/21/zhu-ru/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="代码注入相关">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202145910.png" class="responsive-img" alt="代码注入相关">
                         
                         <span class="card-title">代码注入相关</span>
                     </div>
@@ -883,7 +880,7 @@ pPEReloc = (PIMAGE_BASE_RELOCATION)((DWORD)pPEReloc + pPEReloc-&gt;SizeOfBlock);
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h1, h2, h3, h4'
         });
 
         // modify the toc link href to support Chinese.
@@ -895,7 +892,7 @@ pPEReloc = (PIMAGE_BASE_RELOCATION)((DWORD)pPEReloc + pPEReloc-&gt;SizeOfBlock);
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -959,6 +956,51 @@ pPEReloc = (PIMAGE_BASE_RELOCATION)((DWORD)pPEReloc + pPEReloc-&gt;SizeOfBlock);
 
 
     <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="609872034"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
     
 
     <div class="container row center-align"

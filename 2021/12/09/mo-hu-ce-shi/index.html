@@ -4,20 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="代码注入相关, あなたがいること.">
-    <meta name="description" content="无论是进攻还是防御 注入都是非常重要的基本功
-记录一下各种注入方式的学习
-
-
-0x00 注入的本质
-先在进程空间里植入代码
-拿到线程权限 去执行该代码
-
-本质就是控制进程
-参考 逆向工程核心原理第 3 部分 常用的注入方式有
-
-创建线程
-修">
+    <meta name="keywords" content="模糊测试相关, あなたがいること.">
+    <meta name="description" content="0x01 前言模糊测试是一种用于快速检测安全漏洞的安全测试技术，实质上是通过向程序提供非预期的输入并监控输出是否出现异常来判断并挖掘软件或服务中的漏洞。
+近年来模糊测试经历了快速发展，逐渐成为一种重要的漏洞扫描挖掘技术，因此我们学习模糊测试">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -29,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>代码注入相关 | あなたがいること.</title>
+    <title>模糊测试相关 | あなたがいること.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -216,12 +205,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202145910.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/photo_2019-04-04_16-25-26.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">代码注入相关</h1>
+                    <h1 class="description center-align post-title">模糊测试相关</h1>
                 </div>
             </div>
         </div>
@@ -337,8 +326,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
-                                <span class="chip bg-color">代码注入</span>
+                            <a href="/tags/Fuzz/">
+                                <span class="chip bg-color">Fuzz</span>
                             </a>
                         
                     </div>
@@ -349,8 +338,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Windows/" class="post-category">
-                                Windows
+                            <a href="/categories/Vulnerability/" class="post-category">
+                                Vulnerability
                             </a>
                         
                     </div>
@@ -362,7 +351,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-11-21
+                    2021-12-09
                 </div>
                 
 
@@ -376,7 +365,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    1.4k
+                    4.8k
                 </div>
                 
 
@@ -401,131 +390,58 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>无论是进攻还是防御 注入都是非常重要的基本功</p>
-<p>记录一下各种注入方式的学习</p>
-<span id="more"></span>
-
-<h1 id="0x00-注入的本质"><a href="#0x00-注入的本质" class="headerlink" title="0x00 注入的本质"></a>0x00 注入的本质</h1><ul>
-<li>先在进程空间里植入代码</li>
-<li>拿到线程权限 去执行该代码</li>
-</ul>
-<p>本质就是控制进程</p>
-<p>参考 逆向工程核心原理第 3 部分 常用的注入方式有</p>
-<ol>
-<li>创建线程</li>
-<li>修改注册表</li>
-<li>消息钩取（Hook）</li>
-<li>直接修改 PE 文件 </li>
-</ol>
-<h1 id="0x01-注入方式"><a href="#0x01-注入方式" class="headerlink" title="0x01 注入方式"></a>0x01 注入方式</h1><p>可分为三类</p>
-<ul>
-<li><p>静态修改</p>
-<p>DLL劫持、导入表注入</p>
-</li>
-<li><p>全局性注入</p>
-<p>输入法注入、消息钩子注入、注册表注入</p>
-</li>
-<li><p>线程注入</p>
-<p>APC注入、消息钩子注入（指定）、远程线程注入、挂起进程注入</p>
-</li>
-</ul>
-<h2 id="I-导入表注入"><a href="#I-导入表注入" class="headerlink" title="I. 导入表注入"></a>I. 导入表注入</h2><p>原理 &gt; 静态添加/修改导入表</p>
-<p>先移动所有导入表整体的位置 因为原来的位置空间紧凑 不能添加表</p>
-<p>就修改PE头的导入表位置</p>
-<p>接着静态手动添加新的导入表 </p>
-<p>构造INA表 IAT表 以及<code>IMAGE_IMPORT_BY_NAME</code>结构</p>
-<p>就OK </p>
-<p>导入表内容可以动</p>
-<p>INT表可动 IAT表别动</p>
-<h2 id="II-远程线程注入"><a href="#II-远程线程注入" class="headerlink" title="II. 远程线程注入"></a>II. 远程线程注入</h2><p>动态</p>
-<h3 id="1-注入DLL"><a href="#1-注入DLL" class="headerlink" title="1. 注入DLL"></a>1. 注入DLL</h3><ul>
-<li><p>写入模块名字 常规远程线程调用载入DLL</p>
-</li>
-<li><p>内存写入模块 修复重定位表 开远程线程执行模块的Entry</p>
-<p>在目标进程中修复IAT表</p>
-</li>
-</ul>
-<h3 id="2-注入代码"><a href="#2-注入代码" class="headerlink" title="2. 注入代码"></a>2. 注入代码</h3><ul>
-<li><p>直接将代码写到线程中</p>
-</li>
-<li><p>通过<code>WriteMemoryProcess</code>写入目标进程</p>
-</li>
-<li><p>需要参数的话定义一个结构体 传入到目标进程</p>
-</li>
-<li><p>并启动远程线程进行调用</p>
-</li>
-</ul>
-<h2 id="II-Windows-HOOK-注入DLL"><a href="#II-Windows-HOOK-注入DLL" class="headerlink" title="II. Windows HOOK 注入DLL"></a>II. Windows HOOK 注入DLL</h2><p> Windows 系统给我们提供了一些挂钩函数，使得被hook的进程可以在自己处理接收到的消息之前，先执行我们的消息处理函数，而这个消息处理函数一般会放在 DLL 中，来让目标进程加载，目标进程会映射整个DLL到进程空间，这实际上已经达到了注入代码的效果。 </p>
-<p> 使用 API 函数 <code>SetWindowsHookEx()  </code>把一个应用程序定义的 Hook 子程安装到 Hook 链表中。 函数原型如下：第一个参数是消息编号，第二个参数为 Hook 函数 </p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">HHOOK <span class="token function">SetWindowsHookExA</span><span class="token punctuation">(</span>
-  <span class="token keyword">int</span>       idHook<span class="token punctuation">,</span>
-  HOOKPROC  lpfn<span class="token punctuation">,</span>
-  HINSTANCE hmod<span class="token punctuation">,</span>
-  DWORD     dwThreadId
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>操作如下</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">extern "C" _declspec(dllexport) void HookStart()
-{
-//    HHOOK hHook = NULL;
-    g_hHook=SetWindowsHookEx(WH_KEYBOARD, HookProc,
-        GetModuleHandle("E://Viusal Studio//kanxue//注入技术//SetWindowsHookEx//Inject_dll//Debug//Inject_dll.dll"), 0);
-    if (NULL == g_hHook)
-    {
-        MessageBox(NULL, "安装钩子失败", "提示", MB_OKCANCEL);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="II-特洛伊注入"><a href="#II-特洛伊注入" class="headerlink" title="II. 特洛伊注入"></a>II. 特洛伊注入</h2><p>静态</p>
-<p>DLL劫持</p>
-<p>代替原DLL 转发其函数 同时加入自己的代码</p>
-<p>  DLL 劫持法 (输入表 DLL 替换法)，原理是利用搜索 DLL 路径存在先后顺序 (exe 程序目录 &gt; 系统目录 &gt; 当前目录 &gt; Path), 当较高层存在一个同名的 DLL 文件的时候，就会直接加载较高层的 DLL 文件。常常用于病毒的白加黑。需要注意的是黑 DLL 路径优先级一定要高于原来的 dll 文件，第二，一定要具有源 dll 文件所有的导出函数。 </p>
-<h2 id="III-注册表注入"><a href="#III-注册表注入" class="headerlink" title="III. 注册表注入"></a>III. 注册表注入</h2><p>静态</p>
-<p>新创建的进程在加载 User32.dll 时，都会自动调用 LoadLibrary 去加载注册表中某个表项键值里写入的 Dll 路径</p>
-<ul>
-<li><code>x64下:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows</code></li>
-<li><code>x86下：HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows</code></li>
-</ul>
-<p>当某个进程加载 User32.dll 时，这里面列出的所有的 DLL 都将 User32.dll 利用 LoadLibrary 函数加载到该进程空间中。</p>
-<p>我们可以把自己的代码放在一个 DLL 中，并加入该键值，这样就可以注入到所有使用 User32.dll 的进程中了。</p>
-<p>当 DLL 以 LoadLibrary 的方式加载时，DllMain 会被以 DLL_PROCESS_ATTACH 为原因调用，实际上我们就在 <code>DLL_PROCESS_ATTACH</code>中添加自己的代码就行了</p>
-<blockquote>
-<p>需要关闭UEFI安全启动才能生效</p>
-<p>参考链接: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/win32/dlls/secure-boot-and-appinit-dlls?redirectedfrom=MSDN">https://docs.microsoft.com/zh-cn/windows/win32/dlls/secure-boot-and-appinit-dlls?redirectedfrom=MSDN</a> </p>
-</blockquote>
-<h2 id="IV-APC注入"><a href="#IV-APC注入" class="headerlink" title="IV. APC注入"></a>IV. APC注入</h2><p>APC 中文名称为异步过程调用， APC 是一个链状的数据结构，可以让一个线程在其本应该的执行步骤前执行其他代码，每个线程都维护这一个 APC 链。当线程从等待状态苏醒后，会自动检测自己得 APC 队列中是否存在 APC 过程。</p>
-<p>所以只需要将目标进程的线程的 APC 队列里面添加 APC 过程，当然为了提高命中率可以向进程的所有线程中添加 APC 过程。然后促使线程从休眠中恢复就可以实现 APC 注入。</p>
-<p>首先将 DLL 文件路径写入进程</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">lpData = VirtualAllocEx(hProcess, lpData, lstrlen(szDllFullPath) + 1, MEM_COMMIT, PAGE_READWRITE);
-if (lpData)
-{
-    bStatus = WriteProcessMemory(hProcess, lpData, szDllFullPath, lstrlen(szDllFullPath) + 1, &amp;stSize);
-    if (FALSE == bStatus)
-    {
-        printf("WriteProcessMemory:%d\n", GetLastError());
-        return NULL;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p>然后使用 QueueUserAPC 将 APC 例程添加到 APC 队列中，QueueUserAPC 三个参数分别是 APC 例程，线程句柄，例程参数。所以还需要获取线程句柄 </p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">dwRet<span class="token operator">=</span><span class="token function">QueueUserAPC</span><span class="token punctuation">(</span><span class="token punctuation">(</span>PAPCFUNC<span class="token punctuation">)</span>LoadLibraryA<span class="token punctuation">,</span> hThread<span class="token punctuation">,</span> <span class="token punctuation">(</span>ULONG_PTR<span class="token punctuation">)</span>lpData<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">NULL</span> <span class="token operator">==</span> dwRet<span class="token punctuation">)</span>           
-<span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"QueueUserAPC:%d\n"</span><span class="token punctuation">,</span> <span class="token function">GetLastError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-<h2 id="V-输入法注入"><a href="#V-输入法注入" class="headerlink" title="V. 输入法注入"></a>V. 输入法注入</h2><p>切换输入法时候，<strong>输入法管理器 imm32.dll 就会加载 IME 模块，</strong>这样就形成了输入法注入的充要条件。而由于这个 Ime 文件本质上只是个存放在 C:\WINDOWS\system32 目录下的特殊的 DLL 文件，因此我们可以利用这个特性，在 Ime 文件中使用 LoadLibrary () 函数待注入的 DLL 文件。</p>
-<p>首先就是编写 ime 文件，至少需要两个导出函数 <code>BOOL ImeClass_Register(HINSTANCE hinstDLL)</code>，<code>BOOL WINAPI ImeInquire(LPIMEINFO lpIMEInfo, LPTSTR lpszUIClass, LPCTSTR lpszOption)</code> 这两个是必须要实现的。剩下的导出函数可以选择不去实现。</p>
-<p>接着编写注射器。利用 ImmInstallIME 安装 ime 文件，当输入法切换的时候就可以注入 dll 了。</p>
+                <h1 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h1><p>模糊测试是一种用于快速检测安全漏洞的安全测试技术，实质上是通过向程序提供非预期的输入并监控输出是否出现异常来判断并挖掘软件或服务中的漏洞。</p>
+<p>近年来模糊测试经历了快速发展，逐渐成为一种重要的漏洞扫描挖掘技术，因此我们学习模糊测试技术需要了解其技术的具体工作流程以及发展趋势，进行总结与分析归纳，为之后的学习提供参考。</p>
+<p>模糊测试通常包含五大环节：预处理、输入数据构造、输入选择、评估和结果分析，其中每个环节结合相应的研究进行分析和总结。</p>
+<p>不同领域中使用模糊测试技术时会有很大的差异，因为在不同的应用场景下，模糊测试的会有不一样的需求。同时随着反模糊测试技术也在发展，模糊测试技术平台更需要加强，我们要明白模糊测试下一步应该如何发展。 </p>
+<h1 id="0x02-技术背景"><a href="#0x02-技术背景" class="headerlink" title="0x02 技术背景"></a>0x02 技术背景</h1><p>近年来利用漏洞实施得攻击行为层出不穷，网络在给人们带来便捷的同时，人们对网络日渐产生依赖性，安全隐患也在增加以及其造成的后果也越来越不可估量。2010年，“震网”病毒在全球各地爆发，利用当时Windows系统中的多个未被公开的漏洞、伪造数字签名是其主要手段，从而入侵到SCADA设备使其瘫痪0。除了感染全球各地的四万五千余台设备，更是感染了伊朗核电站中核燃料浓缩过程的SCADA设备，造成伊朗核项目瘫痪长达两年；2017年，Wannacry勒索病毒攻击了全球各地近百余个国家，黑客使用由美国国家安全局开发出的漏洞攻击工具，利用MS17-010漏洞感染大量个人计算机，计算机中许多关键数据被黑客锁定加密。</p>
+<p>这类攻击的发生一般都是由个系统中的安全漏洞导致。尽管网络上已经有许多公开的漏洞收录网站，但是依旧有许多潜藏的、未被发现的安全漏洞存在着。因此如何减少漏洞，保证系统或应用服务的质量，成为安全领域里一项至关重要的工作。通常用于挖掘安全漏洞的方法分为三种：白盒测试、黑盒测试以及灰盒测试。白盒测试主要方法是源代码审计。因为可以获取所有源代码，所以能够覆盖程序的所有运行路径，但是复杂性高；黑盒测试是一种不需要知道检测目标内部细节，而直接进行输入测试的一种方法，操作简单，覆盖路径一般，且实验过程中会产生大量无效测试用例；灰盒测试介于白盒测试与黑盒测试之间，即通过一些自动化的二进制审核工具如IDA、Ghidra等进行二进制审核，复杂性也较高，通常要花费大量时间。</p>
+<p>而模糊测试就属于黑盒测试里的一种具体技术。这项技术是在1988年由威斯康星大学Barton Miller教授首次提出，通过Fuzz生成器用于测试UNIX程序的健壮性，使用随机数据输入来测试直到让程序崩溃。直至今天模糊测试已经成为漏洞扫描与检测的一种重要方法。</p>
+<h1 id="0x03-发展历程"><a href="#0x03-发展历程" class="headerlink" title="0x03 发展历程"></a>0x03 发展历程</h1><p>模糊测试最早可追溯到1989年,威斯康辛大学的B.P.Miller开发了一个模糊测试工具并命名为Fuzz,用来对UNIX系统上的软件进行安全性测试。</p>
+<p>最近网络出现的与OpenSSL相关的HeatBleed漏洞的发现工具就是在PROTOS的基础上发展起来的。PROTOS是模糊测试技术发展过程中的一个重要的里程碑。</p>
+<p>2002年,Immunitysec公司的Dave Aitel开发了一款通用协议测试框架工具SPIKE。SPIKE主要用于测试基于网络的应用程序,采用了一种基于块的方法,能够有效地对包含变量和相应变量长度的数据块进行测试,同时,SPIKE可以从大量的数据样例中自动学习目标软件的数据规约。作为第一个可以实现自定制的模糊测试器框架,SPIKE的发布是模糊测试历史上一个最重要的里程碑。</p>
+<p>2004年,IOACTIVE发布了著名的跨平台模糊测试框架Peach。它采用Python语言编写。Peach几乎可以对所有常见的对象进行模糊测试,例如文件结构、COM对象、网络协议、API接口等。使用Peach时,其主要工作就是定义一个XML文件来引导测试过程。Peach是一个灵活的模糊测试框架,最大程度地实现了代码重用。</p>
+<p>2008年，为了对输入数据高度结构化的目标进行模糊检测，诞生了jsfunfuzz。该方法根据语法模型生成随机的但语法正确的JavaScript代码，这种基于语法生成输入的思想，成为之后对输入数据高度结构化目标进行模糊测试的重要指导思想。</p>
+<p>2011年之后,众多学者将遗传算法、启发式算法等用于生成模糊测试用例,大大提高了测试用例的生成效率。同时,多维模糊测试研究的兴起也弥补了传统模糊测试只能挖掘单点触发漏洞的不足[2]。</p>
+<p>上面列举了模糊测试发展历程中比较重要的时间点，目前来看模糊测试技术应用最多的领域是程序分析领域，特别是在漏洞扫描挖掘方面，模糊测试技术应用非常多。</p>
+<h1 id="0x04-工作流程"><a href="#0x04-工作流程" class="headerlink" title="0x04 工作流程"></a>0x04 工作流程</h1><p>一次完整的模糊测试流程可以通过如下图所示，可分为5个步骤：预处理、输入构造、输入选择、评估、结果分析。预处理是测试开始前的准备工作，而结果分析是测试结束后的分析工作，实际上模糊测试执行中为输入构造、输入选择、评估三个子环节。</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/clip_image002.jpg" alt="模糊测试基本工作流程"></p>
+<p>首先，预处理的工作是根据分析目标制定测试的策略，为了时刻关注测试目标在测试过程中的运行状况，我们需要做一些预先的准备：通常是依赖程序分析技术如符号执行、插桩以及污点分析等等。</p>
+<p>预处理之后需要进行输入构造、输入选择、评估三个环节。</p>
+<p>输入构造是指生成大量输入数据，这一环节通常通过种子来随机生成。通过输入构造得到大量数据后，接着通过输入选择环节来筛选数据，主要目的是尽可能提前过滤掉无效的输入数据，提升输入数据的有效性，从而提升整体模糊测试的效率。接着评估部分的工作是：制定一个能够真实反馈模糊测试执行结果的评估指标，设计一个合适的实验能够确切反应模糊测试的性能。通常需要选择一个模糊测试方法去测试相同的对象用作对比、测试重复次数以及时间等等。</p>
+<p>模糊测试的结果无法直接使用，我们需要在结果分析环节对结果进行分析。分析通常包括对测试结果的去重、复现，对测试结果进行威胁性评估等工作，经过这些操作最终来判断是否发现漏洞。</p>
+<h1 id="0x05-技术细节"><a href="#0x05-技术细节" class="headerlink" title="0x05 技术细节"></a>0x05 技术细节</h1><h2 id="I-预处理环节"><a href="#I-预处理环节" class="headerlink" title="I.预处理环节"></a>I.预处理环节</h2><p>预处理环节中我们需要为监测程序运行状态做准备，常用的技术手段包括：插桩、符号执行以及污点分析</p>
+<p>（1）插桩</p>
+<p>插桩技术需要向测试目标的代码中加入预设的代码从而获取程序信息，而这种信息获取方法大体上分为两种：静态插桩和动态插桩。静态插桩需要依赖程序的源代码，在程序源码或者编译环节中进行插桩，其优点是处理速度快、节约时间成本，但需要依赖程序源码；相对应的动态插桩是在程序运行过程中对内存中的二进制代码段进行动态插桩，这种手段能够获取程序运行过程中的信息，但是相对资源开销很大。</p>
+<p>总体上来说插桩技术为监控程序状态带来很大的帮助，但是资源开销会增大许多。</p>
+<p>（2）符号执行</p>
+<p>符号执行技术可以通过分析程序来得到让特定代码区域执行的输入。顾名思义，使用符号执行分析一个程序时，该程序会使用符号值作为输入，而非一般执行程序时使用的具体值。在达到目标代码时，分析器可以得到相应的路径约束，然后通过约束求解器来得到可以触发目标代码的具体值[4]。即是构建一个程序的执行路径，推断目标在不同输入上的行为，让测试覆盖率显著提升，探寻更多可能存在漏洞的区域。这种技术也分为静态符号执行和动态符号执行。静态符号不真实执行程序，解析程序通过符号值模拟执行，执行在遇到循环和递归代码时会陷入到路径爆炸的问题中，所以目前使用较多的是动态符号执行的方法，通过实际运行程序以及符号化执行程序，结合真实执行和传统符号执行的优点，在程序执行过程中同时进行符号执行，能够缓解静态符号执行的问题。</p>
+<p>（3）污点分析</p>
+<p>污点分析技术是将不受信任来源的输入数据视为污染数据，然后监视程序的执行情况以跟踪污染数据传播，并检查污染数据何时被使用[5]。污点分析可以抽象成一个三元组&lt;sources,sinks,sanitizers&gt;的形式，其中，sourcse代表污点源，代表直接引入不受信任的数据或者机密数据到系统中；sink代表污点汇聚点，表示直接产生安全敏感操作(违反数据完整性)或者泄露隐私数据到外界(违反数据保密性)；sanitizer代表无害处理，表示通过数据加密或者移除危害操作等手段使数据传播不再对软件系统的信息安全产生危害。污点分析就是分析程序中由污点源引入的数据是否能够不经无害处理，而直接传播到污点汇聚点，如果不能，说明系统是信息流安全的；否则，说明系统产生了隐私数据泄露或危险数据操作等安全问题[6]。</p>
+<p>污点分析也分为静态污点分析和动态污点分析。静态污点分析不实际执行程序，通过静态解析目标程序，依赖程序数据流图和数据关系进行污点分析；而动态污点分析是实际执行目标程序，利用动态执行信息进行污点分析，这种方式的可信度更高，但相对的也就会消耗更多的资源。</p>
+<h2 id="II-输入构造环节"><a href="#II-输入构造环节" class="headerlink" title="II.输入构造环节"></a>II.输入构造环节</h2><p>输入构造环节需要构造出可以被检测目标执行的输入数据，具体面临的问题是如何在短时间内生成大量尽可能满足语法语义的输入来进行测试。</p>
+<p>通常方法是获得一个数据Data，然后数据Data按照一定的策略进行若干次变异，获得大量的新数据DataII，将DataII输入到被测目标中进行测试，在这个过程中数据Data就被称为种子，DataII是模糊测试中实际输入的数据。通过这种方式，只要能保证种子的有效性以及通过合理的变异方式，我们就能在短时间内获得大量的高质量测试数据以供输入。</p>
+<h2 id="III-输入选择环节"><a href="#III-输入选择环节" class="headerlink" title="III.输入选择环节"></a>III.输入选择环节</h2><p>输入选择的目的主要是在开始输入之前，对测试数据中的无效数据提前进行过滤，来达到节省测试执行时间的目的。这个环节面临的主要问题是在不进行测试的情况下，如何判断一组输入数据是否是有效的。这是一个与模式识别相关的问题，目前通常会使用机器学习的技术来解决。总体来说，这一步的主要思想就是筛选输入数据，提升模糊测试的效率。但是这个环节并不是必须的，需要根据具体的需求和资源情况来进行衡量，确保增加输入选择环节后是否能够提升模糊测试整体的效率，否则增加该环节将会毫无意义且冗余。</p>
+<h2 id="IV-评估环节"><a href="#IV-评估环节" class="headerlink" title="IV.评估环节"></a>IV.评估环节</h2><p>评估环节用于评估模糊测试的执行结果，该环节面临的问题是如何选取一个合适的评估指标，从而帮助模糊测试进一步的策略以及该模糊测试检测漏洞的能力。</p>
+<p>目前阶段研究主要重视的指标是：覆盖率和漏洞暴露平均时间。覆盖率指的是测试对象执行过程中被覆盖到的数目占总数的比例，是软件测试中的一个衡量指标。一般高覆盖率意味着更多的漏洞发现机会。而对于不同场景，覆盖率可能不再是合适的评估项，存在漏洞的代码并不是全部，太过重视覆盖率，可能会让模糊测试工具在不存在漏洞的部分投入过多成本，这种时候代码覆盖率不再是主要指标，而是以暴露漏洞的平均时间来进行评估。这种方式和覆盖率相比，更加重视发现漏洞的能力。暴露漏洞的平均时间能证明模糊测试工具挖掘漏洞的能力，即纵向挖掘能力，而覆盖率能够帮助模糊测试工具发现更多的漏洞，即横向拓展能力，两者需要结合发展综合考虑。</p>
+<h2 id="V-结果分析环节"><a href="#V-结果分析环节" class="headerlink" title="V.结果分析环节"></a>V.结果分析环节</h2><p>结果分析环节是在模糊测试过程结束后，对模糊测试的输出报告进行分析。这一环节面临的主要问题是安全人员通常要手动分析从模糊测试中得到的输出状态并进行复现，研究其发生的根本原因，根据威胁程度来判断该漏洞是否有意义。这个过程需要安全人员拥有良好的漏洞分析和复现能力。</p>
+<h1 id="0x06-发展趋势"><a href="#0x06-发展趋势" class="headerlink" title="0x06 发展趋势"></a>0x06 发展趋势</h1><p>模糊测试在漏洞检测上发挥着重要的作用，但这种技术也能为攻击者提供便利，攻击者也可以用这种技术来进行漏洞挖掘并进行恶意利用。因此对抗模糊测试的反模糊测试技术也逐渐被人开始研究，不仅是对防止自身被模糊测试的研究，还是怎么去绕过反模糊测试的研究，都对模糊测试这门技术里非常重要。</p>
+<p>目前模糊测试的种类复杂繁多，应用在各个领域，目前模糊测试虽然有许许多多的工具，但是一直都没有一个通用的平台，这也是模糊测试方向的一个重要的挑战。</p>
+<p>同时近年来，机器学习技术在其他领域飞速发展，这项技术与模糊测试中各个工作环节相结合的新方法也在不断出现，如何将两者最大限度结合起来发挥两者的优势也是正在着重研究的方向。</p>
+<h1 id="0x07-结束语"><a href="#0x07-结束语" class="headerlink" title="0x07 结束语"></a>0x07 结束语</h1><p>随着国家推进网络空间安全专业的大力发展，国内模糊测试技术相关的研究正在逐渐多起来。模糊测试诞生时被用于分析程序的可用性，直到今天，它已经是漏洞检测和挖掘领域中不可或缺的技术。</p>
+<p>本报告对模糊测试的发展进行概述，对模糊测试技术所涵盖的整体工作流程进行总结，也针对流程中的每一个环节的工作方式进行了介绍和讲解，最终对模糊测试技术目前所遇到的机遇和挑战进行分析。</p>
+<p>希望今后模糊测试技术能够进一步发展，在漏洞挖掘领域继续大放光彩。</p>
+<p>课题报告选择这个方向主要是为漏洞挖掘学习打知识基础，今后实操之后也许会再继续补充本篇吧。</p>
+<h1 id="0x08-参考文献"><a href="#0x08-参考文献" class="headerlink" title="0x08 参考文献"></a>0x08 参考文献</h1><p>[1] 蒲石,陈周国,祝世雄.震网病毒分析与防范[J].信息网络安全,2012(02):40-43.</p>
+<p>[2] 张雄,李舟军.模糊测试技术研究综述[J].计算机科学,2016,43(05):1-8+26.</p>
+<p>[3] 谢肖飞,李晓红,陈翔,孟国柱,刘杨.基于符号执行与模糊测试的混合测试方法[J].软件学报,2019,30(10):3071-3089.DOI:10.13328/j.cnki.jos.005789.</p>
+<p>[4] <a target="_blank" rel="noopener" href="https://blog.csdn.net/wcventure/article/details/86773290">符号执行技术总结（A Brief Summary of Symbol Execution）- wcventure_wcventure的博客-CSDN博客_符号执行</a></p>
+<p>[5] 黄冬秋,韩毅,杨佳庚,田志宏.基于二进制程序的动态污点分析技术研究综述[J].广州大学学报(自然科学版),2020,19(02):57-68.</p>
+<p>[6] <a target="_blank" rel="noopener" href="https://www.pianshen.com/article/78692025447/">污点分析 - 程序员大本营 (pianshen.com)</a></p>
+<p>[7] <a target="_blank" rel="noopener" href="https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/5.1_fuzzing.html">5.1 模糊测试 · CTF All In One (gitbooks.io)</a></p>
+<p>[8] 陈衍铃,王正.模糊测试研究进展[J].计算机应用与软件,2011,28(07):291-293+295.</p>
+<p>[9] 任泽众,郑晗,张嘉元,王文杰,冯涛,王鹤,张玉清.模糊测试技术综述[J].计算机研究与发展,2021,58(05):944-963.</p>
+<p>[10]李贺,张超,杨鑫,朱俊虎.操作系统内核模糊测试技术综述[J].小型微型计算机系统,2019,40(09):1994-1999.</p>
 
                 
             </div>
@@ -552,7 +468,7 @@ if (lpData)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://luluting.github.io/2021/11/21/zhu-ru/">http://luluting.github.io/2021/11/21/zhu-ru/</a>
+                    <a href="http://luluting.github.io/2021/12/09/mo-hu-ce-shi/">http://luluting.github.io/2021/12/09/mo-hu-ce-shi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -590,8 +506,8 @@ if (lpData)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
-                                    <span class="chip bg-color">代码注入</span>
+                                <a href="/tags/Fuzz/">
+                                    <span class="chip bg-color">Fuzz</span>
                                 </a>
                             
                         </div>
@@ -637,49 +553,47 @@ if (lpData)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2021/11/21/jia-ke/">
+                <a href="/2021/12/09/mo-hu-ce-shi/">
                     <div class="card-image">
                         
-                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/maxresdefault.jpg" class="responsive-img" alt="基于PE程序加壳的软件保护技术的设计与实现">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/photo_2019-04-04_16-25-26.jpg" class="responsive-img" alt="模糊测试相关">
                         
-                        <span class="card-title">基于PE程序加壳的软件保护技术的设计与实现</span>
+                        <span class="card-title">模糊测试相关</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            作为本科毕设，这次信息保护理论与技术课上又讲了一次，故进行一波简单的总结。
+                            
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Windows/" class="post-category">
-                                    Windows
+                            <a href="/categories/Vulnerability/" class="post-category">
+                                    Vulnerability
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">PE结构</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8A%A0%E5%A3%B3/">
-                        <span class="chip bg-color">加壳</span>
+                    <a href="/tags/Fuzz/">
+                        <span class="chip bg-color">Fuzz</span>
                     </a>
                     
                 </div>
@@ -693,30 +607,30 @@ if (lpData)
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/21/win32/">
+                <a href="/2021/11/25/pwn-huan-jing-da-jian/">
                     <div class="card-image">
                         
-                        <img src="https://i.loli.net/2019/09/23/ibdG7Bn2ozqJ6ej.jpg" class="responsive-img" alt="Win32相关">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211125230935189.png" class="responsive-img" alt="PWN环境搭建">
                         
-                        <span class="card-title">Win32相关</span>
+                        <span class="card-title">PWN环境搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            记录一些学习WIN32知识的心得
+                            为漏洞挖掘做准备
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-25
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Windows/" class="post-category">
-                                    Windows
+                            <a href="/categories/Vulnerability/" class="post-category">
+                                    Vulnerability
                                 </a>
                             
                             
@@ -726,8 +640,12 @@ if (lpData)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/WIN32/">
-                        <span class="chip bg-color">WIN32</span>
+                    <a href="/tags/Pwn/">
+                        <span class="chip bg-color">Pwn</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%85%8D%E7%8E%AF%E5%A2%83/">
+                        <span class="chip bg-color">配环境</span>
                     </a>
                     
                 </div>

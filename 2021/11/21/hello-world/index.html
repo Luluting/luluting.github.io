@@ -5,17 +5,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="博客搭建记录, あなたがいること.">
-    <meta name="description" content="沙雕博客发展史
-
-
-前言很久没打理过博客了
+    <meta name="description" content="前言很久没打理过博客了
 回头一看感觉非常乱 不如重新来过吧
+沙雕博客发展史
 更新日志2019.08.27看不到以前的老文章 顿时感觉一阵惆怅(qing shuang wu bi)
 更新内容
 升级博客框架
 升级next主题
 设置基本信息
-">
+
+2">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -367,7 +366,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-11-25
+                    2021-12-09
                 </div>
                 
 
@@ -399,11 +398,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>沙雕博客发展史</p>
-<span id="more"></span>
-
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很久没打理过博客了</p>
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很久没打理过博客了</p>
 <p>回头一看感觉非常乱 不如重新来过吧</p>
+<p>沙雕博客发展史</p>
 <h1 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h1><h2 id="2019-08-27"><a href="#2019-08-27" class="headerlink" title="2019.08.27"></a>2019.08.27</h2><p>看不到以前的老文章 顿时感觉一阵惆怅(qing shuang wu bi)</p>
 <h3 id="更新内容"><a href="#更新内容" class="headerlink" title="更新内容"></a>更新内容</h3><ul>
 <li>升级博客框架</li>
@@ -544,8 +541,7 @@
                 <a href="/2021/11/21/hook/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/32.jpg" class="responsive-img" alt="Windows Hook">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202150141.jpg" class="responsive-img" alt="Windows Hook">
                         
                         <span class="card-title">Windows Hook</span>
                     </div>
@@ -604,7 +600,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            沙雕博客发展史
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -724,7 +720,7 @@
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h1, h2, h3, h4'
         });
 
         // modify the toc link href to support Chinese.
@@ -736,7 +732,7 @@
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -800,6 +796,51 @@
 
 
     <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="609872034"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
     
 
     <div class="container row center-align"
