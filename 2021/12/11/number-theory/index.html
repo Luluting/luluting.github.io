@@ -360,14 +360,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-12-11
+                    2021-12-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    847
+                    3.9k
                 </div>
                 
 
@@ -395,7 +395,7 @@
                 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>读研也逃不过数学，一直以来数学都是我的弱项。好记性不如烂笔头，复习的时候受算法笔记的启发，准备记录一波数论的关键知识。</p>
 <h1 id="第一章-因式分解"><a href="#第一章-因式分解" class="headerlink" title="第一章 因式分解"></a>第一章 因式分解</h1><h2 id="1-1-带余除法"><a href="#1-1-带余除法" class="headerlink" title="1.1 带余除法"></a>1.1 带余除法</h2><ul>
 <li><p>定理1(带余除法)</p>
-<p>  若<code>a</code>,<code>b</code>均为整数，$b \neq 0$，则存在唯一的整数<code>q</code>和<code>r</code>使得<br>$$<br>a=bq+r, 0\le r\lt \vert b \vert<br>$$</p>
+<p>  若<code>a</code>,<code>b</code>均为整数，$b \neq 0$，则存在唯一的整数<code>q</code>和<code>r</code>使得$$a=bq+r, 0\le r\lt \vert b \vert$$</p>
 <p>  其中<code>r</code>称为余数，<code>q</code>称为不完全商</p>
 <p>  <strong>证明</strong></p>
 <p>  数轴上以b为单位划分空间，则a必然落在某小段之中，则向左取最靠近的bq并剩余r，于是有了上述定理。</p>
@@ -406,15 +406,10 @@
 <p>  $gcd(a, b)$为最大公因子 </p>
 <p>  当$gcd(a, b)=1$时称<code>a</code>与<code>b</code>互素</p>
 </li>
-<li><p>定理1 若$a=bq+r$ ,<code>a,b,r</code>为整数(<code>a,b</code>不全为零) 则有</p>
+<li><p>定理1 若$a=bq+r$ ,<code>a,b,r</code>为整数(<code>a,b</code>不全为零) 则有$$(a, b) = (r, b)$$</p>
+<p>  简单理解: <code>a,r</code>属于一个剩余类</p>
+<p>  由该定理可以得知 辗转相除法最后得到的余数即最大公因子</p>
 </li>
-</ul>
-<p>$$<br>(a, b) = (r, b)<br>$$</p>
-<pre><code>简单理解: `a,r`属于一个剩余类
-
-由该定理可以得知 **辗转相除法最后得到的余数即最大公因子**
-</code></pre>
-<ul>
 <li><p><strong>定理2(重点)</strong> 贝祖等式 任意两整数<code>a,b</code>的正最大公因子$d=(a, b)$是唯一存在的, 即$d=r_s$. 而且存在整数<code>u,v</code>使$$ua+vb=d$$</p>
 <p>系1 两整数<code>a,b</code>互素当且仅当存在整数<code>u,v</code>使得$$ua+vb=1$$</p>
 </li>
@@ -458,24 +453,357 @@
 <li><p>定理2 对于多元一次不定方程$$a_1x_1+…a_sx_s=n$$有解当且仅当$(a_1,…,a_s)|n$</p>
 </li>
 </ul>
-<h3 id="题型参考-1"><a href="#题型参考-1" class="headerlink" title="题型参考"></a>题型参考</h3><h4 id="求解二元一次方程所有整数解"><a href="#求解二元一次方程所有整数解" class="headerlink" title="求解二元一次方程所有整数解"></a>求解二元一次方程所有整数解</h4><blockquote>
-<p>待添加</p>
-</blockquote>
-<h4 id="求解多元一次方程所有整数解"><a href="#求解多元一次方程所有整数解" class="headerlink" title="求解多元一次方程所有整数解"></a>求解多元一次方程所有整数解</h4><blockquote>
-<p>待添加</p>
-</blockquote>
+<h3 id="题型参考-1"><a href="#题型参考-1" class="headerlink" title="题型参考"></a>题型参考</h3><ul>
+<li><p>求解二元一次方程所有整数解</p>
+<p>P14</p>
+</li>
+<li><p>求解多元一次方程所有整数解</p>
+<p>P15</p>
+</li>
+</ul>
 <h2 id="1-5-多项式的分解"><a href="#1-5-多项式的分解" class="headerlink" title="1.5 多项式的分解"></a>1.5 多项式的分解</h2><p>主要是将前面章节 从带余除法开始, 把多项式作为一个整体, 将各类性质带入。</p>
-<h1 id="Maple命令"><a href="#Maple命令" class="headerlink" title="Maple命令"></a>Maple命令</h1><ul>
-<li>fermat</li>
-<li>legendre</li>
-<li>mlog</li>
-<li>oder</li>
-<li>phi</li>
-<li>primroot</li>
-<li>quadres</li>
-<li>isolve</li>
-<li>msolve</li>
-<li>chrem</li>
+<h2 id="1-6-总结"><a href="#1-6-总结" class="headerlink" title="1.6 总结"></a>1.6 总结</h2><ul>
+<li>判断ax+by=c有解当且仅当(a,b)|c</li>
+</ul>
+<h1 id="第二章-同余与同余类"><a href="#第二章-同余与同余类" class="headerlink" title="第二章 同余与同余类"></a>第二章 同余与同余类</h1><h2 id="2-1-整数同余"><a href="#2-1-整数同余" class="headerlink" title="2.1 整数同余"></a>2.1 整数同余</h2><ul>
+<li>定义1 $m|(a-b) 意味着 a \equiv b (mod m)$</li>
+<li>定理1 同余符号具有以下性质<ul>
+<li>传递性</li>
+<li>对称性</li>
+<li>自反性</li>
+<li>同余式相加</li>
+<li>同余式相乘</li>
+<li>同余式约化</li>
+<li>多同余式通过最小公倍数合并</li>
+</ul>
+</li>
+</ul>
+<h3 id="题型参考-2"><a href="#题型参考-2" class="headerlink" title="题型参考"></a>题型参考</h3><ul>
+<li><p>简化解二元一次方程</p>
+<p>P36</p>
+</li>
+<li><p>判断9整除n</p>
+<p>P35</p>
+</li>
+<li><p>求大数余数P35</p>
+</li>
+</ul>
+<h2 id="2-2-同余类集"><a href="#2-2-同余类集" class="headerlink" title="2.2 同余类集"></a>2.2 同余类集</h2><ul>
+<li><p>集合划分-代表元</p>
+<p>$$\overline{x} = a+mZ = \lbrace a+mk|k\subseteq{Z}\rbrace $$</p>
+<p>可加法可乘法</p>
+</li>
+<li><p>环</p>
+<p>R为集合，其中元素之间有加法乘法，且满足以下条件</p>
+<p>对加法</p>
+<ul>
+<li>加法封闭</li>
+<li>加法结合律</li>
+<li>存在单位元</li>
+<li>存在加法逆元</li>
+<li>加法交换律</li>
+</ul>
+<p>对乘法</p>
+<ul>
+<li>乘法封闭性</li>
+<li>乘法结合律</li>
+<li>乘法单位元</li>
+</ul>
+<p>则称该集合为环</p>
+</li>
+</ul>
+<h2 id="2-3-同余类环的单位"><a href="#2-3-同余类环的单位" class="headerlink" title="2.3 同余类环的单位"></a>2.3 同余类环的单位</h2><ul>
+<li><p>欧拉函数</p>
+<p>$\phi(m)$表示小于m且与m互素的代表元集合，欧拉函数值为集合的个数</p>
+<p>其元素取出来代表元得到的集合，成为m的一个<strong>既约剩余系</strong></p>
+</li>
+<li><p>欧拉函数常用等式</p>
+<p>P45</p>
+</li>
+<li><p>$\sum_{d|m} \phi(d)=m$</p>
+</li>
+<li><p>考虑同余式</p>
+<p>$$ax\equiv{b}(mod m)$$</p>
+<p>(1)如果(a, m)=1, 则有唯一解.</p>
+<p>(2)如果(a, m)=d&gt;1, 则当且仅当$$d|b$时有解, 且有d个不同解(模m意义下)</p>
+</li>
+</ul>
+<h2 id="2-4-Fermat-Euler定理"><a href="#2-4-Fermat-Euler定理" class="headerlink" title="2.4 Fermat-Euler定理"></a>2.4 Fermat-Euler定理</h2><ul>
+<li><p>费马小定理</p>
+<p>设p为不整除a的素数, 则</p>
+<p>$$a^{p-1}\equiv{1}(mod p)$$</p>
+<p>$$亦可写为 a^p\equiv{a}(mod p)$$</p>
+</li>
+<li><p>欧拉定理</p>
+<p>设整数a与m互素, 则</p>
+<p>$$a^{\phi(m)}\equiv{1}(mod m)$$</p>
+</li>
+<li><p>Wilson定理</p>
+<p>p是素数当且仅当$(p-1)! \equiv {-1} mod (p)$</p>
+</li>
+</ul>
+<h2 id="2-5-孙子定理"><a href="#2-5-孙子定理" class="headerlink" title="2.5 孙子定理"></a>2.5 孙子定理</h2><h3 id="题型参考-3"><a href="#题型参考-3" class="headerlink" title="题型参考"></a>题型参考</h3><ul>
+<li><p>求解一次同余式组</p>
+<p>P53</p>
+</li>
+<li><p>求解高次同余式</p>
+<p>P54</p>
+</li>
+</ul>
+<h1 id="第三章-原根与同余方程"><a href="#第三章-原根与同余方程" class="headerlink" title="第三章 原根与同余方程"></a>第三章 原根与同余方程</h1><h2 id="3-1-群及元素的阶"><a href="#3-1-群及元素的阶" class="headerlink" title="3.1 群及元素的阶"></a>3.1 群及元素的阶</h2><ul>
+<li><p>群的定义</p>
+<p>一个群就是一个集合G, 其中的元素之间都满足一个二元运算, 具有一下4条公理</p>
+<ul>
+<li><strong>GR1</strong>:(封闭性) $ab\in{G}$</li>
+<li><strong>GR2</strong>:(结合律) $(ab)c = a(bc)$</li>
+<li><strong>GR3</strong>:(存在单位元) 存在元素$e\in{G}$ 使得 $ea=ae=a$, 其中$e$被称为单位元</li>
+<li><strong>GR4</strong>:(元素皆可逆) 对任意$a\in{G}$, 存在$a’\in{G}$ 使得$aa’=a’a=e$, 其中$a’$被称为逆元</li>
+</ul>
+<p>若群中元素还满足:</p>
+<ul>
+<li><strong>COMM</strong>: 交换律即$ab=ba$, 则称群为交换群或者<strong>Abel</strong>(阿贝尔)群</li>
+</ul>
+</li>
+<li><p>群的引理(P60)</p>
+<p>(1)单位元是唯一的</p>
+<p>(2)逆元是唯一的</p>
+</li>
+<li><p>群阶</p>
+<p>群G的元素个数被称为群G的<strong>阶</strong>(order),记为$#G$ 或 $|G|$.</p>
+<p>有限阶的群成为有限群, 设H是G的子集和, 以G的运算和单位元构成群, 则称H是G的子群, 记为$H&lt;G$</p>
+</li>
+<li><p>元素阶</p>
+<p>对$a\in{G}$,考虑$a^k$</p>
+<ul>
+<li>当$a^k\not = 1\quad(k\not = 0)$, 则称元素a的阶无穷, 记为$ord(a) = \infty$</li>
+<li>当$a^k = 1\quad(k\not = 0)$, 则存在$a^n=1$的最小正整数n; 此时称n为元素a的阶, 记为$ord(a) = n$</li>
+</ul>
+</li>
+<li><p>阶引理</p>
+<p>对$a\in{G}, ord(a)=n$则</p>
+<p>$$a^k=1 \Leftrightarrow ord(a)|k$$</p>
+</li>
+<li><p>循环群</p>
+<p>设a为G中元素, 则集合$&lt;a&gt;=\lbrace \ldots, a^{-1}, 1 , a, a^2,\cdots \rbrace$</p>
+<p>是G的一个Abel子群, 则称$&lt;a&gt;$为a生成的循环子群,a为此群的生成元.</p>
+<p>若$G=&lt;a&gt;$, 则称G为循环群</p>
+<p>(1)当$ord(n)=\infty$时, $&lt;a&gt;$是无限群, 当$i\not=j, a^i\not=a^j$.</p>
+<p>(2)$ord(n)=n$, 对任意k=nq+r, 有$a^k = a^{nq}a^r=a^r$</p>
+</li>
+<li><p>阶计算引理</p>
+<p>对任意乘法群G, $a\in{G}$, 阶$ord(a)=n$</p>
+<p>(1)若$a^r=1, a^s=1$, 则 $a^{(r,s)} = 1$</p>
+<p>(2)若k|n即k|ord(a),则</p>
+<p>$$ord(a^k)= \frac {n} {k}$$</p>
+<p>而对任意k有</p>
+<p>$$ord(a^k)= \frac {n} {(k,n)}$$</p>
+<p>(3)若a, b的阶分别为m, n且(m, n)=1, ab=ba, 则ab的阶为mn</p>
+</li>
+<li><p>定理1</p>
+<p>Abel群的元素的阶 是 群的阶的因子</p>
+<p>详言之, 设G为n阶有限群, 则G中任意元素a的阶$ord(a) | n$</p>
+<p>从而$a^n = 1, \forall{a}\in{G}$</p>
+</li>
+<li><p>定理2 拉格朗日</p>
+<p>子群的阶是母群阶的因子</p>
+</li>
+<li><p>映射定义</p>
+<p>设G, G’是两个群, 映射$\sigma: G\Rightarrow{G’}$保运算, 即</p>
+<p>$$\sigma(ab)=\sigma(a)\sigma(b)$$</p>
+<p>则称$\sigma$是群的同态映射. 如果$\sigma$是同态映射的, 并且是双射(一一对应), 则称$\sigma$是同构映射, 且称群G和G’是同构的, 记为$G\cong{G’}$</p>
+</li>
+<li><p>循环群引理P65</p>
+<p>n阶循环群G中， n阶元（即生成元）的个数为$\phi(n)$个</p>
+</li>
+</ul>
+<h2 id="3-2-模-P-s-原根"><a href="#3-2-模-P-s-原根" class="headerlink" title="3.2 模$P^s$原根"></a>3.2 模$P^s$原根</h2><ul>
+<li><p>原根概念</p>
+<p>模m的整数同余类环中Z/mZ中,可逆元集合记为</p>
+<p>$$U_m=(Z/mZ)^*=\lbrace{\overline{a}|(a, m)=1, 1\le a \le m}\rbrace$$</p>
+<p>其中含有$\phi(m)$个元素, 如果存在$g\in{Z}$使得</p>
+<p>$$U_m=&lt;g&gt;=\lbrace{1, \overline{g},\overline{g}^2,\ldots,\overline{g}^{\phi(m)-1}}\rbrace$$</p>
+<p>则称g为模m的一个<strong>原根</strong>(primitive root), 也称g(mod m)或$\overline{g}$为原根</p>
+<p>除了1,-1, 只有$m=p^s或2p^s$时, 原根存在(p为奇素数).</p>
+</li>
+<li><p>定理1</p>
+<p>(1)域的有限乘法子群必是循环群 P69证明 重要</p>
+<p>(2)任一有限域F的非零元集合$F^*$是一个循环群</p>
+<p>(3)设p为素数, 则模p的域为循环群, 且当d|(p-1)时, 集合中d阶元个数为$\phi(d)$, 模p原根的个数为$\phi(p-1)$</p>
+<p>(4)设G为n阶循环群, 则对任意d|n, G恰好有一个d阶子群且为循环群, d阶元的个数为$\phi(d)$. 特别, G的生成元(即n阶元)个数为$\phi(n)$</p>
+</li>
+<li><p>引理1</p>
+<p>(1)p为任意素数, $k\ge 1, a\equiv b(mod\ p^k)$, 则</p>
+<p>$$a^p\equiv b^p(mod\ p^{k+1})$$</p>
+<p>(2)若$p\not =2, k\ge 2$, 则$(1+cp)^{p^{k-2}}\equiv 1+cp^{k-1}(mod\ p^k)$</p>
+<p>(3)若素数$p\not = 2, p \not | c$, 则$1+cp(mod\ p^k)$的阶为$p^{k-1}$</p>
+</li>
+<li><p>定理2</p>
+<p>p为奇素数, 则模$p^s和2p^s$有原根, 即他们分别构成的模类为循环群</p>
+</li>
+<li><p>系1 设g为模p(奇素数)的原根</p>
+<p>(1)模$p^k$的原根可取为g或g+p, 依据$g^{p-1} \not \equiv 1(mod\ p^2)或否$</p>
+<p>(2)模$2p^k$的原根可取为$g或g+p^k$, 依据g奇或偶</p>
+<p>模$2p^k$的原根也可取为$g+(g-1)p^k$</p>
+</li>
+</ul>
+<h2 id="3-3-模-2-s-分解"><a href="#3-3-模-2-s-分解" class="headerlink" title="3.3 模$2^s$分解"></a>3.3 模$2^s$分解</h2><ul>
+<li><p>定理1</p>
+<p>当$s\ge 3$时, 模$2^s$没有原根, 内直积</p>
+</li>
+<li><p>系1 设m&gt;1, $\phi (m)$的所有素因子为$ p_i$, (g, m)=1. 则g为模m原根的充要条件为</p>
+<p>$$g^{\phi(m)/{p_i}}\not \equiv 1 (mod\ m)$$</p>
+</li>
+</ul>
+<h2 id="3-4-指标与n次剩余"><a href="#3-4-指标与n次剩余" class="headerlink" title="3.4 指标与n次剩余"></a>3.4 指标与n次剩余</h2><ul>
+<li><p>定义1 指标</p>
+<p>设g为模m的原根, 整数a与m互素, 若整数i($0\le i \le \phi(m)-1$)使</p>
+<p>$$\overline a=\overline g^i, 即a\equiv g^i(mod\ m)$$</p>
+<p>则称i为a(模m)的<strong>指标</strong>(index), 或指数, 或对数, 常记</p>
+<p>$$i=ind_ga(mod\ \phi(m)) 或 ind\ a$$</p>
+<p>注意$\overline{g} $的阶为$\phi(m) $, 故$\overline a = \overline g^j = \overline g^{i+k\phi(m)}$</p>
+<p>ind与对数相仿</p>
+<p>(1)$ind_g(ab)=ind_ga+ind_gb$</p>
+<p>(2)$indg(a^r)=rind_ga$</p>
+</li>
+<li><p>定义2 设(a, m) = 1, 若同余式</p>
+<p>$$x^n\equiv a(mod\ m)$$</p>
+<p>有整数解x, 则称a为模m的n次剩余, 否则称为n次非剩余</p>
+<p>简言之, n次剩余就是n次幂</p>
+</li>
+<li><p>定理1 (P79)模m有原根g, (a, m)=1, 考虑$$x^n\equiv a(mod\ m)$$ </p>
+<p>(1)a是模m的n次剩余</p>
+<p>$\Leftrightarrow (n, \phi(m)) | ind a$</p>
+<p>$\Leftrightarrow a^{\frac{\phi(m) }{(n, \phi(m))}}\ \equiv 1 \ mod(m)$</p>
+<p>(2)n次剩余a的个数为$\phi(m)/d$, 特别的, m&gt;2时</p>
+<p>$$x^2\equiv a\ (modm)有解(a为2次剩余)$$</p>
+<p>$\Leftrightarrow 2 | ind a$</p>
+<p>$\Leftrightarrow a^{\frac{\phi(m) }{2}}\ \equiv 1 \ mod(m)$</p>
+<p>此时$x^2\equiv a\ (modm)$解数为2. 二次剩余a的个数为$\frac{\phi(m) }{2}$</p>
+</li>
+<li></li>
+</ul>
+<p>3.5 高次同余式</p>
+<h1 id="第四章-二次互反律"><a href="#第四章-二次互反律" class="headerlink" title="第四章 二次互反律"></a>第四章 二次互反律</h1><h2 id="4-1-二次剩余"><a href="#4-1-二次剩余" class="headerlink" title="4.1 二次剩余"></a>4.1 二次剩余</h2><ul>
+<li><p>设整数a与m互素，若$x^2\equiv a(mod\ m)$有解, 则称a是模m的二次剩余, 否则称为非剩余.</p>
+</li>
+<li><p>引理1</p>
+<p>(1)设a为奇数, $s\ge 3$, 则a为模$2^s$的二次剩余当且仅当$$a\equiv 1(mod\ 8)$$</p>
+<p>即$$x^2\equiv a(mod\ 2^s)$$有解的充要条件为a模8余1</p>
+<p>(2)a为模$p^s$的二次剩余, 其中$s\ge 1$当且仅当$$a^{(p-1)/2}\equiv 1(mod\ p)$$</p>
+</li>
+<li><p>定理1</p>
+<p>设$m=2^s p_1^{s_1}\cdots p_t^{s_t}$为素因子分解, (a, m)=1, 则$x^2 \equiv a(mod\ m)$有解当且仅当如下条件成立:</p>
+<p>(1)若$s\ge 3$, 则$a\equiv 1(mod\ 8)$. 若s=2, 则$a\equiv 1(mod 4)$</p>
+<p>(2)$a^{(p_i-1)/2}\equiv 1(mod\ p_i)$, i=1,…,t.</p>
+</li>
+<li><p>定义1 设p为奇素数, Legendre(勒让德)符号定义如下:<br>$$<br>(\frac a p)= {\begin{cases} 1, \quad 若a是二次剩余(mod\ p)\\-1,\ 若a是二次非剩余(mod\ p)\\0, \quad 若a\equiv 0(mod\ p)\end{cases}}<br>$$</p>
+</li>
+<li><p>引理2</p>
+<p>(1)(Euler判则)$(\frac a p)\equiv a^{(p-1)/2}(mod\ p)$</p>
+<p>(2)$$(\frac {-1} p) \equiv (-1)^{(p-1)/2}=\begin{cases} 1,\quad 若p\equiv1(mod\ 4)\\-1,\ 若p\equiv 3(mod\ 4) \end{cases}$$</p>
+<p>而且当$p\equiv 1(mod\ 4)$时, $((\frac {p-1} 2)!)^2\equiv -1(mod\ p)$</p>
+</li>
+<li><p>系1</p>
+<p>(1)$(\frac {ab} p) = (\frac a p)(\frac b p)$</p>
+<p>(2)若a模p等于b, 则$(\frac a p)=(\frac b p)$</p>
+<p>(3)模p的二次剩余和非剩余个数相等, 均为$(p-1)/2$, 故模p的二次剩余恰为</p>
+<p>$$1^2, 2^2,\cdots, (\frac {p-1} 2)^2$$</p>
+<p>(4)剩余与非剩余之间的乘法关系如1和-1一样, 剩余为1, 非剩余为-1</p>
+</li>
+<li><p>引理3(Gauss引理) P96</p>
+<p>设奇素数$p\not |a,v  $是$\lbrace a, 2a, \cdots, a(p-1)/2\rbrace$的模p绝对最小剩余中负数的个数, 则 $$(\frac a p)=(-1)^v$$</p>
+</li>
+<li><p>引理4</p>
+<p>$$(\frac 2 p)=(-1)^{(p^2-1)/8}=\begin{cases} 1,\quad 若p\equiv \pm 1(mod\ 8)\\-1,\ 若p\equiv \pm 3(mod\ 8) \end{cases}$$</p>
+</li>
+</ul>
+<h2 id="4-2-二次互反律"><a href="#4-2-二次互反律" class="headerlink" title="4.2 二次互反律"></a>4.2 二次互反律</h2><ul>
+<li><p>定理1 (二次互反律) 设p,q为奇素数, 则</p>
+<p>$$(\frac q p) = (\frac p q)(-1)^{\frac {p-1} 2 \frac {q-1} 2}$$(即p,q之一为4k+1型时, 取正号),</p>
+<p>$$(\frac {-1} p) = (-1)^{\frac {p-1} 2 }$$(即p为4k+1型时, 取正好),</p>
+<p>$$(\frac {2} p) = (-1)^{\frac {p^2-1} 8 }$$(即$p=8k\pm 1$时, 取正号)</p>
+<p>二次互反律的威力在于, 可定出a为模p二次剩余的所有p</p>
+</li>
+<li><p>定义1</p>
+<p>设$b=p_1p_2\cdots p_t$为正的奇数, $p_i$(i=1,…,t)为奇素数(不必互异), 对任意整数a, Jacobi(雅可比)符号可定为</p>
+<p>$$(\frac a b)=(\frac a {p_1p_2\cdots p_t})=(\frac a {p_1})(\frac a {p_2})\cdots (\frac a {p_t})$$.</p>
+<p>注意$(\frac a b)=1$并不意味着a为模b的二次剩余, </p>
+<p>但若a为模b的二次剩余, 则必定$(\frac a b)=1$</p>
+<p>Jacobi符号性质</p>
+<p>(1)$(\frac {a_1a_2} b)=(\frac {a_1} b)(\frac {a_2} b)$</p>
+<p>(2)$(\frac  b {a_1a_2})=(\frac  b {a_1})(\frac  b {a_2})$</p>
+<p>(3)若$a_1 \equiv a_2(mod\ b)$, 则$(\frac {a_1} b)=(\frac {a_2} b)$</p>
+</li>
+<li><p>对Jacobi符号互反律也成立</p>
+</li>
+<li><p>引理2</p>
+<p>(1)$\frac {s_1\cdots s_r-1} 2 = \frac{s_1-1}2+\cdots+\frac{s_r-1}2$</p>
+<p>(2)$\frac {s_1^2\cdots s_r^2-1} 8 = \frac{s_1^2-1}8+\cdots+\frac{s_r^2-1}8$</p>
+</li>
+<li><p>定理4</p>
+<p>若a不是完全平方数， 则存在无限多个素数p使得$(a/p)=-1$.</p>
+<p>即若a时任意素数的二次剩余, 则a为平方数.</p>
+</li>
+</ul>
+<h1 id="Maple命令"><a href="#Maple命令" class="headerlink" title="Maple命令"></a>Maple命令</h1><h2 id="fermat"><a href="#fermat" class="headerlink" title="fermat"></a>fermat</h2><p>求第n个费马数:</p>
+<p>$$2^{2^n} + 1$$</p>
+<p>使用方法</p>
+<ul>
+<li><p><code>fermat(n)</code></p>
+</li>
+<li><p><code>fermat(n, w)</code></p>
+</li>
+<li><p>legendre</p>
+<p>The legendre(a, p) function computes the Legendre symbol “L(a/p)” of a and p, which is defined to be “1”. If a is a quadratic residue “mod p”</p>
+<p>使用方法</p>
+<ul>
+<li><code>legendre(a, p)</code></li>
+</ul>
+<h2 id="mlog"><a href="#mlog" class="headerlink" title="mlog"></a>mlog</h2><p>The function mlog computes the discrete logarithm  (also called the index) of x to the base a (mod n). It finds an integer y such that </p>
+<p>$$a^y = x \ mod n$$<br> if possible, otherwise it returns FAIL.</p>
+<p>使用方法</p>
+<ul>
+<li>mlog(x, a, n)</li>
+</ul>
+<h2 id="order"><a href="#order" class="headerlink" title="order"></a>order</h2><p>求元素的阶                        </p>
+<p>$n^i = 1 \ mod m$</p>
+<p>使用方法</p>
+<ul>
+<li>order(n, m)</li>
+</ul>
+<h2 id="phi"><a href="#phi" class="headerlink" title="phi"></a>phi</h2><p>求欧拉函数$\phi(n)$</p>
+<p>使用方法</p>
+<ul>
+<li><code>phi(n)</code></li>
+</ul>
+<h2 id="primroot"><a href="#primroot" class="headerlink" title="primroot"></a>primroot</h2><p>求n 大于g最小的原根</p>
+<p>使用方法</p>
+<ul>
+<li><code>primroot(g,n)</code></li>
+<li><code>primroot(n)</code></li>
+</ul>
+<h2 id="quadres"><a href="#quadres" class="headerlink" title="quadres"></a>quadres</h2><h2 id="isolve"><a href="#isolve" class="headerlink" title="isolve"></a>isolve</h2><p>方程整数求解</p>
+<p>使用方法</p>
+<ul>
+<li><p>isolve(方程组，常量)</p>
+<p>例如isolve(3x - 4y = 7, a)</p>
+<p>得{x = 5 + 4<em>a, y = 2 + 3</em>a}</p>
+</li>
+</ul>
+<h2 id="msolve"><a href="#msolve" class="headerlink" title="msolve"></a>msolve</h2><p>在整数模m的空间下求解方程组</p>
+<p>使用方法</p>
+<ul>
+<li><p><code>msolve(eqns, vars, m)</code></p>
+<p>例如msolve({7x+y=2,3x=4y=1},19)</p>
+<p>得{x = 15, y = 11}</p>
+</li>
+</ul>
+<h2 id="chrem"><a href="#chrem" class="headerlink" title="chrem"></a>chrem</h2><p>If u is a list of integers, chrem(u, m) computes the unique positive integer a such that<br>“a mod m1 = u1, a mod m2 = u2, () .. (), a mod mn = un” and “0 &lt;= a and a &lt; M”</p>
+<p>使用方法</p>
+<ul>
+<li><code>chrem(u, m)</code></li>
+</ul>
+</li>
 </ul>
 
                 
