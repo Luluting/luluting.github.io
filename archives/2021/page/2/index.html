@@ -281,27 +281,34 @@
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2021/11/21/win32/">
+                        <a href="/2021/11/21/pvz/">
                             <div class="card-image">
                                 
+                                <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203120133.jpg" class="responsive-img" alt="PlantsVsZombies逆向相关">
                                 
-                                <img src="/medias/featureimages/34.jpg" class="responsive-img" alt="Win32相关">
-                                
-                                <span class="card-title">Win32相关</span>
+                                <span class="card-title">PlantsVsZombies逆向相关</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    记录一些学习WIN32知识的心得
+                                    记录在逆向PVZ中的一些过程
 
 
-Win32消息Windows中的每一个动作都是一个 事件
-而为了记录这些时间 产生了消息这么一个结构
-消息结构/*
- * Message structure
- */
-typedef struct tag
+0x01 前期准备I. 游戏逆向分类
+脚本类
+找图, 模拟鼠标键盘操作
+
+内存类
+模拟内存数据操作, 调用游戏内部函数
+
+封包类
+破解游戏客户端, 模拟客户端发包
+
+
+本次为内存类的逆向
+II. 工具准备
+
                                 
                             </div>
                             <div class="publish-info">
@@ -312,8 +319,8 @@ typedef struct tag
                                     
                                     <i class="fas fa-bookmark fa-fw icon-category"></i>
                                     
-                                    <a href="/categories/Windows/" class="post-category">
-                                    Windows
+                                    <a href="/categories/Game/" class="post-category">
+                                    Game
                                     </a>
                                     
                                     
@@ -324,7 +331,9 @@ typedef struct tag
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/WIN32/"><span class="chip bg-color">WIN32</span></a>
+                            <a href="/tags/Hook/"><span class="chip bg-color">Hook</span></a>
+                            
+                            <a href="/tags/MOD/"><span class="chip bg-color">MOD</span></a>
                             
                         </div>
                         
