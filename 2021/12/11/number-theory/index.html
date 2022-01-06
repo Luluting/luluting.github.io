@@ -360,14 +360,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-12-14
+                    2021-12-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    3.9k
+                    3.8k
                 </div>
                 
 
@@ -418,13 +418,6 @@
 <p>$$u_1a_1+…+u_sa_s=d (贝祖等式)$$</p>
 </li>
 </ul>
-<h3 id="题型参考"><a href="#题型参考" class="headerlink" title="题型参考"></a>题型参考</h3><h4 id="求解多元一次方程"><a href="#求解多元一次方程" class="headerlink" title="求解多元一次方程"></a>求解多元一次方程</h4><ul>
-<li><p>(1) 求解 $$65x+83y=1$$</p>
-<p>解: </p>
-<p>直接对65和83进行辗转相除法 得到贝祖等式$$1=23\cdot65-18\cdot83$$</p>
-<p>故原方程的解为$$x=23,y=-18$$</p>
-</li>
-</ul>
 <h2 id="1-3-唯一析因定理"><a href="#1-3-唯一析因定理" class="headerlink" title="1.3 唯一析因定理"></a>1.3 唯一析因定理</h2><ul>
 <li><p><strong>定理1 算数基本定理(重点)</strong></p>
 <p>任意整数都可以写为有限个素数之积,且写法是唯一的,也就是说<code>n</code>可以写为$$n=p_1p_2p_3…p_t$$</p>
@@ -453,14 +446,6 @@
 <li><p>定理2 对于多元一次不定方程$$a_1x_1+…a_sx_s=n$$有解当且仅当$(a_1,…,a_s)|n$</p>
 </li>
 </ul>
-<h3 id="题型参考-1"><a href="#题型参考-1" class="headerlink" title="题型参考"></a>题型参考</h3><ul>
-<li><p>求解二元一次方程所有整数解</p>
-<p>P14</p>
-</li>
-<li><p>求解多元一次方程所有整数解</p>
-<p>P15</p>
-</li>
-</ul>
 <h2 id="1-5-多项式的分解"><a href="#1-5-多项式的分解" class="headerlink" title="1.5 多项式的分解"></a>1.5 多项式的分解</h2><p>主要是将前面章节 从带余除法开始, 把多项式作为一个整体, 将各类性质带入。</p>
 <h2 id="1-6-总结"><a href="#1-6-总结" class="headerlink" title="1.6 总结"></a>1.6 总结</h2><ul>
 <li>判断ax+by=c有解当且仅当(a,b)|c</li>
@@ -476,16 +461,6 @@
 <li>同余式约化</li>
 <li>多同余式通过最小公倍数合并</li>
 </ul>
-</li>
-</ul>
-<h3 id="题型参考-2"><a href="#题型参考-2" class="headerlink" title="题型参考"></a>题型参考</h3><ul>
-<li><p>简化解二元一次方程</p>
-<p>P36</p>
-</li>
-<li><p>判断9整除n</p>
-<p>P35</p>
-</li>
-<li><p>求大数余数P35</p>
 </li>
 </ul>
 <h2 id="2-2-同余类集"><a href="#2-2-同余类集" class="headerlink" title="2.2 同余类集"></a>2.2 同余类集</h2><ul>
@@ -542,14 +517,7 @@
 <p>p是素数当且仅当$(p-1)! \equiv {-1} mod (p)$</p>
 </li>
 </ul>
-<h2 id="2-5-孙子定理"><a href="#2-5-孙子定理" class="headerlink" title="2.5 孙子定理"></a>2.5 孙子定理</h2><h3 id="题型参考-3"><a href="#题型参考-3" class="headerlink" title="题型参考"></a>题型参考</h3><ul>
-<li><p>求解一次同余式组</p>
-<p>P53</p>
-</li>
-<li><p>求解高次同余式</p>
-<p>P54</p>
-</li>
-</ul>
+<h2 id="2-5-孙子定理"><a href="#2-5-孙子定理" class="headerlink" title="2.5 孙子定理"></a>2.5 孙子定理</h2><p>重点 看书</p>
 <h1 id="第三章-原根与同余方程"><a href="#第三章-原根与同余方程" class="headerlink" title="第三章 原根与同余方程"></a>第三章 原根与同余方程</h1><h2 id="3-1-群及元素的阶"><a href="#3-1-群及元素的阶" class="headerlink" title="3.1 群及元素的阶"></a>3.1 群及元素的阶</h2><ul>
 <li><p>群的定义</p>
 <p>一个群就是一个集合G, 其中的元素之间都满足一个二元运算, 具有一下4条公理</p>
@@ -753,36 +721,42 @@
 </li>
 <li><p><code>fermat(n, w)</code></p>
 </li>
-<li><p>legendre</p>
-<p>The legendre(a, p) function computes the Legendre symbol “L(a/p)” of a and p, which is defined to be “1”. If a is a quadratic residue “mod p”</p>
+</ul>
+<h2 id="legendre"><a href="#legendre" class="headerlink" title="legendre"></a>legendre</h2><p>  The legendre(a, p) function computes the Legendre symbol “L(a/p)” of a and p, which is defined to be “1”. If a is a quadratic residue “mod p”</p>
+<p>求勒让德符号  </p>
 <p>使用方法</p>
 <ul>
 <li><code>legendre(a, p)</code></li>
 </ul>
-<h2 id="mlog"><a href="#mlog" class="headerlink" title="mlog"></a>mlog</h2><p>The function mlog computes the discrete logarithm  (also called the index) of x to the base a (mod n). It finds an integer y such that </p>
-<p>$$a^y = x \ mod n$$<br> if possible, otherwise it returns FAIL.</p>
-<p>使用方法</p>
+<h2 id="mlog"><a href="#mlog" class="headerlink" title="mlog"></a>mlog</h2><p>  The function mlog computes the discrete logarithm  (also called the index) of x to the base a (mod n). It finds an integer y such that </p>
+<p>  $$a^y = x \ mod n$$<br>   if possible, otherwise it returns FAIL.</p>
+<p>  使用方法</p>
 <ul>
 <li>mlog(x, a, n)</li>
 </ul>
-<h2 id="order"><a href="#order" class="headerlink" title="order"></a>order</h2><p>求元素的阶                        </p>
-<p>$n^i = 1 \ mod m$</p>
-<p>使用方法</p>
+<h2 id="order"><a href="#order" class="headerlink" title="order"></a>order</h2><p>  求元素的阶                        </p>
+<p>  $n^i = 1 \ mod m$</p>
+<p>  使用方法</p>
 <ul>
 <li>order(n, m)</li>
 </ul>
-<h2 id="phi"><a href="#phi" class="headerlink" title="phi"></a>phi</h2><p>求欧拉函数$\phi(n)$</p>
-<p>使用方法</p>
+<h2 id="phi"><a href="#phi" class="headerlink" title="phi"></a>phi</h2><p>  求欧拉函数$\phi(n)$</p>
+<p>  使用方法</p>
 <ul>
 <li><code>phi(n)</code></li>
 </ul>
-<h2 id="primroot"><a href="#primroot" class="headerlink" title="primroot"></a>primroot</h2><p>求n 大于g最小的原根</p>
-<p>使用方法</p>
+<h2 id="primroot"><a href="#primroot" class="headerlink" title="primroot"></a>primroot</h2><p>  求n 大于g最小的原根</p>
+<p>  使用方法</p>
 <ul>
 <li><code>primroot(g,n)</code></li>
 <li><code>primroot(n)</code></li>
 </ul>
-<h2 id="quadres"><a href="#quadres" class="headerlink" title="quadres"></a>quadres</h2><h2 id="isolve"><a href="#isolve" class="headerlink" title="isolve"></a>isolve</h2><p>方程整数求解</p>
+<h2 id="quadres"><a href="#quadres" class="headerlink" title="quadres"></a>quadres</h2><p>判断二次剩余(a/b) jacobi符号?</p>
+<p>效果应该同勒让德符号 不过勒让德需要p</p>
+<p>使用方法</p>
+<ul>
+<li><p>quadres(a, b)</p>
+<h2 id="isolve"><a href="#isolve" class="headerlink" title="isolve"></a>isolve</h2><p>方程整数求解</p>
 <p>使用方法</p>
 <ul>
 <li><p>isolve(方程组，常量)</p>
@@ -805,6 +779,10 @@
 </ul>
 </li>
 </ul>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>2021/12/17</p>
+<p>再次使用通宵学战术 考完再睡</p>
+<p>记录真费时间 这种事应该边学边做 </p>
+<p>期末才开始记录还是太不明智了 看书做题更香</p>
 
                 
             </div>
@@ -916,17 +894,16 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/12/11/number-theory/">
+                <a href="/2021/12/28/pwn-prac/">
                     <div class="card-image">
                         
-                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/72908383_p0.png" class="responsive-img" alt="数论">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1920x1200-144465-anime-anime-girls-digital-art-artwork-portrait-2D.png" class="responsive-img" alt="PWN题记录">
                         
-                        <span class="card-title">数论</span>
+                        <span class="card-title">PWN题记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -936,27 +913,30 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Course/" class="post-category">
-                                    Course
+                            <a href="/categories/Vulnerability/" class="post-category">
+                                    Vulnerability
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Math/">
-                        <span class="chip bg-color">Math</span>
+                    <a href="/tags/Pwn/">
+                        <span class="chip bg-color">Pwn</span>
+                    </a>
+                    
+                    <a href="/tags/CTF/">
+                        <span class="chip bg-color">CTF</span>
                     </a>
                     
                 </div>
@@ -1235,7 +1215,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2021</span>
+                <span id="year">2019-2022</span>
             
             <a href="/about" target="_blank">Luluting</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PWN环境搭建, あなたがいること.">
+    <meta name="keywords" content="あなたがいること.">
     <meta name="description" content="为漏洞挖掘做准备
 
 
@@ -26,7 +26,7 @@ $ sudo apt update &amp;amp;&amp;amp; sudo ">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PWN环境搭建 | あなたがいること.</title>
+    <title>あなたがいること.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -218,7 +218,7 @@ $ sudo apt update &amp;amp;&amp;amp; sudo ">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PWN环境搭建</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -370,7 +370,7 @@ $ sudo apt update &amp;amp;&amp;amp; sudo ">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-12-12
+                    2021-12-28
                 </div>
                 
 
@@ -417,7 +417,7 @@ $ sudo apt update &amp;amp;&amp;amp; sudo ">
 
 <h3 id="III-安装Python-PIP"><a href="#III-安装Python-PIP" class="headerlink" title="III.安装Python+PIP"></a>III.安装Python+PIP</h3><p>ubuntu自带python3</p>
 <p>安装python2 + pip2 + pip3</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">````$ <span class="token function">apt-get</span> <span class="token function">install</span> python python-pip python-dev libssl-dev libffi-dev build-essential
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">apt-get</span> <span class="token function">install</span> python python-pip python-dev libssl-dev libffi-dev build-essential
 $ pip <span class="token function">install</span> -U setuptools
 $ pip <span class="token function">install</span> --upgrade pip	
 $ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> python3-pip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
@@ -426,14 +426,19 @@ $ <span class="token function">sudo</span> <span class="token function">apt</spa
 
 <p>现在git被墙 需要代理</p>
 <h3 id="V-设置代理"><a href="#V-设置代理" class="headerlink" title="V.设置代理"></a>V.设置代理</h3><ul>
-<li>系统代理</li>
-</ul>
-<p>​    参考此文<a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup/blob/master/Ubuntu.md">electron-ssr-backup/Ubuntu.md at master · qingshuisiyuan/electron-ssr-backup (github.com)</a></p>
-<p>​    这里遇到了一点小问题 不能使用</p>
-<p>​    最终是用手动设置代理的方式完成的</p>
-<p>​    以我代理的端口1080为例</p>
+<li><p>系统代理</p>
+<p>使用Electron-SSR客户端, 但因为Github被墙, 需要手动设置目录.</p>
 <ul>
-<li>shell代理(WSL1)</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup">qingshuisiyuan/electron-ssr-backup: electron-ssr原作者删除了这个伟大的项目，故备份了下来，不继续开发,且用且珍惜 (github.com)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/shadowsocksrr/shadowsocksr">shadowsocksrr/shadowsocksr: Python port of ShadowsocksR (github.com)</a></p>
+</li>
+<li><p>更多问题参考此文<a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup/blob/master/Ubuntu.md">electron-ssr-backup/Ubuntu.md at master · qingshuisiyuan/electron-ssr-backup (github.com)</a></p>
+</li>
+</ul>
+</li>
+<li><p>shell代理(WSL1)</p>
+</li>
 </ul>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ALL_PROXY</span><span class="token operator">=</span><span class="token string">"http://127.0.0.1:1080"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -546,12 +551,18 @@ Ctrl+b q：显示窗格编号。
 
 
 
-<h3 id="II-Metasploit"><a href="#II-Metasploit" class="headerlink" title="II.Metasploit"></a>II.Metasploit</h3><p><code>　Metasploit</code>就是一个漏洞框架。全称叫做<code>The Metasploit Framework</code>，简称叫做<code>MSF</code>。</p>
+<h3 id="II-Metasploit"><a href="#II-Metasploit" class="headerlink" title="II.Metasploit"></a>II.Metasploit</h3><p><code>Metasploit</code>就是一个漏洞框架。全称叫做<code>The Metasploit Framework</code>，简称叫做<code>MSF</code>。</p>
 <p><code>Metasploit</code>作为全球最受欢迎的工具，不仅仅是因为它的方便性和强大性，更重要的是它的框架。它允许使用者开发自己的漏洞脚本，从而进行测试。</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://apt.metasploit.com/">https://apt.metasploit.com/</a></p>
+<p>手动安装 </p>
+<p><code>sudo dpkg -i + .deb文件</code>(Ubuntu为例)</p>
+</li>
+<li><p>脚本安装</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sudo wget https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb 
+#或者
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+</ul>
 <h2 id="0x04-开冲"><a href="#0x04-开冲" class="headerlink" title="0x04 开冲"></a>0x04 开冲</h2><p>环境搭个差不多了 该开冲了</p>
 <p>冲的过程中发现少了料再回来补</p>
 <h2 id="0x05-参考链接"><a href="#0x05-参考链接" class="headerlink" title="0x05 参考链接"></a>0x05 参考链接</h2><ul>
@@ -989,7 +1000,7 @@ Ctrl+b q：显示窗格编号。
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2021</span>
+                <span id="year">2019-2022</span>
             
             <a href="/about" target="_blank">Luluting</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
