@@ -4,17 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="あなたがいること.">
+    <meta name="keywords" content="PWN环境搭建, あなたがいること.">
     <meta name="description" content="为漏洞挖掘做准备
 
 
-
-
-PWN环境搭建0x01 配置系统环境Ubuntu 18.04
-VMware虚拟机
-I.更换源+APT更新注意选择合适的系统版本 这里推荐清华源
-
-$ sudo apt update &amp;amp;&amp;amp; sudo ">
+0x01 配置系统环境VMware虚拟机
+Ubuntu 18.04或20.04
+I.更换源+APT更新这里推荐清华源
+ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Sou">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -26,7 +23,7 @@ $ sudo apt update &amp;amp;&amp;amp; sudo ">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>あなたがいること.</title>
+    <title>PWN环境搭建 | あなたがいること.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -218,7 +215,7 @@ $ sudo apt update &amp;amp;&amp;amp; sudo ">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">PWN环境搭建</h1>
                 </div>
             </div>
         </div>
@@ -370,14 +367,14 @@ $ sudo apt update &amp;amp;&amp;amp; sudo ">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-12-28
+                    2022-01-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    1.4k
+                    2.3k
                 </div>
                 
 
@@ -405,29 +402,49 @@ $ sudo apt update &amp;amp;&amp;amp; sudo ">
                 <p>为漏洞挖掘做准备</p>
 <span id="more"></span>
 
-
-
-<h1 id="PWN环境搭建"><a href="#PWN环境搭建" class="headerlink" title="PWN环境搭建"></a>PWN环境搭建</h1><h2 id="0x01-配置系统环境"><a href="#0x01-配置系统环境" class="headerlink" title="0x01 配置系统环境"></a>0x01 配置系统环境</h2><p>Ubuntu 18.04</p>
-<p>VMware虚拟机</p>
-<h3 id="I-更换源-APT更新"><a href="#I-更换源-APT更新" class="headerlink" title="I.更换源+APT更新"></a>I.更换源+APT更新</h3><p>注意选择合适的系统版本 这里推荐清华源</p>
+<h2 id="0x01-配置系统环境"><a href="#0x01-配置系统环境" class="headerlink" title="0x01 配置系统环境"></a>0x01 配置系统环境</h2><p>VMware虚拟机</p>
+<p>Ubuntu 18.04或20.04</p>
+<h3 id="I-更换源-APT更新"><a href="#I-更换源-APT更新" class="headerlink" title="I.更换源+APT更新"></a>I.更换源+APT更新</h3><p>这里推荐清华源</p>
+<p><a target="_blank" rel="noopener" href="https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
+<p>记得选择自己对应的系统版本！</p>
+<p>记得选择自己对应的系统版本！</p>
+<p>记得选择自己对应的系统版本！</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20211124230630164.png"></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token function">apt</span> upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Ubuntu 的软件源配置文件是 <code>/etc/apt/sources.list</code>。将系统自带的该文件做个备份，将该文件内容替换，即可使用 TUNA 的软件源镜像。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#先进行备份
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+#编辑文件
+sudo gedit /etc/apt/sources.list
+#之后替换内容存即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="II-安装GCC"><a href="#II-安装GCC" class="headerlink" title="II.安装GCC"></a>II.安装GCC</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> gcc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>最后更新源</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token function">apt</span> upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="II-安装GCC"><a href="#II-安装GCC" class="headerlink" title="II.安装GCC"></a>II.安装GCC</h3><p>编译器环境</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> gcc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="III-安装Python-PIP"><a href="#III-安装Python-PIP" class="headerlink" title="III.安装Python+PIP"></a>III.安装Python+PIP</h3><p>ubuntu自带python3</p>
-<p>安装python2 + pip2 + pip3</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">apt-get</span> <span class="token function">install</span> python python-pip python-dev libssl-dev libffi-dev build-essential
-$ pip <span class="token function">install</span> -U setuptools
+<ul>
+<li><p>安装python2</p>
+  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">apt-get</span> <span class="token function">install</span> python python-pip python-dev libssl-dev libffi-dev build-essential<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>安装PIP</p>
+<p>注意自己安装PIP是python2 还是python3的</p>
+<p>因为这涉及到后续pwntools适配python的版本</p>
+<p>Pip2就是python2的pwntools</p>
+<p>Pip3就是python3的pwntools</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ pip <span class="token function">install</span> -U setuptools
 $ pip <span class="token function">install</span> --upgrade pip	
-$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> python3-pip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
+<span class="token comment"># python3 pip</span>
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> python3-pip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
 <h3 id="IV-安装Git"><a href="#IV-安装Git" class="headerlink" title="IV.安装Git"></a>IV.安装Git</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">git</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>现在git被墙 需要代理</p>
-<h3 id="V-设置代理"><a href="#V-设置代理" class="headerlink" title="V.设置代理"></a>V.设置代理</h3><ul>
-<li><p>系统代理</p>
-<p>使用Electron-SSR客户端, 但因为Github被墙, 需要手动设置目录.</p>
+<p>现在github被墙 使用git下载东西一般需要代理</p>
+<h3 id="V-设置代理"><a href="#V-设置代理" class="headerlink" title="V.设置代理"></a>V.设置代理</h3><p>机场的节点需要自己找 按需设置代理即可</p>
+<ul>
+<li><p>Ubuntu系统代理</p>
+<p>使用Electron-SSR客户端, 该客户端安装后会自动从github下载Python-SSR</p>
+<p>但因为Github被墙 需要下载SSR项目在Electron-SSR客户端里手动设置目录</p>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup">qingshuisiyuan/electron-ssr-backup: electron-ssr原作者删除了这个伟大的项目，故备份了下来，不继续开发,且用且珍惜 (github.com)</a></p>
 </li>
@@ -437,36 +454,53 @@ $ <span class="token function">sudo</span> <span class="token function">apt</spa
 </li>
 </ul>
 </li>
-<li><p>shell代理(WSL1)</p>
+<li><p>git代理</p>
+  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> config --global http.proxy http://127.0.0.1:1080
+<span class="token function">git</span> config --global https.proxy http://127.0.0.1:1080<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>wget命令 </p>
+<p>使用wget命令下载工具时 如果需要翻的话 需要单独配置代理</p>
+<p>具体方法百度即可</p>
 </li>
 </ul>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ALL_PROXY</span><span class="token operator">=</span><span class="token string">"http://127.0.0.1:1080"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
 <ul>
-<li>git代理</li>
+<li><p>为Windows子系统 配置Shell代理</p>
+<p>  虚拟机环境不用管</p>
+  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ALL_PROXY</span><span class="token operator">=</span><span class="token string">"http://127.0.0.1:1080"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> config --global http.proxy http://127.0.0.1:1080
-<span class="token function">git</span> config --global https.proxy http://127.0.0.1:1080<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
 <h2 id="0x02-配置PWN环境"><a href="#0x02-配置PWN环境" class="headerlink" title="0x02 配置PWN环境"></a>0x02 配置PWN环境</h2><p>下面开始安装pwn相关的</p>
-<h3 id="VII-安装pwntools"><a href="#VII-安装pwntools" class="headerlink" title="VII.安装pwntools"></a>VII.安装pwntools</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> --upgrade pwntools<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="I-安装pwntools"><a href="#I-安装pwntools" class="headerlink" title="I.安装pwntools"></a>I.安装pwntools</h3><p>直接使用pip指令安装</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 速度可能比较慢 甚至无法下载</span>
+pip <span class="token function">install</span> --upgrade pwntools
+<span class="token comment"># 推荐使用下面这条命令 通过清华源安装</span>
+pip <span class="token function">install</span> pwntools -i https://pypi.tuna.tsinghua.edu.cn/simple/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>慢的话可以指定清华源</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> pwntools -i https://pypi.tuna.tsinghua.edu.cn/simple/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>个人使用的是python2版本，需要注意一下。pwntools现在支持python3了，这里给出GitHub地址，有需要的可以参考其readme进行安装python3的pwntools。<br><a target="_blank" rel="noopener" href="https://github.com/arthaud/python3-pwntools">支持python3的pwntools</a></p>
+<p>目前pwntools在python3也普及了 根据pip版本会自动下载对应的pwntools</p>
+<p>Pip2就是python2的pwntools</p>
+<p>Pip3就是python3的pwntools</p>
+<p>这里给出<a target="_blank" rel="noopener" href="https://github.com/arthaud/python3-pwntools">python3-pwntools的GitHub地址</a>，有需要的可以参考</p>
 <p>安装完成后，打开python测试, 执行<code>from pwn import *</code>不会报错即可。<br>（备注：在mac平台下不要使用pip安装，你会怀疑人生的，使用homebrew安装）</p>
-<h3 id="I-安装gdb"><a href="#I-安装gdb" class="headerlink" title="I.安装gdb"></a>I.安装gdb</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt-get</span> <span class="token function">install</span> gdb
+<h3 id="II-安装和配置gdb"><a href="#II-安装和配置gdb" class="headerlink" title="II.安装和配置gdb"></a>II.安装和配置gdb</h3><h4 id="1-基础本体"><a href="#1-基础本体" class="headerlink" title="1.基础本体"></a>1.基础本体</h4><p>调试工具 必备</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt-get</span> <span class="token function">install</span> gdb
 <span class="token function">apt-get</span> -u dist-upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="II-安装pwndbg"><a href="#II-安装pwndbg" class="headerlink" title="II.安装pwndbg"></a>II.安装pwndbg</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/pwndbg/pwndbg
+<h4 id="2-安装gdb插件"><a href="#2-安装gdb插件" class="headerlink" title="2.安装gdb插件"></a>2.安装gdb插件</h4><p>目前一般有pwndbg/peda/gef三个插件，选一个先上手就好，推荐pwndbg。</p>
+<ul>
+<li>pwndbg（推荐）</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/pwndbg/pwndbg
 <span class="token builtin class-name">cd</span> pwndbg
 ./setup.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="III-安装peda插件"><a href="#III-安装peda插件" class="headerlink" title="III.安装peda插件"></a>III.安装peda插件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/longld/peda.git ~/peda
+<ul>
+<li>安装peda插件（可选）</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/longld/peda.git ~/peda
 <span class="token builtin class-name">echo</span> <span class="token string">"source ~/peda/peda.py"</span> <span class="token operator">&gt;&gt;</span> ~/.gdbinit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="IV-安装gef插件"><a href="#IV-安装gef插件" class="headerlink" title="IV.安装gef插件"></a>IV.安装gef插件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh<span class="token operator">|</span> <span class="token function">sh</span>
+<ul>
+<li>安装gef插件（可选）</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh<span class="token operator">|</span> <span class="token function">sh</span>
 <span class="token function">wget</span> -q -O ~/.gdbinit-gef.py https://github.com/hugsy/gef/raw/master/gef.py
 <span class="token builtin class-name">echo</span> <span class="token builtin class-name">source</span> ~/.gdbinit-gef.py <span class="token operator">&gt;&gt;</span> ~/.gdbinit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
@@ -474,12 +508,16 @@ $ <span class="token function">sudo</span> <span class="token function">apt</spa
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>去掉-q和|sh参数 直接下载 手动拷贝到合适位置 用于加载插件</p>
-<h3 id="V-设置插件选择脚本"><a href="#V-设置插件选择脚本" class="headerlink" title="V.设置插件选择脚本"></a>V.设置插件选择脚本</h3><p>使用GDB的时候需要根据合适的环境选择合适的插件</p>
+<h4 id="3-设置插件选择脚本（可选）"><a href="#3-设置插件选择脚本（可选）" class="headerlink" title="3.设置插件选择脚本（可选）"></a>3.设置插件选择脚本（可选）</h4><blockquote>
+<p>初学不需要这个 安装好一个插件就可以了 省的麻烦</p>
+<p>当你有能力熟练运用多种插件的时候 再考虑这一条</p>
+</blockquote>
+<p>使用GDB的时候需要根据合适的环境选择合适的插件</p>
 <p>一次只能使用一个 所以有一个三合一管理脚本会方便许多</p>
 <p>参考地址<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/94a71af2022a">GDB插件控制——切换pwndbg,peda,gef - 简书 (jianshu.com)</a></p>
-<h3 id="VI-安装32位程序支持"><a href="#VI-安装32位程序支持" class="headerlink" title="VI.安装32位程序支持"></a>VI.安装32位程序支持</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> libc6-dev-i386<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="III-基础环境安装"><a href="#III-基础环境安装" class="headerlink" title="III.基础环境安装"></a>III.基础环境安装</h3><h4 id="1-安装32位程序支持"><a href="#1-安装32位程序支持" class="headerlink" title="1.安装32位程序支持"></a>1.安装32位程序支持</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> libc6-dev-i386<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="VII-安装qemu"><a href="#VII-安装qemu" class="headerlink" title="VII.安装qemu"></a>VII.安装qemu</h3><p>arm的pwn环境</p>
+<h4 id="2-安装qemu"><a href="#2-安装qemu" class="headerlink" title="2.安装qemu"></a>2.安装qemu</h4><p>arm的pwn环境</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> qemu
  
 <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> qemu-system qemu-user-static binfmt-support<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -491,7 +529,8 @@ $ <span class="token function">sudo</span> <span class="token function">apt</spa
 
 
 
-<h3 id="VIII-安装LibcSercher"><a href="#VIII-安装LibcSercher" class="headerlink" title="VIII.安装LibcSercher"></a>VIII.安装LibcSercher</h3><p>泄露libc库中函数的偏移的库</p>
+<h3 id="IV-特定Pwn工具安装"><a href="#IV-特定Pwn工具安装" class="headerlink" title="IV.特定Pwn工具安装"></a>IV.特定Pwn工具安装</h3><p>按需安装</p>
+<h4 id="1-安装LibcSercher"><a href="#1-安装LibcSercher" class="headerlink" title="1.安装LibcSercher"></a>1.安装LibcSercher</h4><p>泄露libc库中函数的偏移的库</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> pip <span class="token function">install</span> capstone
 <span class="token function">git</span> clone https://github.com/lieanu/LibcSearcher.git
 <span class="token builtin class-name">cd</span> LibcSearcher
@@ -499,7 +538,7 @@ python setup.py develop<span aria-hidden="true" class="line-numbers-rows"><span>
 
 <p>实际安装的时候git突然也没法走代理了</p>
 <p>暂时就手动下载解压安装了</p>
-<h3 id="IX-安装ROPgadget以及one-gadget"><a href="#IX-安装ROPgadget以及one-gadget" class="headerlink" title="IX.安装ROPgadget以及one_gadget"></a>IX.安装ROPgadget以及one_gadget</h3><p>构造ROP攻击的gadget链用</p>
+<h4 id="2-安装ROPgadget以及one-gadget"><a href="#2-安装ROPgadget以及one-gadget" class="headerlink" title="2.安装ROPgadget以及one_gadget"></a>2.安装ROPgadget以及one_gadget</h4><p>构造ROP攻击的gadget链用</p>
 <ul>
 <li>安装ROPgadget</li>
 </ul>
@@ -519,7 +558,65 @@ python setup.py develop<span aria-hidden="true" class="line-numbers-rows"><span>
 </ul>
 <pre class="line-numbers language-none"><code class="language-none">sudo apt install ruby``gem install one_gadget<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h2 id="0X03-其他环境"><a href="#0X03-其他环境" class="headerlink" title="0X03 其他环境"></a>0X03 其他环境</h2><h3 id="I-Tmux"><a href="#I-Tmux" class="headerlink" title="I.Tmux"></a>I.Tmux</h3><p>多会话同屏 dddd</p>
+<h4 id="3-Metasploit"><a href="#3-Metasploit" class="headerlink" title="3.Metasploit"></a>3.Metasploit</h4><p><code>Metasploit</code>就是一个漏洞框架。全称叫做<code>The Metasploit Framework</code>，简称叫做<code>MSF</code>。</p>
+<p><code>Metasploit</code>作为全球最受欢迎的工具，不仅仅是因为它的方便性和强大性，更重要的是它的框架。它允许使用者开发自己的漏洞脚本，从而进行测试。</p>
+<ul>
+<li><p>手动安装 </p>
+<p><a target="_blank" rel="noopener" href="https://apt.metasploit.com/">https://apt.metasploit.com/</a></p>
+<p><code>sudo dpkg -i + .deb文件</code>(Ubuntu为例)</p>
+</li>
+<li><p>脚本安装</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sudo wget https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb 
+#或者
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="0X03-其他环境"><a href="#0X03-其他环境" class="headerlink" title="0X03 其他环境"></a>0X03 其他环境</h2><p>一些可选的工具，非必要，按照需求安装。</p>
+<h3 id="I-Zsh安装及配置"><a href="#I-Zsh安装及配置" class="headerlink" title="I.Zsh安装及配置"></a>I.Zsh安装及配置</h3><h4 id="1-安装zsh本体"><a href="#1-安装zsh本体" class="headerlink" title="1. 安装zsh本体"></a>1. 安装zsh本体</h4><p>直接安装</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">zsh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>安装完成后可以通过<code>cat /etc/shells</code>查看shell列表</p>
+<h4 id="2-安装oh-my-zsh"><a href="#2-安装oh-my-zsh" class="headerlink" title="2. 安装oh-my-zsh"></a>2. 安装oh-my-zsh</h4><p><code>oh-my-zsh</code>是<code>zsh</code>的一个拓展 更加方便 并且有一些好用的插件</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后给<code>install.sh</code>添加权限：</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">chmod +x install.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后执行<code>install.sh</code>：<code>./install.sh</code></p>
+<p>安装完可以先去配置一下主题</p>
+<pre class="line-numbers language-none"><code class="language-none">vim ~/.zshrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>修改主题 可以改为<code>random</code> 保持新鲜感</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">ZSH_THEME="random"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="3-安装插件"><a href="#3-安装插件" class="headerlink" title="3. 安装插件"></a>3. 安装插件</h4><p>这里只写highlighting, autosuggestions 更多的可以自己搜一搜</p>
+<ul>
+<li><p>安装<code>zsh-syntax-highlighting</code></p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>安装<code>zsh-syntax-highlighting</code></p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<p>安装完毕后需要去配置文件增加插件</p>
+<pre class="line-numbers language-none"><code class="language-none">vim ~/.zshrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>找到plugins一行准备修改</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">plugins=(git)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>修改为</p>
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">plugins=(git zsh-syntax-highlighting zsh-autosuggestions)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>之后重新加载配置文件即可</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">source ~/.zshrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-切换用户默认shell为zsh"><a href="#4-切换用户默认shell为zsh" class="headerlink" title="4. 切换用户默认shell为zsh"></a>4. 切换用户默认shell为zsh</h4><p>修改默认shell 注意是重启之后生效</p>
+<pre class="line-numbers language-none"><code class="language-none">#先查看zsh目录
+cat /etc/shells
+#方法一: 使用指令更换默认shell '-s'后跟的是zsh目录 最后加上你的用户名
+sudo chsh -s /usr/bin/zsh 用户名 
+#方法二: 直接修改/etc/passwd里的配置 找到自己用户配置 在默认shell处换成zsh目录
+vim /etc/passwd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="II-Tmux"><a href="#II-Tmux" class="headerlink" title="II.Tmux"></a>II.Tmux</h3><p>多终端窗口管理 需要一定学习成本</p>
+<p>用好了很酷XD</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Ubuntu 或 Debian</span>
 <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> tmux
 
@@ -551,27 +648,27 @@ Ctrl+b q：显示窗格编号。
 
 
 
-<h3 id="II-Metasploit"><a href="#II-Metasploit" class="headerlink" title="II.Metasploit"></a>II.Metasploit</h3><p><code>Metasploit</code>就是一个漏洞框架。全称叫做<code>The Metasploit Framework</code>，简称叫做<code>MSF</code>。</p>
-<p><code>Metasploit</code>作为全球最受欢迎的工具，不仅仅是因为它的方便性和强大性，更重要的是它的框架。它允许使用者开发自己的漏洞脚本，从而进行测试。</p>
+
+<h2 id="0x04-开冲"><a href="#0x04-开冲" class="headerlink" title="0x04 开冲"></a>0x04 开冲</h2><p>环境搭个差不多了就该该开冲了</p>
+<p>冲的过程中有新内容再回来补</p>
+<p>学习记得保持记录和总结 给自己打气</p>
+<p>做题练习站点推荐</p>
 <ul>
-<li><p><a target="_blank" rel="noopener" href="https://apt.metasploit.com/">https://apt.metasploit.com/</a></p>
-<p>手动安装 </p>
-<p><code>sudo dpkg -i + .deb文件</code>(Ubuntu为例)</p>
+<li><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges">BUUCTF在线评测 (buuoj.cn)</a></p>
+<p>从新手开始练习 题目从易到难 但是前期题型会比较重复</p>
 </li>
-<li><p>脚本安装</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sudo wget https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb 
-#或者
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/stackoverflow-basic/">栈溢出原理 - CTF Wiki (ctf-wiki.org)</a></p>
+<p>CTF Wiki倾向于把知识点边学边练 很适合学习</p>
+</li>
+<li><p><a href="pwnable.kr">pwnable</a></p>
+<p>循序渐进的题目 不重复</p>
+</li>
 </ul>
-<h2 id="0x04-开冲"><a href="#0x04-开冲" class="headerlink" title="0x04 开冲"></a>0x04 开冲</h2><p>环境搭个差不多了 该开冲了</p>
-<p>冲的过程中发现少了料再回来补</p>
 <h2 id="0x05-参考链接"><a href="#0x05-参考链接" class="headerlink" title="0x05 参考链接"></a>0x05 参考链接</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup/blob/master/Ubuntu.md">electron-ssr-backup/Ubuntu.md at master · qingshuisiyuan/electron-ssr-backup (github.com)</a></p>
-</li>
-<li><p>[<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-257558.htm">原创]CTF_Pwn环境搭建-Pwn-看雪论坛-安全社区|安全招聘|bbs.pediy.com</a></p>
-</li>
-<li><p>[<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-269743.htm">原创][原创]Pwn环境配置 ——ubuntu环境搭建（新）-Pwn-看雪论坛-安全社区|安全招聘|bbs.pediy.com</a></p>
-</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/qingshuisiyuan/electron-ssr-backup/blob/master/Ubuntu.md">electron-ssr-backup/Ubuntu.md at master · qingshuisiyuan/electron-ssr-backup (github.com)</a></li>
+<li>[<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-257558.htm">原创]CTF_Pwn环境搭建-Pwn-看雪论坛-安全社区|安全招聘|bbs.pediy.com</a></li>
+<li>[<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-269743.htm">原创][原创]Pwn环境配置 ——ubuntu环境搭建（新）-Pwn-看雪论坛-安全社区|安全招聘|bbs.pediy.com</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3158a2116fdf">ZSH的配置 - 简书 (jianshu.com)</a></li>
 </ul>
 
                 

