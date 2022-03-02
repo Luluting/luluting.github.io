@@ -4,21 +4,20 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Windows Hook, あなたがいること.">
-    <meta name="description" content="HOOK真的是非常有意思的一种技术
-能够掌握程序逻辑执行顺序的权利
-在这里记录一下HOOK的学习
+    <meta name="keywords" content="代码注入相关, あなたがいること.">
+    <meta name="description" content="无论是进攻还是防御 注入都是非常重要的基本功
+记录一下各种注入方式的学习
 
 
-0x00 概述HOOK两个目的
+0x00 注入的本质
+先在进程空间里植入代码
+拿到线程权限 去执行该代码
 
-窃听
-提取程序中一些关键的中间值
+本质就是控制进程
+参考 逆向工程核心原理第 3 部分 常用的注入方式有
 
-改变行为
-
-
-0x01 HOOK原理I. API HOOK从API下">
+创建线程
+修">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -30,7 +29,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Windows Hook | あなたがいること.</title>
+    <title>代码注入相关 | あなたがいること.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -217,12 +216,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202150141.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202145910.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Windows Hook</h1>
+                    <h1 class="description center-align post-title">代码注入相关</h1>
                 </div>
             </div>
         </div>
@@ -338,8 +337,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Hook/">
-                                <span class="chip bg-color">Hook</span>
+                            <a href="/tags/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
+                                <span class="chip bg-color">代码注入</span>
                             </a>
                         
                     </div>
@@ -363,7 +362,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-11-21
+                    2021-11-20
                 </div>
                 
 
@@ -377,7 +376,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    419
+                    1.4k
                 </div>
                 
 
@@ -402,52 +401,132 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>HOOK真的是非常有意思的一种技术</p>
-<p>能够掌握程序逻辑执行顺序的权利</p>
-<p>在这里记录一下HOOK的学习</p>
+                <p>无论是进攻还是防御 注入都是非常重要的基本功</p>
+<p>记录一下各种注入方式的学习</p>
 <span id="more"></span>
 
-<h1 id="0x00-概述"><a href="#0x00-概述" class="headerlink" title="0x00 概述"></a>0x00 概述</h1><p>HOOK两个目的</p>
+<h1 id="0x00-注入的本质"><a href="#0x00-注入的本质" class="headerlink" title="0x00 注入的本质"></a>0x00 注入的本质</h1><ul>
+<li>先在进程空间里植入代码</li>
+<li>拿到线程权限 去执行该代码</li>
+</ul>
+<p>本质就是控制进程</p>
+<p>参考 逆向工程核心原理第 3 部分 常用的注入方式有</p>
+<ol>
+<li>创建线程</li>
+<li>修改注册表</li>
+<li>消息钩取（Hook）</li>
+<li>直接修改 PE 文件 </li>
+</ol>
+<h1 id="0x01-注入方式"><a href="#0x01-注入方式" class="headerlink" title="0x01 注入方式"></a>0x01 注入方式</h1><p>可分为三类</p>
 <ul>
-<li><p>窃听</p>
-<p>提取程序中一些关键的中间值</p>
+<li><p>静态修改</p>
+<p>DLL劫持、导入表注入</p>
 </li>
-<li><p>改变行为</p>
+<li><p>全局性注入</p>
+<p>输入法注入、消息钩子注入、注册表注入</p>
+</li>
+<li><p>线程注入</p>
+<p>APC注入、消息钩子注入（指定）、远程线程注入、挂起进程注入</p>
 </li>
 </ul>
-<h1 id="0x01-HOOK原理"><a href="#0x01-HOOK原理" class="headerlink" title="0x01 HOOK原理"></a>0x01 HOOK原理</h1><h2 id="I-API-HOOK"><a href="#I-API-HOOK" class="headerlink" title="I. API HOOK"></a>I. API HOOK</h2><p>从API下手 想办法转到我们的代码</p>
-<ul>
-<li>IAT Hook</li>
-<li>Inline Hook</li>
+<h2 id="I-导入表注入"><a href="#I-导入表注入" class="headerlink" title="I. 导入表注入"></a>I. 导入表注入</h2><p>原理 &gt; 静态添加/修改导入表</p>
+<p>先移动所有导入表整体的位置 因为原来的位置空间紧凑 不能添加表</p>
+<p>就修改PE头的导入表位置</p>
+<p>接着静态手动添加新的导入表 </p>
+<p>构造INA表 IAT表 以及<code>IMAGE_IMPORT_BY_NAME</code>结构</p>
+<p>就OK </p>
+<p>导入表内容可以动</p>
+<p>INT表可动 IAT表别动</p>
+<h2 id="II-远程线程注入"><a href="#II-远程线程注入" class="headerlink" title="II. 远程线程注入"></a>II. 远程线程注入</h2><p>动态</p>
+<h3 id="1-注入DLL"><a href="#1-注入DLL" class="headerlink" title="1. 注入DLL"></a>1. 注入DLL</h3><ul>
+<li><p>写入模块名字 常规远程线程调用载入DLL</p>
+</li>
+<li><p>内存写入模块 修复重定位表 开远程线程执行模块的Entry</p>
+<p>在目标进程中修复IAT表</p>
+</li>
 </ul>
-<h3 id="1-IAT-Hook"><a href="#1-IAT-Hook" class="headerlink" title="1. IAT Hook"></a>1. IAT Hook</h3><p>Ring0/Ring3通用</p>
-<p>原理就是修改IAT表内的函数地址</p>
-<ul>
-<li><p>先得到目标函数的地址</p>
+<h3 id="2-注入代码"><a href="#2-注入代码" class="headerlink" title="2. 注入代码"></a>2. 注入代码</h3><ul>
+<li><p>直接将代码写到线程中</p>
 </li>
-<li><p>寻址到IAT表 然后对比地址 找到要替换的位置</p>
+<li><p>通过<code>WriteMemoryProcess</code>写入目标进程</p>
 </li>
-<li><p>将IAT表内的函数地址替换为我自己函数的地址 </p>
+<li><p>需要参数的话定义一个结构体 传入到目标进程</p>
+</li>
+<li><p>并启动远程线程进行调用</p>
 </li>
 </ul>
-<p><strong>局限性</strong></p>
-<p>不能Hook非静态导入函数(如自己定义的函数/动态Load+GetProc二连的函数等)</p>
-<h3 id="2-Inline-Hook"><a href="#2-Inline-Hook" class="headerlink" title="2. Inline Hook"></a>2. Inline Hook</h3><p>Ring0/Ring3通用 </p>
-<p>原理就是修改指令机器码 在API逻辑中间跳转出去执行我们的代码 之后视情况再跳回去</p>
-<p><strong>关于Inline Hook中受影响的指令</strong></p>
-<p>不能直接跳回去</p>
-<p>比如HOOK的时候改了两行代码</p>
-<p>接着恢复逻辑的时候还需要执行这两条指令</p>
-<p>手动探查覆盖了多少指令 先保存这些机器码后 全覆盖（多的机器码全为NOP）</p>
-<p>跳回之前再执行一次保存的机器码</p>
-<p>取消HOOK就将保存的机器码覆盖回去就行了</p>
-<h1 id="0x03-HOOK框架"><a href="#0x03-HOOK框架" class="headerlink" title="0x03 HOOK框架"></a>0x03 HOOK框架</h1><p>HOOK原理懂了之后</p>
-<p>现在有一些框架对这些HOOK方式的实施方法进行了封装 </p>
-<p>造好了轮子方便我们利用 </p>
-<p>俗话说 “工欲善其事，必先利其器”</p>
-<p>用好框架也是很关键的</p>
-<h2 id="I-MinHook"><a href="#I-MinHook" class="headerlink" title="I. MinHook"></a>I. MinHook</h2><p>待填</p>
-<h2 id="II-HookZz"><a href="#II-HookZz" class="headerlink" title="II. HookZz"></a>II. HookZz</h2>
+<h2 id="II-Windows-HOOK-注入DLL"><a href="#II-Windows-HOOK-注入DLL" class="headerlink" title="II. Windows HOOK 注入DLL"></a>II. Windows HOOK 注入DLL</h2><p> Windows 系统给我们提供了一些挂钩函数，使得被hook的进程可以在自己处理接收到的消息之前，先执行我们的消息处理函数，而这个消息处理函数一般会放在 DLL 中，来让目标进程加载，目标进程会映射整个DLL到进程空间，这实际上已经达到了注入代码的效果。 </p>
+<p> 使用 API 函数 <code>SetWindowsHookEx()  </code>把一个应用程序定义的 Hook 子程安装到 Hook 链表中。 函数原型如下：第一个参数是消息编号，第二个参数为 Hook 函数 </p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">HHOOK <span class="token function">SetWindowsHookExA</span><span class="token punctuation">(</span>
+  <span class="token keyword">int</span>       idHook<span class="token punctuation">,</span>
+  HOOKPROC  lpfn<span class="token punctuation">,</span>
+  HINSTANCE hmod<span class="token punctuation">,</span>
+  DWORD     dwThreadId
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>操作如下</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">extern "C" _declspec(dllexport) void HookStart()
+{
+//    HHOOK hHook = NULL;
+    g_hHook=SetWindowsHookEx(WH_KEYBOARD, HookProc,
+        GetModuleHandle("E://Viusal Studio//kanxue//注入技术//SetWindowsHookEx//Inject_dll//Debug//Inject_dll.dll"), 0);
+    if (NULL == g_hHook)
+    {
+        MessageBox(NULL, "安装钩子失败", "提示", MB_OKCANCEL);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="II-特洛伊注入"><a href="#II-特洛伊注入" class="headerlink" title="II. 特洛伊注入"></a>II. 特洛伊注入</h2><p>静态</p>
+<p>DLL劫持</p>
+<p>代替原DLL 转发其函数 同时加入自己的代码</p>
+<p>  DLL 劫持法 (输入表 DLL 替换法)，原理是利用搜索 DLL 路径存在先后顺序 (exe 程序目录 &gt; 系统目录 &gt; 当前目录 &gt; Path), 当较高层存在一个同名的 DLL 文件的时候，就会直接加载较高层的 DLL 文件。常常用于病毒的白加黑。需要注意的是黑 DLL 路径优先级一定要高于原来的 dll 文件，第二，一定要具有源 dll 文件所有的导出函数。 </p>
+<h2 id="III-注册表注入"><a href="#III-注册表注入" class="headerlink" title="III. 注册表注入"></a>III. 注册表注入</h2><p>静态</p>
+<p>新创建的进程在加载 User32.dll 时，都会自动调用 LoadLibrary 去加载注册表中某个表项键值里写入的 Dll 路径</p>
+<ul>
+<li><code>x64下:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows</code></li>
+<li><code>x86下：HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Windows</code></li>
+</ul>
+<p>当某个进程加载 User32.dll 时，这里面列出的所有的 DLL 都将 User32.dll 利用 LoadLibrary 函数加载到该进程空间中。</p>
+<p>我们可以把自己的代码放在一个 DLL 中，并加入该键值，这样就可以注入到所有使用 User32.dll 的进程中了。</p>
+<p>当 DLL 以 LoadLibrary 的方式加载时，DllMain 会被以 DLL_PROCESS_ATTACH 为原因调用，实际上我们就在 <code>DLL_PROCESS_ATTACH</code>中添加自己的代码就行了</p>
+<blockquote>
+<p>需要关闭UEFI安全启动才能生效</p>
+<p>参考链接: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/win32/dlls/secure-boot-and-appinit-dlls?redirectedfrom=MSDN">https://docs.microsoft.com/zh-cn/windows/win32/dlls/secure-boot-and-appinit-dlls?redirectedfrom=MSDN</a> </p>
+</blockquote>
+<h2 id="IV-APC注入"><a href="#IV-APC注入" class="headerlink" title="IV. APC注入"></a>IV. APC注入</h2><p>APC 中文名称为异步过程调用， APC 是一个链状的数据结构，可以让一个线程在其本应该的执行步骤前执行其他代码，每个线程都维护这一个 APC 链。当线程从等待状态苏醒后，会自动检测自己得 APC 队列中是否存在 APC 过程。</p>
+<p>所以只需要将目标进程的线程的 APC 队列里面添加 APC 过程，当然为了提高命中率可以向进程的所有线程中添加 APC 过程。然后促使线程从休眠中恢复就可以实现 APC 注入。</p>
+<p>首先将 DLL 文件路径写入进程</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">lpData = VirtualAllocEx(hProcess, lpData, lstrlen(szDllFullPath) + 1, MEM_COMMIT, PAGE_READWRITE);
+if (lpData)
+{
+    bStatus = WriteProcessMemory(hProcess, lpData, szDllFullPath, lstrlen(szDllFullPath) + 1, &amp;stSize);
+    if (FALSE == bStatus)
+    {
+        printf("WriteProcessMemory:%d\n", GetLastError());
+        return NULL;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>然后使用 QueueUserAPC 将 APC 例程添加到 APC 队列中，QueueUserAPC 三个参数分别是 APC 例程，线程句柄，例程参数。所以还需要获取线程句柄 </p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">dwRet<span class="token operator">=</span><span class="token function">QueueUserAPC</span><span class="token punctuation">(</span><span class="token punctuation">(</span>PAPCFUNC<span class="token punctuation">)</span>LoadLibraryA<span class="token punctuation">,</span> hThread<span class="token punctuation">,</span> <span class="token punctuation">(</span>ULONG_PTR<span class="token punctuation">)</span>lpData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">NULL</span> <span class="token operator">==</span> dwRet<span class="token punctuation">)</span>           
+<span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"QueueUserAPC:%d\n"</span><span class="token punctuation">,</span> <span class="token function">GetLastError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h2 id="V-输入法注入"><a href="#V-输入法注入" class="headerlink" title="V. 输入法注入"></a>V. 输入法注入</h2><p>切换输入法时候，<strong>输入法管理器 imm32.dll 就会加载 IME 模块，</strong>这样就形成了输入法注入的充要条件。而由于这个 Ime 文件本质上只是个存放在 C:\WINDOWS\system32 目录下的特殊的 DLL 文件，因此我们可以利用这个特性，在 Ime 文件中使用 LoadLibrary () 函数待注入的 DLL 文件。</p>
+<p>首先就是编写 ime 文件，至少需要两个导出函数 <code>BOOL ImeClass_Register(HINSTANCE hinstDLL)</code>，<code>BOOL WINAPI ImeInquire(LPIMEINFO lpIMEInfo, LPTSTR lpszUIClass, LPCTSTR lpszOption)</code> 这两个是必须要实现的。剩下的导出函数可以选择不去实现。</p>
+<p>接着编写注射器。利用 ImmInstallIME 安装 ime 文件，当输入法切换的时候就可以注入 dll 了。</p>
+
                 
             </div>
             <hr/>
@@ -473,7 +552,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://luluting.github.io/2021/11/21/hook/">http://luluting.github.io/2021/11/21/hook/</a>
+                    <a href="http://luluting.github.io/2021/11/20/zhu-ru/">http://luluting.github.io/2021/11/20/zhu-ru/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -511,8 +590,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Hook/">
-                                    <span class="chip bg-color">Hook</span>
+                                <a href="/tags/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
+                                    <span class="chip bg-color">代码注入</span>
                                 </a>
                             
                         </div>
@@ -562,31 +641,30 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/11/21/hello-world/">
+                <a href="/2021/11/20/unity3d-il2cpp/">
                     <div class="card-image">
                         
+                        <img src="https://i.loli.net/2019/10/19/Ub5vugrZxBiaDmt.jpg" class="responsive-img" alt="Unity3D-Il2cpp">
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="博客搭建记录">
-                        
-                        <span class="card-title">博客搭建记录</span>
+                        <span class="card-title">Unity3D-Il2cpp</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            总结一下IL2CPP相关学习
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-20
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Record/" class="post-category">
-                                    Record
+                            <a href="/categories/Game/" class="post-category">
+                                    Game
                                 </a>
                             
                             
@@ -596,8 +674,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%97%A5%E5%B8%B8/">
-                        <span class="chip bg-color">日常</span>
+                    <a href="/tags/Unity3D/">
+                        <span class="chip bg-color">Unity3D</span>
                     </a>
                     
                 </div>
@@ -608,27 +686,27 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
+                Current&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/21/win32/">
+                <a href="/2021/11/20/zhu-ru/">
                     <div class="card-image">
                         
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202145910.png" class="responsive-img" alt="代码注入相关">
                         
-                        <img src="/medias/featureimages/34.jpg" class="responsive-img" alt="Win32相关">
-                        
-                        <span class="card-title">Win32相关</span>
+                        <span class="card-title">代码注入相关</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            记录一些学习WIN32知识的心得
+                            无论是进攻还是防御 注入都是非常重要的基本功
+记录一下各种注入方式的学习
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-20
                             </span>
                         <span class="publish-author">
                             
@@ -642,11 +720,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/WIN32/">
-                        <span class="chip bg-color">WIN32</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
+                        <span class="chip bg-color">代码注入</span>
                     </a>
                     
                 </div>

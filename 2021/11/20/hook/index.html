@@ -4,24 +4,21 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PlantsVsZombies逆向相关, あなたがいること.">
-    <meta name="description" content="记录在逆向PVZ中的一些过程
+    <meta name="keywords" content="Windows Hook, あなたがいること.">
+    <meta name="description" content="HOOK真的是非常有意思的一种技术
+能够掌握程序逻辑执行顺序的权利
+在这里记录一下HOOK的学习
 
 
-0x01 前期准备I. 游戏逆向分类
-脚本类
-找图, 模拟鼠标键盘操作
+0x00 概述HOOK两个目的
 
-内存类
-模拟内存数据操作, 调用游戏内部函数
+窃听
+提取程序中一些关键的中间值
 
-封包类
-破解游戏客户端, 模拟客户端发包
+改变行为
 
 
-本次为内存类的逆向
-II. 工具准备
-">
+0x01 HOOK原理I. API HOOK从API下">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -33,7 +30,7 @@ II. 工具准备
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PlantsVsZombies逆向相关 | あなたがいること.</title>
+    <title>Windows Hook | あなたがいること.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -220,12 +217,12 @@ II. 工具准备
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203120133.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202150141.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PlantsVsZombies逆向相关</h1>
+                    <h1 class="description center-align post-title">Windows Hook</h1>
                 </div>
             </div>
         </div>
@@ -345,10 +342,6 @@ II. 工具准备
                                 <span class="chip bg-color">Hook</span>
                             </a>
                         
-                            <a href="/tags/MOD/">
-                                <span class="chip bg-color">MOD</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -357,8 +350,8 @@ II. 工具准备
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Game/" class="post-category">
-                                Game
+                            <a href="/categories/Windows/" class="post-category">
+                                Windows
                             </a>
                         
                     </div>
@@ -370,7 +363,7 @@ II. 工具准备
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-11-21
+                    2021-11-20
                 </div>
                 
 
@@ -384,7 +377,7 @@ II. 工具准备
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    1.8k
+                    419
                 </div>
                 
 
@@ -409,398 +402,52 @@ II. 工具准备
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>记录在逆向PVZ中的一些过程</p>
+                <p>HOOK真的是非常有意思的一种技术</p>
+<p>能够掌握程序逻辑执行顺序的权利</p>
+<p>在这里记录一下HOOK的学习</p>
 <span id="more"></span>
 
-<h1 id="0x01-前期准备"><a href="#0x01-前期准备" class="headerlink" title="0x01 前期准备"></a>0x01 前期准备</h1><h2 id="I-游戏逆向分类"><a href="#I-游戏逆向分类" class="headerlink" title="I. 游戏逆向分类"></a>I. 游戏逆向分类</h2><ul>
-<li><p>脚本类</p>
-<p>找图, 模拟鼠标键盘操作</p>
-</li>
-<li><p>内存类</p>
-<p>模拟内存数据操作, 调用游戏内部函数</p>
-</li>
-<li><p>封包类</p>
-<p>破解游戏客户端, 模拟客户端发包</p>
-</li>
-</ul>
-<p>本次为内存类的逆向</p>
-<h2 id="II-工具准备"><a href="#II-工具准备" class="headerlink" title="II. 工具准备"></a>II. 工具准备</h2><ul>
-<li><p>植物大战僵尸</p>
-</li>
-<li><p>任意调试器</p>
-</li>
-<li><p>Cheat Engine</p>
-</li>
-</ul>
-<h1 id="0x02-逆向过程"><a href="#0x02-逆向过程" class="headerlink" title="0x02 逆向过程"></a>0x02 逆向过程</h1><h2 id="I-基址寻找"><a href="#I-基址寻找" class="headerlink" title="I. 基址寻找"></a>I. 基址寻找</h2><h3 id="1-寻找阳光基址"><a href="#1-寻找阳光基址" class="headerlink" title="1. 寻找阳光基址"></a>1. 寻找阳光基址</h3><p>寻找过程比较简单 找到基址后原路返回</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203132000.png"></p>
-<p>最后定址到阳光基址如下</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">阳光基址 = [[[PlantsVsZombies.exe + 0x355E0C] + 0x868] + 0x5578]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h3 id="2-寻找冷却时间的基址"><a href="#2-寻找冷却时间的基址" class="headerlink" title="2. 寻找冷却时间的基址"></a>2. 寻找冷却时间的基址</h3><p>每个植物都有自己的冷却时间</p>
-<p>所以要分析结构体的数组</p>
-<p>一栏植物结构体大小0x50字节</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">+0 (首地址)
-...
-...
-+24 冷却时间<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>基址定位</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">第n栏的冷却地址 = [[[[PlantsVsZombies.exe + 0x355E0C] + 0x868] + 0x15C] + 索引*0x50 + 0x28 + 0x24]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h2 id="II-逻辑修改"><a href="#II-逻辑修改" class="headerlink" title="II. 逻辑修改"></a>II. 逻辑修改</h2><h3 id="1-阳光逻辑修改"><a href="#1-阳光逻辑修改" class="headerlink" title="1. 阳光逻辑修改"></a>1. 阳光逻辑修改</h3><p>种植植物阳光减少逻辑位置</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">PlantsVsZombiesNoCool.exe + 0x27696<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>逻辑如下</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203141603.png"></p>
-<p>这里我的做法是把<code>sub</code>直接改成了<code>add</code></p>
-<h3 id="2-取消植物的冷却时间"><a href="#2-取消植物的冷却时间" class="headerlink" title="2. 取消植物的冷却时间"></a>2. 取消植物的冷却时间</h3><p>植物冷却时间增加位置</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">PlantsVsZombiesNoCool.exe + 0x9CDFC<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>逻辑如下</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203135833.png"></p>
-<p>修改逻辑即可</p>
-<p>这里我直接将跳转给nop掉了 比较粗糙 </p>
-<p>其它方法可以自行尝试</p>
-<h2 id="III-外部注入"><a href="#III-外部注入" class="headerlink" title="III. 外部注入"></a>III. 外部注入</h2><h3 id="1-实现秒杀"><a href="#1-实现秒杀" class="headerlink" title="1. 实现秒杀"></a>1. 实现秒杀</h3><p>思路</p>
+<h1 id="0x00-概述"><a href="#0x00-概述" class="headerlink" title="0x00 概述"></a>0x00 概述</h1><p>HOOK两个目的</p>
 <ul>
-<li>炸弹全屏</li>
-<li>僵尸血量全空</li>
+<li><p>窃听</p>
+<p>提取程序中一些关键的中间值</p>
+</li>
+<li><p>改变行为</p>
+</li>
 </ul>
-<p>先看第一种</p>
-<p>猜测至少有的种植函数参数: 植物ID 行数x 列数y</p>
-<p>那先通过选中植物找到植物ID的地址</p>
-<p>找到之后查找访问 在种植的时候开始访问的地方则就是种植函数的位置了</p>
-<p>找到的种植函数地址 </p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">[PlantsVsZombies.exe + 0x18D70]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>函数情况如下</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203190916.png"></p>
-<p>五个参数</p>
-<p><code> EDI,行数,列数,植物ID, -1</code></p>
-<p>还有一个参数EDI未知 去寻找一下他的基址</p>
-<p>这个参数的基址如下</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">EDI = [[PlantsVsZombies.exe+0x355E0C] + 0x868]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>最后尝试后得知樱桃炸弹的ID为2</p>
-<p>call测试工具测试一下能不能正常执行</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203192719.png"></p>
-<p>可以看到成功生效了</p>
-<p>参数</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">push -1	//固定
-push 2	//植物ID
-mov eax, 0x4	//行数
-push 4	//列数
-mov edi, dword ptr ds:[0x755e0c]
-mov edi, dword ptr ds:[edi+868]
-push edi	//EDI
-call 418d70<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h3 id="2-控制僵尸的刷新"><a href="#2-控制僵尸的刷新" class="headerlink" title="2. 控制僵尸的刷新"></a>2. 控制僵尸的刷新</h3><p>思路就是找到刷新僵尸的call 然后顺藤摸瓜</p>
-<p>猜测参数会有行数 + ID</p>
-<p>找到修改僵尸的call后 发现周围没有类似刷新僵尸的call 就顺着堆栈往回找</p>
-<p>最后找到函数位置为</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token punctuation">[</span>PlantsVsZombies<span class="token punctuation">.</span>exe <span class="token operator">+</span> <span class="token number">0x19A60</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>函数情况如下</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203200541.png"></p>
-<p>三个参数</p>
-<p><code> EDI, 僵尸ID, 行数</code></p>
-<p>EDI找一下基址</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">EDI = [[PlantsVsZombies.exe + 0x355E0C] + 0x868]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h1 id="0x03-修改制作"><a href="#0x03-修改制作" class="headerlink" title="0x03 修改制作"></a>0x03 修改制作</h1><p>各个基址都找到咯</p>
-<p>可以开始着手写修改了</p>
-<p>这里就给出关键的代码 </p>
-<p>如果想更深一步了解 不嫌弃的话可以参考<a target="_blank" rel="noopener" href="https://github.com/Luluting/PVZ_Trainer">我的项目</a>(不完整の渣代码)</p>
-<h2 id="I-偏移定义"><a href="#I-偏移定义" class="headerlink" title="I. 偏移定义"></a>I. 偏移定义</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#pragma once
-
-//********************************************
-/* 游戏结构 */
-//[PlantsVsZombies.exe + 0x355E0C]
-#define GAMEFIXEDADDRESS 0x755E0C
-//游戏开始结构
-#define GAMESTART 0x868
-//阳光基址
-#define SUNSHINEOFFSET 0x5578
-//栏位信息数组
-#define FIELDOFFSET 0x15C
-//栏位结构体大小
-#define SIZEOFFIELD 0x50
-//种植植物call
-#define PLANTCALL 0x418D70
-//刷僵尸call
-#define ZOMBIECALL 0x419a60
-//********************************************
-//指令
-#define SWITCH_INIT 1
-#define SWITCH_CHANGESUN 2
-#define SWITCH_NOCD 3
-#define SWITCH_KILL 4
-#define SWITCH_ZOMBIE 5
-//********************************************
-//共享内存名
-#define ShareMemName "PVZTrainer"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="II-主程序"><a href="#II-主程序" class="headerlink" title="II. 主程序"></a>II. 主程序</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">int main() {
-
-	int UserInput = 0, ScanfRet = 0;
-	BaseTool baseTool;
-	while (true) {
-		ShowMenu();
-		ScanfRet = scanf_s("%d", &amp;UserInput);
-		//结束判断
-		if (ScanfRet == EOF) {
-			return 0;
-		}
-		//分发
-		switch(UserInput) {
-		case SWITCH_INIT:
-		{
-			if (baseTool._getProcessID() == 0) {
-				if (baseTool.FindProcessByName("PlantsVsZombies.exe")) {
-					cout &lt;&lt; "进程加载完成" &lt;&lt; endl;
-					DWORD base = GetBaseAddr(baseTool._getProcessID());
-				}				
-				else {
-					cout &lt;&lt; "进程加载失败" &lt;&lt; endl;
-					break;
-				}
-			}
-			else {
-				cout &lt;&lt; "进程已经加载完毕" &lt;&lt; endl;
-			}
-			if (baseTool.Inject() == true) {
-				cout &lt;&lt; "注入完成" &lt;&lt; endl;
-			}
-			else {
-				cout &lt;&lt; "注入失败" &lt;&lt; endl;
-			}
-			break;
-		}
-		case SWITCH_CHANGESUN:
-		{
-			baseTool.EditSunshine();
-			cout &lt;&lt; "修改完成" &lt;&lt; endl;
-			break;
-		}
-		case SWITCH_NOCD:
-		{
-			baseTool.NoCoolDown();
-			cout &lt;&lt; "操作完成" &lt;&lt; endl;
-			break;
-		}
-		case SWITCH_KILL:
-		{
-			baseTool.KillAll();
-			break;
-		}
-		case SWITCH_ZOMBIE: 
-		{
-			baseTool.CreateZombie();
-			break;
-		}
-		default: 
-		{
-			baseTool.Deject();
-			return 0;
-		}
-		}
-		Sleep(1000);
-		system("cls");
-	}
-	//清理内核对象
-
-	return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-<h2 id="III-阳光修改"><a href="#III-阳光修改" class="headerlink" title="III. 阳光修改"></a>III. 阳光修改</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">/******************************************************************************************/
-//修改阳光
-//参数: void
-//返回值: void
-/******************************************************************************************/
-void BaseTool::EditSunshine() {
-	if (ProcessHandle == NULL) {
-		cout &lt;&lt; "请先初始化!\n" &lt;&lt; endl;
-		return;
-	}
-	int num;
-	cout &lt;&lt; "输入修改值:" &lt;&lt; endl;
-	cin &gt;&gt; num;
-	DWORD Address = 0;
-	ReadProcessMemory(ProcessHandle, (LPCVOID)GAMEFIXEDADDRESS, (LPVOID) &amp;Address, sizeof(DWORD), NULL);
-	ReadProcessMemory(ProcessHandle, (LPCVOID)(Address + GAMESTART), (LPVOID) &amp;Address, sizeof(DWORD), NULL);
-	WriteProcessMemory(ProcessHandle, (LPVOID)(Address + SUNSHINEOFFSET), (LPCVOID) &amp;num, sizeof(DWORD), NULL);
-	return;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="IV-全员无冷却"><a href="#IV-全员无冷却" class="headerlink" title="IV. 全员无冷却"></a>IV. 全员无冷却</h2><p>两种思路</p>
+<h1 id="0x01-HOOK原理"><a href="#0x01-HOOK原理" class="headerlink" title="0x01 HOOK原理"></a>0x01 HOOK原理</h1><h2 id="I-API-HOOK"><a href="#I-API-HOOK" class="headerlink" title="I. API HOOK"></a>I. API HOOK</h2><p>从API下手 想办法转到我们的代码</p>
 <ul>
-<li>开线程刷新栏位数组</li>
-<li>直接改代码逻辑(像我之前直接把跳转nop掉)</li>
+<li>IAT Hook</li>
+<li>Inline Hook</li>
 </ul>
-<p>前者需要通过基址经过两级跳转定址 然后开线程不停刷新每个栏位的CD</p>
-<p>而后者相对来说更简单 直接通过基址转移到对应机器码 然后进行修改或恢复就可以了</p>
-<p>这里我选择写的前者</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">/******************************************************************************************/
-//无冷却功能
-//参数: void
-//返回值: void
-/******************************************************************************************/
-void BaseTool::NoCoolDown() {
-	if (ProcessHandle == NULL) {
-		cout &lt;&lt; "请先初始化!\n" &lt;&lt; endl;
-		return;
-	}
-	if (NoCDThread != NULL) {
-		cout &lt;&lt; "之前已经开启 现在帮您关闭" &lt;&lt; endl;
-		TerminateThread(NoCDThread,0);
-		NoCDThread = NULL;
-		return;
-	}
-	NoCDThread = CreateThread(NULL, 0, NoCDThreadFunc, (LPVOID)ProcessHandle, NULL, NULL);
-}
-
-//线程函数
-DWORD WINAPI NoCDThreadFunc(LPVOID p) {
-	while (true) {
-		DWORD Address = 0;
-		ReadProcessMemory((HANDLE)p, (LPCVOID)GAMEFIXEDADDRESS, (LPVOID)&amp; Address, sizeof(DWORD), NULL);
-		ReadProcessMemory((HANDLE)p, (LPCVOID)(Address + GAMESTART), (LPVOID)&amp; Address, sizeof(DWORD), NULL);
-		if (Address == NULL) {
-			cout &lt;&lt; "请先进入游戏" &lt;&lt; endl;
-			return 0;
-		}
-		ReadProcessMemory((HANDLE)p, (LPCVOID)(Address + FIELDOFFSET), (LPVOID)&amp; Address, sizeof(DWORD), NULL);
-		//这里忘了记录栏位数目的地址 就直接写上限了 不知道栏位没开全会不会报错
-		for (int i = 0; i &lt; 10; i++) {
-			DWORD tempAdd = (DWORD)((char*)Address + i * 0x50 + 0x28 + 0x24);
-			DWORD CoolValue = 0x100000;
-			WriteProcessMemory((HANDLE)p, (LPVOID)(tempAdd), (LPVOID)&amp; CoolValue, sizeof(DWORD), NULL);
-		}
-	}
-	return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="V-全员秒杀"><a href="#V-全员秒杀" class="headerlink" title="V. 全员秒杀"></a>V. 全员秒杀</h2><p>植物ID知道了</p>
-<p>写个循环遍历 在每个位置上种上一次爆炸果</p>
-<p><strong>主程序</strong></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">void BaseTool::KillAll() {
-	*(int*)g_pShareMemory = 4;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p><strong>DLL端</strong></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">void DllTool::KillAll() {
-	for (int i = 0; i &lt; 5; i++) {
-		for (int j = 0; j &lt; 9; j++) {
-			__asm {
-				pushad
-				pushfd
-				push - 1
-				push 2
-				mov eax, i
-				push j
-				mov ecx, dword ptr ds : [GAMEFIXEDADDRESS]
-				mov ecx, dword ptr ds : [ecx + GAMESTART]
-				push ecx
-				mov ecx, PLANTCALL
-				call ecx
-				popfd
-				popad
-			}
-		}
-	}
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-<h2 id="VI-僵尸刷新"><a href="#VI-僵尸刷新" class="headerlink" title="VI. 僵尸刷新"></a>VI. 僵尸刷新</h2><p>按照提示刷僵尸就行了</p>
-<p><strong>主程序</strong></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">void BaseTool::CreateZombie() {
-	int row = 0, zombieID = 0, num = 0;
-	cout &lt;&lt; "选择要刷的行数:" &lt;&lt; endl;
-	cin &gt;&gt; row;
-	cout &lt;&lt; "选择要刷的僵尸ID:" &lt;&lt; endl;
-	cin &gt;&gt; zombieID;
-	cout &lt;&lt; "选择要刷的数量:" &lt;&lt; endl;
-	cin &gt;&gt; num;
-	*((int*)(g_pShareMemory)+1) = row;   
-	*((int*)(g_pShareMemory)+2) = zombieID;
-	*((int*)(g_pShareMemory)+3) = num;
-    //赋值完毕再通知DLL
-	*(int*)g_pShareMemory = SWITCH_ZOMBIE;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p><strong>DLL端</strong></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">void DllTool::CreateZombie() {
-	int row = 0, zombieID = 0, num = 0;
-	row = *((int*)(g_pShareMemory)+1);
-	zombieID = *((int*)(g_pShareMemory)+2);
-	num = *((int*)(g_pShareMemory)+3);
-	while (num &gt; 0) {
-		num--;
-		__asm {
-			pushad
-			pushfd
-			push row
-			push zombieID
-			mov edi, dword ptr ds : [GAMEFIXEDADDRESS]
-			mov eax, dword ptr ds : [edi + GAMESTART]
-			mov edi, ZOMBIECALL
-			call edi
-			popfd
-			popad
-		}
-	};
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h1 id="0x05-添加-过掉检测"><a href="#0x05-添加-过掉检测" class="headerlink" title="0x05 添加/过掉检测"></a>0x05 添加/过掉检测</h1><h2 id="添加检测"><a href="#添加检测" class="headerlink" title="添加检测"></a>添加检测</h2><p>外置检测 这里可以通过DLL劫持注入代码</p>
-<p>保护的思路</p>
+<h3 id="1-IAT-Hook"><a href="#1-IAT-Hook" class="headerlink" title="1. IAT Hook"></a>1. IAT Hook</h3><p>Ring0/Ring3通用</p>
+<p>原理就是修改IAT表内的函数地址</p>
 <ul>
-<li><p>从游戏的关键数据下手</p>
-<p>用线程扫描相关数据位置 不满足逻辑条件 则判断被修改</p>
+<li><p>先得到目标函数的地址</p>
 </li>
-<li><p>从数据完整性下手</p>
-<p>这里可以用CRC校验</p>
-<p>游戏启动时先计算CRC值</p>
-<p>然后开线程和初始CRC进行对比</p>
+<li><p>寻址到IAT表 然后对比地址 找到要替换的位置</p>
+</li>
+<li><p>将IAT表内的函数地址替换为我自己函数的地址 </p>
 </li>
 </ul>
-<h1 id="0x06-内容总结"><a href="#0x06-内容总结" class="headerlink" title="0x06 内容总结"></a>0x06 内容总结</h1><p>本次实践涉及知识面</p>
-<ul>
-<li><p>游戏内存基址寻找</p>
-</li>
-<li><p>跨进程内存修改</p>
-</li>
-<li><p>远程线程注入DLL</p>
-</li>
-<li><p>进程通信</p>
-</li>
-</ul>
-<p>之后需要学习更多的注入方式，以及对于这种修改的防护技术。</p>
-
+<p><strong>局限性</strong></p>
+<p>不能Hook非静态导入函数(如自己定义的函数/动态Load+GetProc二连的函数等)</p>
+<h3 id="2-Inline-Hook"><a href="#2-Inline-Hook" class="headerlink" title="2. Inline Hook"></a>2. Inline Hook</h3><p>Ring0/Ring3通用 </p>
+<p>原理就是修改指令机器码 在API逻辑中间跳转出去执行我们的代码 之后视情况再跳回去</p>
+<p><strong>关于Inline Hook中受影响的指令</strong></p>
+<p>不能直接跳回去</p>
+<p>比如HOOK的时候改了两行代码</p>
+<p>接着恢复逻辑的时候还需要执行这两条指令</p>
+<p>手动探查覆盖了多少指令 先保存这些机器码后 全覆盖（多的机器码全为NOP）</p>
+<p>跳回之前再执行一次保存的机器码</p>
+<p>取消HOOK就将保存的机器码覆盖回去就行了</p>
+<h1 id="0x03-HOOK框架"><a href="#0x03-HOOK框架" class="headerlink" title="0x03 HOOK框架"></a>0x03 HOOK框架</h1><p>HOOK原理懂了之后</p>
+<p>现在有一些框架对这些HOOK方式的实施方法进行了封装 </p>
+<p>造好了轮子方便我们利用 </p>
+<p>俗话说 “工欲善其事，必先利其器”</p>
+<p>用好框架也是很关键的</p>
+<h2 id="I-MinHook"><a href="#I-MinHook" class="headerlink" title="I. MinHook"></a>I. MinHook</h2><p>待填</p>
+<h2 id="II-HookZz"><a href="#II-HookZz" class="headerlink" title="II. HookZz"></a>II. HookZz</h2>
                 
             </div>
             <hr/>
@@ -826,7 +473,7 @@ DWORD WINAPI NoCDThreadFunc(LPVOID p) {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://luluting.github.io/2021/11/21/pvz/">http://luluting.github.io/2021/11/21/pvz/</a>
+                    <a href="http://luluting.github.io/2021/11/20/hook/">http://luluting.github.io/2021/11/20/hook/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -866,10 +513,6 @@ DWORD WINAPI NoCDThreadFunc(LPVOID p) {
                             
                                 <a href="/tags/Hook/">
                                     <span class="chip bg-color">Hook</span>
-                                </a>
-                            
-                                <a href="/tags/MOD/">
-                                    <span class="chip bg-color">MOD</span>
                                 </a>
                             
                         </div>
@@ -919,7 +562,56 @@ DWORD WINAPI NoCDThreadFunc(LPVOID p) {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/11/21/win32/">
+                <a href="/2021/11/21/hello-world/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="博客搭建记录">
+                        
+                        <span class="card-title">博客搭建记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Record/" class="post-category">
+                                    Record
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%97%A5%E5%B8%B8/">
+                        <span class="chip bg-color">日常</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/11/20/win32/">
                     <div class="card-image">
                         
                         
@@ -935,9 +627,9 @@ DWORD WINAPI NoCDThreadFunc(LPVOID p) {
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -955,54 +647,6 @@ DWORD WINAPI NoCDThreadFunc(LPVOID p) {
                     
                     <a href="/tags/WIN32/">
                         <span class="chip bg-color">WIN32</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/11/21/unity3d-il2cpp/">
-                    <div class="card-image">
-                        
-                        <img src="https://i.loli.net/2019/10/19/Ub5vugrZxBiaDmt.jpg" class="responsive-img" alt="Unity3D-Il2cpp">
-                        
-                        <span class="card-title">Unity3D-Il2cpp</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            总结一下IL2CPP相关学习
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-21
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Game/" class="post-category">
-                                    Game
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Unity3D/">
-                        <span class="chip bg-color">Unity3D</span>
                     </a>
                     
                 </div>

