@@ -4,9 +4,18 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="AFL工具探索, あなたがいること.">
-    <meta name="description" content="前言学习一下模糊测试，其中AFL是一个非常经典的Fuzzing工具，以此入门，希望对未来的学习有所帮助。
-简介AFL（American Fuzzy Lop）是由安全研究员Michał Zalewski（@lcamtuf）开发的一款基于覆盖引">
+    <meta name="keywords" content="逆向练习记录, あなたがいること.">
+    <meta name="description" content="好好学习，天天向上
+
+
+不一样的Flag题目大概是一个走迷宫的小游戏
+Flag就是走迷宫的顺序
+主逻辑如图
+
+拆解一下游戏玩法
+//开局信息
+v4 = 0;
+strcpy(Table, &#34;*11110100001010000101111#&#34;">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +27,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>AFL工具探索 | あなたがいること.</title>
+    <title>逆向练习记录 | あなたがいること.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -205,12 +214,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/uni2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/Luluting/Bed/Little/img/QQ%E5%9B%BE%E7%89%8720220311191653.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">AFL工具探索</h1>
+                    <h1 class="description center-align post-title">逆向练习记录</h1>
                 </div>
             </div>
         </div>
@@ -326,12 +335,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Fuzz/">
-                                <span class="chip bg-color">Fuzz</span>
-                            </a>
-                        
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/tags/CTF/">
+                                <span class="chip bg-color">CTF</span>
                             </a>
                         
                     </div>
@@ -342,8 +347,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Vulnerability/" class="post-category">
-                                Vulnerability
+                            <a href="/categories/Reverse/" class="post-category">
+                                Reverse
                             </a>
                         
                     </div>
@@ -355,21 +360,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-02-28
+                    2022-04-21
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-03-01
+                    2022-04-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    4.3k
+                    704
                 </div>
                 
 
@@ -394,267 +399,166 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学习一下模糊测试，其中AFL是一个非常经典的Fuzzing工具，以此入门，希望对未来的学习有所帮助。</p>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>AFL（American Fuzzy Lop）是由安全研究员Michał Zalewski（<a target="_blank" rel="noopener" href="https://twitter.com/lcamtuf">@lcamtuf</a>）开发的一款基于覆盖引导（Coverage-guided）的模糊测试工具，它通过记录输入样本的代码覆盖率，从而调整输入样本以提高覆盖率，增加发现漏洞的概率。其工作流程大致如下：</p>
-<ul>
-<li>从源码编译程序时进行插桩，以记录代码覆盖率（Code Coverage）；</li>
-<li>选择一些输入文件，作为初始测试集加入输入队列（queue）；</li>
-<li>将队列中的文件按一定的策略进行“突变”；</li>
-<li>如果经过变异文件更新了覆盖范围，则将其保留添加到队列中;</li>
-<li>上述过程会一直循环进行，期间触发了crash的文件会被记录下来。</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1544168163_5c0a22e3eedce.jpg" alt="1.jpg"></p>
-<h1 id="Fuzzing处理"><a href="#Fuzzing处理" class="headerlink" title="Fuzzing处理"></a>Fuzzing处理</h1><h2 id="测试目标"><a href="#测试目标" class="headerlink" title="测试目标"></a>测试目标</h2><ul>
-<li><p>模糊测试的目标通常是接受外部输入的程序或库，输入一般来自控制台或文件</p>
-</li>
-<li><p>目标范围</p>
-<p>AFL主要用于C/C++程序的测试。</p>
-<p>也有一些基于AFL的JAVA Fuzz程序如<a target="_blank" rel="noopener" href="https://github.com/isstac/kelinci">kelinci</a>、<a target="_blank" rel="noopener" href="https://github.com/Barro/java-afl">java-afl</a>等，但并不知道效果如何</p>
-</li>
-<li><p>目标要求</p>
-<p>可以编译源码时插装，也可以通过QEMU mode对二进制文件动态插桩，前者测试速度比后者快很多。</p>
-</li>
-</ul>
-<h2 id="构建语料库"><a href="#构建语料库" class="headerlink" title="构建语料库"></a>构建语料库</h2><p>AFL需要一些初始输入数据（也叫种子文件）作为Fuzzing的起点，这些输入甚至可以是毫无意义的数据，AFL可以通过启发式算法自动确定文件格式结构。</p>
-<p>尽管AFL如此强大，但如果要获得更快的Fuzzing速度，那么就有必要生成一个高质量的语料库</p>
-<p>主要围绕三个问题</p>
-<ul>
-<li><p><strong>如何选择输入文件</strong></p>
-<ul>
-<li>有效的输入，覆盖更多路径。</li>
-<li>尽量小的体积，减少测试和处理的时间。</li>
-</ul>
-</li>
-<li><p><strong>从哪里寻找这些文件</strong></p>
-<ul>
-<li><p>使用项目自身提供的测试用例</p>
-</li>
-<li><p>目标程序bug提交页面</p>
-</li>
-<li><p>afl源码的testcases目录下提供了一些测试用例</p>
-</li>
-<li><p>其他开源的语料库</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="http://lcamtuf.coredump.cx/afl/demo/">afl generated image test sets</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/google/fuzzer-test-suite">fuzzer-test-suite</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://samples.libav.org/">libav samples</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://samples.ffmpeg.org/">ffmpeg samples</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/MozillaSecurity/fuzzdata">fuzzdata</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://gitlab.anu.edu.au/lunar/moonshine">moonshine</a></p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>如何精简找到的文件三个问题</strong></p>
-<p>网上找到的一些大型语料库中往往包含大量的文件，这时就需要对其精简，这个工作有个术语叫做——语料库蒸馏（Corpus Distillation）。AFL提供了两个工具来帮助我们完成这部工作——<code>afl-cmin</code>和<code>afl-tmin</code>。</p>
-<p>(1) 移除执行相同代码的输入文件——afl-cmin</p>
-<p><code>afl-cmin</code>的核心思想是：尝试找到与语料库全集具有相同覆盖范围的最小子集。举个例子：假设有多个文件，都覆盖了相同的代码，那么就丢掉多余的文件。其使用方法如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ afl-cmin -i input_dir -o output_dir -- /path/to/tested/program [params]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <p>好好学习，天天向上</p>
+<span id="more"></span>
 
-<p>更多的时候，我们需要从文件中获取输入，这时可以使用“@@”代替被测试程序命令行中输入文件名的位置。Fuzzer会将其替换为实际执行的文件：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ afl-cmin -i input_dir -o output_dir -- /path/to/tested/program [params] @@<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="不一样的Flag"><a href="#不一样的Flag" class="headerlink" title="不一样的Flag"></a>不一样的Flag</h1><p>题目大概是一个走迷宫的小游戏</p>
+<p>Flag就是走迷宫的顺序</p>
+<p>主逻辑如图</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220420150104949.png" alt="image-20220420150104949"></p>
+<p>拆解一下游戏玩法</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">//开局信息
+v4 = 0;
+strcpy(Table, "*11110100001010000101111#"); //长度25的字符串
+2A 31 31 31 31 30 31 30  30 30 30 31 30 31 30 30
+30 30 31 30 31 31 31 31  23 00 00 00 FF FF FF FF
 
-<p>下面的例子中，我们将一个有1253个png文件的语料库，精简到只包含60个文件。<br><img src="https://image.3001.net/images/20181207/1544168945_5c0a25f10bfeb.jpg!small" alt="4.jpg"></p>
-<p>(2) 减小单个输入文件的大小——afl-tmin</p>
-<p>整体的大小得到了改善，接下来还要对每个文件进行更细化的处理，afl-tmin缩减文件体积的方法如下。</p>
-<p><code>afl-tmin</code>有两种工作模式，<code>instrumented mode</code>和<code>crash mode</code>。默认的工作方式是<code>instrumented mode</code>，如下所示：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ afl-tmin -i input_file -o output_file -- /path/to/tested/program [params] @@<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+//用户可操作选择
+if ( SingInput == 1 )
+	--*(_DWORD *)&amp;Table[25]; //up
+if ( SingInput == 2 )
+    ++*(_DWORD *)&amp;Table[25]; //down
+if ( SingInput == 3 )
+	--v4; //left
+if ( SingInput == 4 )
+	++v4; //right
 
-<p><img src="https://image.3001.net/images/20181207/1544168990_5c0a261e77620.jpg!small" alt="5.jpg">如果指定了参数<code>-x</code>，即<code>crash mode</code>，会把导致程序非正常退出的文件直接剔除。</p>
-<pre class="line-numbers language-none"><code class="language-none">$ afl-tmin -x -i input_file -o output_file -- /path/to/tested/program [params] @@<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+//验证逻辑
+    for ( i = 0; i &lt;= 1; ++i )
+    {
+      if ( *(int *)&amp;Table[4 * i + 25] &lt; 0 || *(int *)&amp;Table[4 * i + 25] &gt; 4 )
+        exit(1);
+    }
+    if ( Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4] == '1' )
+      exit(1);
+    if ( Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4] == 35 )
+    {
+      puts("\nok, the order you enter is the flag!");
+      exit(0);
+    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://image.3001.net/images/20181207/1544169226_5c0a270a2da45.jpg!small" alt="6.jpg"></p>
-<p><code>afl-tmin</code>接受单个文件输入，所以可以用一条简单的shell脚本批量处理。如果语料库中文件数量特别多，且体积特别大的情况下，这个过程可能花费几天甚至更长的时间！</p>
-<pre class="line-numbers language-none"><code class="language-none">for i in *; do afl-tmin -i $i -o tmin-$i -- ~/path/to/tested/program [params] @@; done;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在这里我不知道CERT的值 所以会感觉无从下手</p>
+<p>但看到迷宫验证的时候是5成一排</p>
+<pre class="line-numbers language-none"><code class="language-none">*1111
+01000
+01010
+00010
+1111#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>下图是经过两种模式的修剪后，语料库大小的变化：<br><img src="https://image.3001.net/images/20181207/1544169138_5c0a26b20031b.jpg!small" alt="7.jpg"></p>
-<p>这时还可以再次使用<code>afl-cmin</code>，发现又可以过滤掉一些文件了。<br><img src="https://image.3001.net/images/20181207/1544169165_5c0a26cd61926.jpg!small" alt="8.jpg"></p>
-</li>
-</ul>
-<h2 id="构建测试程序"><a href="#构建测试程序" class="headerlink" title="构建测试程序"></a>构建测试程序</h2><p>AFL从源码编译程序时进行插桩，来记录代码覆盖率。</p>
-<p>有两种模式</p>
-<ul>
-<li><p>afl-gcc</p>
-<p>通过GCC构建</p>
-</li>
-<li><p>afl-clang</p>
-<p>通过LLVM构建 Fuzzing速度更快</p>
-</li>
-</ul>
-<h2 id="开始Fuzzing"><a href="#开始Fuzzing" class="headerlink" title="开始Fuzzing"></a>开始Fuzzing</h2><p>afl-fuzz是主要测试程序</p>
-<p>对那些可以直接从stdin读取输入的目标程序来说，语法如下：<br><code>./afl-fuzz -i testcase_dir -o findings_dir /path/to/program […params…]</code><br>对从文件读取输入的目标程序来说，要用“@@”，语法如下：<br><code>./afl-fuzz -i testcase_dir -o findings_dir /path/to/program […params…] @@</code></p>
-<ul>
-<li><p>白盒测试</p>
-<p>编译完程序后，可以选择使用afl-showmap跟踪单个输入的执行路径，并打印执行的输出，捕获的元组tuple等。</p>
-<p>tuple用于获取分支信息，从而计算程序覆盖率。</p>
-</li>
-<li><p>黑盒测试</p>
-<p>针对二进制程序，需要增加-Q选项。</p>
-</li>
-</ul>
-<h1 id="Fuzzing结果分析"><a href="#Fuzzing结果分析" class="headerlink" title="Fuzzing结果分析"></a>Fuzzing结果分析</h1><p>Fuzzing之后我们还需要考虑以下问题</p>
-<ul>
-<li>何时结束Fuzzing工作</li>
-<li>afl-fuzz生成了哪些文件</li>
-<li>如何对产生的crash进行验证和分类</li>
-<li>用什么来评估Fuzzing的结果</li>
-<li>代码覆盖率及相关概念</li>
-<li>AFL是如何记录代码覆盖率的</li>
-</ul>
-<h2 id="Fuzzing工作状态"><a href="#Fuzzing工作状态" class="headerlink" title="Fuzzing工作状态"></a>Fuzzing工作状态</h2><p>因为afl-fuzz永远不会停止，所以何时停止测试很多时候就是依靠afl-fuzz提供的状态来决定的。除了前面提到过的通过状态窗口、afl-whatsup查看afl-fuzz状态外，这里再补充几种方法。</p>
-<ul>
-<li><p>afl-stat</p>
-<p>afl-stat是<a target="_blank" rel="noopener" href="https://gitlab.com/rc0r/afl-utils">afl-utils</a>这套工具AFL辅助工具中的一个（这套工具中还有其他更好用的程序，后面用到时会做介绍），该工具类似于afl-whatsup的输出结果。</p>
-<p>使用前需要一个配置文件，设置每个afl-fuzz实例的输出目录：</p>
-<pre class="line-numbers language-none"><code class="language-none">{
-    "fuzz_dirs": [
-        "/root/syncdir/SESSION000",
-        "/root/syncdir/SESSION001",
-        ...
-        "/root/syncdir/SESSION00x"
-    ]
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>按照提示走迷宫</p>
+<p>得到222441144222</p>
+<p>尝试之后正确</p>
+<p>可以得知<code>Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4]</code>就是我们迷宫当前所在的位置</p>
+<h1 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h1><h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h2><p>校验字符串</p>
+<p>通过拼接操作形成长度128字节的Key </p>
+<p>程序根据用户输入变形一个Table</p>
+<p>将key与变形后的一个Table对比</p>
+<p>若一致则成功</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">key1<span class="token operator">=</span><span class="token string">"ADSFK"</span><span class="token punctuation">;</span>
 
-<p>然后指定配置文件运行即可：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ afl-stats -c afl-stats.conf
-[SESSION000 on fuzzer1]
- Alive:   1/1
- Execs:   64 m
- Speed:   0.3 x/s
- Pend:    6588/249
- Crashes: 101
-[SESSION001 on fuzzer1]
- Alive:   1/1
- Execs:   105 m
- Speed:   576.6 x/s
- Pend:    417/0
- Crashes: 291
-...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>afl-whatsup</p>
-<p>afl-whatsup是依靠读afl-fuzz输出目录中的fuzzer_stats文件来显示状态的，每次查看都要需要手动执行，十分麻烦。因此可以对其进行修改，让其实时显示fuzzer的状态。方法也很简答，基本思路就是在所有代码外面加个循环就好，还可以根据自己的喜好做些调整：</p>
-</li>
-<li><p>afl-plot</p>
-<p>可视化结果</p>
-</li>
-<li><p>pythia</p>
-<p>一个拓展项目</p>
-</li>
-</ul>
-<h2 id="结束测试"><a href="#结束测试" class="headerlink" title="结束测试"></a>结束测试</h2><p>检查afl-fuzz工作状态的目的是为何时停止测试提供依据，通常来说符合下面几种情况时就可以停掉了。</p>
-<p>（1）状态窗口中”cycles done”字段颜色变为绿色该字段的颜色可以作为何时停止测试的参考，随着周期数不断增大，其颜色也会由洋红色，逐步变为黄色、蓝色、绿色。当其变为绿色时，继续Fuzzing下去也很难有新的发现了，这时便可以通过Ctrl-C停止afl-fuzz。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552021969_5c81f9d1d0676.jpg!small" alt="6.jpg"></p>
-<p>（2）距上一次发现新路径（或者崩溃）已经过去很长时间了，至于具体多少时间还是需要自己把握，比如长达一个星期或者更久估计大家也都没啥耐心了吧。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552021977_5c81f9d9c9339.jpg!small" alt="7.jpg"></p>
-<p>（3）目标程序的代码几乎被测试用例完全覆盖，这种情况好像很少见，但是对于某些小型程序应该还是可能的，至于如何计算覆盖率将在下面介绍。</p>
-<p>（4）上面提到的pythia提供的各种数据中，一旦path covera达到99％（通常来说不太可能），如果不期望再跑出更多crash的话就可以中止fuzz了，因为很多crash可能是因为相同的原因导致的；还有一点就是correctness的值达到1e-08，根据pythia开发者的说法，这时从上次发现path/uniq crash到下一次发现之间大约需要1亿次执行，这一点也可以作为衡量依据。</p>
-<h2 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h2><p>afl-fuzz的输出目录中存在很多文件</p>
-<ul>
-<li>queue：存放所有具有独特执行路径的测试用例。</li>
-<li>crashes：导致目标接收致命signal而崩溃的独特测试用例。</li>
-<li>crashes/README.txt：保存了目标执行这些crash文件的命令行参数。</li>
-<li>hangs：导致目标超时的独特测试用例。</li>
-<li>fuzzer_stats：afl-fuzz的运行状态。</li>
-<li>plot_data：用于afl-plot绘图。</li>
-</ul>
-<h2 id="处理测试结果"><a href="#处理测试结果" class="headerlink" title="处理测试结果"></a>处理测试结果</h2><p>我们跑出了一大堆的crashes，那么接下来的步骤，自然是确定造成这些crashes的bug是否可以利用，怎么利用？这是另一个重要方面。当然，个人觉得这比前面提到的内容都要困难得多，这需要对常见的二进制漏洞类型、操作系统的安全机制、代码审计和调试等内容都有一定深度的了解。但如果只是对crash做简单的分析和分类，那么下面介绍的几种方法都可以给我们提供一些帮助。</p>
-<ul>
-<li><p>crash exploration mode</p>
-<p>通过观察crash情况产生类似样例，将一个导致crash测试用例作为afl-fuzz的输入，使用-C选项开启crash exploration模式后，可以快速地产生很多和输入crash相关、但稍有些不同的crashes，从而判断能够控制某块内存地址的长度。</p>
-</li>
-<li><p>triage_crashes</p>
-<p>AFL源码的experimental目录中有一个名为triage_crashes.sh的脚本，可以帮助我们触发收集到的crashes。例如下面的例子中，11代表了SIGSEGV信号，有可能是因为缓冲区溢出导致进程引用了无效的内存；06代表了SIGABRT信号，可能是执行了abort\assert函数或double free导致，这些结果可以作为简单的参考。</p>
-</li>
-<li><p>crashwalk</p>
-<p>当然上面的两种方式都过于鸡肋了，如果你想得到更细致的crashes分类结果，以及导致crashes的具体原因，那么<a target="_blank" rel="noopener" href="https://github.com/bnagy/crashwalk">crashwalk</a>就是不错的选择之一。这个工具基于gdb的exploitable插件，安装也相对简单，在ubuntu上，只需要如下几步即可：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ apt-get install gdb golang
-$ mkdir tools
-$ cd tools
-$ git clone https://github.com/jfoote/exploitable.git
-$ mkdir go
-$ export GOPATH=~/tools/go
-$ export CW_EXPLOITABLE=~/tools/exploitable/exploitable/exploitable.py
-$ go get -u github.com/bnagy/crashwalk/cmd/...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+key3<span class="token operator">=</span><span class="token string">"kills"</span><span class="token punctuation">;</span>
 
-<p>crashwalk支持AFL/Manual两种模式。前者通过读取<strong>crashes/README.txt</strong>文件获得目标的执行命令（前面第三节中提到的），后者则可以手动指定一些参数。两种使用方式如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">#Manual Mode
-$ ~/tools/go/bin/cwtriage -root syncdir/fuzzer1/crashes/ -match id -- ~/parse @@
-#AFL Mode
-$ ~/tools/go/bin/cwtriage -root syncdir -afl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+something<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0x776F646168LL</span><span class="token punctuation">;</span> <span class="token comment">//'wodah'</span>
 
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552022106_5c81fa5a86ef3.jpg!small" alt="11.jpg"></p>
-<p>两种模式的输出结果都一样，如上图所示。这个工具比前面几种方法要详细多了，但当有大量crashes时结果显得还是十分混乱。</p>
-</li>
-<li><p>afl-collect</p>
-<p>最后重磅推荐的工具便是afl-collect，它也是afl-utils套件中的一个工具，同样也是基于exploitable来检查crashes的可利用性。它可以自动删除无效的crash样本、删除重复样本以及自动化样本分类。使用起来命令稍微长一点，如下所示：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ afl-collect -j 8 -d crashes.db -e gdb_script ./afl_sync_dir ./collection_dir --  /path/to/target --target-opts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+something<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0LL</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>但是结果就像下面这样非常直观：</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552022171_5c81fa9bccd05.jpg!small" alt="11-1.jpg"></p>
-</li>
-</ul>
-<h2 id="代码覆盖率及相关概念"><a href="#代码覆盖率及相关概念" class="headerlink" title="代码覆盖率及相关概念"></a>代码覆盖率及相关概念</h2><p>代码覆盖率是模糊测试中一个极其重要的概念，使用代码覆盖率可以评估和改进测试过程，执行到的代码越多，找到bug的可能性就越大，毕竟，在覆盖的代码中并不能100%发现bug，在未覆盖的代码中却是100%找不到任何bug的，所以本节中就将详细介绍代码覆盖率的相关概念。</p>
-<ul>
-<li><p>代码覆盖率（Code Coverage）</p>
-<p>是一种度量代码的覆盖程度的方式，也就是指源代码中的某行代码是否已执行；对二进制程序，还可将此概念理解为汇编代码中的某条指令是否已执行。其计量方式很多，但无论是GCC的GCOV还是LLVM的SanitizerCoverage，都提供函数（function）、基本块（basic-block）、边界（edge）三种级别的覆盖率检测，更具体的细节可以参考LLVM的<a target="_blank" rel="noopener" href="https://clang.llvm.org/docs/SanitizerCoverage.html">官方文档</a>。</p>
-</li>
-<li><p>基本块（Basic Block）</p>
-<p>简称BB，指一组顺序执行的指令，BB中第一条指令被执行后，后续的指令也会被全部执行，每个BB中所有指令的执行次数是相同的。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552022202_5c81fabaca4bc.jpg!small" alt="13.jpg"></p>
-</li>
-<li><p>边界（edge）</p>
-<p>AFL的<a target="_blank" rel="noopener" href="http://lcamtuf.coredump.cx/afl/technical_details.txt">技术白皮书</a>中提到fuzzer通过插桩代码捕获边（edge）覆盖率。那么什么是edge呢？我们可以将程序看成一个控制流图（CFG），图的每个节点表示一个基本块，而edge就被用来表示在基本块之间的转跳。知道了每个基本块和跳转的执行次数，就可以知道程序中的每个语句和分支的执行次数，从而获得比记录BB更细粒度的覆盖率信息。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552022233_5c81fad93a797.jpg!small" alt="15.jpg"></p>
-</li>
-<li><p>元组（tuple）</p>
-<p>AFL中用二元组记录<code>当前基本块+前一基本块</code>的信息。从而获取目标的执行流程和代码覆盖情况，伪代码如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">cur_location = &lt;COMPILE_TIME_RANDOM&gt;;           //用一个随机数标记当前基本块
-shared_mem[cur_location ^ prev_location]++;     //将当前块和前一块异或保存到shared_mem[]
-prev_location = cur_location &gt;&gt; 1;              //cur_location右移1位区分从当前块到当前块的转跳<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="join函数"><a href="#join函数" class="headerlink" title="join函数"></a>join函数</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220421155339682.png" alt="image-20220421155339682"></p>
+<p>没啥特别的</p>
+<p>就是拼接</p>
+<p>key3+something</p>
+<p>注意something需要倒序（小端存储）</p>
+<p>text=”killshadow”</p>
+<h2 id="key处理"><a href="#key处理" class="headerlink" title="key处理"></a>key处理</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220421170306566.png" alt="image-20220421170306566"></p>
+<p>key=”ADSFKNDCLS”</p>
+<p>经过一波小写转换操作</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220421171902475.png" alt="image-20220421171902475"></p>
+<p>key=adsfkndcls”</p>
+<p>处理之后<code>v3=0x0a</code></p>
+<h2 id="Table生成"><a href="#Table生成" class="headerlink" title="Table生成"></a>Table生成</h2><p>key=adsfkndcls”</p>
+<p>input = “a”</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">while ( 1 )
+{
+  input = getchar();
+  if ( input == 10 )
+    break;
+  if ( input == 32 )
+  {
+    ++spaceOrder;                             // spaceNum
+  }
+  else
+  {
+    if ( input &lt;= 96 || input &gt; 122 )
+    {
+      if ( input &gt; 64 &amp;&amp; input &lt;= 90 )        // 大写字母
+      {
+        Table[spaceOrder] = (input - 39 - key[v3 % v5] + 97) % 26 + 97;
+        ++v3;
+      }
+    }
+    else                                      // 小写字母
+    {
+      Table[spaceOrder] = (input - 39 - key[v3 % v5] + 97) % 26 + 97;
+      ++v3;
+    }
+    if ( !(v3 % v5) )
+      putchar(32);
+    ++spaceOrder;
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>实际插入的汇编代码，如下图所示，首先保存各种寄存器的值并设置ecx/rcx，然后调用<code>__afl_maybe_log</code>，这个方法的内容相当复杂，这里就不展开讲了，但其主要功能就和上面的伪代码相似，用于记录覆盖率，放入一块共享内存中。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552022255_5c81faef97fc0.jpg!small" alt="16.jpg"></p>
-</li>
-</ul>
-<h2 id="计算代码覆盖率"><a href="#计算代码覆盖率" class="headerlink" title="计算代码覆盖率"></a>计算代码覆盖率</h2><p>这里需要用到的工具之一是<strong>GCOV</strong>，它随gcc一起发布，所以不需要再单独安装，和afl-gcc插桩编译的原理一样，gcc编译时生成插桩的程序，用于在执行时生成代码覆盖率信息。</p>
-<p>另外一个工具是<strong>LCOV</strong>，它是GCOV的图形前端，可以收集多个源文件的gcov数据，并创建包含使用覆盖率信息注释的源代码HTML页面。</p>
-<p>最后一个工具是<a target="_blank" rel="noopener" href="https://github.com/mrash/afl-cov">afl-cov</a>，可以快速帮助我们调用前面两个工具处理来自afl-fuzz测试用例的代码覆盖率结果。在ubuntu中可以使用<code>apt-get install afl-cov</code>安装afl-cov，但这个版本似乎不支持分支覆盖率统计，所以还是从Github下载最新版本为好，下载完无需安装直接运行目录中的Python脚本即可使用：</p>
-<pre class="line-numbers language-none"><code class="language-none">$ apt-get install lcov
-$ git clone https://github.com/mrash/afl-cov.git
-$ ./afl-cov/afl-cov -V
-afl-cov-0.6.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后比较Table与Text</p>
+<pre class="line-numbers language-none"><code class="language-none">text="killshadow"
+char Table[104]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>第一步，使用gcov重新编译源码，在CFLAGS中添加<code>"-fprofile-arcs"</code>和<code>"-ftest-coverage"</code>选项，可以在<code>--prefix</code>中重新指定一个新的目录以免覆盖之前alf插桩的二进制文件。</p>
-<pre class="line-numbers language-none"><code class="language-none">$ make clean
-$ ./configure --prefix=/root/tiff-4.0.10/build-cov CC="gcc" CXX="g++" CFLAGS="-fprofile-arcs -ftest-coverage" --disable-shared
-$ make
-$ make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>第二步，执行afl-cov。其中-d选项指定afl-fuzz输出目录；—live用于处理一个还在实时更新的AFL目录，当afl-fuzz停止时，afl-cov将退出；–enable-branch-coverage用于开启边缘覆盖率（分支覆盖率）统计；-c用于指定源码目录；最后一个-e选项用来设置要执行的程序和参数，其中的AFL_FILE和afl中的”@@”类似，会被替换为测试用例，LD_LIBRARY_PATH则用来指定程序的库文件。</p>
-<pre class="line-numbers language-none"><code class="language-none">$ cd ~/tiff-4.0.10
-$ afl-cov -d ~/syncdir --live --enable-branch-coverage -c . -e "cat AFL_FILE | LD_LIBRARY_PATH=./build-cov/lib ./build-cov/bin/tiff2pdf AFL_FILE"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>成功执行的结果如下所示：</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552022282_5c81fb0aef908.jpg!small" alt="14.jpg"></p>
-<p>我们可以通过—live选择，在fuzzer运行的同时计算覆盖率，也可以在测试结束以后再进行计算，最后会得到一个像下面这样的html文件。它既提供了概述页面，显示各个目录的覆盖率；也可以在点击进入某个目录查看某个具体文件的覆盖率。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552022297_5c81fb19c5053.jpg!small" alt="17.jpg"></p>
-<p>点击进入每个文件，还有更详细的数据。每行代码前的数字代表这行代码被执行的次数，没有执行过的代码会被红色标注出来。</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1552022314_5c81fb2aa9ad8.jpg!small" alt="18.jpg"></p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wwchao2012/article/details/110251079">AFL资源汇总</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wxh0000mm/article/details/108827326">初探AFL-Fuzz_子曰小玖的博客-CSDN博客_afl fuzz</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/191536.html">AFL漏洞挖掘技术漫谈（一）：用AFL开始你的第一次Fuzzing - FreeBuf网络安全行业门户</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/column/197672.html">AFL漏洞挖掘技术漫谈（二）：Fuzz结果分析和代码覆盖率 - FreeBuf网络安全行业门户</a></p>
-</li>
-</ul>
+
+
+<h2 id="我的尝试"><a href="#我的尝试" class="headerlink" title="我的尝试"></a>我的尝试</h2><p>看了下算法大致是通过输入大写字母来生成text</p>
+<p>于是通过逆向还原一下 通过最后将计算结果放大到大写字母的范围内</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Table[spaceOrder] = (input - 39 - key[v3 % key_len] + 97) % 26 + 97;</span>
+<span class="token keyword">def</span> <span class="token function">fangda</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">while</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token number">65</span> <span class="token operator">&lt;=</span> a <span class="token operator">&lt;=</span><span class="token number">90</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+        <span class="token keyword">if</span> a <span class="token operator">&gt;</span> <span class="token number">122</span><span class="token punctuation">:</span>
+            a <span class="token operator">-=</span> <span class="token number">26</span>
+        <span class="token keyword">elif</span> a <span class="token operator">&lt;</span> <span class="token number">65</span><span class="token punctuation">:</span>
+            a <span class="token operator">+=</span> <span class="token number">26</span>
+    <span class="token keyword">return</span> a
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    mylist <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    key <span class="token operator">=</span> <span class="token string">'adsfkndcls'</span>
+    final <span class="token operator">=</span> <span class="token string">"killshadow"</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        temp <span class="token operator">=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>final<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">97</span>
+        temp <span class="token operator">-=</span> <span class="token number">97</span>
+        temp <span class="token operator">+=</span> <span class="token number">39</span>
+        temp <span class="token operator">+=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>key<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        temp <span class="token operator">=</span> fangda<span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+        mylist<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+       <span class="token keyword">print</span><span class="token punctuation">(</span>mylist<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="别人的解法"><a href="#别人的解法" class="headerlink" title="别人的解法"></a>别人的解法</h2><p>非常简短</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">key <span class="token operator">=</span> <span class="token string">'adsfkndcls'</span>
+text <span class="token operator">=</span> <span class="token string">'killshadow'</span>
+v5 <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+flag <span class="token operator">=</span> <span class="token string">''</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+      <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">65</span><span class="token punctuation">,</span><span class="token number">91</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment">#仅遍历大写字母</span>
+         <span class="token keyword">if</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>text<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token punctuation">(</span>j <span class="token operator">-</span> <span class="token number">39</span> <span class="token operator">-</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>key<span class="token punctuation">[</span>i <span class="token operator">%</span> v5<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">97</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">26</span> <span class="token operator">+</span> <span class="token number">97</span><span class="token punctuation">:</span>
+             flag <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到思路是直接进行爆破</p>
+<p>利用了密码本的特性</p>
+<p>直接遍历大写字母生成Table值来和text比较</p>
+<p>如果符合则加入</p>
 
                 
             </div>
@@ -681,7 +585,7 @@ $ afl-cov -d ~/syncdir --live --enable-branch-coverage -c . -e "cat AFL_FILE | L
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://luluting.github.io/2022/02/28/afl/">http://luluting.github.io/2022/02/28/afl/</a>
+                    <a href="http://luluting.github.io/2022/04/21/ni-xiang-lian-xi-ji-lu/">http://luluting.github.io/2022/04/21/ni-xiang-lian-xi-ji-lu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -719,12 +623,8 @@ $ afl-cov -d ~/syncdir --live --enable-branch-coverage -c . -e "cat AFL_FILE | L
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Fuzz/">
-                                    <span class="chip bg-color">Fuzz</span>
-                                </a>
-                            
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/tags/CTF/">
+                                    <span class="chip bg-color">CTF</span>
                                 </a>
                             
                         </div>
@@ -770,9 +670,59 @@ $ afl-cov -d ~/syncdir --live --enable-branch-coverage -c . -e "cat AFL_FILE | L
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/2022/04/21/ni-xiang-lian-xi-ji-lu/">
+                    <div class="card-image">
+                        
+                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/QQ%E5%9B%BE%E7%89%8720220311191653.jpg" class="responsive-img" alt="逆向练习记录">
+                        
+                        <span class="card-title">逆向练习记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            好好学习，天天向上
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Reverse/" class="post-category">
+                                    Reverse
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CTF/">
+                        <span class="chip bg-color">CTF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/03/11/kernel/">
                     <div class="card-image">
@@ -790,9 +740,9 @@ $ afl-cov -d ~/syncdir --live --enable-branch-coverage -c . -e "cat AFL_FILE | L
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -810,58 +760,6 @@ $ afl-cov -d ~/syncdir --live --enable-branch-coverage -c . -e "cat AFL_FILE | L
                     
                     <a href="/tags/%E5%86%85%E6%A0%B8/">
                         <span class="chip bg-color">内核</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/12/28/pwn-prac/">
-                    <div class="card-image">
-                        
-                        <img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/1920x1200-144465-anime-anime-girls-digital-art-artwork-portrait-2D.png" class="responsive-img" alt="PWN题记录">
-                        
-                        <span class="card-title">PWN题记录</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-28
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Vulnerability/" class="post-category">
-                                    Vulnerability
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Pwn/">
-                        <span class="chip bg-color">Pwn</span>
-                    </a>
-                    
-                    <a href="/tags/CTF/">
-                        <span class="chip bg-color">CTF</span>
                     </a>
                     
                 </div>
