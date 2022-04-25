@@ -8,14 +8,14 @@
     <meta name="description" content="好好学习，天天向上
 
 
-不一样的Flag题目大概是一个走迷宫的小游戏
+常规不一样的Flag题目大概是一个走迷宫的小游戏
 Flag就是走迷宫的顺序
 主逻辑如图
 
 拆解一下游戏玩法
 //开局信息
 v4 = 0;
-strcpy(Table, &#34;*11110100001010000101111#&#34;">
+strcpy(Table, &#34;*11110100001010000101111">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -367,14 +367,14 @@ strcpy(Table, &#34;*11110100001010000101111#&#34;">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-04-21
+                    2022-04-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    704
+                    4k
                 </div>
                 
 
@@ -402,7 +402,7 @@ strcpy(Table, &#34;*11110100001010000101111#&#34;">
                 <p>好好学习，天天向上</p>
 <span id="more"></span>
 
-<h1 id="不一样的Flag"><a href="#不一样的Flag" class="headerlink" title="不一样的Flag"></a>不一样的Flag</h1><p>题目大概是一个走迷宫的小游戏</p>
+<h1 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h1><h2 id="不一样的Flag"><a href="#不一样的Flag" class="headerlink" title="不一样的Flag"></a>不一样的Flag</h2><p>题目大概是一个走迷宫的小游戏</p>
 <p>Flag就是走迷宫的顺序</p>
 <p>主逻辑如图</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220420150104949.png" alt="image-20220420150104949"></p>
@@ -449,7 +449,7 @@ if ( SingInput == 4 )
 <p>得到222441144222</p>
 <p>尝试之后正确</p>
 <p>可以得知<code>Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4]</code>就是我们迷宫当前所在的位置</p>
-<h1 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h1><h2 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h2><p>校验字符串</p>
+<h2 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h2><h3 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h3><p>校验字符串</p>
 <p>通过拼接操作形成长度128字节的Key </p>
 <p>程序根据用户输入变形一个Table</p>
 <p>将key与变形后的一个Table对比</p>
@@ -462,19 +462,19 @@ something<span class="token punctuation">[</span><span class="token number">0</s
 
 something<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0LL</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="join函数"><a href="#join函数" class="headerlink" title="join函数"></a>join函数</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220421155339682.png" alt="image-20220421155339682"></p>
+<h3 id="join函数"><a href="#join函数" class="headerlink" title="join函数"></a>join函数</h3><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220421155339682.png" alt="image-20220421155339682"></p>
 <p>没啥特别的</p>
 <p>就是拼接</p>
 <p>key3+something</p>
 <p>注意something需要倒序（小端存储）</p>
 <p>text=”killshadow”</p>
-<h2 id="key处理"><a href="#key处理" class="headerlink" title="key处理"></a>key处理</h2><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220421170306566.png" alt="image-20220421170306566"></p>
+<h3 id="key处理"><a href="#key处理" class="headerlink" title="key处理"></a>key处理</h3><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220421170306566.png" alt="image-20220421170306566"></p>
 <p>key=”ADSFKNDCLS”</p>
 <p>经过一波小写转换操作</p>
 <p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220421171902475.png" alt="image-20220421171902475"></p>
 <p>key=adsfkndcls”</p>
 <p>处理之后<code>v3=0x0a</code></p>
-<h2 id="Table生成"><a href="#Table生成" class="headerlink" title="Table生成"></a>Table生成</h2><p>key=adsfkndcls”</p>
+<h3 id="Table生成"><a href="#Table生成" class="headerlink" title="Table生成"></a>Table生成</h3><p>key=adsfkndcls”</p>
 <p>input = “a”</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">while ( 1 )
 {
@@ -514,7 +514,7 @@ char Table[104]<span aria-hidden="true" class="line-numbers-rows"><span></span><
 
 
 
-<h2 id="我的尝试"><a href="#我的尝试" class="headerlink" title="我的尝试"></a>我的尝试</h2><p>看了下算法大致是通过输入大写字母来生成text</p>
+<h3 id="我的尝试"><a href="#我的尝试" class="headerlink" title="我的尝试"></a>我的尝试</h3><p>看了下算法大致是通过输入大写字母来生成text</p>
 <p>于是通过逆向还原一下 通过最后将计算结果放大到大写字母的范围内</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Table[spaceOrder] = (input - 39 - key[v3 % key_len] + 97) % 26 + 97;</span>
 <span class="token keyword">def</span> <span class="token function">fangda</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -543,7 +543,7 @@ char Table[104]<span aria-hidden="true" class="line-numbers-rows"><span></span><
 
 
 
-<h2 id="别人的解法"><a href="#别人的解法" class="headerlink" title="别人的解法"></a>别人的解法</h2><p>非常简短</p>
+<h3 id="别人的解法"><a href="#别人的解法" class="headerlink" title="别人的解法"></a>别人的解法</h3><p>非常简短</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">key <span class="token operator">=</span> <span class="token string">'adsfkndcls'</span>
 text <span class="token operator">=</span> <span class="token string">'killshadow'</span>
 v5 <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span>
@@ -559,6 +559,748 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <p>利用了密码本的特性</p>
 <p>直接遍历大写字母生成Table值来和text比较</p>
 <p>如果符合则加入</p>
+<h2 id="Luck-guy"><a href="#Luck-guy" class="headerlink" title="Luck_guy"></a>Luck_guy</h2><p>Linux64位程序</p>
+<h3 id="题目结构"><a href="#题目结构" class="headerlink" title="题目结构"></a>题目结构</h3><p>主函数</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  welcome(argc, argv, envp);
+  puts("_________________");
+  puts("try to patch me and find flag");
+  puts("please input a lucky number");
+  __isoc99_scanf("%d");
+  patch_me(0);
+  puts("OK,see you again");
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>patch_me函数</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int __fastcall patch_me(int a1)
+{
+  int result; // eax
+
+  if ( a1 % 2 == 1 )
+    result = puts("just finished");
+  else
+    result = get_flag();
+  return result;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>get_flag()函数</p>
+<p>case3可以看到小彩蛋</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">unsigned __int64 get_flag()
+{
+  unsigned int v0; // eax
+  int i; // [rsp+4h] [rbp-3Ch]
+  int j; // [rsp+8h] [rbp-38h]
+  __int64 s; // [rsp+10h] [rbp-30h] BYREF
+  char v5; // [rsp+18h] [rbp-28h]
+  unsigned __int64 v6; // [rsp+38h] [rbp-8h]
+
+  v6 = __readfsqword(0x28u);
+  v0 = time(0LL);
+  srand(v0);
+  for ( i = 0; i &lt;= 4; ++i )
+  {
+    switch ( rand() % 200 )
+    {
+      case 1:
+        puts("OK, it's flag:");
+        memset(&amp;s, 0, 0x28uLL);
+        strcat((char *)&amp;s, f1);
+        strcat((char *)&amp;s, &amp;f2);
+        printf("%s", (const char *)&amp;s);
+        break;
+      case 2:
+        printf("Solar not like you");
+        break;
+      case 3:
+        printf("Solar want a girlfriend");
+        break;
+      case 4:
+        s = 0x7F666F6067756369LL;
+        v5 = 0;
+        strcat(&amp;f2, (const char *)&amp;s);
+        break;
+      case 5:
+        for ( j = 0; j &lt;= 7; ++j )
+        {
+          if ( j % 2 == 1 )
+            *(&amp;f2 + j) -= 2;
+          else
+            --*(&amp;f2 + j);
+        }
+        break;
+      default:
+        puts("emmm,you can't find flag 23333");
+        break;
+    }
+  }
+  return __readfsqword(0x28u) ^ v6;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="patch-me-处理"><a href="#patch-me-处理" class="headerlink" title="patch_me()处理"></a>patch_me()处理</h3><p>可以看到patch_me函数按照正常逻辑无法进入get_flag函数</p>
+<p><img src="%E9%80%86%E5%90%91%E7%BB%83%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220422132652906.png" alt="image-20220422132652906"></p>
+<p>于是在鼠标指向的条件判断出patch一下，将jnz改为jmp指令</p>
+<p>再次反汇编可以看到能顺利执行get_flag函数了</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">unsigned __int64 __fastcall patch_me(int a1)
+{
+  return get_flag();
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="get-flag-处理"><a href="#get-flag-处理" class="headerlink" title="get_flag()处理"></a>get_flag()处理</h3><p>关键逻辑如下</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">v0 = time(0LL);
+srand(v0);
+for ( i = 0; i &lt;= 4; ++i )
+{
+  switch ( rand() % 200 )
+  {
+    case 1:
+      puts("OK, it's flag:");
+      memset(&amp;s, 0, 0x28uLL);
+      strcat((char *)&amp;s, f1);
+      strcat((char *)&amp;s, &amp;f2);
+      printf("%s", (const char *)&amp;s);
+      break;
+    case 2:
+      printf("Solar not like you");
+      break;
+    case 3:
+      printf("Solar want a girlfriend");
+      break;
+    case 4:
+      s = '\x7Ffo`guci';
+      v5 = 0;
+      strcat(&amp;f2, (const char *)&amp;s);
+      break;
+    case 5:
+      for ( j = 0; j &lt;= 7; ++j )
+      {
+        if ( j % 2 == 1 )
+          *(&amp;f2 + j) -= 2;
+        else
+          --*(&amp;f2 + j);
+      }
+      break;
+    default:
+      puts("emmm,you can't find flag 23333");
+      break;
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>case1是打印flag的关键</p>
+<ul>
+<li><p>f1已知：f1 = “GXY{do_not_”</p>
+</li>
+<li><p>f2未知，需要由case4和case5生成</p>
+<p>case4应该是单次将字符串拷贝到f2</p>
+<p>case则是对字符串进行解密，执行次数未知</p>
+</li>
+</ul>
+<p>可以看到生成随机数只会有5次</p>
+<p>那么这里直接考虑静态用算法爆破 </p>
+<p>将字符串s按照case5的算法解密，直到输出的字符串像flag了就可以拼接起来。</p>
+<h3 id="解密脚本"><a href="#解密脚本" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>经过测试刚好只需要执行一次case5即可</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+char f2;
+int main() {
+    int j = 0;
+    __int64 s = 0x7F666F6067756369LL;
+    strcat(&amp;f2, (const char*)&amp;s);
+    for (j = 0; j &lt;= 7; ++j)
+    {
+        if (j % 2 == 1)
+            *(&amp;f2 + j) -= 2;
+        else
+            --* (&amp;f2 + j);
+    }
+    const char* f1 = "GXY{do_not_";
+    puts("OK, it's flag:");
+    memset(&amp;s, 0, 0x28uLL);
+    strcat((char*)&amp;s, f1);
+    char* temp = (char*)&amp;f2 + 9;
+    *temp = '\0';
+    strcat((char*)&amp;s, &amp;f2);
+    printf("%s", (char*)&amp;s);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>直接抄了伪代码 运行后还触发异常 栈崩溃了哈哈</p>
+<p>python为了练习也写了一波 感谢兄弟姐妹的指导</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">s <span class="token operator">=</span> <span class="token string">'\x7ffo`guci'</span>
+s <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+<span class="token builtin">list</span><span class="token punctuation">.</span>reverse<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        temp <span class="token operator">=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">2</span>
+        s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        temp <span class="token operator">=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+        s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+s1 <span class="token operator">=</span> <span class="token string">'flag{do_not_'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s1 <span class="token operator">+</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> s<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="动态解法"><a href="#动态解法" class="headerlink" title="动态解法"></a>动态解法</h3><p>上面都把patch_me处理了，不动态解一波题说不过去啊。</p>
+<p>用IDA远程调试程序</p>
+<p>根据上面分析需要分别执行case4,case5,case1。</p>
+<p>我采用的方法是修改rand函数产生的随机值，令其满足跳转条件。</p>
+<p>所以可以选择在<code>0x400829</code>处下断点</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220422153143195.png" alt="image-20220422153143195"></p>
+<p>如图在执行到400829时，我会将RAX的值依次改为4，5，1</p>
+<p><img src="%E9%80%86%E5%90%91%E7%BB%83%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220422153355294.png" alt="image-20220422153355294"></p>
+<p>最后直接获取Flag</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220422153610943.png" alt="image-20220422153610943"></p>
+<p>因为一共生成5次随机数 所以有2次不用管</p>
+<p>不影响看Flag</p>
+<h2 id="刮开有奖"><a href="#刮开有奖" class="headerlink" title="刮开有奖"></a>刮开有奖</h2><h3 id="整体逻辑"><a href="#整体逻辑" class="headerlink" title="整体逻辑"></a>整体逻辑</h3><p>题目要求输入长度为8</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">memset(input, 0, 0xFFFFu);
+    GetDlgItemTextA(hDlg, 1000, input, 0xFFFF);
+    if ( strlen(input) == 8 )
+    {
+      Table[0] = 'Z';
+      Table[1] = 'J';
+      Table[2] = 'S';
+      Table[3] = 'E';
+      Table[4] = 'C';
+      Table[5] = 'a';
+      Table[6] = 'N';
+      Table[7] = 'H';
+      Table[8] = '3';
+      Table[9] = 'n';
+      Table[10] = 'g';
+      sub_4010F0(Table, 0, 10);
+      memset(v9, 0, 0xFFFFu);
+      v9[0] = input[5];
+      v9[2] = input[7];
+      v9[1] = input[6];
+      check1 = (const char *)sub_401000(v9, strlen(v9));
+      memset(v9, 0, 0xFFFFu);
+      v9[1] = input[3];
+      v9[0] = input[2];
+      v9[2] = input[4];
+      check2 = (const char *)sub_401000(v9, strlen(v9));
+      if ( input[0] == Table[0] + 34
+        &amp;&amp; input[1] == Table[4]
+        &amp;&amp; 4 * input[2] - 141 == 3 * Table[2]
+        &amp;&amp; input[3] / 4 == 2 * (Table[7] / 9)
+        &amp;&amp; !strcmp(check1, "ak1w")
+        &amp;&amp; !strcmp(check2, "V1Ax") )
+      {
+        MessageBoxA(hDlg, "U g3t 1T!", "@_@", 0);
+      }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>逻辑如下</p>
+<ul>
+<li>通过<code>sub_4010F0</code>初始化Table</li>
+<li>输入的第678个字符通过<code>sub_401000</code>生成校验值check1</li>
+<li>输入的第345个字符通过<code>sub_401000</code>生成校验值check2</li>
+<li>用初始化完毕的Table验证输入的1234位</li>
+</ul>
+<h3 id="sub-4010F0"><a href="#sub-4010F0" class="headerlink" title="sub_4010F0"></a>sub_4010F0</h3><p>sub_4010F0</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">Table[0] = 'Z';
+Table[1] = 'J';
+Table[2] = 'S';
+Table[3] = 'E';
+Table[4] = 'C';
+Table[5] = 'a';
+Table[6] = 'N';
+Table[7] = 'H';
+Table[8] = '3';
+Table[9] = 'n';
+Table[10] = 'g';
+sub_4010F0(Table, 0, 10);
+
+int __cdecl sub_4010F0(int a1, int a2, int a3)
+{
+  int result; // eax
+  int i; // esi
+  int v5; // ecx
+  int v6; // edx
+
+  result = a3;
+  for ( i = a2; i &lt;= a3; a2 = i )
+  {
+    v5 = 4 * i;
+    v6 = *(_DWORD *)(4 * i + a1);
+    if ( a2 &lt; result &amp;&amp; i &lt; result )
+    {
+      do
+      {
+        if ( v6 &gt; *(_DWORD *)(a1 + 4 * result) )
+        {
+          if ( i &gt;= result )
+            break;
+          ++i;
+          *(_DWORD *)(v5 + a1) = *(_DWORD *)(a1 + 4 * result);
+          if ( i &gt;= result )
+            break;
+          while ( *(_DWORD *)(a1 + 4 * i) &lt;= v6 )
+          {
+            if ( ++i &gt;= result )
+              goto LABEL_13;
+          }
+          if ( i &gt;= result )
+            break;
+          v5 = 4 * i;
+          *(_DWORD *)(a1 + 4 * result) = *(_DWORD *)(4 * i + a1);
+        }
+        --result;
+      }
+      while ( i &lt; result );
+    }
+LABEL_13:
+    *(_DWORD *)(a1 + 4 * result) = v6;
+    sub_4010F0(a1, a2, i - 1);
+    result = a3;
+    ++i;
+  }
+  return result;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>大概是排序将Table从小到大排序</p>
+<p>经过调试验证一下 Table的值分布如下</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220422203751398.png" alt="image-20220422203751398"></p>
+<p>可见确实是排序</p>
+<p><del>Table = ‘3JSECHNZang’</del></p>
+<p>上面调试没跑完 后面重新跑了一下代码才对</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;Windows.h&gt;
+
+#define _DWORD DWORD
+int __cdecl sub_4010F0(int Table, int arg_0, int arg_10)
+{
+  int result; // eax
+  int i; // esi
+  int v5; // ecx
+  int v6; // edx
+
+  result = arg_10;
+  for ( i = arg_0; i &lt;= arg_10; arg_0 = i )
+  {
+    v5 = 4 * i;
+    v6 = *(_DWORD *)(4 * i + Table);
+    if ( arg_0 &lt; result &amp;&amp; i &lt; result )
+    {
+      do
+      {
+        if ( v6 &gt; *(_DWORD *)(Table + 4 * result) )
+        {
+          if ( i &gt;= result )
+            break;
+          ++i;
+          *(_DWORD *)(v5 + Table) = *(_DWORD *)(Table + 4 * result);// 后面小则覆盖前面的
+          if ( i &gt;= result )
+            break;
+          while ( *(_DWORD *)(Table + 4 * i) &lt;= v6 )
+          {
+            if ( ++i &gt;= result )
+              goto LABEL_13;
+          }
+          if ( i &gt;= result )
+            break;
+          v5 = 4 * i;
+          *(_DWORD *)(Table + 4 * result) = *(_DWORD *)(4 * i + Table);
+        }
+        --result;                               // 从后往前找比index_value小的
+      }
+      while ( i &lt; result );
+    }
+LABEL_13:
+    *(_DWORD *)(Table + 4 * result) = v6;
+    sub_4010F0(Table, arg_0, i - 1);
+    result = arg_10;
+    ++i;
+  }
+  return result;
+}
+
+int main(){
+    int Table[11];
+    Table[0] = 'Z';
+    Table[1] = 74;
+    Table[2] = 83;
+    Table[3] = 69;
+    Table[4] = 67;
+    Table[5] = 97;
+    Table[6] = 78;
+    Table[7] = 72;
+    Table[8] = 51;
+    Table[9] = 110;
+    Table[10] = 103;
+    sub_4010F0(Table, 0, 10);
+    for(int i = 0; i &lt; 11; i++){
+        printf("%c",Table[i]);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出得Table = ‘3CEHJNSZagn’</p>
+<h3 id="sub-401000"><a href="#sub-401000" class="headerlink" title="sub_401000"></a>sub_401000</h3><p>sub_401000</p>
+<p>看起来非常复杂</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">_BYTE *__cdecl sub_401000(int input, int length)
+{
+  int value_1; // eax
+  int index1; // esi
+  size_t value_5; // ebx
+  _BYTE *buffer1; // eax
+  _BYTE *v6; // edi
+  int length_v; // eax
+  _BYTE *buffer2; // ebx
+  int temp1; // edi
+  int i1; // edx
+  int num3; // edi
+  int v12; // eax
+  int i; // esi
+  _BYTE *result; // eax
+  _BYTE *v15; // [esp+Ch] [ebp-10h]
+  _BYTE *buffer3; // [esp+10h] [ebp-Ch]
+  int v17; // [esp+14h] [ebp-8h]
+  int index2; // [esp+18h] [ebp-4h]
+
+  value_1 = length / 3;
+  index1 = 0;
+  if ( length % 3 &gt; 0 )
+    ++value_1;
+  value_5 = 4 * value_1 + 1;
+  buffer1 = malloc(value_5);
+  v6 = buffer1;
+  v15 = buffer1;
+  if ( !buffer1 )
+    exit(0);
+  memset(buffer1, 0, value_5);
+  length_v = length;
+  buffer2 = v6;
+  buffer3 = v6;
+  if ( length &gt; 0 )
+  {
+    while ( 1 )
+    {
+      temp1 = 0;
+      i1 = 0;
+      index2 = 0;
+      do
+      {
+        if ( index1 &gt;= length_v )
+          break;
+        ++i1;
+        temp1 = *(unsigned __int8 *)(index1 + input) | (temp1 &lt;&lt; 8);
+        ++index1;
+      }
+      while ( i1 &lt; 3 );                         // 执行3次
+      num3 = temp1 &lt;&lt; (8 * (3 - i1));
+      v12 = 0;
+      v17 = index1;
+      for ( i = 18; i &gt; -6; i -= 6 )
+      {
+        if ( i1 &gt;= v12 )
+        {
+          *((_BYTE *)&amp;index2 + v12) = (num3 &gt;&gt; i) &amp; 0x3F;
+          buffer2 = buffer3;
+        }
+        else
+        {
+          *((_BYTE *)&amp;index2 + v12) = 64;
+        }
+        *buffer2++ = byte_407830[*((char *)&amp;index2 + v12++)];
+        buffer3 = buffer2;
+      }
+      index1 = v17;
+      if ( v17 &gt;= length )
+        break;
+      length_v = length;
+    }
+    v6 = v15;
+  }
+  result = v6;
+  *buffer2 = 0;
+  return result;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>解读到一半不想看了 去查了下攻略</p>
+<p>发现大家先进入<code>byte_407830</code>查看，看到下表。</p>
+<p>直接就认作是base64了，学习了。</p>
+<p>同时又被提醒了一次 base64编码是每3个字节编码成4个字节</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220423140134949.png" alt="image-20220423140134949"></p>
+<p>对check1和check2的比对值进行解码</p>
+<p>得到Flag的345678位为<code>jMpWP1</code></p>
+<p>再拼接一下前面两位就OK了</p>
+<h3 id="解密脚本-1"><a href="#解密脚本-1" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>比较逻辑</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">check1 = (const char *)sub_401000(v9, strlen(v9));// check1对应input[5+6+7]
+
+check2 = (const char *)sub_401000(v9, strlen(v9));// check2对应input[2+3+4]
+if ( input[0] == Table[0] + 34            // input[0]
+  &amp;&amp; input[1] == Table[4]                 // input[1]
+  &amp;&amp; 4 * input[2] - 141 == 3 * Table[2]
+  &amp;&amp; input[3] / 4 == 2 * (Table[7] / 9)
+  &amp;&amp; !strcmp(check1, "ak1w")
+  &amp;&amp; !strcmp(check2,"V1Ax") )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对照比较逻辑写出解密脚本</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> base64
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    flag <span class="token operator">=</span> <span class="token string">''</span>
+    Table <span class="token operator">=</span> <span class="token string">'3CEHJNSZagn'</span>
+    check1 <span class="token operator">=</span> <span class="token string">'ak1w'</span>
+    check2 <span class="token operator">=</span> <span class="token string">'V1Ax'</span>
+    flag_check1 <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span>base64<span class="token punctuation">.</span>b64decode<span class="token punctuation">(</span>check1<span class="token punctuation">)</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+    flag_check2 <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span>base64<span class="token punctuation">.</span>b64decode<span class="token punctuation">(</span>check2<span class="token punctuation">)</span><span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+    flag <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>Table<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">34</span><span class="token punctuation">)</span>
+    flag <span class="token operator">+=</span> Table<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>flag <span class="token operator">+</span> flag_check2 <span class="token operator">+</span> flag_check1<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>总结：python牛逼</p>
+<h2 id="ACTF新生赛2020-easyre"><a href="#ACTF新生赛2020-easyre" class="headerlink" title="[ACTF新生赛2020]easyre"></a>[ACTF新生赛2020]easyre</h2><h3 id="预先处理"><a href="#预先处理" class="headerlink" title="预先处理"></a>预先处理</h3><p>先脱掉UPX壳</p>
+<p>查看主函数如下</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  _BYTE v4[12]; // [esp+12h] [ebp-2Eh] BYREF
+  _DWORD v5[3]; // [esp+1Eh] [ebp-22h]
+  _BYTE v6[5]; // [esp+2Ah] [ebp-16h] BYREF
+  int v7; // [esp+2Fh] [ebp-11h]
+  int v8; // [esp+33h] [ebp-Dh]
+  int v9; // [esp+37h] [ebp-9h]
+  char v10; // [esp+3Bh] [ebp-5h]
+  int i; // [esp+3Ch] [ebp-4h]
+
+  sub_401A10();
+  qmemcpy(v4, "*F'\"N,\"(I?+@", sizeof(v4));
+  printf("Please input:");
+  scanf("%s", v6);
+  if ( v6[0] != 65 || v6[1] != 67 || v6[2] != 84 || v6[3] != 70 || v6[4] != 123 || v10 != 125 )
+    return 0;
+  v5[0] = v7;
+  v5[1] = v8;
+  v5[2] = v9;
+  for ( i = 0; i &lt;= 11; ++i )
+  {
+    if ( v4[i] != byte_402000[*((char *)v5 + i) - 1] )
+      return 0;
+  }
+  printf("You are correct!");
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意这里的v10，乍一看不知道哪里改变了它的值。</p>
+<p>其实是IDA进行scanf的v6识别是不准确的，被出题人混淆视听了。</p>
+<p>需要自己手动改一下局部变量，以后遇到这种情况也可以用类似的方法思考。</p>
+<h3 id="分析主函数"><a href="#分析主函数" class="headerlink" title="分析主函数"></a>分析主函数</h3><p>更改后再来看主函数逻辑如下</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  _BYTE v4[12]; // [esp+12h] [ebp-2Eh] BYREF
+  _DWORD v5[3]; // [esp+1Eh] [ebp-22h]
+  _BYTE input[18]; // [esp+2Ah] [ebp-16h] BYREF
+  int i; // [esp+3Ch] [ebp-4h]
+
+  sub_401A10();
+  qmemcpy(v4, "*F'\"N,\"(I?+@", sizeof(v4));
+  printf("Please input:");
+  scanf("%s", input);
+  if ( input[0] != 'A' || input[1] != 'C' || input[2] != 'T' || input[3] != 'F' || input[4] != '{' || input[17] != '}' )
+    return 0;
+  v5[0] = *(_DWORD *)&amp;input[5];
+  v5[1] = *(_DWORD *)&amp;input[9];
+  v5[2] = *(_DWORD *)&amp;input[13];
+  for ( i = 0; i &lt;= 11; ++i )
+  {
+    if ( v4[i] != byte_402000[*((char *)v5 + i) - 1] )
+      return 0;
+  }
+  printf("You are correct!");
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到逻辑是通过输入12位，与<code>byte_402000</code>进行比对。</p>
+<p>所以可以写出解密脚本</p>
+<h3 id="Dump字符串"><a href="#Dump字符串" class="headerlink" title="Dump字符串"></a>Dump字符串</h3><p>需要对<code>byte_402000</code>的内容进行提取，IDA自带的不太好看。</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220424170012732.png" alt="image-20220424170012732"></p>
+<p>于是我们可以写个简单的python脚本提取一下该区段的内容</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> idc
+begin <span class="token operator">=</span> <span class="token number">0x402000</span>  
+end <span class="token operator">=</span> <span class="token number">0x40205F</span>   
+size <span class="token operator">=</span> end <span class="token operator">-</span> begin
+<span class="token keyword">print</span><span class="token punctuation">(</span>get_bytes<span class="token punctuation">(</span>begin<span class="token punctuation">,</span>size<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>直接得到可以复制的字符串带进python，非常方便。</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220424170155160.png" alt="image-20220424170155160"></p>
+<h3 id="解密脚本-2"><a href="#解密脚本-2" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">byte_402000 <span class="token operator">=</span> <span class="token string">b'~}|{zyxwvutsrqponmlkjihgfedcba`_^]\\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?&gt;=&lt;;:9876543210/.-,+*)(\'&amp;%$# !"\x00'</span>
+<span class="token keyword">def</span> <span class="token function">look</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>byte_402000<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> a <span class="token operator">==</span> <span class="token builtin">chr</span><span class="token punctuation">(</span>byte_402000<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            temp <span class="token operator">=</span> i
+            <span class="token keyword">return</span> temp<span class="token punctuation">;</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    v4 <span class="token operator">=</span> <span class="token string">"*F'\"N,\"(I?+@"</span>
+    v5 <span class="token operator">=</span> <span class="token string">''</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        v5 <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span>look<span class="token punctuation">(</span>v4<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>v5<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里还遇到一个小坑</p>
+<p>注意第4排, <code>byte_402000[i]</code>的类型是<code>int</code>类型，直接和<code>char</code>类型比较是找不到的。</p>
+<p>所以一开始函数返回结果类型是<code>nonetype</code>，把我搞懵了好一会儿。</p>
+<h1 id="Java-Android"><a href="#Java-Android" class="headerlink" title="Java/Android"></a>Java/Android</h1><h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><p>题目就是一个<code>Reverse.class</code>文件</p>
+<p>将class文件拖入JD-GUI分析</p>
+<p>看到内容如下</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">ArrayList</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Scanner</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Reverse</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Scanner</span> s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>"<span class="token class-name">Please</span> input the flag <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> str <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>"<span class="token class-name">Your</span> input is <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> stringArr <span class="token operator">=</span> str<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Encrypt</span><span class="token punctuation">(</span>stringArr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token class-name">Encrypt</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">Resultlist</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> result <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">64</span> <span class="token operator">^</span> <span class="token number">0x20</span><span class="token punctuation">;</span>
+      <span class="token class-name">Resultlist</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> 
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> KEY <span class="token operator">=</span> <span class="token punctuation">{</span> 
+        <span class="token number">180</span><span class="token punctuation">,</span> <span class="token number">136</span><span class="token punctuation">,</span> <span class="token number">137</span><span class="token punctuation">,</span> <span class="token number">147</span><span class="token punctuation">,</span> <span class="token number">191</span><span class="token punctuation">,</span> <span class="token number">137</span><span class="token punctuation">,</span> <span class="token number">147</span><span class="token punctuation">,</span> <span class="token number">191</span><span class="token punctuation">,</span> <span class="token number">148</span><span class="token punctuation">,</span> <span class="token number">136</span><span class="token punctuation">,</span> 
+        <span class="token number">133</span><span class="token punctuation">,</span> <span class="token number">191</span><span class="token punctuation">,</span> <span class="token number">134</span><span class="token punctuation">,</span> <span class="token number">140</span><span class="token punctuation">,</span> <span class="token number">129</span><span class="token punctuation">,</span> <span class="token number">135</span><span class="token punctuation">,</span> <span class="token number">191</span><span class="token punctuation">,</span> <span class="token number">65</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">KEYList</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> KEY<span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+      <span class="token class-name">KEYList</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>KEY<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Result:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">Resultlist</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">KEYList</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>"<span class="token class-name">Congratulations</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token class-name">System</span><span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>"<span class="token class-name">Error</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> 
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>直接逆向解密一下就可以</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+	flag <span class="token operator">=</span> <span class="token string">''</span>
+	Key <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">180</span><span class="token punctuation">,</span> <span class="token number">136</span><span class="token punctuation">,</span> <span class="token number">137</span><span class="token punctuation">,</span> <span class="token number">147</span><span class="token punctuation">,</span> <span class="token number">191</span><span class="token punctuation">,</span> <span class="token number">137</span><span class="token punctuation">,</span> <span class="token number">147</span><span class="token punctuation">,</span> <span class="token number">191</span><span class="token punctuation">,</span> <span class="token number">148</span><span class="token punctuation">,</span> <span class="token number">136</span><span class="token punctuation">,</span> 
+        <span class="token number">133</span><span class="token punctuation">,</span> <span class="token number">191</span><span class="token punctuation">,</span> <span class="token number">134</span><span class="token punctuation">,</span> <span class="token number">140</span><span class="token punctuation">,</span> <span class="token number">129</span><span class="token punctuation">,</span> <span class="token number">135</span><span class="token punctuation">,</span> <span class="token number">191</span><span class="token punctuation">,</span> <span class="token number">65</span><span class="token punctuation">]</span>
+	<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>Key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+		temp <span class="token operator">=</span> Key<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">^</span> <span class="token number">0x20</span>
+		temp <span class="token operator">-=</span> <span class="token number">64</span>
+		flag <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+		<span class="token keyword">print</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="简单注册器"><a href="#简单注册器" class="headerlink" title="简单注册器"></a>简单注册器</h2><p><del>使用Smali2Java将APK反编译并将smali转换成java代码</del></p>
+<p>Smali2Java翻译的代码有错 shit 换成JEB之后就好了</p>
+<p>使用JEB将APK反编译并将smali转换成java代码</p>
+<p>找到关键逻辑如下</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>flag</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>os<span class="token punctuation">.</span></span><span class="token class-name">Bundle</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>support<span class="token punctuation">.</span>v4<span class="token punctuation">.</span>app<span class="token punctuation">.</span></span><span class="token class-name">Fragment</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>support<span class="token punctuation">.</span>v7<span class="token punctuation">.</span>app<span class="token punctuation">.</span></span><span class="token class-name">ActionBarActivity</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>view<span class="token punctuation">.</span></span><span class="token class-name">LayoutInflater</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>view<span class="token punctuation">.</span></span><span class="token class-name">Menu</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>view<span class="token punctuation">.</span></span><span class="token class-name">MenuItem</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>view<span class="token punctuation">.</span></span><span class="token class-name">View<span class="token punctuation">.</span>OnClickListener</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>view<span class="token punctuation">.</span></span><span class="token class-name">View</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>view<span class="token punctuation">.</span></span><span class="token class-name">ViewGroup</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>widget<span class="token punctuation">.</span></span><span class="token class-name">Button</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>widget<span class="token punctuation">.</span></span><span class="token class-name">EditText</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">android<span class="token punctuation">.</span>widget<span class="token punctuation">.</span></span><span class="token class-name">TextView</span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">ActionBarActivity</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">PlaceholderFragment</span> <span class="token keyword">extends</span> <span class="token class-name">Fragment</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>  <span class="token comment">// android.support.v4.app.Fragment</span>
+        <span class="token keyword">public</span> <span class="token class-name">View</span> <span class="token function">onCreateView</span><span class="token punctuation">(</span><span class="token class-name">LayoutInflater</span> arg4<span class="token punctuation">,</span> <span class="token class-name">ViewGroup</span> arg5<span class="token punctuation">,</span> <span class="token class-name">Bundle</span> arg6<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> arg4<span class="token punctuation">.</span><span class="token function">inflate</span><span class="token punctuation">(</span><span class="token number">0x7F030018</span><span class="token punctuation">,</span> arg5<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// layout:fragment_main</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>  <span class="token comment">// android.support.v7.app.ActionBarActivity</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token class-name">Bundle</span> arg7<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>arg7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setContentView</span><span class="token punctuation">(</span><span class="token number">0x7F030017</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// layout:activity_main</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>arg7 <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getSupportFragmentManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">beginTransaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">0x7F05003C</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">PlaceholderFragment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// id:container</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token class-name">Button</span> button <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Button</span><span class="token punctuation">)</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">findViewById</span><span class="token punctuation">(</span><span class="token number">0x7F05003F</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// id:button1</span>
+        <span class="token class-name">TextView</span> textview <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">TextView</span><span class="token punctuation">)</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">findViewById</span><span class="token punctuation">(</span><span class="token number">0x7F05003E</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// id:textView1</span>
+        button<span class="token punctuation">.</span><span class="token function">setOnClickListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>OnClickListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>  <span class="token comment">// android.view.View$OnClickListener</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onClick</span><span class="token punctuation">(</span><span class="token class-name">View</span> arg13<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token class-name">String</span> xx <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">EditText</span><span class="token punctuation">)</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">findViewById</span><span class="token punctuation">(</span><span class="token number">0x7F05003D</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// id:editText1</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>xx<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0x20</span> <span class="token operator">||</span> xx<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0x1F</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">97</span> <span class="token operator">||</span> xx<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">98</span> <span class="token operator">||</span> xx<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> xx<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span> <span class="token operator">!=</span> <span class="token number">56</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    flag <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">if</span><span class="token punctuation">(</span>flag <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> x <span class="token operator">=</span> <span class="token string">"dd2940c04462b4dd7c450528835cca15"</span><span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">+</span> x<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    x<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">+</span> x<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    x<span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token number">0x1F</span><span class="token punctuation">]</span> <span class="token operator">+</span> x<span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    x<span class="token punctuation">[</span><span class="token number">14</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token number">27</span><span class="token punctuation">]</span> <span class="token operator">+</span> x<span class="token punctuation">[</span><span class="token number">28</span><span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">97</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+                    <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">16</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">char</span> a <span class="token operator">=</span> x<span class="token punctuation">[</span><span class="token number">0x1F</span> <span class="token operator">-</span> i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        x<span class="token punctuation">[</span><span class="token number">0x1F</span> <span class="token operator">-</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        x<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    textview<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span><span class="token string">"flag{"</span> <span class="token operator">+</span> <span class="token class-name">String</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"}"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">return</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                textview<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span><span class="token string">"输入注册码错误"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>  <span class="token comment">// android.app.Activity</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">onCreateOptionsMenu</span><span class="token punctuation">(</span><span class="token class-name">Menu</span> arg3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getMenuInflater</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">inflate</span><span class="token punctuation">(</span><span class="token number">0x7F0C0000</span><span class="token punctuation">,</span> arg3<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// menu:main</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>  <span class="token comment">// android.app.Activity</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">onOptionsItemSelected</span><span class="token punctuation">(</span><span class="token class-name">MenuItem</span> arg3<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> arg3<span class="token punctuation">.</span><span class="token function">getItemId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0x7F050040</span> <span class="token operator">?</span> <span class="token boolean">true</span> <span class="token operator">:</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onOptionsItemSelected</span><span class="token punctuation">(</span>arg3<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// id:action_settings</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="直接正向输入"><a href="#直接正向输入" class="headerlink" title="直接正向输入"></a>直接正向输入</h3><p>发现判断逻辑很短</p>
+<ul>
+<li>长度为32</li>
+<li>(xx.charAt(0x1f) != 0x61) || 最后一位a</li>
+<li>(xx.charAt(0x1) != 0x62) || 第二位b</li>
+<li>(((xx.charAt(0x0) + xx.charAt(0x2)) - 0x30) != 0x38) || xx[0] + xx[3] = 0x68</li>
+</ul>
+<p>直接构造满足条件的字符串</p>
+<p><code>0b8xxxxxxxxxxxxxxxxxxxxxxxxxxxxa</code></p>
+<p>flag{59acc538825054c7de4b26440c0999dd}</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220424130420197.png" alt="image-20220424130420197"></p>
+<h3 id="算法计算"><a href="#算法计算" class="headerlink" title="算法计算"></a>算法计算</h3><p>抄一个正向的代码</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+	flagtrue <span class="token operator">=</span> <span class="token string">'dd2940c04462b4dd7c450528835cca15'</span>
+	a <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>flagtrue<span class="token punctuation">)</span>
+	a<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x32</span><span class="token punctuation">)</span>
+	a<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span>
+	a<span class="token punctuation">[</span><span class="token number">0x1e</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0x1f</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0x9</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x30</span><span class="token punctuation">)</span>
+	a<span class="token punctuation">[</span><span class="token number">0xe</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0x1b</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span><span class="token number">0x1c</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0x61</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0x10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+		ch <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token number">0x1f</span> <span class="token operator">-</span> i<span class="token punctuation">]</span>
+		a<span class="token punctuation">[</span><span class="token number">0x1f</span> <span class="token operator">-</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+		a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> ch
+	<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+		<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>计算得Flag = ‘59acc538825054c7de4b26440c0999dd’</p>
 
                 
             </div>
