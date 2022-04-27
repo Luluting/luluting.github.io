@@ -367,14 +367,14 @@ strcpy(Table, &#34;*11110100001010000101111">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-04-25
+                    2022-04-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    4k
+                    5.8k
                 </div>
                 
 
@@ -1143,6 +1143,306 @@ size <span class="token operator">=</span> end <span class="token operator">-</s
 <p>这里还遇到一个小坑</p>
 <p>注意第4排, <code>byte_402000[i]</code>的类型是<code>int</code>类型，直接和<code>char</code>类型比较是找不到的。</p>
 <p>所以一开始函数返回结果类型是<code>nonetype</code>，把我搞懵了好一会儿。</p>
+<h2 id="ACTF新生赛2020-rome"><a href="#ACTF新生赛2020-rome" class="headerlink" title="[ACTF新生赛2020]rome"></a>[ACTF新生赛2020]rome</h2><h3 id="关键逻辑"><a href="#关键逻辑" class="headerlink" title="关键逻辑"></a>关键逻辑</h3><p>输入为22位</p>
+<p>砍掉ACTF{}的6位还剩16位</p>
+<p>被按顺序分配到v1数组中处理</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">v1[0] = *(_DWORD *)&amp;input[5];
+v1[1] = *(_DWORD *)&amp;input[9];
+v1[2] = *(_DWORD *)&amp;input[13];
+v1[3] = *(_DWORD *)&amp;input[17];
+for ( i = 0; i &lt;= 15; ++i )
+{
+    if ( *((char *)v1 + i) &gt; '@' &amp;&amp; *((char *)v1 + i) &lt;= 'Z' )
+        *((_BYTE *)v1 + i) = (*((char *)v1 + i) - 51) % 26 + 65;
+    if ( *((char *)v1 + i) &gt; '`' &amp;&amp; *((char *)v1 + i) &lt;= 'z' )
+        *((_BYTE *)v1 + i) = (*((char *)v1 + i) - 79) % 26 + 97;
+}
+for ( i = 0; i &lt;= 15; ++i )
+{
+    result = (unsigned __int8)array[i];
+    if ( *((_BYTE *)v1 + i) != (_BYTE)result )
+        return result;
+}
+result = printf("You are correct!");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="解密脚本-3"><a href="#解密脚本-3" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">array <span class="token operator">=</span> <span class="token string">"Qsw3sj_lz4_Ujw@l"</span>
+flag <span class="token operator">=</span> <span class="token string">''</span>
+
+<span class="token keyword">def</span> <span class="token function">daxie</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">while</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> a <span class="token operator">&lt;</span> <span class="token string">'A'</span><span class="token punctuation">:</span>
+            a <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">26</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> a <span class="token operator">&gt;</span> <span class="token string">'Z'</span><span class="token punctuation">:</span>
+            a <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">26</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> a
+<span class="token keyword">def</span> <span class="token function">xiaoxie</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> a <span class="token operator">&lt;</span> <span class="token string">'a'</span><span class="token punctuation">:</span>
+            a <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">26</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> a <span class="token operator">&gt;</span> <span class="token string">'z'</span><span class="token punctuation">:</span>
+            a <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">26</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> a
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&gt;=</span> <span class="token string">'A'</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> <span class="token string">'Z'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        temp <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">65</span><span class="token punctuation">)</span>
+        temp <span class="token operator">=</span> daxie<span class="token punctuation">(</span><span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">51</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        flag <span class="token operator">+=</span> temp
+    <span class="token keyword">elif</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&gt;=</span> <span class="token string">'a'</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> <span class="token string">'z'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        temp <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">97</span><span class="token punctuation">)</span>
+        temp <span class="token operator">=</span> xiaoxie<span class="token punctuation">(</span><span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">79</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        flag <span class="token operator">+=</span> temp
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        flag <span class="token operator">+=</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="CrackRTF"><a href="#CrackRTF" class="headerlink" title="CrackRTF"></a>CrackRTF</h2><h3 id="主逻辑"><a href="#主逻辑" class="headerlink" title="主逻辑"></a>主逻辑</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main_0(int argc, const char **argv, const char **envp)
+{
+  DWORD length; // eax
+  DWORD v4; // eax
+  char Str[260]; // [esp+4Ch] [ebp-310h] BYREF
+  int v7; // [esp+150h] [ebp-20Ch]
+  char String1[260]; // [esp+154h] [ebp-208h] BYREF
+  char Destination[260]; // [esp+258h] [ebp-104h] BYREF
+
+  memset(Destination, 0, sizeof(Destination));
+  memset(String1, 0, sizeof(String1));
+  v7 = 0;
+  printf("pls input the first passwd(1): ");
+  scanf("%s", Destination);
+  if ( strlen(Destination) != 6 )
+  {
+    printf("Must be 6 characters!\n");
+    ExitProcess(0);
+  }
+  v7 = atoi(Destination);
+  if ( v7 &lt; 100000 )
+    ExitProcess(0);
+  strcat(Destination, "@DBApp");
+  length = strlen(Destination);
+  sub_40100A((BYTE *)Destination, length, String1);
+  if ( !_strcmpi(String1, "6E32D0943418C2C33385BC35A1470250DD8923A9") )
+  {
+    printf("continue...\n\n");
+    printf("pls input the first passwd(2): ");
+    memset(Str, 0, sizeof(Str));
+    scanf("%s", Str);
+    if ( strlen(Str) != 6 )
+    {
+      printf("Must be 6 characters!\n");
+      ExitProcess(0);
+    }
+    strcat(Str, Destination);
+    memset(String1, 0, sizeof(String1));
+    v4 = strlen(Str);
+    sub_401019((BYTE *)Str, v4, String1);
+    if ( !_strcmpi("27019e688a4e62a649fd99cadaafdb4e", String1) )
+    {
+      if ( !(unsigned __int8)sub_40100F(Str) )
+      {
+        printf("Error!!\n");
+        ExitProcess(0);
+      }
+      printf("bye ~~\n");
+    }
+  }
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>大致逻辑如下</p>
+<ul>
+<li><p>先输入六个字符</p>
+<p>之后进行拼接</p>
+<p><code>sub_40100A</code>做操作进行校验</p>
+</li>
+<li><p>通过后再次要求输入六个字符</p>
+<p>进行拼接</p>
+<p><code>sub_401019</code>做操作后进行校验</p>
+</li>
+<li><p>最后通过<code>sub_40100F</code>校验一下</p>
+</li>
+</ul>
+<h3 id="第一段验证"><a href="#第一段验证" class="headerlink" title="第一段验证"></a>第一段验证</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">v7 = atoi(Destination);
+if ( v7 &lt; 100000 )
+  ExitProcess(0);
+strcat(Destination, "@DBApp");
+length = strlen(Destination);
+sub_40100A((BYTE *)Destination, length, String1);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>推断第一次输入为6个数字且 100000 &lt;= v7 &lt;= 999999</p>
+<p>数字和”@DBApp”拼接后</p>
+<p>进入<code>sub_40100A</code>查看</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token builtin">int</span> __cdecl sub_40100A<span class="token punctuation">(</span>BYTE <span class="token operator">*</span>pbData<span class="token punctuation">,</span> DWORD dwDataLen<span class="token punctuation">,</span> LPSTR lpString1<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">return</span> sub_401230<span class="token punctuation">(</span>pbData<span class="token punctuation">,</span> dwDataLen<span class="token punctuation">,</span> lpString1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>进入<code>sub_401230</code>查看</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> __cdecl <span class="token function">sub_401230</span><span class="token punctuation">(</span>BYTE <span class="token operator">*</span>pbData<span class="token punctuation">,</span> DWORD dwDataLen<span class="token punctuation">,</span> LPSTR lpString1<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">int</span> result<span class="token punctuation">;</span> <span class="token comment">// eax</span>
+  DWORD i<span class="token punctuation">;</span> <span class="token comment">// [esp+4Ch] [ebp-28h]</span>
+  CHAR String2<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [esp+50h] [ebp-24h] BYREF</span>
+  BYTE v6<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// [esp+54h] [ebp-20h] BYREF</span>
+  DWORD pdwDataLen<span class="token punctuation">;</span> <span class="token comment">// [esp+68h] [ebp-Ch] BYREF</span>
+  HCRYPTHASH phHash<span class="token punctuation">;</span> <span class="token comment">// [esp+6Ch] [ebp-8h] BYREF</span>
+  HCRYPTPROV phProv<span class="token punctuation">;</span> <span class="token comment">// [esp+70h] [ebp-4h] BYREF</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span><span class="token function">CryptAcquireContextA</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>phProv<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1u</span><span class="token punctuation">,</span> <span class="token number">0xF0000000</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">CryptCreateHash</span><span class="token punctuation">(</span>phProv<span class="token punctuation">,</span> <span class="token number">0x8004u</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>phHash<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token function">CryptHashData</span><span class="token punctuation">(</span>phHash<span class="token punctuation">,</span> pbData<span class="token punctuation">,</span> dwDataLen<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      <span class="token function">CryptGetHashParam</span><span class="token punctuation">(</span>phHash<span class="token punctuation">,</span> <span class="token number">2u</span><span class="token punctuation">,</span> v6<span class="token punctuation">,</span> <span class="token operator">&amp;</span>pdwDataLen<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token operator">*</span>lpString1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> pdwDataLen<span class="token punctuation">;</span> <span class="token operator">++</span>i <span class="token punctuation">)</span>
+      <span class="token punctuation">{</span>
+        <span class="token function">wsprintfA</span><span class="token punctuation">(</span>String2<span class="token punctuation">,</span> <span class="token string">"%02X"</span><span class="token punctuation">,</span> v6<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">lstrcatA</span><span class="token punctuation">(</span>lpString1<span class="token punctuation">,</span> String2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token function">CryptDestroyHash</span><span class="token punctuation">(</span>phHash<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">CryptReleaseContext</span><span class="token punctuation">(</span>phProv<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      result <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">{</span>
+      <span class="token function">CryptDestroyHash</span><span class="token punctuation">(</span>phHash<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">CryptReleaseContext</span><span class="token punctuation">(</span>phProv<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      result <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">else</span>
+  <span class="token punctuation">{</span>
+    <span class="token function">CryptReleaseContext</span><span class="token punctuation">(</span>phProv<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    result <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>发现是哈希算法</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220427154653032.png" alt="image-20220427154653032"></p>
+<p>通过CreateHash去查询使用了什么哈希算法</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/alg-id">ALG_ID （Wincrypt.h） - Win32 应用|微软文档 (microsoft.com)</a></p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220427154946603.png" alt="image-20220427154946603"></p>
+<p>发现是SHA1</p>
+<p>也就是将<code>xxxxxx@DBApp</code>生成SHA1等于<code>6E32D0943418C2C33385BC35A1470250DD8923A9</code></p>
+<p>需要进行碰撞攻击</p>
+<h3 id="第二段验证"><a href="#第二段验证" class="headerlink" title="第二段验证"></a>第二段验证</h3><p>同样是输入6个字符但这次并没有限制数字了，将之前的输入拼接到这次输入的后面，带入<code>sub_401019</code>。</p>
+<p>这次也是哈希算法，ALG_ID为<code>0x8003</code></p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220427160333599.png" alt="image-20220427160333599"></p>
+<p>这次使用的是MD5</p>
+<p>也就是加入18的位字符串</p>
+<p>要求生成的MD5值为<code>27019e688a4e62a649fd99cadaafdb4e</code>。</p>
+<p>这种不太好攻击，再看最后的验证</p>
+<h3 id="最后验证"><a href="#最后验证" class="headerlink" title="最后验证"></a>最后验证</h3><p>验证拼接的18位字符</p>
+<p><code>xxxxxxxxxxxx@DBApp</code></p>
+<p>算法如下，返回1代表通过验证：</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">char __cdecl sub_4014D0(LPCSTR lpString)
+{
+  LPCVOID lpBuffer; // [esp+50h] [ebp-1Ch]
+  DWORD NumberOfBytesWritten; // [esp+58h] [ebp-14h] BYREF
+  DWORD nNumberOfBytesToWrite; // [esp+5Ch] [ebp-10h]
+  HGLOBAL hResData; // [esp+60h] [ebp-Ch]
+  HRSRC hResInfo; // [esp+64h] [ebp-8h]
+  HANDLE hFile; // [esp+68h] [ebp-4h]
+
+  hFile = 0;
+  hResData = 0;
+  nNumberOfBytesToWrite = 0;
+  NumberOfBytesWritten = 0;
+  hResInfo = FindResourceA(0, (LPCSTR)0x65, "AAA");
+  if ( !hResInfo )
+    return 0;
+  nNumberOfBytesToWrite = SizeofResource(0, hResInfo);
+  hResData = LoadResource(0, hResInfo);
+  if ( !hResData )
+    return 0;
+  lpBuffer = LockResource(hResData);
+  sub_401005(lpString, (int)lpBuffer, nNumberOfBytesToWrite);
+  hFile = CreateFileA("dbapp.rtf", 0x10000000u, 0, 0, 2u, 0x80u, 0);
+  if ( hFile == (HANDLE)-1 )
+    return 0;
+  if ( !WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, &amp;NumberOfBytesWritten, 0) )
+    return 0;
+  CloseHandle(hFile);
+  return 1;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>发现这是一个生成Flag文件的函数</p>
+<p>要求就是用户之前的输入正确，再提取程序中的AAA资源文件。</p>
+<p>将两者再通过算法搅在一起，最后生成正确的Flag文件。</p>
+<p>看看处理函数<code>sub_401005</code>，指向<code>sub_401420</code></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">unsigned int __cdecl sub_401420(LPCSTR input, int resfile, int length_res)
+{
+  unsigned int result; // eax
+  unsigned int i; // [esp+4Ch] [ebp-Ch]
+  unsigned int length_input; // [esp+54h] [ebp-4h]
+
+  length_input = lstrlenA(input);
+  for ( i = 0; ; ++i )
+  {
+    result = i;
+    if ( i &gt;= length_res )
+      break;
+    *(_BYTE *)(i + resfile) ^= input[i % length_input];
+  }
+  return result;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>简单的用输入的18位 对 文件内容 按位异或</p>
+<p>要解密文件，那我们必须要前六位的内容</p>
+<p>于是可以猜测文件遵循RTF格式的文件头，那么前六位应当是固定的。</p>
+<p>再利用资源文件可以逆向计算出前六位的输入</p>
+<p>而RTF标准的前六位格式如图</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220427165632426.png" alt="image-20220427165632426"></p>
+<p>由字符串``{\rtf1`构成</p>
+<p>于是通过python脚本计算一下</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">str1 <span class="token operator">=</span> <span class="token string">r"{\rtf1"</span>
+flag1 <span class="token operator">=</span> <span class="token string">''</span>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'AAA101'</span><span class="token punctuation">,</span><span class="token string">'rb+'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    f <span class="token operator">=</span> f<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>str1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        flag1 <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>str1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">^</span> f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>flag1<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>得到该6位为<code>~!3a@0</code></p>
+<h3 id="解密脚本-4"><a href="#解密脚本-4" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>分为两段</p>
+<p>前6位通过文件头解密</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">str1 <span class="token operator">=</span> <span class="token string">r"{\rtf1"</span>
+flag1 <span class="token operator">=</span> <span class="token string">''</span>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'AAA101'</span><span class="token punctuation">,</span><span class="token string">'rb+'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    f <span class="token operator">=</span> f<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>str1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        flag1 <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>str1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">^</span> f<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>flag1<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>后6位通过sha1爆破解密</p>
+<p>得结果为<code>~!3a@0123321@DBApp</code></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> hashlib
+<span class="token comment">#6E32D0943418C2C33385BC35A1470250DD8923A9</span>
+dest <span class="token operator">=</span> <span class="token string">'6E32D0943418C2C33385BC35A1470250DD8923A9'</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">100000</span><span class="token punctuation">,</span> <span class="token number">999999</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    str1 <span class="token operator">=</span> <span class="token string">b'@DBApp'</span>
+    temp <span class="token operator">=</span> hashlib<span class="token punctuation">.</span>sha1<span class="token punctuation">(</span><span class="token builtin">bytes</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> str1<span class="token punctuation">)</span>
+    temp <span class="token operator">=</span> temp<span class="token punctuation">.</span>hexdigest<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> temp <span class="token operator">==</span> dest<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">+</span> str1<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最后加上6位固定字符串<code>@DBApp</code></p>
+<p>即可得到18位的flag</p>
+<p>拼凑后为<code>~!3a@0123321@DBApp</code></p>
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220427171933374.png" alt="image-20220427171933374"></p>
+<p>可以看到已经触发了生成Flag文件的逻辑，猜想正确。</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220427171958079.png" alt="image-20220427171958079"></p>
+<p>也成功拿到Flag</p>
 <h1 id="Java-Android"><a href="#Java-Android" class="headerlink" title="Java/Android"></a>Java/Android</h1><h2 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a>Reverse</h2><p>题目就是一个<code>Reverse.class</code>文件</p>
 <p>将class文件拖入JD-GUI分析</p>
 <p>看到内容如下</p>
@@ -1301,6 +1601,94 @@ size <span class="token operator">=</span> end <span class="token operator">-</s
 		<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>计算得Flag = ‘59acc538825054c7de4b26440c0999dd’</p>
+<h1 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h1><h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><p>题目给了两个文件</p>
+<ul>
+<li><p>flag.enc</p>
+<p>文件内容如图</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220425123427649.png" alt="image-20220425123427649"></p>
+</li>
+<li><p>pub.key</p>
+<p>文件内容如下</p>
+<pre class="line-numbers language-none"><code class="language-none">-----BEGIN PUBLIC KEY-----
+MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMAzLFxkrkcYL2wch21CM2kQVFpY9+7+
+/AvKr1rzQczdAgMBAAE=
+-----END PUBLIC KEY-----<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p>对这个方向了解不够 直接搜罗一波攻略</p>
+<p><a target="_blank" rel="noopener" href="http://www.flydean.com/rsa">RSA算法详解 | 程序那些事 (flydean.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Mayfly-nymph/p/11576913.html">BUUCTF–rsa - Hk_Mayfly - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://err0rzz.github.io/2017/11/14/CTF%E4%B8%ADRSA%E5%A5%97%E8%B7%AF/">CTF中RSA套路 | Err0r (err0rzz.github.io)</a></p>
+<h3 id="解体思路"><a href="#解体思路" class="headerlink" title="解体思路"></a>解体思路</h3><p>题目给我们提供了</p>
+<ul>
+<li><p>加密的公钥</p>
+<p>通过加密的公钥可以得知</p>
+<ul>
+<li>大素数乘积N: $N = p * q$</li>
+<li>加密用的素数E: $密文 = 明文^D mod N$</li>
+</ul>
+</li>
+<li><p>加密后的密文</p>
+<p>想要得到明文需要求E</p>
+<p>$明文 = 密文^E mod N$</p>
+</li>
+</ul>
+<p>想要求解密的d </p>
+<p>需要拆解两个素数p,q 即找到p,q使得 $n = p * q$</p>
+<p>利用p和q计算phi(n)</p>
+<p>再利用$E*D = 1\  mod\ phi(n)$</p>
+<p>计算出D</p>
+<p>即可利用私钥进行解密了</p>
+<p>该题的n长度不大，可以直接利用yahu爆破出pq。</p>
+<h3 id="通过公钥解析得到n和e"><a href="#通过公钥解析得到n和e" class="headerlink" title="通过公钥解析得到n和e"></a>通过公钥解析得到n和e</h3><p>利用线上工具完成<a target="_blank" rel="noopener" href="http://tool.chacuo.net/cryptrsakeyparse">RSA公私钥分解 Exponent、Modulus，Rsa公私钥指数、系数(模数)分解–查错网 (chacuo.net)</a></p>
+<p>公钥指数及模数信息:</p>
+<table>
+<thead>
+<tr>
+<th>key长度：</th>
+<th>256</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模数：</td>
+<td>C0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD</td>
+</tr>
+<tr>
+<td>指数：</td>
+<td>65537 (0x10001)</td>
+</tr>
+</tbody></table>
+<h3 id="利用yafu分解n获取p，q"><a href="#利用yafu分解n获取p，q" class="headerlink" title="利用yafu分解n获取p，q"></a>利用yafu分解n获取p，q</h3><p>将指数作为输入</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220425185317822.png" alt="image-20220425185317822"></p>
+<p>得到</p>
+<pre class="line-numbers language-none"><code class="language-none">p = 304008741604601924494328155975272418463
+q = 285960468890451637935629440372639283459<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="解密脚本-5"><a href="#解密脚本-5" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>安装gmpy2库</p>
+<p>已知e,p,q可以求d</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">d <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>q<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>安装rsa库</p>
+<p>已知n,e,d,p,q可以求skey</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">skey <span class="token operator">=</span> rsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">(</span>n<span class="token punctuation">,</span> e<span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>所以完全脚本如下</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> gmpy2
+<span class="token keyword">import</span> rsa
+
+n <span class="token operator">=</span> <span class="token number">0xC0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD</span>
+e <span class="token operator">=</span> <span class="token number">65537</span>
+p <span class="token operator">=</span> <span class="token number">304008741604601924494328155975272418463</span>
+q <span class="token operator">=</span> <span class="token number">285960468890451637935629440372639283459</span>
+
+phi <span class="token operator">=</span> <span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>q<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+d <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e<span class="token punctuation">,</span> phi<span class="token punctuation">)</span>
+skey <span class="token operator">=</span> rsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">(</span>n<span class="token punctuation">,</span> e<span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'.\\RSA\\flag.enc'</span><span class="token punctuation">,</span><span class="token string">'rb+'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+    text <span class="token operator">=</span> f<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>rsa<span class="token punctuation">.</span>decrypt<span class="token punctuation">(</span>text<span class="token punctuation">,</span> skey<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 
                 
             </div>
