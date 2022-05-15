@@ -367,14 +367,14 @@ strcpy(Table, &#34;*11110100001010000101111">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-05-12
+                    2022-05-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    11.3k
+                    12.8k
                 </div>
                 
 
@@ -1734,150 +1734,6 @@ result = 0LL;<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <p>注意中间换了一次顺序</p>
 <p>还有第6位没给 需要爆破 </p>
 <p>傻逼题 就很没有营养 浪费时间</p>
-<h2 id="SUCTF2019-SignIn"><a href="#SUCTF2019-SignIn" class="headerlink" title="[SUCTF2019]SignIn"></a>[SUCTF2019]SignIn</h2><h3 id="主要逻辑-1"><a href="#主要逻辑-1" class="headerlink" title="主要逻辑"></a>主要逻辑</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall main(int a1, char **a2, char **a3)
-{
-  char v4[16]; // [rsp+0h] [rbp-4A0h] BYREF
-  char v5[16]; // [rsp+10h] [rbp-490h] BYREF
-  char v6[16]; // [rsp+20h] [rbp-480h] BYREF
-  char v7[16]; // [rsp+30h] [rbp-470h] BYREF
-  char v8[112]; // [rsp+40h] [rbp-460h] BYREF
-  char v9[1000]; // [rsp+B0h] [rbp-3F0h] BYREF
-  unsigned __int64 v10; // [rsp+498h] [rbp-8h]
-
-  v10 = __readfsqword(0x28u);
-  puts("[sign in]");
-  printf("[input your flag]: ");
-  __isoc99_scanf("%99s", v8);
-  sub_96A(v8, v9);
-  __gmpz_init_set_str(v7, "ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35", 16LL);
-  __gmpz_init_set_str(v6, v9, 16LL);
-  __gmpz_init_set_str(v4, "103461035900816914121390101299049044413950405173712170434161686539878160984549", 10LL);
-  __gmpz_init_set_str(v5, "65537", 10LL);
-  __gmpz_powm(v6, v6, v5, v4);
-  if ( (unsigned int)__gmpz_cmp(v6, v7) )
-    puts("GG!");
-  else
-    puts("TTTTTTTTTTql!");
-  return 0LL;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>一开始看<code>sub_96A</code>有点卡壳 </p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">size_t __fastcall sub_96A(const char *a1, __int64 a2)
-{
-  size_t result; // rax
-  int v3; // [rsp+18h] [rbp-18h]
-  int i; // [rsp+1Ch] [rbp-14h]
-
-  v3 = 0;
-  for ( i = 0; ; i += 2 )
-  {
-    result = strlen(a1);
-    if ( v3 &gt;= result )
-      break;
-    *(_BYTE *)(a2 + i) = byte_202010[a1[v3] &gt;&gt; 4];
-    *(_BYTE *)(a2 + i + 1LL) = byte_202010[a1[v3++] &amp; 0xF];
-  }
-  return result;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>看着就感觉这个函数是不可逆的，这真的能做嘛？</p>
-<p>这里<code>&gt;&gt;4</code> 和 <code>&amp;0xF</code>操作</p>
-<p>前面是取高4位 后面是取低4位</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">1001.1111.1101.1001 &gt;&gt; 4 = 0000.1001.1111.1101
-
-0000.1001.1111.1101 &amp; 0x0F = 1101 (or 0000.0000.0000.1101 to be more explicit)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p>然后是下面用了<code>gmpz</code>前缀的一系列API也没整明白</p>
-<p>搜了一下是高精度数学计算库</p>
-<p>趁着周五组会看了半天也没看出个所以然</p>
-<p>于是看了一下攻略，才意识到是RSA。</p>
-<p>瞬间这几个长字符串和数字都意识到是啥了 焯！</p>
-<h3 id="再看逻辑"><a href="#再看逻辑" class="headerlink" title="再看逻辑"></a>再看逻辑</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">puts("[sign in]");
-printf("[input your flag]: ");
-__isoc99_scanf("%99s", input);
-sub_96A(input, buffer);
-__gmpz_init_set_str(C, "ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35", 16LL);
-__gmpz_init_set_str(M, buffer, 16LL);
-__gmpz_init_set_str(mod, "103461035900816914121390101299049044413950405173712170434161686539878160984549", 10LL);
-__gmpz_init_set_str(exp, "65537", 10LL);
-__gmpz_powm(M, M, exp, mod);
-if ( (unsigned int)__gmpz_cmp(M, C) )
-  puts("GG!");
-else
-  puts("TTTTTTTTTTql!");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><code>sub_96A</code>可以看作是对输入进行一个处理形成明文</p>
-<p>RSA的架构就有了</p>
-<pre class="line-numbers language-none"><code class="language-none">C = 'ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35'
-
-N = 103461035900816914121390101299049044413950405173712170434161686539878160984549
-
-e = 65537<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>通过Yafu拆解大素数</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ yafu-x64.exe                                                                                                      
-factor<span class="token punctuation">(</span><span class="token number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span><span class="token punctuation">)</span>                              
-                                                                                                                    
-                                                                                                                    
-fac: factoring <span class="token number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span>                       
-fac: using pretesting plan: normal                                                                                  
-fac: no tune info: using qs/gnfs crossover of <span class="token number">95</span> digits                                                             
-div: primes <span class="token function">less</span> than <span class="token number">10000</span>                                                                                         
-fmt: <span class="token number">1000000</span> iterations                                                                                             
-rho: x^2 + <span class="token number">3</span>, starting <span class="token number">1000</span> iterations on C78                                                                       
-rho: x^2 + <span class="token number">2</span>, starting <span class="token number">1000</span> iterations on C78                                                                       
-rho: x^2 + <span class="token number">1</span>, starting <span class="token number">1000</span> iterations on C78                                                                       
-pm1: starting B1 <span class="token operator">=</span> 150K, B2 <span class="token operator">=</span> gmp-ecm default on C78                                                                
-ecm: <span class="token number">30</span>/30 curves on C78, <span class="token assign-left variable">B1</span><span class="token operator">=</span>2K, <span class="token assign-left variable">B2</span><span class="token operator">=</span>gmp-ecm default                                                                 
-ecm: <span class="token number">74</span>/74 curves on C78, <span class="token assign-left variable">B1</span><span class="token operator">=</span>11K, <span class="token assign-left variable">B2</span><span class="token operator">=</span>gmp-ecm default                                                                
-ecm: <span class="token number">161</span>/161 curves on C78, <span class="token assign-left variable">B1</span><span class="token operator">=</span>50K, <span class="token assign-left variable">B2</span><span class="token operator">=</span>gmp-ecm default, ETA: <span class="token number">0</span> sec                                                  
-                                                                                                                    
-starting SIQS on c78: <span class="token number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span>                
-                                                                                                                    
-<span class="token operator">==</span><span class="token operator">==</span> sieving <span class="token keyword">in</span> progress <span class="token punctuation">(</span><span class="token number">1</span> thread<span class="token punctuation">)</span>:   <span class="token number">36224</span> relations needed <span class="token operator">==</span><span class="token operator">==</span>                                                  
-<span class="token operator">==</span><span class="token operator">==</span>           Press ctrl-c to abort and save state           <span class="token operator">==</span><span class="token operator">==</span>                                                  
-<span class="token number">36257</span> rels found: <span class="token number">18839</span> full + <span class="token number">17418</span> from <span class="token number">185433</span> partial, <span class="token punctuation">(</span><span class="token number">3381.62</span> rels/sec<span class="token punctuation">)</span>                                        
-                                                                                                                    
-SIQS elapsed <span class="token function">time</span> <span class="token operator">=</span> <span class="token number">61.4377</span> seconds.                                                                                
-Total factoring <span class="token function">time</span> <span class="token operator">=</span> <span class="token number">75.1933</span> seconds                                                                              
-                                                                                                                    
-                                                                                                                    
-***factors found***                                                                                                 
-                                                                                                                    
-P39 <span class="token operator">=</span> <span class="token number">366669102002966856876605669837014229419</span>                                                                       
-P39 <span class="token operator">=</span> <span class="token number">282164587459512124844245113950593348271</span>                                                                       
-                                                                                                                    
-ans <span class="token operator">=</span> <span class="token number">1</span>                                                                                                             <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>得</p>
-<pre class="line-numbers language-none"><code class="language-none">p= 366669102002966856876605669837014229419
-
-q = 282164587459512124844245113950593348271<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h3 id="解密脚本-7"><a href="#解密脚本-7" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>这里将整数转换成字符串遇到点问题</p>
-<p>可以记录学习学习</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> gmpy2
-<span class="token keyword">import</span> binascii
-
-p <span class="token operator">=</span> <span class="token number">366669102002966856876605669837014229419</span>
-q <span class="token operator">=</span> <span class="token number">282164587459512124844245113950593348271</span>
-N <span class="token operator">=</span> <span class="token number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span>
-c <span class="token operator">=</span> <span class="token number">0xad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35</span>
-e <span class="token operator">=</span> <span class="token number">65537</span>
-
-d <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e<span class="token punctuation">,</span><span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>q<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-m <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>powmod<span class="token punctuation">(</span>c<span class="token punctuation">,</span>d<span class="token punctuation">,</span>p<span class="token operator">*</span>q<span class="token punctuation">)</span>
-
-temp <span class="token operator">=</span> <span class="token builtin">bytes</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
-tem <span class="token operator">=</span> binascii<span class="token punctuation">.</span>unhexlify<span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>tem<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
 <h2 id="WUSTCTF2020-level1"><a href="#WUSTCTF2020-level1" class="headerlink" title="[WUSTCTF2020]level1"></a>[WUSTCTF2020]level1</h2><p>很简单的逻辑 简单记录</p>
 <h3 id="主逻辑-1"><a href="#主逻辑-1" class="headerlink" title="主逻辑"></a>主逻辑</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main(int argc, const char **argv, const char **envp)
 {
@@ -1900,7 +1756,7 @@ tem <span class="token operator">=</span> binascii<span class="token punctuation
   return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="解密脚本-8"><a href="#解密脚本-8" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'[WUSTCTF2020]level1\output.txt'</span><span class="token punctuation">,</span><span class="token string">'r'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+<h3 id="解密脚本-7"><a href="#解密脚本-7" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'[WUSTCTF2020]level1\output.txt'</span><span class="token punctuation">,</span><span class="token string">'r'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
     flag <span class="token operator">=</span> <span class="token string">''</span>
     <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
         temp <span class="token operator">=</span> f<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -1949,7 +1805,7 @@ tem <span class="token operator">=</span> binascii<span class="token punctuation
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>长度为33</p>
-<h3 id="解密脚本-9"><a href="#解密脚本-9" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>每四个字节取单字节整数 有练习到切片</p>
+<h3 id="解密脚本-8"><a href="#解密脚本-8" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>每四个字节取单字节整数 有练习到切片</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">dword_40F040 <span class="token operator">=</span> <span class="token string">b'\t\x00\x00\x00\n\x00\x00\x00\x0f\x00\x00\x00\x17\x00\x00\x00\x07\x00\x00\x00\x18\x00\x00\x00\x0c\x00\x00\x00\x06\x00\x00\x00\x01\x00\x00\x00\x10\x00\x00\x00\x03\x00\x00\x00\x11\x00\x00\x00 \x00\x00\x00\x1d\x00\x00\x00\x0b\x00\x00\x00\x1e\x00\x00\x00\x1b\x00\x00\x00\x16\x00\x00\x00\x04\x00\x00\x00\r\x00\x00\x00\x13\x00\x00\x00\x14\x00\x00\x00\x15\x00\x00\x00\x02\x00\x00\x00\x19\x00\x00\x00\x05\x00\x00\x00\x1f\x00\x00\x00\x08\x00\x00\x00\x12\x00\x00\x00\x1a\x00\x00\x00\x1c\x00\x00\x00\x0e\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'</span>
 byte_40F0E0 <span class="token operator">=</span> <span class="token string">b'gy{\x7fu+&lt;RSyW^]B{-*fB~LWyAk~e&lt;\\EobM'</span>
 byte_414040 <span class="token operator">=</span> <span class="token string">''</span>
@@ -2111,7 +1967,7 @@ int sub_411880()
 <li>线程2不处理输入 单纯将<code>dword_418008</code>减1</li>
 </ul>
 <p>也就是隔一位处理一位 处理的起始点为字符串倒数第二个字符 方向向前</p>
-<h3 id="解密脚本-10"><a href="#解密脚本-10" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#最终比对</span>
+<h3 id="解密脚本-9"><a href="#解密脚本-9" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#最终比对</span>
 off_418004 <span class="token operator">=</span> <span class="token string">'TOiZiZtOrYaToUwPnToBsOaOapsyS\x00'</span> 
 <span class="token comment">#线程处理表</span>
 off_418000 <span class="token operator">=</span> <span class="token string">'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'</span> 
@@ -2206,165 +2062,112 @@ temp <span class="token operator">=</span> <span class="token number">0</span>
 <span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>于是得flag{ssaaasaassdddw}</p>
-<h2 id="GWCTF-2019-xxor"><a href="#GWCTF-2019-xxor" class="headerlink" title="[GWCTF 2019]xxor"></a>[GWCTF 2019]xxor</h2><h3 id="关键逻辑-2"><a href="#关键逻辑-2" class="headerlink" title="关键逻辑"></a>关键逻辑</h3><p><code>main</code></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall main(int a1, char **a2, char **a3)
+<h2 id="FlareOn6-Overlong"><a href="#FlareOn6-Overlong" class="headerlink" title="[FlareOn6]Overlong"></a>[FlareOn6]Overlong</h2><p>对数据段进行解码</p>
+<h3 id="题目信息"><a href="#题目信息" class="headerlink" title="题目信息"></a>题目信息</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">int __stdcall start(int a1, int a2, int a3, int a4)
 {
-  int i; // [rsp+8h] [rbp-68h]
-  int j; // [rsp+Ch] [rbp-64h]
-  __int64 v6[6]; // [rsp+10h] [rbp-60h] BYREF
-  __int64 v7[6]; // [rsp+40h] [rbp-30h] BYREF
+  CHAR Text[128]; // [esp+0h] [ebp-84h] BYREF
+  unsigned int v6; // [esp+80h] [ebp-4h]
 
-  v7[5] = __readfsqword(0x28u);
-  puts("Let us play a game?");
-  puts("you have six chances to input");
-  puts("Come on!");
-  v6[0] = 0LL;
-  v6[1] = 0LL;
-  v6[2] = 0LL;
-  v6[3] = 0LL;
-  v6[4] = 0LL;
-  for ( i = 0; i &lt;= 5; ++i )
-  {
-    printf("%s", "input: ");
-    a2 = (char **)((char *)v6 + 4 * i);         // 6个DWORD
-    __isoc99_scanf("%d", a2);
-  }
-  v7[0] = 0LL;
-  v7[1] = 0LL;
-  v7[2] = 0LL;
-  v7[3] = 0LL;
-  v7[4] = 0LL;
-  for ( j = 0; j &lt;= 2; ++j )
-  {
-    dword_601078 = v6[j];                       // 输入1
-    dword_60107C = HIDWORD(v6[j]);              // 输入2
-    a2 = (char **)dword_601060;
-    sub_400686((unsigned int *)&amp;dword_601078, dword_601060);// 操作dword_601078 dword_60107C
-    LODWORD(v7[j]) = dword_601078;
-    HIDWORD(v7[j]) = dword_60107C;
-  }
-  if ( (unsigned int)sub_400770(v7, a2) != 1 )  // 验证v7数组
-  {
-    puts("NO NO NO~ ");
-    exit(0);
-  }
-  puts("Congratulation!\n");
-  puts("You seccess half\n");
-  puts("Do not forget to change input to hex and combine~\n");
-  puts("ByeBye");
-  return 0LL;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  v6 = sub_401160(Text, (int)&amp;unk_402008, 0x1Cu); //长度28
+  Text[v6] = 0;
+  MessageBoxA(0, Text, Caption, 0);
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><code>sub_400686</code></p>
-<p><code>sub_400770</code></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall sub_400770(_DWORD *a1)
+
+
+<p><code>sub_401160</code>对<code>unk_402008</code>进行解密，赋值到text中。</p>
+<p>最后直接弹出消息，直接打开程序效果如下</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220515130527614.png" alt="image-20220515130527614"></p>
+<p>发现没给出关键信息，而去看数据段其实长度有175，而函数中只用到了28的长度</p>
+<p>所以这里可以猜到如果将完整的数据段解密即可拿到flag</p>
+<h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><p>思路就是通过模仿正向算法将完整的数据段进行解码</p>
+<p>具体函数</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">unsigned int __cdecl sub_401160(char *a1, int rdata, unsigned int a3)
 {
-  __int64 result; // rax
+  unsigned int i; // [esp+4h] [ebp-4h]
 
-  if ( a1[2] - a1[3] == 2225223423LL
-    &amp;&amp; a1[3] + a1[4] == 4201428739LL
-    &amp;&amp; a1[2] - a1[4] == 1121399208LL
-    &amp;&amp; *a1 == -548868226
-    &amp;&amp; a1[5] == -2064448480
-    &amp;&amp; a1[1] == 550153460 )
+  for ( i = 0; i &lt; a3; ++i )                    // 长度28
   {
-    puts("good!");
-    result = 1LL;
+    rdata += sub_401000(a1, (char *)rdata);
+    if ( !*a1++ )
+      break;
+  }
+  return i;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里每产生一个字符后就将rdata向前推进</p>
+<p>生成字符的函数<code>sub_401000</code>如下</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl sub_401000(_BYTE *flag, char *rdata)
+{
+  int v3; // [esp+0h] [ebp-8h]
+  char v4; // [esp+4h] [ebp-4h]
+
+  if ( (int)(unsigned __int8)*rdata &gt;&gt; 3 == 30 )
+  {
+    v4 = rdata[3] &amp; 0x3F | ((rdata[2] &amp; 0x3F) &lt;&lt; 6);
+    v3 = 4;
+  }
+  else if ( (int)(unsigned __int8)*rdata &gt;&gt; 4 == 14 )
+  {
+    v4 = rdata[2] &amp; 0x3F | ((rdata[1] &amp; 0x3F) &lt;&lt; 6);
+    v3 = 3;
+  }
+  else if ( (int)(unsigned __int8)*rdata &gt;&gt; 5 == 6 )
+  {
+    v4 = rdata[1] &amp; 0x3F | ((*rdata &amp; 0x1F) &lt;&lt; 6);
+    v3 = 2;
   }
   else
   {
-    puts("Wrong!");
-    result = 0LL;
+    v4 = *rdata;
+    v3 = 1;
   }
-  return result;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  *flag = v4;
+  return v3;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="分析过程-2"><a href="#分析过程-2" class="headerlink" title="分析过程"></a>分析过程</h3><p>从<code>sub_400770</code>入手得到v7数组</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall sub_400770(_DWORD *a1)
-{
-  __int64 result; // rax
+<p>这里是根据rdata当前位的值来决定 每1/2/3/4位生成一个字符</p>
+<p>我们要将完整的数据段解码就一直循环这个函数到数据段数据结束为止</p>
+<p>解密脚本如下</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">rdata <span class="token operator">=</span> <span class="token string">'\xe0\x81\x89\xc0\xa0\xc1\xae\xe0\x81\xa5\xc1\xb6\xf0\x80\x81\xa5\xe0\x81\xb2\xf0\x80\x80\xa0\xe0\x81\xa2ro\xc1\xabe\xe0\x80\xa0\xe0\x81\xb4\xe0\x81\xa8\xc1\xa5 \xc1\xa5\xe0\x81\xaec\xc1\xaf\xe0\x81\xa4\xf0\x80\x81\xa9n\xc1\xa7\xc0\xba I\xf0\x80\x81\x9f\xc1\xa1\xc1\x9f\xc1\x8d\xe0\x81\x9f\xc1\xb4\xf0\x80\x81\x9f\xf0\x80\x81\xa8\xc1\x9f\xf0\x80\x81\xa5\xe0\x81\x9f\xc1\xa5\xe0\x81\x9f\xf0\x80\x81\xae\xc1\x9f\xf0\x80\x81\x83\xc1\x9f\xe0\x81\xaf\xe0\x81\x9f\xc1\x84_\xe0\x81\xa9\xf0\x80\x81\x9fn\xe0\x81\x9f\xe0\x81\xa7\xe0\x81\x80\xf0\x80\x81\xa6\xf0\x80\x81\xac\xe0\x81\xa1\xc1\xb2\xc1\xa5\xf0\x80\x80\xad\xf0\x80\x81\xafn\xc0\xae\xf0\x80\x81\xa3o\xf0\x80\x81\xad'</span>
+data <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>rdata<span class="token punctuation">)</span>
+flag <span class="token operator">=</span> <span class="token string">''</span>
+j <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>j <span class="token operator">&lt;</span> <span class="token builtin">len</span><span class="token punctuation">(</span>rdata<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> <span class="token number">3</span> <span class="token operator">==</span> <span class="token number">30</span><span class="token punctuation">:</span>
+        flag <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span><span class="token number">3</span> <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x3f</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span><span class="token number">2</span> <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x3f</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        j <span class="token operator">+=</span> <span class="token number">4</span>
+    <span class="token keyword">elif</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> <span class="token number">4</span> <span class="token operator">==</span> <span class="token number">14</span><span class="token punctuation">:</span>
+        flag <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span><span class="token number">2</span> <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x3f</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span><span class="token number">1</span> <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x3f</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        j <span class="token operator">+=</span> <span class="token number">3</span>
+    <span class="token keyword">elif</span> <span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;&gt;</span> <span class="token number">5</span> <span class="token operator">==</span> <span class="token number">6</span><span class="token punctuation">:</span>
+        flag <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span><span class="token number">1</span> <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x3f</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>rdata<span class="token punctuation">[</span><span class="token number">0</span> <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0x1f</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        j <span class="token operator">+=</span> <span class="token number">2</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        flag <span class="token operator">+=</span> rdata<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+        j <span class="token operator">+=</span> <span class="token number">1</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-  if ( a1[2] - a1[3] == 0x84A236FFLL            // 三元一次方程
-    &amp;&amp; a1[3] + a1[4] == 0xFA6CB703LL
-    &amp;&amp; a1[2] - a1[4] == 0x42D731A8LL
-    &amp;&amp; *a1 == 0xDF48EF7E
-    &amp;&amp; a1[5] == 0x84F30420
-    &amp;&amp; a1[1] == 0x20CAACF4 )
-  {
-    puts("good!");
-    result = 1LL;
-  }
-  else
-  {
-    puts("Wrong!");
-    result = 0LL;
-  }
-  return result;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="动态方法"><a href="#动态方法" class="headerlink" title="动态方法"></a>动态方法</h3><p>这道题前面没动脑子 静态做完了之后才发现动态其实最快</p>
+<p>因为题目自己会运行解密函数，只是因为长度没给够所以不会打印出flag。</p>
+<p>那么我们只需要把<code>sub_401160</code>函数的长度参数给扩大到175（完整数据段的长度）就能看到flag了</p>
+<p>那么就开始调试程序</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220515131513546.png" alt="image-20220515131513546"></p>
+<p>在<code>push 1C</code>执行之后将栈顶从<code>0x1C</code>修改为<code>0XAF</code></p>
+<p>接着关注text地址空间，在执行完<code>4c1160</code>函数后查看text地址空间。</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220515131838518.png" alt="image-20220515131838518"></p>
+<p>直接能看到flag内容</p>
+<p>顺便练习下导出的脚本</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> binascii
+flag <span class="token operator">=</span> <span class="token string">'49 20 6E 65 76 65 72 20 62 72 6F 6B 65 20 74 68 65 20 65 6E 63 6F 64 69 6E 67 3A 20 49 5F 61 5F 4D 5F 74 5F 68 5F 65 5F 65 5F 6E 5F 43 5F 6F 5F 44 5F 69 5F 6E 5F 67 40 66 6C 61 72 65 2D 6F 6E 2E 63 6F 6D'</span>
+new <span class="token operator">=</span> <span class="token string">''</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token string">' '</span><span class="token punctuation">:</span>
+        new <span class="token operator">+=</span> flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>binascii<span class="token punctuation">.</span>unhexlify<span class="token punctuation">(</span>new<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>这里要解一个三元一次方程</p>
-<p><img src="%E9%80%86%E5%90%91%E7%BB%83%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220511165555214.png" alt="image-20220511165555214"></p>
-<p>最后得v7数组如下</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">v7 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">6</span>
-v7<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xDF48EF7E</span>
-v7<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x20CAACF4</span>
-v7<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x84F30420</span> 
-v7<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xe0f30fd5</span>
-v7<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x5c50d8d6</span>
-v7<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x9e1bde2d</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>接着从<code>sub_400686</code>逆推出输入即可</p>
-<h3 id="解密脚本-11"><a href="#解密脚本-11" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>因为都是在用32位寄存器操作，用python就显得不太方便。</p>
-<p>直接copy伪代码跑起来</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">#include &lt;stdio.h&gt;
-#include &lt;Windows.h&gt;
-__int64 __fastcall sub_400686(unsigned int* input, int* dword_601060)
-{
-    __int64 result; // rax
-    unsigned int firstDword; // [rsp+1Ch] [rbp-24h]
-    unsigned int secondDword; // [rsp+20h] [rbp-20h]
-    int v5; // [rsp+24h] [rbp-1Ch]
-    unsigned int i; // [rsp+28h] [rbp-18h]
-
-    firstDword = *input;                          // input1
-    secondDword = input[1];                       // //input2
-    
-    v5 = 0x458BCD42 * 64;
-    for (i = 0; i &lt;= 63; i++)
-    {
-        secondDword -= (firstDword + v5 + 20) ^ ((firstDword &lt;&lt; 6) + dword_601060[2]) ^ ((firstDword &gt;&gt; 9) + dword_601060[3]) ^ 0x10;
-        firstDword -= (secondDword + v5 + 11) ^ ((secondDword &lt;&lt; 6) + *dword_601060) ^ ((secondDword &gt;&gt; 9) + dword_601060[1]) ^ 0x20;
-        v5 -= 0x458BCD42;
-    }
-    *input = firstDword;
-    result = secondDword;
-    input[1] = secondDword;
-    return result;
-}
-
-int main() {
-    int dword_601060[4] = { 2,2,3,4 };
-    int v7[6] = { 0 };
-    v7[0] = 0xDF48EF7E;
-    v7[1] = 0x20CAACF4;
-    v7[5] = 0x84F30420;
-    v7[2] = 0xe0f30fd5;
-    v7[3] = 0x5c50d8d6;
-    v7[4] = 0x9e1bde2d;
-    for (int j = 0; j &lt;= 4; j += 2)
-    {
-        int dword_601078[2] = { 0 };
-        dword_601078[0] = v7[j];                       // 输入1
-        dword_601078[1] = v7[j + 1];                      // 输入2
-        sub_400686((unsigned int*)&amp;dword_601078, dword_601060);// 操作dword_601078 dword_60107C
-        v7[j] = dword_601078[0];
-        v7[j + 1] = dword_601078[1];
-    }
-    for (int i = 0; i &lt; 6; i++) {
-        printf("%c%c%c", *((char*)&amp;v7[i] + 2), *((char*)&amp;v7[i] + 1), *((char*)&amp;v7[i]));
-    }
-    return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -2611,7 +2414,7 @@ int main() {
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>看到base64编码直接给了，完成！</p>
-<h3 id="解密脚本-12"><a href="#解密脚本-12" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> base64
+<h3 id="解密脚本-10"><a href="#解密脚本-10" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> base64
 <span class="token keyword">print</span><span class="token punctuation">(</span>base64<span class="token punctuation">.</span>b64decode<span class="token punctuation">(</span><span class="token string">'MTgyMTg0NjUxMjVAMTYzLmNvbQ=='</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
@@ -2680,7 +2483,7 @@ MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMAzLFxkrkcYL2wch21CM2kQVFpY9+7+
 <pre class="line-numbers language-none"><code class="language-none">p = 304008741604601924494328155975272418463
 q = 285960468890451637935629440372639283459<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="解密脚本-13"><a href="#解密脚本-13" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>安装gmpy2库</p>
+<h3 id="解密脚本-11"><a href="#解密脚本-11" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>安装gmpy2库</p>
 <p>已知e,p,q可以求d</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">d <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>q<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -2703,13 +2506,408 @@ skey <span class="token operator">=</span> rsa<span class="token punctuation">.<
     text <span class="token operator">=</span> f<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span>rsa<span class="token punctuation">.</span>decrypt<span class="token punctuation">(</span>text<span class="token punctuation">,</span> skey<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h2 id="SUCTF2019-SignIn"><a href="#SUCTF2019-SignIn" class="headerlink" title="[SUCTF2019]SignIn"></a>[SUCTF2019]SignIn</h2><h3 id="主要逻辑-1"><a href="#主要逻辑-1" class="headerlink" title="主要逻辑"></a>主要逻辑</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  char v4[16]; // [rsp+0h] [rbp-4A0h] BYREF
+  char v5[16]; // [rsp+10h] [rbp-490h] BYREF
+  char v6[16]; // [rsp+20h] [rbp-480h] BYREF
+  char v7[16]; // [rsp+30h] [rbp-470h] BYREF
+  char v8[112]; // [rsp+40h] [rbp-460h] BYREF
+  char v9[1000]; // [rsp+B0h] [rbp-3F0h] BYREF
+  unsigned __int64 v10; // [rsp+498h] [rbp-8h]
+
+  v10 = __readfsqword(0x28u);
+  puts("[sign in]");
+  printf("[input your flag]: ");
+  __isoc99_scanf("%99s", v8);
+  sub_96A(v8, v9);
+  __gmpz_init_set_str(v7, "ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35", 16LL);
+  __gmpz_init_set_str(v6, v9, 16LL);
+  __gmpz_init_set_str(v4, "103461035900816914121390101299049044413950405173712170434161686539878160984549", 10LL);
+  __gmpz_init_set_str(v5, "65537", 10LL);
+  __gmpz_powm(v6, v6, v5, v4);
+  if ( (unsigned int)__gmpz_cmp(v6, v7) )
+    puts("GG!");
+  else
+    puts("TTTTTTTTTTql!");
+  return 0LL;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>一开始看<code>sub_96A</code>有点卡壳 </p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">size_t __fastcall sub_96A(const char *a1, __int64 a2)
+{
+  size_t result; // rax
+  int v3; // [rsp+18h] [rbp-18h]
+  int i; // [rsp+1Ch] [rbp-14h]
+
+  v3 = 0;
+  for ( i = 0; ; i += 2 )
+  {
+    result = strlen(a1);
+    if ( v3 &gt;= result )
+      break;
+    *(_BYTE *)(a2 + i) = byte_202010[a1[v3] &gt;&gt; 4];
+    *(_BYTE *)(a2 + i + 1LL) = byte_202010[a1[v3++] &amp; 0xF];
+  }
+  return result;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>看着就感觉这个函数是不可逆的，这真的能做嘛？</p>
+<p>这里<code>&gt;&gt;4</code> 和 <code>&amp;0xF</code>操作</p>
+<p>前面是取高4位 后面是取低4位</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">1001.1111.1101.1001 &gt;&gt; 4 = 0000.1001.1111.1101
+
+0000.1001.1111.1101 &amp; 0x0F = 1101 (or 0000.0000.0000.1101 to be more explicit)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>然后是下面用了<code>gmpz</code>前缀的一系列API也没整明白</p>
+<p>搜了一下是高精度数学计算库</p>
+<p>趁着周五组会看了半天也没看出个所以然</p>
+<p>于是看了一下攻略，才意识到是RSA。</p>
+<p>瞬间这几个长字符串和数字都意识到是啥了 焯！</p>
+<h3 id="再看逻辑"><a href="#再看逻辑" class="headerlink" title="再看逻辑"></a>再看逻辑</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">puts("[sign in]");
+printf("[input your flag]: ");
+__isoc99_scanf("%99s", input);
+sub_96A(input, buffer);
+__gmpz_init_set_str(C, "ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35", 16LL);
+__gmpz_init_set_str(M, buffer, 16LL);
+__gmpz_init_set_str(mod, "103461035900816914121390101299049044413950405173712170434161686539878160984549", 10LL);
+__gmpz_init_set_str(exp, "65537", 10LL);
+__gmpz_powm(M, M, exp, mod);
+if ( (unsigned int)__gmpz_cmp(M, C) )
+  puts("GG!");
+else
+  puts("TTTTTTTTTTql!");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>sub_96A</code>可以看作是对输入进行一个处理形成明文</p>
+<p>RSA的架构就有了</p>
+<pre class="line-numbers language-none"><code class="language-none">C = 'ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35'
+
+N = 103461035900816914121390101299049044413950405173712170434161686539878160984549
+
+e = 65537<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过Yafu拆解大素数</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ yafu-x64.exe                                                                                                      
+factor<span class="token punctuation">(</span><span class="token number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span><span class="token punctuation">)</span>                              
+                                                                                                                    
+                                                                                                                    
+fac: factoring <span class="token number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span>                       
+fac: using pretesting plan: normal                                                                                  
+fac: no tune info: using qs/gnfs crossover of <span class="token number">95</span> digits                                                             
+div: primes <span class="token function">less</span> than <span class="token number">10000</span>                                                                                         
+fmt: <span class="token number">1000000</span> iterations                                                                                             
+rho: x^2 + <span class="token number">3</span>, starting <span class="token number">1000</span> iterations on C78                                                                       
+rho: x^2 + <span class="token number">2</span>, starting <span class="token number">1000</span> iterations on C78                                                                       
+rho: x^2 + <span class="token number">1</span>, starting <span class="token number">1000</span> iterations on C78                                                                       
+pm1: starting B1 <span class="token operator">=</span> 150K, B2 <span class="token operator">=</span> gmp-ecm default on C78                                                                
+ecm: <span class="token number">30</span>/30 curves on C78, <span class="token assign-left variable">B1</span><span class="token operator">=</span>2K, <span class="token assign-left variable">B2</span><span class="token operator">=</span>gmp-ecm default                                                                 
+ecm: <span class="token number">74</span>/74 curves on C78, <span class="token assign-left variable">B1</span><span class="token operator">=</span>11K, <span class="token assign-left variable">B2</span><span class="token operator">=</span>gmp-ecm default                                                                
+ecm: <span class="token number">161</span>/161 curves on C78, <span class="token assign-left variable">B1</span><span class="token operator">=</span>50K, <span class="token assign-left variable">B2</span><span class="token operator">=</span>gmp-ecm default, ETA: <span class="token number">0</span> sec                                                  
+                                                                                                                    
+starting SIQS on c78: <span class="token number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span>                
+                                                                                                                    
+<span class="token operator">==</span><span class="token operator">==</span> sieving <span class="token keyword">in</span> progress <span class="token punctuation">(</span><span class="token number">1</span> thread<span class="token punctuation">)</span>:   <span class="token number">36224</span> relations needed <span class="token operator">==</span><span class="token operator">==</span>                                                  
+<span class="token operator">==</span><span class="token operator">==</span>           Press ctrl-c to abort and save state           <span class="token operator">==</span><span class="token operator">==</span>                                                  
+<span class="token number">36257</span> rels found: <span class="token number">18839</span> full + <span class="token number">17418</span> from <span class="token number">185433</span> partial, <span class="token punctuation">(</span><span class="token number">3381.62</span> rels/sec<span class="token punctuation">)</span>                                        
+                                                                                                                    
+SIQS elapsed <span class="token function">time</span> <span class="token operator">=</span> <span class="token number">61.4377</span> seconds.                                                                                
+Total factoring <span class="token function">time</span> <span class="token operator">=</span> <span class="token number">75.1933</span> seconds                                                                              
+                                                                                                                    
+                                                                                                                    
+***factors found***                                                                                                 
+                                                                                                                    
+P39 <span class="token operator">=</span> <span class="token number">366669102002966856876605669837014229419</span>                                                                       
+P39 <span class="token operator">=</span> <span class="token number">282164587459512124844245113950593348271</span>                                                                       
+                                                                                                                    
+ans <span class="token operator">=</span> <span class="token number">1</span>                                                                                                             <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>得</p>
+<pre class="line-numbers language-none"><code class="language-none">p= 366669102002966856876605669837014229419
+
+q = 282164587459512124844245113950593348271<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="解密脚本-12"><a href="#解密脚本-12" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>这里将整数转换成字符串遇到点问题</p>
+<p>可以记录学习学习</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> gmpy2
+<span class="token keyword">import</span> binascii
+
+p <span class="token operator">=</span> <span class="token number">366669102002966856876605669837014229419</span>
+q <span class="token operator">=</span> <span class="token number">282164587459512124844245113950593348271</span>
+N <span class="token operator">=</span> <span class="token number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span>
+c <span class="token operator">=</span> <span class="token number">0xad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35</span>
+e <span class="token operator">=</span> <span class="token number">65537</span>
+
+d <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e<span class="token punctuation">,</span><span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>q<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+m <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>powmod<span class="token punctuation">(</span>c<span class="token punctuation">,</span>d<span class="token punctuation">,</span>p<span class="token operator">*</span>q<span class="token punctuation">)</span>
+
+temp <span class="token operator">=</span> <span class="token builtin">bytes</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+tem <span class="token operator">=</span> binascii<span class="token punctuation">.</span>unhexlify<span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>tem<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h1 id="异或"><a href="#异或" class="headerlink" title="异或"></a>异或</h1><ul>
+<li><p>配合初始值+自身与自身其他位异或</p>
+<p>解法：按原顺序操作顺序复原</p>
+</li>
+<li><p>异或操作用到了中间值</p>
+<p>解法：逆向异或逐步恢复</p>
+</li>
+</ul>
+<h2 id="FlareOn4-IgniteMe-按原顺序复原"><a href="#FlareOn4-IgniteMe-按原顺序复原" class="headerlink" title="[FlareOn4]IgniteMe(按原顺序复原)"></a>[FlareOn4]IgniteMe(按原顺序复原)</h2><h3 id="分析过程-2"><a href="#分析过程-2" class="headerlink" title="分析过程"></a>分析过程</h3><p>拿到题目函数调用方式挺奇怪</p>
+<p>不过不影响判断逻辑</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">void __noreturn start()
+{
+  DWORD NumberOfBytesWritten; // [esp+0h] [ebp-4h] BYREF
+
+  NumberOfBytesWritten = 0;
+  hScanf = GetStdHandle(0xFFFFFFF6);
+  hPrintf = GetStdHandle(0xFFFFFFF5);
+  WriteFile(hPrintf, aG1v3M3T3hFl4g, 0x13u, &amp;NumberOfBytesWritten, 0);
+  sub_4010F0();                                 // 获取输入并将输入放入全局变量input
+  if ( sub_401050(NumberOfBytesWritten) )       // 主要验证逻辑
+    WriteFile(hPrintf, aG00dJ0b, 0xAu, &amp;NumberOfBytesWritten, 0);
+  else
+    WriteFile(hPrintf, aN0tT00H0tRWe7r, 0x24u, &amp;NumberOfBytesWritten, 0);
+  ExitProcess(0);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>进入<code>sub_401050</code>看</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int sub_401050()
+{
+  int length; // [esp+0h] [ebp-Ch]
+  int i; // [esp+4h] [ebp-8h]
+  unsigned int j; // [esp+4h] [ebp-8h]
+  char v4; // [esp+Bh] [ebp-1h]
+
+  length = sub_401020((int)input);              // 获取长度
+  v4 = sub_401000();                            // 计算固定值 v4 = 04
+  for ( i = length - 1; i &gt;= 0; --i )
+  {
+    byte_403180[i] = v4 ^ input[i];
+    v4 = input[i];
+  }
+  for ( j = 0; j &lt; 39; ++j )                    // 长度39
+  {
+    if ( byte_403180[j] != (unsigned __int8)byte_403000[j] )
+      return 0;
+  }
+  return 1;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p><code>sub_401000</code>计算一个固定值</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">__int16 sub_401000()
+{
+  return (unsigned __int16)__ROL4__(0x80070000, 4) &gt;&gt; 1;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>0x80070000</code>循环左移4位之后为<code>0x00700008</code></p>
+<p>算数右移之后为<code>0x00700004</code> 最后返回16位结果为<code>04</code></p>
+<ul>
+<li>从最后的判断可知长度为39，处理后的数组位于<code>byte_403000</code></li>
+</ul>
+<p>之后的操作是</p>
+<ul>
+<li><p>将输入从最后一位开始</p>
+</li>
+<li><p>当前位与上一位异或后存入值</p>
+</li>
+<li><p>第一次处理和初始值04异或 </p>
+</li>
+</ul>
+<p>计算顺序为</p>
+<pre class="line-numbers language-none"><code class="language-none">byte_403180[28] = input[28] ^ 04
+byte_403180[27] = input[27] ^ input[28]
+..
+byte_403180[0] = input[0] ^ input[1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p>​    所以我们的解密算法需要从最后一位开始还原 按原来的顺序恢复input</p>
+<h3 id="解密算法"><a href="#解密算法" class="headerlink" title="解密算法"></a>解密算法</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">byte_403000 <span class="token operator">=</span> <span class="token string">'\r&amp;IE*\x17xD+l]^E\x12/\x17+DonV\t_EGs&amp;\n\r\x13\x17HB\x01@M\x0c\x02i'</span>
+v4 <span class="token operator">=</span> <span class="token number">4</span>
+<span class="token builtin">input</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">''</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">39</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">38</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token builtin">input</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>byte_403000<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">^</span> v4<span class="token punctuation">)</span>
+    v4 <span class="token operator">=</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token builtin">input</span> <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span>c <span class="token keyword">for</span> c <span class="token keyword">in</span> <span class="token builtin">input</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="GWCTF-2019-xxor"><a href="#GWCTF-2019-xxor" class="headerlink" title="[GWCTF 2019]xxor"></a>[GWCTF 2019]xxor</h2><h3 id="关键逻辑-2"><a href="#关键逻辑-2" class="headerlink" title="关键逻辑"></a>关键逻辑</h3><p><code>main</code></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  int i; // [rsp+8h] [rbp-68h]
+  int j; // [rsp+Ch] [rbp-64h]
+  __int64 v6[6]; // [rsp+10h] [rbp-60h] BYREF
+  __int64 v7[6]; // [rsp+40h] [rbp-30h] BYREF
+
+  v7[5] = __readfsqword(0x28u);
+  puts("Let us play a game?");
+  puts("you have six chances to input");
+  puts("Come on!");
+  v6[0] = 0LL;
+  v6[1] = 0LL;
+  v6[2] = 0LL;
+  v6[3] = 0LL;
+  v6[4] = 0LL;
+  for ( i = 0; i &lt;= 5; ++i )
+  {
+    printf("%s", "input: ");
+    a2 = (char **)((char *)v6 + 4 * i);         // 6个DWORD
+    __isoc99_scanf("%d", a2);
+  }
+  v7[0] = 0LL;
+  v7[1] = 0LL;
+  v7[2] = 0LL;
+  v7[3] = 0LL;
+  v7[4] = 0LL;
+  for ( j = 0; j &lt;= 2; ++j )
+  {
+    dword_601078 = v6[j];                       // 输入1
+    dword_60107C = HIDWORD(v6[j]);              // 输入2
+    a2 = (char **)dword_601060;
+    sub_400686((unsigned int *)&amp;dword_601078, dword_601060);// 操作dword_601078 dword_60107C
+    LODWORD(v7[j]) = dword_601078;
+    HIDWORD(v7[j]) = dword_60107C;
+  }
+  if ( (unsigned int)sub_400770(v7, a2) != 1 )  // 验证v7数组
+  {
+    puts("NO NO NO~ ");
+    exit(0);
+  }
+  puts("Congratulation!\n");
+  puts("You seccess half\n");
+  puts("Do not forget to change input to hex and combine~\n");
+  puts("ByeBye");
+  return 0LL;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>sub_400686</code></p>
+<p><code>sub_400770</code></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall sub_400770(_DWORD *a1)
+{
+  __int64 result; // rax
+
+  if ( a1[2] - a1[3] == 2225223423LL
+    &amp;&amp; a1[3] + a1[4] == 4201428739LL
+    &amp;&amp; a1[2] - a1[4] == 1121399208LL
+    &amp;&amp; *a1 == -548868226
+    &amp;&amp; a1[5] == -2064448480
+    &amp;&amp; a1[1] == 550153460 )
+  {
+    puts("good!");
+    result = 1LL;
+  }
+  else
+  {
+    puts("Wrong!");
+    result = 0LL;
+  }
+  return result;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="分析过程-3"><a href="#分析过程-3" class="headerlink" title="分析过程"></a>分析过程</h3><p>从<code>sub_400770</code>入手得到v7数组</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall sub_400770(_DWORD *a1)
+{
+  __int64 result; // rax
+
+  if ( a1[2] - a1[3] == 0x84A236FFLL            // 三元一次方程
+    &amp;&amp; a1[3] + a1[4] == 0xFA6CB703LL
+    &amp;&amp; a1[2] - a1[4] == 0x42D731A8LL
+    &amp;&amp; *a1 == 0xDF48EF7E
+    &amp;&amp; a1[5] == 0x84F30420
+    &amp;&amp; a1[1] == 0x20CAACF4 )
+  {
+    puts("good!");
+    result = 1LL;
+  }
+  else
+  {
+    puts("Wrong!");
+    result = 0LL;
+  }
+  return result;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里要解一个三元一次方程</p>
+<p><img src="%E9%80%86%E5%90%91%E7%BB%83%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220511165555214.png" alt="image-20220511165555214"></p>
+<p>最后得v7数组如下</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">v7 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">6</span>
+v7<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xDF48EF7E</span>
+v7<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x20CAACF4</span>
+v7<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x84F30420</span> 
+v7<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0xe0f30fd5</span>
+v7<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x5c50d8d6</span>
+v7<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x9e1bde2d</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接着从<code>sub_400686</code>逆推出输入即可</p>
+<h3 id="解密脚本-13"><a href="#解密脚本-13" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>因为都是在用32位寄存器操作，用python就显得不太方便。</p>
+<p>直接copy伪代码跑起来</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">#include &lt;stdio.h&gt;
+#include &lt;Windows.h&gt;
+__int64 __fastcall sub_400686(unsigned int* input, int* dword_601060)
+{
+    __int64 result; // rax
+    unsigned int firstDword; // [rsp+1Ch] [rbp-24h]
+    unsigned int secondDword; // [rsp+20h] [rbp-20h]
+    int v5; // [rsp+24h] [rbp-1Ch]
+    unsigned int i; // [rsp+28h] [rbp-18h]
+
+    firstDword = *input;                          // input1
+    secondDword = input[1];                       // //input2
+    
+    v5 = 0x458BCD42 * 64;
+    for (i = 0; i &lt;= 63; i++)
+    {
+        secondDword -= (firstDword + v5 + 20) ^ ((firstDword &lt;&lt; 6) + dword_601060[2]) ^ ((firstDword &gt;&gt; 9) + dword_601060[3]) ^ 0x10;
+        firstDword -= (secondDword + v5 + 11) ^ ((secondDword &lt;&lt; 6) + *dword_601060) ^ ((secondDword &gt;&gt; 9) + dword_601060[1]) ^ 0x20;
+        v5 -= 0x458BCD42;
+    }
+    *input = firstDword;
+    result = secondDword;
+    input[1] = secondDword;
+    return result;
+}
+
+int main() {
+    int dword_601060[4] = { 2,2,3,4 };
+    int v7[6] = { 0 };
+    v7[0] = 0xDF48EF7E;
+    v7[1] = 0x20CAACF4;
+    v7[5] = 0x84F30420;
+    v7[2] = 0xe0f30fd5;
+    v7[3] = 0x5c50d8d6;
+    v7[4] = 0x9e1bde2d;
+    for (int j = 0; j &lt;= 4; j += 2)
+    {
+        int dword_601078[2] = { 0 };
+        dword_601078[0] = v7[j];                       // 输入1
+        dword_601078[1] = v7[j + 1];                      // 输入2
+        sub_400686((unsigned int*)&amp;dword_601078, dword_601060);// 操作dword_601078 dword_60107C
+        v7[j] = dword_601078[0];
+        v7[j + 1] = dword_601078[1];
+    }
+    for (int i = 0; i &lt; 6; i++) {
+        printf("%c%c%c", *((char*)&amp;v7[i] + 2), *((char*)&amp;v7[i] + 1), *((char*)&amp;v7[i]));
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
 
 
-
-<h1 id="base64换表"><a href="#base64换表" class="headerlink" title="base64换表"></a>base64换表</h1><h2 id="ACTF新生赛2020-usualCrypt-好评"><a href="#ACTF新生赛2020-usualCrypt-好评" class="headerlink" title="[ACTF新生赛2020]usualCrypt(好评)"></a>[ACTF新生赛2020]usualCrypt(好评)</h2><h3 id="逻辑分析"><a href="#逻辑分析" class="headerlink" title="逻辑分析"></a>逻辑分析</h3><p>main函数</p>
+<h1 id="base64换表"><a href="#base64换表" class="headerlink" title="base64换表"></a>base64换表</h1><h2 id="ACTF新生赛2020-usualCrypt-好评"><a href="#ACTF新生赛2020-usualCrypt-好评" class="headerlink" title="[ACTF新生赛2020]usualCrypt(好评)"></a>[ACTF新生赛2020]usualCrypt(好评)</h2><ul>
+<li><p>base64编码是固定的字符处理</p>
+<p>于是将按表中的差异直接替换即可</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">flag <span class="token operator">=</span> base64<span class="token punctuation">.</span>b64decode<span class="token punctuation">(</span>flag<span class="token punctuation">.</span>translate<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">.</span>maketrans<span class="token punctuation">(</span>string_trans<span class="token punctuation">,</span>string_bak<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ul>
+<h3 id="逻辑分析"><a href="#逻辑分析" class="headerlink" title="逻辑分析"></a>逻辑分析</h3><p>main函数</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">printf(aGiveMeYourFlag);
 scanf("%s", input);
 v5[0] = 0;
@@ -2895,7 +3093,7 @@ flag <span class="token operator">=</span> base64<span class="token punctuation"
 
 
 <h2 id="WUSTCTF2020-level3"><a href="#WUSTCTF2020-level3" class="headerlink" title="[WUSTCTF2020]level3"></a>[WUSTCTF2020]level3</h2><p>打开题目发现是个base64翻译机</p>
-<h3 id="分析过程-3"><a href="#分析过程-3" class="headerlink" title="分析过程"></a>分析过程</h3><p>主函数逻辑如下</p>
+<h3 id="分析过程-4"><a href="#分析过程-4" class="headerlink" title="分析过程"></a>分析过程</h3><p>主函数逻辑如下</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main(int argc, const char **argv, const char **envp)
 {
   char *v3; // rax
@@ -2959,6 +3157,41 @@ table <span class="token operator">=</span> <span class="token string">''</span>
 
 flag <span class="token operator">=</span> <span class="token string">'d2G0ZjLwHjS7DmOzZAY0X2lzX3CoZV9zdNOydO9vZl9yZXZlcnGlfD=='</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span>base64<span class="token punctuation">.</span>b64decode<span class="token punctuation">(</span>flag<span class="token punctuation">.</span>translate<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">.</span>maketrans<span class="token punctuation">(</span>table<span class="token punctuation">,</span>table_bak<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h1 id="常用库方法"><a href="#常用库方法" class="headerlink" title="常用库方法"></a>常用库方法</h1><h2 id="字符处理"><a href="#字符处理" class="headerlink" title="字符处理"></a>字符处理</h2><ul>
+<li><p>binascii</p>
+<p>hexlify：字符串转hex</p>
+<p>unhexlify：hex转字符串</p>
+</li>
+<li><p>base64</p>
+<p>b64decode</p>
+</li>
+</ul>
+<h2 id="密码学-1"><a href="#密码学-1" class="headerlink" title="密码学"></a>密码学</h2><ul>
+<li><p>gmpy2</p>
+<p>d = gmpy2.invert(e, phi)</p>
+<p>m = gmpy2.powmod(c, d, p*q)</p>
+</li>
+<li><p>rsa</p>
+<p>skey = rsa.PrivateKey(n, e, int(d), p, q)</p>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">import gmpy2
+import rsa
+d = gmpy2.invert(e,(p-1)*(q-1))
+m = gmpy2.powmod(c,d,p*q)
+n = 0xC0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD
+e = 65537
+p = 304008741604601924494328155975272418463
+q = 2859604688904516379356294403726392834
+phi = (p-1) * (q-1)
+d = gmpy2.invert(e, phi)
+skey = rsa.PrivateKey(n, e, int(d), p, q)
+with open('.\\RSA\\flag.enc','rb+') as f:
+    text = f.read()
+    print(rsa.decrypt(text, skey))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
