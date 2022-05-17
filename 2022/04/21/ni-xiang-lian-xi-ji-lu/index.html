@@ -367,14 +367,14 @@ strcpy(Table, &#34;*11110100001010000101111">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-05-15
+                    2022-05-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    12.8k
+                    13.4k
                 </div>
                 
 
@@ -2419,7 +2419,123 @@ new <span class="token operator">=</span> <span class="token string">''</span>
 
 
 
+<h1 id="Unity"><a href="#Unity" class="headerlink" title="Unity"></a>Unity</h1><h2 id="BJDCTF2020-BJD-hamburger-competition"><a href="#BJDCTF2020-BJD-hamburger-competition" class="headerlink" title="[BJDCTF2020]BJD hamburger competition"></a>[BJDCTF2020]BJD hamburger competition</h2><p>Unity引擎题目</p>
+<h3 id="题目内容-1"><a href="#题目内容-1" class="headerlink" title="题目内容"></a>题目内容</h3><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220517132037905.png" alt="image-20220517132037905"></p>
+<p>老八蜜汁小汉堡</p>
+<p>自己配汉堡品尝 有点意思</p>
+<h3 id="分析过程-2"><a href="#分析过程-2" class="headerlink" title="分析过程"></a>分析过程</h3><p>脚本编译方式为Mono</p>
+<p>将<code>Assembly-CSharp</code>拖入dnspy分析</p>
+<p>找到关键函数</p>
+<pre class="line-numbers language-C#" data-language="C#"><code class="language-C#">// Token: 0x0600000C RID: 12 RVA: 0x000021C8 File Offset: 0x000003C8
+public void Spawn()
+{
+    FruitSpawner component = GameObject.FindWithTag("GameController").GetComponent&lt;FruitSpawner&gt;();
+    if (component)
+    {
+        if (this.audioSources.Length != 0)
+        {
+            this.audioSources[Random.Range(0, this.audioSources.Length)].Play();
+        }
+        component.Spawn(this.toSpawn);
+        string name = this.toSpawn.name;
+        if (name == "汉堡底" &amp;&amp; Init.spawnCount == 0)
+        {
+            Init.secret += 997;
+        }
+        else if (name == "鸭屁股")
+        {
+            Init.secret -= 127;
+        }
+        else if (name == "胡罗贝")
+        {
+            Init.secret *= 3;
+        }
+        else if (name == "臭豆腐")
+        {
+            Init.secret ^= 18;
+        }
+        else if (name == "俘虏")
+        {
+            Init.secret += 29;
+        }
+        else if (name == "白拆")
+        {
+            Init.secret -= 47;
+        }
+        else if (name == "美汁汁")
+        {
+            Init.secret *= 5;
+        }
+        else if (name == "柠檬")
+        {
+            Init.secret ^= 87;
+        }
+        else if (name == "汉堡顶" &amp;&amp; Init.spawnCount == 5)
+        {
+            Init.secret ^= 127;
+            string str = Init.secret.ToString();
+            if (ButtonSpawnFruit.Sha1(str) == "DD01903921EA24941C26A48F2CEC24E0BB0E8CC7")
+            {
+                this.result = "BJDCTF{" + ButtonSpawnFruit.Md5(str) + "}";
+                Debug.Log(this.result);
+            }
+        }
+        Init.spawnCount++;
+        Debug.Log(Init.secret);
+        Debug.Log(Init.spawnCount);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p><code>spawnCount</code>为汉堡层数</p>
+<p>除开上下两片 还会进行4次操作</p>
+<p>最终计算出一个整数值secret</p>
+<p>进行Sha1编码后与<code>DD01903921EA24941C26A48F2CEC24E0BB0E8CC7</code>比对</p>
+<p>之后计算<code>secret</code>的md5编码</p>
+<p>这里注意需要进入函数查看 发现是只取前20位作为flag</p>
+<h3 id="解密脚本-11"><a href="#解密脚本-11" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>用了4重循环来遍历计算哈希</p>
+<p>最后计算出secret为<code>0110</code></p>
+<p>因为这里明文比较简单 所以更快可以直接用在线工具解 </p>
+<p>但那样太浪费这道题了 </p>
+<p>为了学习 所以还是写出了正常做法</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> encodings <span class="token keyword">import</span> utf_8
+<span class="token keyword">import</span> hashlib
+<span class="token builtin">list</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'鸭屁股'</span><span class="token punctuation">,</span><span class="token string">'胡罗贝'</span><span class="token punctuation">,</span><span class="token string">'臭豆腐'</span><span class="token punctuation">,</span><span class="token string">'俘虏'</span><span class="token punctuation">,</span><span class="token string">'白拆'</span><span class="token punctuation">,</span><span class="token string">'美汁汁'</span><span class="token punctuation">,</span><span class="token string">'柠檬'</span><span class="token punctuation">]</span>
+<span class="token comment">#选4种材料</span>
+<span class="token keyword">def</span> <span class="token function">gen</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">:</span> 
+    secret <span class="token operator">=</span> <span class="token number">997</span>
+    <span class="token keyword">for</span> choice <span class="token keyword">in</span> a<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> choice <span class="token operator">==</span> <span class="token string">'鸭屁股'</span><span class="token punctuation">:</span>
+            secret <span class="token operator">-=</span> <span class="token number">127</span>
+        <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'胡罗贝'</span><span class="token punctuation">:</span>
+            secret <span class="token operator">*=</span> <span class="token number">3</span>
+        <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'臭豆腐'</span><span class="token punctuation">:</span>
+            secret <span class="token operator">^</span><span class="token operator">=</span> <span class="token number">18</span>
+        <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'俘虏'</span><span class="token punctuation">:</span>
+            secret <span class="token operator">+=</span> <span class="token number">29</span>
+        <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'白拆'</span><span class="token punctuation">:</span>
+            secret <span class="token operator">-=</span> <span class="token number">47</span>
+        <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'美汁汁'</span><span class="token punctuation">:</span>
+            secret <span class="token operator">*=</span> <span class="token number">5</span>
+        <span class="token keyword">elif</span> choice <span class="token operator">==</span> <span class="token string">'柠檬'</span><span class="token punctuation">:</span>
+            secret <span class="token operator">^</span><span class="token operator">=</span> <span class="token number">87</span>
+    secret <span class="token operator">^</span><span class="token operator">=</span> <span class="token number">127</span>
+    <span class="token keyword">return</span> secret
+
+<span class="token keyword">for</span> x1 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pick <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> x2 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> x3 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> x4 <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                pick<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">[</span>x1<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                pick<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">[</span>x2<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                pick<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">[</span>x3<span class="token punctuation">]</span><span class="token punctuation">)</span> 
+                pick<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">[</span>x4<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                res <span class="token operator">=</span> gen<span class="token punctuation">(</span>pick<span class="token punctuation">)</span>
+                res <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+                <span class="token keyword">if</span> hashlib<span class="token punctuation">.</span>sha1<span class="token punctuation">(</span>res<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>hexdigest<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'DD01903921EA24941C26A48F2CEC24E0BB0E8CC7'</span><span class="token punctuation">:</span>
+                    <span class="token keyword">print</span><span class="token punctuation">(</span>pick<span class="token punctuation">)</span>
+                    <span class="token comment">#print("flag:" + hashlib.md5(res.encode('utf-8')).hexdigest().upper()[:20])</span>
+                pick <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h1 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h1><h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><p>题目给了两个文件</p>
 <ul>
@@ -2483,7 +2599,7 @@ MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMAzLFxkrkcYL2wch21CM2kQVFpY9+7+
 <pre class="line-numbers language-none"><code class="language-none">p = 304008741604601924494328155975272418463
 q = 285960468890451637935629440372639283459<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="解密脚本-11"><a href="#解密脚本-11" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>安装gmpy2库</p>
+<h3 id="解密脚本-12"><a href="#解密脚本-12" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>安装gmpy2库</p>
 <p>已知e,p,q可以求d</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">d <span class="token operator">=</span> gmpy2<span class="token punctuation">.</span>invert<span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>q<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -2630,7 +2746,7 @@ q = 282164587459512124844245113950593348271<span aria-hidden="true" class="line-
 
 
 
-<h3 id="解密脚本-12"><a href="#解密脚本-12" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>这里将整数转换成字符串遇到点问题</p>
+<h3 id="解密脚本-13"><a href="#解密脚本-13" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>这里将整数转换成字符串遇到点问题</p>
 <p>可以记录学习学习</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> gmpy2
 <span class="token keyword">import</span> binascii
@@ -2650,7 +2766,9 @@ tem <span class="token operator">=</span> binascii<span class="token punctuation
 
 
 
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h1 id="异或"><a href="#异或" class="headerlink" title="异或"></a>异或</h1><ul>
+
+
+<h1 id="异或"><a href="#异或" class="headerlink" title="异或"></a>异或</h1><ul>
 <li><p>配合初始值+自身与自身其他位异或</p>
 <p>解法：按原顺序操作顺序复原</p>
 </li>
@@ -2658,7 +2776,7 @@ tem <span class="token operator">=</span> binascii<span class="token punctuation
 <p>解法：逆向异或逐步恢复</p>
 </li>
 </ul>
-<h2 id="FlareOn4-IgniteMe-按原顺序复原"><a href="#FlareOn4-IgniteMe-按原顺序复原" class="headerlink" title="[FlareOn4]IgniteMe(按原顺序复原)"></a>[FlareOn4]IgniteMe(按原顺序复原)</h2><h3 id="分析过程-2"><a href="#分析过程-2" class="headerlink" title="分析过程"></a>分析过程</h3><p>拿到题目函数调用方式挺奇怪</p>
+<h2 id="FlareOn4-IgniteMe-按原顺序复原"><a href="#FlareOn4-IgniteMe-按原顺序复原" class="headerlink" title="[FlareOn4]IgniteMe(按原顺序复原)"></a>[FlareOn4]IgniteMe(按原顺序复原)</h2><h3 id="分析过程-3"><a href="#分析过程-3" class="headerlink" title="分析过程"></a>分析过程</h3><p>拿到题目函数调用方式挺奇怪</p>
 <p>不过不影响判断逻辑</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">void __noreturn start()
 {
@@ -2811,7 +2929,7 @@ v4 <span class="token operator">=</span> <span class="token number">4</span>
   return result;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="分析过程-3"><a href="#分析过程-3" class="headerlink" title="分析过程"></a>分析过程</h3><p>从<code>sub_400770</code>入手得到v7数组</p>
+<h3 id="分析过程-4"><a href="#分析过程-4" class="headerlink" title="分析过程"></a>分析过程</h3><p>从<code>sub_400770</code>入手得到v7数组</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">__int64 __fastcall sub_400770(_DWORD *a1)
 {
   __int64 result; // rax
@@ -2846,7 +2964,7 @@ v7<span class="token punctuation">[</span><span class="token number">3</span><sp
 v7<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0x9e1bde2d</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>接着从<code>sub_400686</code>逆推出输入即可</p>
-<h3 id="解密脚本-13"><a href="#解密脚本-13" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>因为都是在用32位寄存器操作，用python就显得不太方便。</p>
+<h3 id="解密脚本-14"><a href="#解密脚本-14" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>因为都是在用32位寄存器操作，用python就显得不太方便。</p>
 <p>直接copy伪代码跑起来</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">#include &lt;stdio.h&gt;
 #include &lt;Windows.h&gt;
@@ -3058,7 +3176,7 @@ LABEL_9:
 <li><p>得Flag</p>
 </li>
 </ul>
-<h3 id="解密脚本-14"><a href="#解密脚本-14" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>这次学习了字符串替换</p>
+<h3 id="解密脚本-15"><a href="#解密脚本-15" class="headerlink" title="解密脚本"></a>解密脚本</h3><p>这次学习了字符串替换</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> base64
 <span class="token keyword">import</span> string
 
@@ -3093,7 +3211,7 @@ flag <span class="token operator">=</span> base64<span class="token punctuation"
 
 
 <h2 id="WUSTCTF2020-level3"><a href="#WUSTCTF2020-level3" class="headerlink" title="[WUSTCTF2020]level3"></a>[WUSTCTF2020]level3</h2><p>打开题目发现是个base64翻译机</p>
-<h3 id="分析过程-4"><a href="#分析过程-4" class="headerlink" title="分析过程"></a>分析过程</h3><p>主函数逻辑如下</p>
+<h3 id="分析过程-5"><a href="#分析过程-5" class="headerlink" title="分析过程"></a>分析过程</h3><p>主函数逻辑如下</p>
 <pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main(int argc, const char **argv, const char **envp)
 {
   char *v3; // rax
@@ -3145,7 +3263,7 @@ flag <span class="token operator">=</span> base64<span class="token punctuation"
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>于是将表修改之后将题目提供的字符串解码即可获得flag</p>
-<h3 id="解密脚本-15"><a href="#解密脚本-15" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> base64
+<h3 id="解密脚本-16"><a href="#解密脚本-16" class="headerlink" title="解密脚本"></a>解密脚本</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> base64
 table_bak <span class="token operator">=</span> <span class="token string">'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'</span>
 table <span class="token operator">=</span> <span class="token string">'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'</span>
 table <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>table<span class="token punctuation">)</span>
@@ -3193,6 +3311,17 @@ with open('.\\RSA\\flag.enc','rb+') as f:
     text = f.read()
     print(rsa.decrypt(text, skey))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<ul>
+<li><p>hashlib</p>
+<p>md5/sha1等</p>
+<p>编码后需要用hexdigest()方法得字符串</p>
+</li>
+</ul>
+<h1 id="知识储备"><a href="#知识储备" class="headerlink" title="知识储备"></a>知识储备</h1><ul>
+<li><p>base64</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qianjinyan/p/9541368.html">base64 加密原理 解密原理 - 巴黎爱工作 - 博客园 (cnblogs.com)</a></p>
+</li>
+</ul>
 
                 
             </div>
