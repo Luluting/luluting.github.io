@@ -8,14 +8,14 @@
     <meta name="description" content="好好学习，天天向上
 
 
-常规不一样的Flag题目大概是一个走迷宫的小游戏
-Flag就是走迷宫的顺序
-主逻辑如图
+常规SimpleRev题目内容校验字符串
+通过拼接操作形成长度128字节的Key 
+程序根据用户输入变形一个Table
+将key与变形后的一个Table对比
+若一致则成功
+key1=&#34;ADSFK&#34;;
 
-拆解一下游戏玩法
-//开局信息
-v4 = 0;
-strcpy(Table, &#34;*11110100001010000101111">
+key3=&#34;k">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -367,14 +367,14 @@ strcpy(Table, &#34;*11110100001010000101111">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2022-05-17
+                    2022-05-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    13.4k
+                    13.9k
                 </div>
                 
 
@@ -402,54 +402,7 @@ strcpy(Table, &#34;*11110100001010000101111">
                 <p>好好学习，天天向上</p>
 <span id="more"></span>
 
-<h1 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h1><h2 id="不一样的Flag"><a href="#不一样的Flag" class="headerlink" title="不一样的Flag"></a>不一样的Flag</h2><p>题目大概是一个走迷宫的小游戏</p>
-<p>Flag就是走迷宫的顺序</p>
-<p>主逻辑如图</p>
-<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220420150104949.png" alt="image-20220420150104949"></p>
-<p>拆解一下游戏玩法</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">//开局信息
-v4 = 0;
-strcpy(Table, "*11110100001010000101111#"); //长度25的字符串
-2A 31 31 31 31 30 31 30  30 30 30 31 30 31 30 30
-30 30 31 30 31 31 31 31  23 00 00 00 FF FF FF FF
-
-//用户可操作选择
-if ( SingInput == 1 )
-	--*(_DWORD *)&amp;Table[25]; //up
-if ( SingInput == 2 )
-    ++*(_DWORD *)&amp;Table[25]; //down
-if ( SingInput == 3 )
-	--v4; //left
-if ( SingInput == 4 )
-	++v4; //right
-
-//验证逻辑
-    for ( i = 0; i &lt;= 1; ++i )
-    {
-      if ( *(int *)&amp;Table[4 * i + 25] &lt; 0 || *(int *)&amp;Table[4 * i + 25] &gt; 4 )
-        exit(1);
-    }
-    if ( Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4] == '1' )
-      exit(1);
-    if ( Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4] == 35 )
-    {
-      puts("\nok, the order you enter is the flag!");
-      exit(0);
-    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>在这里我不知道CERT的值 所以会感觉无从下手</p>
-<p>但看到迷宫验证的时候是5成一排</p>
-<pre class="line-numbers language-none"><code class="language-none">*1111
-01000
-01010
-00010
-1111#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>按照提示走迷宫</p>
-<p>得到222441144222</p>
-<p>尝试之后正确</p>
-<p>可以得知<code>Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4]</code>就是我们迷宫当前所在的位置</p>
-<h2 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h2><h3 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h3><p>校验字符串</p>
+<h1 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h1><h2 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h2><h3 id="题目内容"><a href="#题目内容" class="headerlink" title="题目内容"></a>题目内容</h3><p>校验字符串</p>
 <p>通过拼接操作形成长度128字节的Key </p>
 <p>程序根据用户输入变形一个Table</p>
 <p>将key与变形后的一个Table对比</p>
@@ -1994,74 +1947,6 @@ flag <span class="token operator">=</span> <span class="token builtin">list</spa
 
 
 <p>PS： 为了正常执行程序 在输入最后要随便加一位 按理说是 buuoj上只能提交E</p>
-<h2 id="Maze"><a href="#Maze" class="headerlink" title="Maze"></a>Maze</h2><h3 id="分析过程-1"><a href="#分析过程-1" class="headerlink" title="分析过程"></a>分析过程</h3><p>先处理一下花指令</p>
-<p><img src="%E9%80%86%E5%90%91%E7%BB%83%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220510132533059.png" alt="image-20220510132533059"></p>
-<p>在函数开头重新生成函数</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  int i; // [esp+10h] [ebp-14h]
-  char input[16]; // [esp+14h] [ebp-10h] BYREF
-
-  printf(aGoThroughTheMa);
-  scanf("%14s", input);
-  for ( i = 0; i &lt;= 13; ++i )
-  {
-    switch ( input[i] )
-    {
-      case 'a':
-        --*(_DWORD *)asc_408078;                // left
-        break;
-      case 'd':
-        ++*(_DWORD *)asc_408078;                // right
-        break;
-      case 's':
-        --dword_40807C;                         // down
-        break;
-      case 'w':
-        ++dword_40807C;                         // up
-        break;
-      default:
-        continue;
-    }
-  }
-  if ( *(_DWORD *)asc_408078 == 5 &amp;&amp; dword_40807C == -4 )
-  {
-    printf(aCongratulation);
-    printf(aHereIsTheFlagF);
-  }
-  else
-  {
-    printf(aTryAgain);
-  }
-  return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>发现关键变量</p>
-<pre class="line-numbers language-none"><code class="language-none">asc_408078      db 7
-dword_40807C    dd 0
-maze = '*******+********* ******    ****   ******* **F******    **************'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>最终需要<code>*(_DWORD *)asc_408078 == 5 &amp;&amp; dword_40807C == -4</code></p>
-<h3 id="画迷宫"><a href="#画迷宫" class="headerlink" title="画迷宫"></a>画迷宫</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">maze <span class="token operator">=</span> <span class="token string">'*******+********* ******    ****   ******* **F******    **************'</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>maze<span class="token punctuation">)</span><span class="token punctuation">)</span>
-temp <span class="token operator">=</span> <span class="token number">0</span>
-<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">70</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>maze<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
-    temp <span class="token operator">+=</span> <span class="token number">1</span>
-    <span class="token keyword">if</span> temp <span class="token operator">==</span> <span class="token number">10</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span>
-        temp <span class="token operator">=</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>得到迷宫如下</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span><span class="token operator">+</span><span class="token operator">**</span>
-<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span> <span class="token operator">**</span>
-<span class="token operator">**</span><span class="token operator">**</span>    <span class="token operator">**</span>
-<span class="token operator">**</span>   <span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span>
-<span class="token operator">**</span> <span class="token operator">**</span>F<span class="token operator">**</span><span class="token operator">**</span>
-<span class="token operator">**</span>    <span class="token operator">**</span><span class="token operator">**</span>
-<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>于是得flag{ssaaasaassdddw}</p>
 <h2 id="FlareOn6-Overlong"><a href="#FlareOn6-Overlong" class="headerlink" title="[FlareOn6]Overlong"></a>[FlareOn6]Overlong</h2><p>对数据段进行解码</p>
 <h3 id="题目信息"><a href="#题目信息" class="headerlink" title="题目信息"></a>题目信息</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">int __stdcall start(int a1, int a2, int a3, int a4)
 {
@@ -2419,6 +2304,212 @@ new <span class="token operator">=</span> <span class="token string">''</span>
 
 
 
+<h1 id="迷宫-小游戏"><a href="#迷宫-小游戏" class="headerlink" title="迷宫/小游戏"></a>迷宫/小游戏</h1><h2 id="不一样的Flag"><a href="#不一样的Flag" class="headerlink" title="不一样的Flag"></a>不一样的Flag</h2><p>题目大概是一个走迷宫的小游戏</p>
+<p>Flag就是走迷宫的顺序</p>
+<p>主逻辑如图</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220420150104949.png" alt="image-20220420150104949"></p>
+<p>拆解一下游戏玩法</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">//开局信息
+v4 = 0;
+strcpy(Table, "*11110100001010000101111#"); //长度25的字符串
+2A 31 31 31 31 30 31 30  30 30 30 31 30 31 30 30
+30 30 31 30 31 31 31 31  23 00 00 00 FF FF FF FF
+
+//用户可操作选择
+if ( SingInput == 1 )
+	--*(_DWORD *)&amp;Table[25]; //up
+if ( SingInput == 2 )
+    ++*(_DWORD *)&amp;Table[25]; //down
+if ( SingInput == 3 )
+	--v4; //left
+if ( SingInput == 4 )
+	++v4; //right
+
+//验证逻辑
+    for ( i = 0; i &lt;= 1; ++i )
+    {
+      if ( *(int *)&amp;Table[4 * i + 25] &lt; 0 || *(int *)&amp;Table[4 * i + 25] &gt; 4 )
+        exit(1);
+    }
+    if ( Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4] == '1' )
+      exit(1);
+    if ( Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4] == 35 )
+    {
+      puts("\nok, the order you enter is the flag!");
+      exit(0);
+    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这里我不知道CERT的值 所以会感觉无从下手</p>
+<p>但看到迷宫验证的时候是5成一排</p>
+<pre class="line-numbers language-none"><code class="language-none">*1111
+01000
+01010
+00010
+1111#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>按照提示走迷宫</p>
+<p>得到222441144222</p>
+<p>尝试之后正确</p>
+<p>可以得知<code>Cert[5 * *(_DWORD *)&amp;Table[25] - 41 + v4]</code>就是我们迷宫当前所在的位置</p>
+<h2 id="Maze"><a href="#Maze" class="headerlink" title="Maze"></a>Maze</h2><h3 id="分析过程-1"><a href="#分析过程-1" class="headerlink" title="分析过程"></a>分析过程</h3><p>先处理一下花指令</p>
+<p><img src="%E9%80%86%E5%90%91%E7%BB%83%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220510132533059.png" alt="image-20220510132533059"></p>
+<p>在函数开头重新生成函数</p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int i; // [esp+10h] [ebp-14h]
+  char input[16]; // [esp+14h] [ebp-10h] BYREF
+
+  printf(aGoThroughTheMa);
+  scanf("%14s", input);
+  for ( i = 0; i &lt;= 13; ++i )
+  {
+    switch ( input[i] )
+    {
+      case 'a':
+        --*(_DWORD *)asc_408078;                // left
+        break;
+      case 'd':
+        ++*(_DWORD *)asc_408078;                // right
+        break;
+      case 's':
+        --dword_40807C;                         // down
+        break;
+      case 'w':
+        ++dword_40807C;                         // up
+        break;
+      default:
+        continue;
+    }
+  }
+  if ( *(_DWORD *)asc_408078 == 5 &amp;&amp; dword_40807C == -4 )
+  {
+    printf(aCongratulation);
+    printf(aHereIsTheFlagF);
+  }
+  else
+  {
+    printf(aTryAgain);
+  }
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>发现关键变量</p>
+<pre class="line-numbers language-none"><code class="language-none">asc_408078      db 7
+dword_40807C    dd 0
+maze = '*******+********* ******    ****   ******* **F******    **************'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>最终需要<code>*(_DWORD *)asc_408078 == 5 &amp;&amp; dword_40807C == -4</code></p>
+<h3 id="画迷宫"><a href="#画迷宫" class="headerlink" title="画迷宫"></a>画迷宫</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">maze <span class="token operator">=</span> <span class="token string">'*******+********* ******    ****   ******* **F******    **************'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>maze<span class="token punctuation">)</span><span class="token punctuation">)</span>
+temp <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">70</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>maze<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+    temp <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">if</span> temp <span class="token operator">==</span> <span class="token number">10</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span>
+        temp <span class="token operator">=</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>得到迷宫如下</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span><span class="token operator">+</span><span class="token operator">**</span>
+<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span> <span class="token operator">**</span>
+<span class="token operator">**</span><span class="token operator">**</span>    <span class="token operator">**</span>
+<span class="token operator">**</span>   <span class="token operator">**</span><span class="token operator">**</span><span class="token operator">*</span>
+<span class="token operator">**</span> <span class="token operator">**</span>F<span class="token operator">**</span><span class="token operator">**</span>
+<span class="token operator">**</span>    <span class="token operator">**</span><span class="token operator">**</span>
+<span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span class="token operator">**</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>于是得flag{ssaaasaassdddw}</p>
+<h2 id="ACTF新生赛2020-Oruga"><a href="#ACTF新生赛2020-Oruga" class="headerlink" title="[ACTF新生赛2020]Oruga"></a>[ACTF新生赛2020]Oruga</h2><p>是个迷宫题 还是调试了一会儿才完全明白</p>
+<h3 id="迷宫判定逻辑"><a href="#迷宫判定逻辑" class="headerlink" title="迷宫判定逻辑"></a>迷宫判定逻辑</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">_BOOL8 __fastcall sub_55AB2F80078A(__int64 input)
+{
+  int v2; // [rsp+Ch] [rbp-Ch]
+  int v3; // [rsp+10h] [rbp-8h]
+  int v4; // [rsp+14h] [rbp-4h]
+
+  v2 = 0;
+  v3 = 5;
+  v4 = 0;
+  while ( byte_55AB2FA01020[v2] != '!' )
+  {
+    v2 -= v4;                                   // 撞墙后退一步
+    if ( *(_BYTE *)(v3 + input) != 'W' || v4 == -16 )
+    {
+      if ( *(_BYTE *)(v3 + input) != 'E' || v4 == 1 )
+      {
+        if ( *(_BYTE *)(v3 + input) != 'M' || v4 == 16 )
+        {
+          if ( *(_BYTE *)(v3 + input) != 'J' || v4 == -1 )
+            return 0LL;
+          v4 = -1;
+        }
+        else
+        {
+          v4 = 16;
+        }
+      }
+      else
+      {
+        v4 = 1;
+      }
+    }
+    else
+    {
+      v4 = -16;
+    }
+    ++v3;
+    while ( !byte_55AB2FA01020[v2] )            // 按选择方向前进直到撞到非0 触边则判定游戏结束
+    {
+      if ( v4 == -1 &amp;&amp; (v2 &amp; 0xF) == 0 )
+        return 0LL;
+      if ( v4 == 1 &amp;&amp; v2 % 16 == 15 )
+        return 0LL;
+      if ( v4 == 16 &amp;&amp; (unsigned int)(v2 - 240) &lt;= 15 )
+        return 0LL;
+      if ( v4 == -16 &amp;&amp; (unsigned int)(v2 + 15) &lt;= 30 )
+        return 0LL;
+      v2 += v4;
+    }
+  }
+  return *(_BYTE *)(v3 + input) == '}';
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="打印迷宫"><a href="#打印迷宫" class="headerlink" title="打印迷宫"></a>打印迷宫</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">table <span class="token operator">=</span> <span class="token string">'\x00\x00\x00\x00#\x00\x00\x00\x00\x00\x00\x00####\x00\x00\x00##\x00\x00\x00OO\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00OO\x00PP\x00\x00\x00\x00\x00\x00L\x00OO\x00OO\x00PP\x00\x00\x00\x00\x00\x00L\x00OO\x00OO\x00P\x00\x00\x00\x00\x00\x00LL\x00OO\x00\x00\x00\x00P\x00\x00\x00\x00\x00\x00\x00\x00\x00OO\x00\x00\x00\x00P\x00\x00\x00\x00#\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00#\x00\x00\x00\x00\x00\x00\x00\x00\x00MMM\x00\x00\x00#\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00MMM\x00\x00\x00\x00EE\x00\x00\x000\x00M\x00M\x00M\x00\x00\x00\x00E\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00EETTTI\x00M\x00M\x00M\x00\x00\x00\x00E\x00\x00T\x00I\x00M\x00M\x00M\x00\x00\x00\x00E\x00\x00T\x00I\x00M\x00M\x00M!\x00\x00\x00EE'</span>
+length <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>table<span class="token punctuation">)</span>
+j <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>length<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> j <span class="token operator">==</span> <span class="token number">16</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span>
+        j <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">if</span> table<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'\x00'</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"x"</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>table<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>end<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">)</span>
+    j <span class="token operator">+=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>得到如下所示的迷宫</p>
+<p><code>x</code>表示数据0的区域</p>
+<pre class="line-numbers language-none"><code class="language-none">xxxx#xxxxxxx####
+xxx##xxxOOxxxxxx
+xxxxxxxxOOxPPxxx
+xxxLxOOxOOxPPxxx
+xxxLxOOxOOxPxxxx
+xxLLxOOxxxxPxxxx
+xxxxxOOxxxxPxxxx
+#xxxxxxxxxxxxxxx
+xxxxxxxxxxxx#xxx
+xxxxxxMMMxxx#xxx
+xxxxxxxMMMxxxxEE
+xxx0xMxMxMxxxxEx
+xxxxxxxxxxxxxxEE
+TTTIxMxMxMxxxxEx
+xTxIxMxMxMxxxxEx
+xTxIxMxMxM!xxxEE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="解迷宫"><a href="#解迷宫" class="headerlink" title="解迷宫"></a>解迷宫</h3><p>走法只要保持不撞墙就行</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220518145734334-16528575623461.png" alt="image-20220518145734334"></p>
+<p>对应操作为 <code>MEWEMEWJMEWJM</code></p>
+<p>套上flag前后缀就成功了</p>
+<p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220518150639480.png" alt="image-20220518150639480"></p>
 <h1 id="Unity"><a href="#Unity" class="headerlink" title="Unity"></a>Unity</h1><h2 id="BJDCTF2020-BJD-hamburger-competition"><a href="#BJDCTF2020-BJD-hamburger-competition" class="headerlink" title="[BJDCTF2020]BJD hamburger competition"></a>[BJDCTF2020]BJD hamburger competition</h2><p>Unity引擎题目</p>
 <h3 id="题目内容-1"><a href="#题目内容-1" class="headerlink" title="题目内容"></a>题目内容</h3><p><img src="https://raw.githubusercontent.com/Luluting/Bed/Little/img/image-20220517132037905.png" alt="image-20220517132037905"></p>
 <p>老八蜜汁小汉堡</p>
